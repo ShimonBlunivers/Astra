@@ -1,0 +1,15 @@
+Button
+CanvasLayer
+Control
+Container
+Camera2D
+VBoxContainer
+MarginContainer
+Sprite2D
+WorldEnvironment
+TileMap
+CollisionShape2D
+StaticBody2D
+AnimatedSprite2D
+Panel
+CharacterBody2D

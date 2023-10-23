@@ -1,0 +1,17 @@
+D:\Programming\Godot\Astra\.godot\mono\temp\bin\Debug\Astra.deps.json
+D:\Programming\Godot\Astra\.godot\mono\temp\bin\Debug\Astra.runtimeconfig.json
+D:\Programming\Godot\Astra\.godot\mono\temp\bin\Debug\Astra.dll
+D:\Programming\Godot\Astra\.godot\mono\temp\bin\Debug\Astra.pdb
+D:\Programming\Godot\Astra\.godot\mono\temp\bin\Debug\GodotSharp.dll
+D:\Programming\Godot\Astra\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.csproj.AssemblyReference.cache
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.AssemblyInfoInputs.cache
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.AssemblyInfo.cs
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.csproj.CoreCompileInputs.cache
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.csproj.CopyComplete
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.dll
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\refint\Astra.dll
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.pdb
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\Astra.genruntimeconfig.cache
+D:\Programming\Godot\Astra\.godot\mono\temp\obj\Debug\ref\Astra.dll

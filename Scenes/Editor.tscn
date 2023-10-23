@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://pbc17eeutgje"]
+
+[ext_resource type="TileSet" uid="uid://bfuqtumyjeq0m" path="res://Ship/WallTileMap.tres" id="1_tno7i"]
+[ext_resource type="Script" path="res://Editor/Editing.gd" id="2_v4o50"]
+[ext_resource type="Script" path="res://Editor/EditorCamera.cs" id="3_2uq8m"]
+
+[node name="Editor" type="Node2D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Save" type="Button" parent="HUD"]
+offset_left = 1006.0
+offset_top = 19.0
+offset_right = 1050.0
+offset_bottom = 50.0
+text = "Save"
+
+[node name="Load" type="Button" parent="HUD"]
+offset_left = 1085.0
+offset_top = 19.0
+offset_right = 1131.0
+offset_bottom = 50.0
+text = "Load
+"
+
+[node name="ShipTileMap" type="TileMap" parent="."]
+scale = Vector2(5, 5)
+tile_set = ExtResource("1_tno7i")
+cell_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(1, 327680, 1, 2, 196608, 1, 3, 262144, 3, 196607, 65536, 1, 131071, 131072, 0, 262143, 131072, 2, 262142, 65536, 2, 196608, 196608, 2, 131072, 196608, 1, 131073, 327680, 0, 131074, 196608, 1, 131075, 262144, 1, 65539, 327680, 2, 196611, 327680, 3, 262147, 131072, 3, 262146, 65536, 2, 65538, 0, 0, 65537, 0, 0, 65536, 0, 0, 196609, 0, 0, 196610, 0, 0, 262145, 0, 0, 262144, 0, 0, 327679, 0, 0, 0, 196608, 1, 65535, 196608, 3)
+script = ExtResource("2_v4o50")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_2uq8m")
+
+[connection signal="pressed" from="HUD/Save" to="ShipTileMap" method="_on_save_pressed"]
+[connection signal="pressed" from="HUD/Load" to="ShipTileMap" method="_on_load_pressed"]
