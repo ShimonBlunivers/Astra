@@ -11,13 +11,9 @@ config_version=5
 [application]
 
 config/name="Astra"
-run/main_scene="res://Scenes/Editor.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
-
-[autoload]
-
-Runtime="*res://Config/Runtime.cs"
 
 [display]
 

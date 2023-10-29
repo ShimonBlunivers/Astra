@@ -1,6 +1,13 @@
-Button
-CanvasLayer
+Area2D
 Control
+StaticBody2D
+Button
+Node2D
+Label
+RichTextLabel
+AnimatedSprite2D
+CollisionShape2D
+CanvasLayer
 Container
 Camera2D
 VBoxContainer
@@ -8,8 +15,5 @@ MarginContainer
 Sprite2D
 WorldEnvironment
 TileMap
-CollisionShape2D
-StaticBody2D
-AnimatedSprite2D
 Panel
 CharacterBody2D

@@ -1,7 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=14 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_othpj"]
 [ext_resource type="Texture2D" uid="uid://bv6x6bl4uyg23" path="res://Player/animations/idle/character.png" id="2_hykmj"]
+[ext_resource type="Texture2D" uid="uid://dk5mrnpmnodni" path="res://Player/animations/walkside/0.png" id="3_gepmi"]
+[ext_resource type="Texture2D" uid="uid://sgs76qmtx2gm" path="res://Player/animations/walkside/1.png" id="4_pwxco"]
+[ext_resource type="Texture2D" uid="uid://de61h3cjib0ft" path="res://Player/animations/walkside/2.png" id="5_dfsuv"]
+[ext_resource type="Texture2D" uid="uid://dmdhxwt4x1y5s" path="res://Player/animations/walkside/3.png" id="6_besqr"]
+[ext_resource type="Texture2D" uid="uid://da3hbmwmjjdmc" path="res://Player/animations/walkside/4.png" id="7_cma1c"]
+[ext_resource type="Texture2D" uid="uid://wmt34u2437t3" path="res://Player/animations/walkside/5.png" id="8_ep13f"]
+[ext_resource type="Texture2D" uid="uid://duiwn8v63rast" path="res://Player/animations/walkside/6.png" id="9_h46ia"]
+[ext_resource type="Texture2D" uid="uid://c2sa3xhrbfl02" path="res://Player/animations/walkside/7.png" id="10_h43fm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
 size = Vector2(48, 128)
@@ -24,7 +32,31 @@ animations = [{
 "name": &"WalkDown",
 "speed": 6.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gepmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pwxco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dfsuv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_besqr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_cma1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ep13f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_h46ia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_h43fm")
+}],
 "loop": true,
 "name": &"WalkToSide",
 "speed": 10.0
@@ -36,6 +68,8 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_othpj")
 
@@ -51,4 +85,4 @@ shape = SubResource("RectangleShape2D_ua5a6")
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(6.4, 6.4)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
-animation = &"Idle"
+animation = &"WalkToSide"

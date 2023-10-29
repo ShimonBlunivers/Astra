@@ -26,12 +26,12 @@ public partial class Player : CharacterBody2D
 
 			if (velocity.X < 0)
 			{
-				_animatedSprite.FlipH = false;
+				_animatedSprite.FlipH = true;
 				_animatedSprite.Play("WalkToSide");
 			}
 			else if (velocity.X > 0)
 			{
-				_animatedSprite.FlipH = true;
+				_animatedSprite.FlipH = false;
 				_animatedSprite.Play("WalkToSide");
 			}
 			else if (velocity.Y < 0) _animatedSprite.Play("WalkUp");
