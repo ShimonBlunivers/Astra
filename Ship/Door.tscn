@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvhv8tl435t8h"]
+[gd_scene load_steps=14 format=3 uid="uid://dvhv8tl435t8h"]
 
 [ext_resource type="Script" path="res://Ship/Door.gd" id="1_77ui8"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/tilesheet.png" id="1_niqmk"]
@@ -63,6 +63,15 @@ size = Vector2(7, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8qwe"]
 size = Vector2(18, 32)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r27t5"]
+polygon = PackedVector2Array(-16, -16, -16, 16, -9, 16, -9, -16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pyetu"]
+polygon = PackedVector2Array(9, -16, 9, 16, 16, 16, 16, -16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_omlib"]
+polygon = PackedVector2Array(-9, -16, -9, 16, 9, 16, 9, -16)
+
 [node name="Door" type="Node2D"]
 script = ExtResource("1_77ui8")
 
@@ -97,6 +106,15 @@ collision_mask = 2
 
 [node name="Walkway" type="CollisionShape2D" parent="Hitbox/Area2D"]
 shape = SubResource("RectangleShape2D_q8qwe")
+
+[node name="LeftOccluder" type="LightOccluder2D" parent="Hitbox"]
+occluder = SubResource("OccluderPolygon2D_r27t5")
+
+[node name="RightOccluder" type="LightOccluder2D" parent="Hitbox"]
+occluder = SubResource("OccluderPolygon2D_pyetu")
+
+[node name="WalkwayOccluder" type="LightOccluder2D" parent="Hitbox"]
+occluder = SubResource("OccluderPolygon2D_omlib")
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

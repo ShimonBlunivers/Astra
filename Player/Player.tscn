@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=15 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_othpj"]
 [ext_resource type="Texture2D" uid="uid://bv6x6bl4uyg23" path="res://Player/animations/idle/character.png" id="2_hykmj"]
@@ -10,12 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://wmt34u2437t3" path="res://Player/animations/walkside/5.png" id="8_ep13f"]
 [ext_resource type="Texture2D" uid="uid://duiwn8v63rast" path="res://Player/animations/walkside/6.png" id="9_h46ia"]
 [ext_resource type="Texture2D" uid="uid://c2sa3xhrbfl02" path="res://Player/animations/walkside/7.png" id="10_h43fm"]
+[ext_resource type="Texture2D" uid="uid://cvvw3b2pu26ng" path="res://Lighting/light.png" id="11_o2d8h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
 size = Vector2(52, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ua5a6"]
-size = Vector2(64, 8)
+size = Vector2(64, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x6u5k"]
 animations = [{
@@ -78,7 +79,7 @@ shape = SubResource("RectangleShape2D_5jaj3")
 disabled = true
 
 [node name="LegHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 60)
+position = Vector2(0, 57.5)
 shape = SubResource("RectangleShape2D_ua5a6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -86,3 +87,22 @@ position = Vector2(-4.76837e-07, 0)
 scale = Vector2(6.4, 6.4)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
 animation = &"WalkToSide"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 60)
+energy = 0.6
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.419608)
+shadow_filter = 1
+texture = ExtResource("11_o2d8h")
+texture_scale = 3.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(0, 60)
+energy = 0.6
+shadow_color = Color(0, 0, 0, 0.419608)
+shadow_filter = 1
+shadow_filter_smooth = 50.0
+texture = ExtResource("11_o2d8h")
+texture_scale = 3.0

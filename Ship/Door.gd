@@ -8,8 +8,10 @@ var locked := false
 
 @onready var walkway : StaticBody2D = $Hitbox/StaticBody2DWalkway
 @onready var hitbox : Control = $Hitbox
+@onready var walkway_light : LightOccluder2D = $Hitbox/WalkwayOccluder
 
 var collision_layer = 1;
+var occluder_light_mask = 1;
 
 func _ready() -> void:
 	if direction == "vertical":
@@ -25,6 +27,7 @@ func open():
 		return
 	state = "open"
 	walkway.set_collision_layer_value(collision_layer, false)
+	walkway_light.occluder_light_mask = 0;
 	update_sprites()
 	
 func close():
@@ -32,6 +35,7 @@ func close():
 		return
 	state = "closed"
 	walkway.set_collision_layer_value(collision_layer, true)
+	walkway_light.occluder_light_mask = occluder_light_mask;
 	update_sprites()
 
 func _on_button_pressed() -> void:

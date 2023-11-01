@@ -1,5 +1,8 @@
-Area2D
 Control
+Area2D
+LightOccluder2D
+CanvasModulate
+PointLight2D
 StaticBody2D
 Button
 Node2D

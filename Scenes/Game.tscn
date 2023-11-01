@@ -31,3 +31,6 @@ tile_set = ExtResource("1_3xt7f")
 cell_quadrant_size = 32
 format = 2
 script = ExtResource("2_l31p2")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.67451, 0.764706, 0.945098, 1)
