@@ -83,4 +83,4 @@ ui_run={
 
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
-environment/defaults/default_clear_color=Color(0.0509804, 0.0666667, 0.145098, 1)
+environment/defaults/default_clear_color=Color(0.501961, 0.556863, 0.8, 1)

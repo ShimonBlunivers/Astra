@@ -4,5 +4,3 @@ res://Scenes/Game.tscn
 res://Ship/Door.tscn
 res://Scenes/Menu.tscn
 res://Player/Player.tscn
-res://Editor/EditorCamera.cs
-res://Player/Player.cs
