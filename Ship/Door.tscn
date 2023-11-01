@@ -64,13 +64,13 @@ size = Vector2(7, 32)
 size = Vector2(18, 32)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r27t5"]
-polygon = PackedVector2Array(-16, -16, -16, 16, -9, 16, -9, -16)
+polygon = PackedVector2Array(-16, -8, -16, 8, -9, 8, -9, -8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pyetu"]
-polygon = PackedVector2Array(9, -16, 9, 16, 16, 16, 16, -16)
+polygon = PackedVector2Array(9, -8, 9, 8, 16, 8, 16, -8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_omlib"]
-polygon = PackedVector2Array(-9, -16, -9, 16, 9, 16, 9, -16)
+polygon = PackedVector2Array(-9, -8, -9, 8, 9, 8, 9, -8)
 
 [node name="Door" type="Node2D"]
 script = ExtResource("1_77ui8")

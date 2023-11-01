@@ -1,7 +1,6 @@
-res://Scenes/Editor.tscn
-res://Ship/WallTileMap.tres
 res://Scenes/Game.tscn
+res://Ship/WallTileMap.tres
 res://Ship/Door.tscn
+res://Scenes/Editor.tscn
 res://Scenes/Menu.tscn
 res://Player/Player.tscn
-res://Ship/Door.gd
