@@ -1,20 +1,55 @@
 extends TileMap
 
-@onready var console = $"../HUD/ConsoleLog"
+@onready var console := $"../HUD/ConsoleLog"
+@onready var tool_preview := $"../HUD/ToolPreview"
+
+enum tools {wall, door, floor}
+var tool_previews = {"wall" : Vector2i(3, 0), "door" : Vector2i(1, 4), "floor" : Vector2i(0, 0)}
+var tool : tools = tools.floor
 
 func _ready() -> void:
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
+	
+	handle_input()
+	
 	var layer := 0;
 	if (event.is_action_pressed("mb_left")):
 		var tile = local_to_map(to_local(get_global_mouse_position()))
-		set_cells_terrain_connect(layer, [tile], 0, 0)
-		
+		use_tool(tile, layer)
 	if (event.is_action_pressed("mb_right")):
 		var tile = local_to_map(to_local(get_global_mouse_position()))
 		set_cell(layer, tile, -1)
 		
+func use_tool(tile, layer) -> void:
+	tools.values()
+	match tool:
+		tools.wall: 
+			set_cells_terrain_connect(layer, [tile], 0, 0)
+		tools.door:
+			if (get_cell_atlas_coords(layer, tile) == Vector2i(3, 1) ||  get_cell_atlas_coords(layer, tile) == Vector2i(2, 0)):
+				set_cells_terrain_connect(layer, [tile], 0, 1)
+		tools.floor:
+			set_cell(layer, tile, 0,  Vector2i(0, 0))
+		_: 
+			return
+		
+func change_tool(key : String) -> void:
+	tool = tools[key]
+	
+func handle_input():
+	for i in tools:
+		if (Input.is_action_just_pressed("ui_tool_set_" + i)):
+			change_tool(i)
+			change_tool_preview(i)
+			
+func change_tool_preview(tool):
+	
+	tool_preview.texture = tile_set.get_source(0).get_runtime_texture( ) # PŘEDĚLAT NA TEXTURU TILE
+	tool_previews[tool]
+
+
 func save_ship(path : String = "default_ship") -> void:
 	var layer : int = 0;
 	DirAccess.make_dir_absolute("user://saves/")
@@ -28,7 +63,7 @@ func save_ship(path : String = "default_ship") -> void:
 		save_file.store_float(get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).x)	# 3
 		save_file.store_float(get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).y)	# 4
 		save_file.store_16(get_cell_alternative_tile(layer, Vector2i(cell.x, cell.y)))	# 5
-		set_cell(layer, Vector2i(cell.x, cell.y), -1)
+		# set_cell(layer, Vector2i(cell.x, cell.y), -1)
 		
 	console.print_out("SAVING, file <- " + path)
 	

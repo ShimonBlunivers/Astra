@@ -83,13 +83,21 @@ position = Vector2(0, 57.5)
 shape = SubResource("RectangleShape2D_ua5a6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 2
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(6.4, 6.4)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
 animation = &"WalkToSide"
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, 60)
+[node name="Light" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PointLight2D" type="PointLight2D" parent="Light"]
+position = Vector2(4.76837e-07, 60)
+rotation = -0.00279561
 energy = 0.6
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.419608)
@@ -97,10 +105,11 @@ shadow_filter = 1
 texture = ExtResource("11_o2d8h")
 texture_scale = 3.0
 
-[node name="PointLight2D2" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(0, 60)
-energy = 0.6
+[node name="Internal" type="PointLight2D" parent="Light"]
+light_mask = 2
+position = Vector2(4.76837e-07, 60)
+energy = 0.45
+range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)
 shadow_filter = 1
 shadow_filter_smooth = 50.0
