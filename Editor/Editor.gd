@@ -20,7 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		use_tool(tile, layer)
 	if (event.is_action_pressed("mb_right")):
 		var tile = local_to_map(to_local(get_global_mouse_position()))
-		set_cell(layer, tile, -1)
+		set_cells_terrain_connect(layer, [tile], 0, -1, false)
 		
 func use_tool(tile, layer) -> void:
 	tools.values()
@@ -31,9 +31,13 @@ func use_tool(tile, layer) -> void:
 			if (get_cell_atlas_coords(layer, tile) == Vector2i(3, 1) ||  get_cell_atlas_coords(layer, tile) == Vector2i(2, 0)):
 				set_cells_terrain_connect(layer, [tile], 0, 1)
 		tools.floor:
+			set_cells_terrain_connect(layer, [tile], 0, -1, false)
 			set_cell(layer, tile, 0,  Vector2i(0, 0))
 		_: 
 			return
+		
+	
+		
 		
 func change_tool(key : String) -> void:
 	tool = tools[key]
@@ -45,9 +49,12 @@ func handle_input():
 			change_tool_preview(i)
 			
 func change_tool_preview(tool):
-	
-	tool_preview.texture = tile_set.get_source(0).get_runtime_texture( ) # PŘEDĚLAT NA TEXTURU TILE
-	tool_previews[tool]
+	var atlas = tile_set.get_source(0) as TileSetAtlasSource
+	var atlasImage = atlas.texture.get_image()
+	var tileImage = atlasImage.get_region(atlas.get_tile_texture_region(tool_previews[tool]))
+	var tiletexture = ImageTexture.create_from_image(tileImage)
+	tiletexture.set_size_override(Vector2i(1, 1))
+	tool_preview.texture = tiletexture
 
 
 func save_ship(path : String = "default_ship") -> void:
