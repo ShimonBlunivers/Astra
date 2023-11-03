@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=17 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_othpj"]
-[ext_resource type="Texture2D" uid="uid://bv6x6bl4uyg23" path="res://Player/animations/idle/character.png" id="2_hykmj"]
+[ext_resource type="Texture2D" uid="uid://g8kmlxg16tj1" path="res://Player/animations/idle/0.png" id="2_mxscx"]
+[ext_resource type="Texture2D" uid="uid://b8t4002vxlgd4" path="res://Player/animations/walkdown/0.png" id="3_1q2oe"]
 [ext_resource type="Texture2D" uid="uid://dk5mrnpmnodni" path="res://Player/animations/walkside/0.png" id="3_gepmi"]
 [ext_resource type="Texture2D" uid="uid://sgs76qmtx2gm" path="res://Player/animations/walkside/1.png" id="4_pwxco"]
 [ext_resource type="Texture2D" uid="uid://de61h3cjib0ft" path="res://Player/animations/walkside/2.png" id="5_dfsuv"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://duiwn8v63rast" path="res://Player/animations/walkside/6.png" id="9_h46ia"]
 [ext_resource type="Texture2D" uid="uid://c2sa3xhrbfl02" path="res://Player/animations/walkside/7.png" id="10_h43fm"]
 [ext_resource type="Texture2D" uid="uid://cvvw3b2pu26ng" path="res://Lighting/light.png" id="11_o2d8h"]
+[ext_resource type="Texture2D" uid="uid://cgqvi5a0xd58" path="res://Player/animations/walkup/0.png" id="12_pvxgp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
 size = Vector2(52, 128)
@@ -22,13 +24,16 @@ size = Vector2(64, 15)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_hykmj")
+"texture": ExtResource("2_mxscx")
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 10.0
+"speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1q2oe")
+}],
 "loop": true,
 "name": &"WalkDown",
 "speed": 6.0
@@ -62,7 +67,10 @@ animations = [{
 "name": &"WalkToSide",
 "speed": 10.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_pvxgp")
+}],
 "loop": true,
 "name": &"WalkUp",
 "speed": 10.0
@@ -87,7 +95,7 @@ light_mask = 2
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(6.4, 6.4)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
-animation = &"WalkToSide"
+animation = &"Idle"
 
 [node name="Light" type="Control" parent="."]
 layout_mode = 3
@@ -98,6 +106,7 @@ offset_bottom = 40.0
 [node name="PointLight2D" type="PointLight2D" parent="Light"]
 position = Vector2(4.76837e-07, 60)
 rotation = -0.00279561
+color = Color(0.988235, 1, 1, 1)
 energy = 0.6
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.419608)
@@ -108,7 +117,7 @@ texture_scale = 3.0
 [node name="Internal" type="PointLight2D" parent="Light"]
 light_mask = 2
 position = Vector2(4.76837e-07, 60)
-energy = 0.45
+energy = 0.3
 range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)
 shadow_filter = 1

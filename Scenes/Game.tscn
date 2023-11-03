@@ -19,9 +19,10 @@ environment = SubResource("Environment_seje7")
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
 z_index = 10
 position = Vector2(279.053, 878.6)
+scale = Vector2(0.8, 0.8)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.95, 0.95)
+position_smoothing_speed = 10.0
 
 [node name="Ships" type="Node2D" parent="."]
 

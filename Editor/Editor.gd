@@ -48,10 +48,10 @@ func handle_input():
 			change_tool(i)
 			change_tool_preview(i)
 			
-func change_tool_preview(tool):
+func change_tool_preview(_tool):
 	var atlas = tile_set.get_source(0) as TileSetAtlasSource
 	var atlasImage = atlas.texture.get_image()
-	var tileImage = atlasImage.get_region(atlas.get_tile_texture_region(tool_previews[tool]))
+	var tileImage = atlasImage.get_region(atlas.get_tile_texture_region(tool_previews[_tool]))
 	var tiletexture = ImageTexture.create_from_image(tileImage)
 	tiletexture.set_size_override(Vector2i(1, 1))
 	tool_preview.texture = tiletexture
