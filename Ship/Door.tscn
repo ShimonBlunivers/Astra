@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://dvhv8tl435t8h"]
 
 [ext_resource type="Script" path="res://Ship/Door.gd" id="1_77ui8"]
-[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/tilesheet.png" id="1_niqmk"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="1_niqmk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kmdf"]
 atlas = ExtResource("1_niqmk")
@@ -77,7 +77,7 @@ script = ExtResource("1_77ui8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gghna")
-animation = &"open_horizontal"
+animation = &"closed_horizontal"
 
 [node name="Hitbox" type="Control" parent="."]
 layout_mode = 3
@@ -123,6 +123,7 @@ offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 flat = true
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_shape_entered" from="Hitbox/Area2D" to="." method="_on_area_2d_body_shape_entered"]
 [connection signal="body_shape_exited" from="Hitbox/Area2D" to="." method="_on_area_2d_body_shape_exited"]

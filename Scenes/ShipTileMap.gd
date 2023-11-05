@@ -1,4 +1,6 @@
-extends TileMap
+extends Node2D
+
+@onready var wall_tilemap = $WallTileMap
 
 const doors = preload("res://Ship/Door.tscn")
 
@@ -7,22 +9,21 @@ var DockPosition : Vector2 = Vector2(100, 100)
 func _ready() -> void:
 
 	load_ship()
-	
 	var layer := 0;
-	for cellpos in get_used_cells(layer):
-		var cell = get_cell_tile_data(layer, cellpos)
+	for cellpos in wall_tilemap.get_used_cells(layer):
+		var cell = wall_tilemap.get_cell_tile_data(layer, cellpos)
 		if cell.get_custom_data("type") == "door":
 			var doorObject = doors.instantiate()
 			doorObject.direction = cell.get_custom_data("direction")
-			doorObject.position = map_to_local(cellpos)
-			add_child(doorObject)
-			set_cell(layer, cellpos, -1)
+			doorObject.position = wall_tilemap.map_to_local(cellpos)
+			wall_tilemap.add_child(doorObject)
+			wall_tilemap.set_cell(layer, cellpos, -1)
 
 
 
 func load_ship(path : String = "station") -> bool:
 	
-	clear()
+	wall_tilemap.clear()
 	
 	var layer : int = 0;
 	
@@ -37,7 +38,7 @@ func load_ship(path : String = "station") -> bool:
 		var tile:= Vector2()
 		tile.x = contents[0]
 		tile.y = contents[1]
-		set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
+		wall_tilemap.set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
 		
 	save_file.close()
 
