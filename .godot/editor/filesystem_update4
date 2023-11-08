@@ -7,6 +7,11 @@ res://Scenes/Editor.tscn
 res://Ship/Ship.tscn
 res://Ship/Door.tscn
 res://Scenes/ShipTileMap.gd
-res://Editor/EditorCamera.cs
-res://Player/Player.cs
+res://Ship/Ship.gd
+res://Ship/Door.gd
 res://Player/Player.gd
+res://Ship/WallTileMap.gd
+res://Scenes/ShipManager.gd
+res://Menu.gd
+res://Ship/ObjectTileMap.gd
+res://Editor/EditorCamera.cs

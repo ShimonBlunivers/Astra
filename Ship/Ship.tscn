@@ -1,18 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://dai6awjw4ywn7"]
+[gd_scene load_steps=6 format=3 uid="uid://dai6awjw4ywn7"]
 
 [ext_resource type="TileSet" uid="uid://bfuqtumyjeq0m" path="res://Ship/WallTileMap.tres" id="1_6t3py"]
-[ext_resource type="Script" path="res://Scenes/ShipTileMap.gd" id="1_8smbp"]
+[ext_resource type="Script" path="res://Ship/Ship.gd" id="1_set35"]
 [ext_resource type="TileSet" uid="uid://c5j4fanlmf5kc" path="res://Ship/ObjectTileMap.tres" id="2_qq4gy"]
+[ext_resource type="Script" path="res://Ship/WallTileMap.gd" id="3_cl687"]
+[ext_resource type="Script" path="res://Ship/ObjectTileMap.gd" id="5_rjigq"]
 
 [node name="Ship" type="Node2D"]
-script = ExtResource("1_8smbp")
+scale = Vector2(5, 5)
+script = ExtResource("1_set35")
 
 [node name="WallTileMap" type="TileMap" parent="."]
-scale = Vector2(5, 5)
 tile_set = ExtResource("1_6t3py")
 cell_quadrant_size = 32
 format = 2
+script = ExtResource("3_cl687")
 
 [node name="ObjectTileMap" type="TileMap" parent="."]
+z_index = 1
 tile_set = ExtResource("2_qq4gy")
 format = 2
+script = ExtResource("5_rjigq")

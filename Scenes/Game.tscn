@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=5 format=3 uid="uid://dl36ukldy48vp"]
 
+[ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Player/Player.tscn" id="3_gb8si"]
 
@@ -16,7 +17,6 @@ metadata/_edit_vertical_guides_ = []
 environment = SubResource("Environment_seje7")
 
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
-z_index = 10
 position = Vector2(279.053, 878.6)
 scale = Vector2(0.8, 0.8)
 
@@ -24,6 +24,7 @@ scale = Vector2(0.8, 0.8)
 position_smoothing_speed = 10.0
 
 [node name="Ships" type="Node2D" parent="."]
+script = ExtResource("2_0gdpv")
 
 [node name="Station0" parent="Ships" instance=ExtResource("2_g674q")]
 

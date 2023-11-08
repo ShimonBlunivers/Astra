@@ -1,17 +1,19 @@
 extends Node2D
 
+
+@onready var walkway : StaticBody2D = $Hitbox/StaticBody2DWalkway
+@onready var hitbox : Control = $Hitbox
+@onready var walkway_light : LightOccluder2D = $Hitbox/WalkwayOccluder
+
 var direction := "horizontal"
 var state := "closed"
 
 var obstructed := false
 var locked := false
 
-@onready var walkway : StaticBody2D = $Hitbox/StaticBody2DWalkway
-@onready var hitbox : Control = $Hitbox
-@onready var walkway_light : LightOccluder2D = $Hitbox/WalkwayOccluder
-
 var collision_layer = 1;
 var occluder_light_mask = 1;
+
 
 func _ready() -> void:
 	if direction == "vertical":
@@ -44,9 +46,9 @@ func _on_button_pressed() -> void:
 	else:
 		open()
 
-func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	obstructed = true
 
 
-func _on_area_2d_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_2d_body_shape_exited(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	obstructed = false

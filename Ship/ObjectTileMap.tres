@@ -5,6 +5,9 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k7owb"]
 texture = ExtResource("1_txbxa")
 2:0/0 = 0
+2:0/0/custom_data_0 = "helm"
 
 [resource]
+custom_data_layer_0/name = "object_ID"
+custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_k7owb")
