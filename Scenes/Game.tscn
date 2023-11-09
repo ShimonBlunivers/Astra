@@ -13,9 +13,6 @@ adjustment_enabled = true
 [node name="World" type="Node2D"]
 metadata/_edit_vertical_guides_ = []
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_seje7")
-
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
 position = Vector2(279.053, 878.6)
 scale = Vector2(0.8, 0.8)
@@ -30,3 +27,6 @@ script = ExtResource("2_0gdpv")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.67451, 0.764706, 0.945098, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_seje7")

@@ -1,7 +1,11 @@
 extends TileMap
 
+const helm_scene = preload("res://Ship/Objects/Helm.tscn")
 
-func load_ship(path : String = "station") -> bool:
+var ship = null
+
+func load_ship(_ship, path : String = "station") -> bool:
+	ship = _ship
 	
 	clear()
 	
@@ -29,6 +33,10 @@ func _replace_interactive_tiles() -> bool:
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
 		if cell.get_custom_data("object_ID") == "helm":
-			pass
+			var helm_object = helm_scene.instantiate()
+			helm_object.ship = ship
+			helm_object.position = map_to_local(cellpos)
+			add_child(helm_object)
+			set_cell(layer, cellpos, -1)
 			
 	return true

@@ -3,8 +3,10 @@ extends TileMap
 
 const door_scene = preload("res://Ship/Door.tscn")
 
+var ship = null
 
-func load_ship(path : String = "station") -> bool:
+func load_ship(_ship, path : String = "station") -> bool:
+	ship = _ship
 	
 	clear()
 	
@@ -37,4 +39,5 @@ func _replace_interactive_tiles() -> bool:
 			door_object.position = map_to_local(cellpos)
 			add_child(door_object)
 			set_cell(layer, cellpos, -1)
+			
 	return true

@@ -4,12 +4,21 @@ extends Node2D
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 
-var DockPosition : Vector2 = Vector2(100, 100)
+var dock_position : Vector2 = Vector2(100, 100)
 
-
-func _ready() -> void:
-	pass
+var passengers := []
 
 func load_ship(x: int, y: int) -> bool:
 	position = Vector2i(x, y)
-	return wall_tile_map.load_ship() && object_tile_map.load_ship()
+	return wall_tile_map.load_ship(self) && object_tile_map.load_ship(self)
+	
+func move(delta: float, direction: Vector2):
+	
+	var SPEED = 10
+	
+	var difference = Vector2(direction.x * SPEED, direction.y * SPEED)
+	
+	position += difference
+	
+	for passenger in passengers:
+		passenger.position += difference

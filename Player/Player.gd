@@ -1,26 +1,29 @@
 extends CharacterBody2D
 
 
+@onready var _animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
 
 var _sprite_dir := 69
 
-@onready var _animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
-
 var ship_controlled = null
 
+var normal_zoom = 1
+var ship_zoom = 0.1
 
 func _physics_process(delta: float) -> void:
-	move(delta)
+	_move(delta)
 
-func move(_delta: float) -> void:
+func _move(delta: float) -> void:
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
 
 	if ship_controlled != null:
-		print("CONTROLLING!")
+		ship_controlled.move(delta, direction)
+		return
 
 	velocity.x = direction.x * (SPEED + RUN_SPEED_MODIFIER * running)
 	velocity.y = direction.y * (SPEED + RUN_SPEED_MODIFIER * running)
@@ -57,4 +60,15 @@ func move(_delta: float) -> void:
 
 	move_and_slide()
 
-
+func change_view(view: int) -> void:
+	var tween = create_tween()
+	match view:
+		0:
+			tween.tween_property($Camera2D, "zoom", Vector2(normal_zoom, normal_zoom), 1)
+			tween.tween_property($Camera2D, "zoom", Vector2(ship_zoom, ship_zoom), 1)
+			print(0)
+		1:
+			tween.tween_property($Camera2D, "zoom", Vector2(ship_zoom, ship_zoom), 1)
+			tween.tween_property($Camera2D, "zoom", Vector2(normal_zoom, normal_zoom), 1)
+			print(1)
+			

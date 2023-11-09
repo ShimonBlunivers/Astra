@@ -25,33 +25,33 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6kmdf")
 }],
-"loop": true,
+"loop": false,
 "name": &"closed_horizontal",
-"speed": 5.0
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qopt1")
 }],
-"loop": true,
+"loop": false,
 "name": &"closed_vertical",
-"speed": 5.0
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dhjmo")
 }],
-"loop": true,
+"loop": false,
 "name": &"open_horizontal",
-"speed": 5.0
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yt87e")
 }],
-"loop": true,
+"loop": false,
 "name": &"open_vertical",
-"speed": 5.0
+"speed": 0.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3hcj"]
@@ -77,7 +77,7 @@ script = ExtResource("1_77ui8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gghna")
-animation = &"closed_horizontal"
+animation = &"open_vertical"
 
 [node name="Hitbox" type="Control" parent="."]
 layout_mode = 3

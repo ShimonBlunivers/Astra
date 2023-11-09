@@ -263,9 +263,6 @@ texture_region_size = Vector2i(32, 32)
 3:4/0/terrains_peering_bit/top_side = 0
 3:4/0/custom_data_0 = "door"
 3:4/0/custom_data_1 = "vertical"
-0:2/0 = 0
-0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:2/0/physics_layer_0/angular_velocity = 0.0
 
 [resource]
 tile_size = Vector2i(32, 32)
