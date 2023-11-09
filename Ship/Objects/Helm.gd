@@ -12,6 +12,7 @@ func _on_area_2d_body_entered(player):
 		player.ship_controlled = ship
 		ship.passengers.append(player)		
 		player.change_view(0)
+		
 func _on_area_2d_body_exited(player):
 	if player.name == "Player":
 		controlled = false

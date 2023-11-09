@@ -1,7 +1,7 @@
 extends TileMap
 
 
-const door_scene = preload("res://Ship/Door.tscn")
+const door_scene = preload("res://Ship/Door/Door.tscn")
 
 var ship = null
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=19 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_to8t1"]
 [ext_resource type="Texture2D" uid="uid://g8kmlxg16tj1" path="res://Player/animations/idle/0.png" id="2_mxscx"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://c2sa3xhrbfl02" path="res://Player/animations/walkside/7.png" id="10_h43fm"]
 [ext_resource type="Texture2D" uid="uid://cvvw3b2pu26ng" path="res://Lighting/light.png" id="11_o2d8h"]
 [ext_resource type="Texture2D" uid="uid://cgqvi5a0xd58" path="res://Player/animations/walkup/0.png" id="12_pvxgp"]
+[ext_resource type="Script" path="res://Player/PlayerSound.gd" id="13_hklwb"]
+[ext_resource type="AudioStream" uid="uid://d3tvxu1m5k5e5" path="res://Player/sounds/walk.ogg" id="15_0v8jt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
 size = Vector2(52, 128)
@@ -96,7 +98,8 @@ light_mask = 2
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(6.4, 6.4)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
-animation = &"WalkUp"
+animation = &"Idle"
+script = ExtResource("13_hklwb")
 
 [node name="Light" type="Control" parent="."]
 layout_mode = 3
@@ -125,3 +128,10 @@ shadow_filter = 1
 shadow_filter_smooth = 50.0
 texture = ExtResource("11_o2d8h")
 texture_scale = 3.0
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("15_0v8jt")
+volume_db = -1.035
+max_distance = 1000.0

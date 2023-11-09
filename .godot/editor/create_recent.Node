@@ -1,4 +1,5 @@
 Node2D
+AudioStreamPlayer2D
 CollisionShape2D
 Area2D
 AnimatedSprite2D

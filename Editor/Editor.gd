@@ -32,7 +32,8 @@ func use_tool(tile, layer) -> void:
 		tools.wall: 
 			wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, 0)
 		tools.door:
-			if (wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(3, 1) ||  wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0)):
+			print(wall_tile_map.get_cell_atlas_coords(layer, tile))
+			if (wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0) || wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0)):
 				wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, 1)
 		tools.floor:
 			wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)

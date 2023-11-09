@@ -14,9 +14,9 @@ func load_ship(x: int, y: int) -> bool:
 	
 func move(delta: float, direction: Vector2):
 	
-	var SPEED = 10
+	var SPEED = 100
 	
-	var difference = Vector2(direction.x * SPEED, direction.y * SPEED)
+	var difference = Vector2(direction.x * SPEED * delta, direction.y * SPEED * delta)
 	
 	position += difference
 	
