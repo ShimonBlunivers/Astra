@@ -1,7 +1,8 @@
 extends TileMap
 
 
-const door_scene = preload("res://Ship/Door/Door.tscn")
+const door_scene = preload("res://Ship/Walls/Door/Door.tscn")
+const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
 
 var ship = null
 
@@ -27,17 +28,42 @@ func load_ship(_ship, path : String = "station") -> bool:
 		
 	save_file.close()
 	
-	return _replace_interactive_tiles()
+	_load_hitbox()
+	_replace_interactive_tiles()
+
+	return true
 	
 func _replace_interactive_tiles() -> bool:
 	var layer := 0;
 	for cellpos in get_used_cells(layer):
-		var cell = get_cell_tile_data(layer, cellpos)
-		if cell.get_custom_data("type") == "door":
-			var door_object = door_scene.instantiate()
-			door_object.direction = cell.get_custom_data("direction")
-			door_object.position = map_to_local(cellpos)
-			add_child(door_object)
-			set_cell(layer, cellpos, -1)
+		var cell := get_cell_tile_data(layer, cellpos)
+
+		match cell.get_custom_data("type"):
+
+			"door":
+				var door_object = door_scene.instantiate()
+				door_object.direction = cell.get_custom_data("direction")
+				door_object.position = map_to_local(cellpos)
+				add_child(door_object)
+				set_cell(layer, cellpos, -1)
 			
+			"wall":
+				if (get_cell_atlas_coords(layer, cellpos) != Vector2i(-1, -1)):
+					var wall_object = wall_scene.instantiate()
+					wall_object.position = map_to_local(cellpos)
+					add_child(wall_object)
+					set_cell(layer, cellpos, -1)
+
+					var atlas := tile_set.get_source(0) as TileSetAtlasSource
+					var atlasImage := atlas.texture.get_image()
+					var tileImage := atlasImage.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
+					var tiletexture := ImageTexture.create_from_image(tileImage)
+
+					tiletexture.set_size_override(Vector2i(1, 1))
+					wall_object.set_texture(tiletexture)
+
 	return true
+
+func _load_hitbox():
+	pass
+	

@@ -1,13 +1,12 @@
 extends Node2D
 
-
 @onready var console := $"../HUD/ConsoleLog"
 @onready var tool_preview := $"../HUD/ToolPreview"
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 
 enum tools {wall, door, floor}
-var tool_previews = {"wall" : Vector2i(3, 0), "door" : Vector2i(1, 4), "floor" : Vector2i(0, 0)}
+var tool_previews = {"wall" : Vector2i(3, 0), "door" : Vector2i(4, 0), "floor" : Vector2i(0, 0)}
 var tool : tools = tools.floor
 
 

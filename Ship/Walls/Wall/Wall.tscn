@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbtvg28idrapq"]
+
+[ext_resource type="Script" path="res://Ship/Walls/Wall/Wall.gd" id="1_d763y"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="1_p63wu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t106e"]
+atlas = ExtResource("1_p63wu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2q75"]
+size = Vector2(32, 32)
+
+[node name="Wall" type="Node2D"]
+script = ExtResource("1_d763y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(1, 1)
+texture = SubResource("AtlasTexture_t106e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_w2q75")

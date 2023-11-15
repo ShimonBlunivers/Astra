@@ -89,6 +89,13 @@ ui_tool_set_floor={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_1="Player vision"
+2d_render/layer_2="Player light-up"
+2d_physics/layer_1="Player collision"
+2d_physics/layer_10="Ship collision"
+
 [physics]
 
 2d/default_gravity=0.0

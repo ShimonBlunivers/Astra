@@ -1,6 +1,6 @@
 extends TileMap
 
-const helm_scene = preload("res://Ship/Objects/Helm.tscn")
+const helm_scene = preload("res://Ship/Objects/Helm/Helm.tscn")
 
 var ship = null
 

@@ -1,8 +1,8 @@
-extends Node2D
+class_name Door extends ShipPart
 
 
 @onready var walkway : StaticBody2D = $Hitbox/StaticBody2DWalkway
-@onready var hitbox : Control = $Hitbox
+@onready var hitbox : Node2D = $Hitbox
 @onready var open_sound : AudioStreamPlayer2D = $Sound/DoorOpen
 @onready var close_sound : AudioStreamPlayer2D = $Sound/DoorClose
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -16,6 +16,9 @@ var locked := false
 var collision_layer = 1;
 var occluder_light_mask = 1;
 
+
+func _init() -> void:
+	super(100)
 
 func _ready() -> void:
 	if direction == "vertical":
@@ -74,11 +77,20 @@ func _on_frame_changed():
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = occluder_light_mask;
 			
 func _on_button_pressed() -> void:
-	if state == "open":
+	
+	if !_check_accessibility():
+		return
+	elif state == "open":
 		close()
 	else:
 		open()
 
+func _check_accessibility() -> bool:
+	
+	# CHECK THE PLAYER DISTANCE
+	
+	return true
+	
 func _on_area_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	obstructed = true
 
