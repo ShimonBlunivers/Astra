@@ -1,5 +1,4 @@
-class_name Helm extends ShipPart
-
+class_name Helm extends InteractableShipPart
 
 var controlled : bool = false
 
@@ -17,3 +16,4 @@ func _on_area_2d_body_exited(player):
 	if player.name == "Player":
 		controlled = false
 		player.control_ship(null)
+

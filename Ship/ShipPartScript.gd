@@ -1,8 +1,7 @@
 class_name ShipPart extends Node2D
 
-
 var durability_max: float: 
-    get: return durability_max  
+    get: return durability_max if durability_max >= 0 else 6942069.
     set(value):
         durability_max = value
         durability_current = min(durability_current, durability_max)

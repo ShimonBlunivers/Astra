@@ -35,32 +35,43 @@ func load_ship(_ship, path : String = "station") -> bool:
 	
 func _replace_interactive_tiles() -> bool:
 	var layer := 0;
+
+	var atlas := tile_set.get_source(0) as TileSetAtlasSource
+	var atlas_image := atlas.texture.get_image()
+
 	for cellpos in get_used_cells(layer):
 		var cell := get_cell_tile_data(layer, cellpos)
 
 		match cell.get_custom_data("type"):
 
 			"door":
-				var door_object = door_scene.instantiate()
-				door_object.direction = cell.get_custom_data("direction")
-				door_object.position = map_to_local(cellpos)
-				add_child(door_object)
+				var _door_object = door_scene.instantiate()
+				_door_object.direction = cell.get_custom_data("direction")
+				_door_object.position = map_to_local(cellpos)
+				add_child(_door_object)
 				set_cell(layer, cellpos, -1)
 			
 			"wall":
-				if (get_cell_atlas_coords(layer, cellpos) != Vector2i(-1, -1)):
-					var wall_object = wall_scene.instantiate()
-					wall_object.position = map_to_local(cellpos)
-					add_child(wall_object)
-					set_cell(layer, cellpos, -1)
 
-					var atlas := tile_set.get_source(0) as TileSetAtlasSource
-					var atlasImage := atlas.texture.get_image()
-					var tileImage := atlasImage.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
-					var tiletexture := ImageTexture.create_from_image(tileImage)
+				var _wall_object = wall_scene.instantiate()
+				_wall_object.position = map_to_local(cellpos)
+				add_child(_wall_object)
 
-					tiletexture.set_size_override(Vector2i(1, 1))
-					wall_object.set_texture(tiletexture)
+				_wall_object.light_occluder.occluder = cell.get_occluder(layer)
+				
+				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
+				
+				for i in range(get_cell_alternative_tile(layer, cellpos)): tile_image.rotate_90(CLOCKWISE)
+
+				var tile_texture := ImageTexture.create_from_image(tile_image)
+
+				tile_texture.set_size_override(Vector2i(32, 32))
+				_wall_object.set_texture(tile_texture)
+
+				_wall_object.wall_tile_map = self
+				_wall_object.layer = layer
+
+				set_cell(layer, cellpos, -1)
 
 	return true
 

@@ -1,4 +1,4 @@
-class_name Door extends ShipPart
+class_name Door extends InteractableShipPart
 
 
 @onready var walkway : StaticBody2D = $Hitbox/StaticBody2DWalkway
@@ -77,23 +77,27 @@ func _on_frame_changed():
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = occluder_light_mask;
 			
 func _on_button_pressed() -> void:
-	
-	if !_check_accessibility():
-		return
-	elif state == "open":
+	interact()
+
+func _interact():
+	if state == "open":
 		close()
 	else:
 		open()
 
-func _check_accessibility() -> bool:
-	
-	# CHECK THE PLAYER DISTANCE
-	
-	return true
-	
-func _on_area_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
+func _on_walkway_body_entered(_body: Node2D):
 	obstructed = true
 
 
-func _on_area_2d_body_shape_exited(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
+func _on_walkway_body_exited(_body: Node2D):
 	obstructed = false
+
+
+func _on_interact_area_body_entered(_body: Node2D):
+	if _body.name == "Player":
+		interactable = true
+
+
+func _on_interact_area_body_exited(_body: Node2D):
+	if _body.name == "Player":
+		interactable = false

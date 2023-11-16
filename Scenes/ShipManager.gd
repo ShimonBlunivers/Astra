@@ -11,6 +11,7 @@ func _ready() -> void:
 	_load()
 	spawn_ship(0, 2200)
 
+
 func _load() -> void:
 	main_station.load_ship(0, 0)
 

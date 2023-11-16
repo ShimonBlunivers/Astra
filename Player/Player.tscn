@@ -104,7 +104,6 @@ animation = &"Idle"
 [node name="PointLight2D" type="PointLight2D" parent="Vision"]
 position = Vector2(4.76837e-07, 60)
 rotation = -0.00279561
-scale = Vector2(1, 1)
 color = Color(0.988235, 1, 1, 1)
 energy = 0.6
 shadow_enabled = true
