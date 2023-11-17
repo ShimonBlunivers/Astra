@@ -38,40 +38,48 @@ func _move(_delta: float) -> void:
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
+	var _sound_pitch_range := [0.9, 1.1]
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 	
 	if velocity.x < 0:
-		if _sprite_dir != 1:
+		if !_walk_sound.playing: 
+			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			_walk_sound.play()
+		if _sprite_dir != 1:
 			_sprite_dir = 1
 			_animated_sprite.flip_h = true
 			_animated_sprite.play("WalkToSide")
 		
 	elif velocity.x > 0:
-		if _sprite_dir != 2:
+		if !_walk_sound.playing: 
+			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			_walk_sound.play()
+		if _sprite_dir != 2:
 			_sprite_dir = 2
 			_animated_sprite.flip_h = false
 			_animated_sprite.play("WalkToSide")
 		
 	elif velocity.y > 0: 
-		if _sprite_dir != 3:
+		if !_walk_sound.playing: 
+			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			_walk_sound.play()
+		if _sprite_dir != 3:
 			_sprite_dir = 3
 			_animated_sprite.flip_h = false
 			_animated_sprite.play("WalkDown")
-		
+			
 	elif velocity.y < 0: 
-		if _sprite_dir != 4:
+		if !_walk_sound.playing: 
+			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			_walk_sound.play()
+		if _sprite_dir != 4:
 			_sprite_dir = 4
 			_animated_sprite.flip_h = false
 			_animated_sprite.play("WalkUp")
 		
 	else:
 		if _sprite_dir != 0:
-			_walk_sound.stop()
 			_sprite_dir = 0
 			_animated_sprite.flip_h = false
 			_animated_sprite.play("Idle")

@@ -128,5 +128,5 @@ texture_scale = 3.0
 [node name="Walk" type="AudioStreamPlayer2D" parent="Sounds"]
 position = Vector2(0, 58)
 stream = ExtResource("15_0v8jt")
-volume_db = -1.035
+volume_db = -1.0
 max_distance = 1000.0

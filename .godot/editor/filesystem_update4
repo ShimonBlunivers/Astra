@@ -9,3 +9,4 @@ res://Ship/Ship.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Debris/Debris.tscn
 res://Ship/Walls/Debris/Debris.gd
+res://Player/Player.gd

@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/walk.ogg-31a02d89281bb1936d3a3b41af29c909.ogg
 
 [params]
 
-loop=true
+loop=false
 loop_offset=10.0
-bpm=135.0
-beat_count=1
-bar_beats=2
+bpm=0.0
+beat_count=0
+bar_beats=4
