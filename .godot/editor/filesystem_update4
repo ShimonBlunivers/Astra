@@ -11,3 +11,4 @@ res://Ship/Walls/Debris/Debris.tscn
 res://Ship/Walls/Debris/Debris.gd
 res://Player/Player.gd
 res://Ship/Walls/Door/Door.gd
+res://Ship/Walls/Door/Door.tscn

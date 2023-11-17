@@ -57,6 +57,11 @@ func _on_frame_changed():
 			$"Hitbox/AnimatedOccluders/1left".occluder_light_mask = 0;
 			$"Hitbox/AnimatedOccluders/1right".occluder_light_mask = 0;
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = 0;
+
+			$"Hitbox/AnimatedHitbox/0left".set_collision_layer_value(collision_layer, false)
+			$"Hitbox/AnimatedHitbox/0right".set_collision_layer_value(collision_layer, false)
+			$"Hitbox/AnimatedHitbox/1left".set_collision_layer_value(collision_layer, false)
+			$"Hitbox/AnimatedHitbox/1right".set_collision_layer_value(collision_layer, false)
 		2:
 			$"Hitbox/AnimatedOccluders/0left".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/0right".occluder_light_mask = occluder_light_mask;
@@ -65,12 +70,21 @@ func _on_frame_changed():
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = 0;
 			if state == "open":
 				walkway.set_collision_layer_value(collision_layer, false)
+				$"Hitbox/AnimatedHitbox/0left".set_collision_layer_value(collision_layer, true)
+				$"Hitbox/AnimatedHitbox/0right".set_collision_layer_value(collision_layer, true)
+				$"Hitbox/AnimatedHitbox/1left".set_collision_layer_value(collision_layer, false)
+				$"Hitbox/AnimatedHitbox/1right".set_collision_layer_value(collision_layer, false)
 		1:
 			$"Hitbox/AnimatedOccluders/0left".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/0right".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/1left".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/1right".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = 0;
+			if state == "open":
+				$"Hitbox/AnimatedHitbox/0left".set_collision_layer_value(collision_layer, true)
+				$"Hitbox/AnimatedHitbox/0right".set_collision_layer_value(collision_layer, true)
+				$"Hitbox/AnimatedHitbox/1left".set_collision_layer_value(collision_layer, true)
+				$"Hitbox/AnimatedHitbox/1right".set_collision_layer_value(collision_layer, true)
 		0: # ZAVŘENO
 			$"Hitbox/AnimatedOccluders/0left".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/0right".occluder_light_mask = occluder_light_mask;

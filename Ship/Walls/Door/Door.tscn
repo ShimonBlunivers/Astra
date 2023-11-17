@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d4dbqrrqwxsb"]
+[gd_scene load_steps=25 format=3 uid="uid://d4dbqrrqwxsb"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Door/Door.gd" id="1_7o7ps"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_i5qhu"]
@@ -68,6 +68,18 @@ size = Vector2(7, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8qwe"]
 size = Vector2(18, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wesoy"]
+size = Vector2(4, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dhujy"]
+size = Vector2(3, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olnpt"]
+size = Vector2(4, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbgdf"]
+size = Vector2(3, 32)
+
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r27t5"]
 polygon = PackedVector2Array(-16, -8, -16, 8, -9, 8, -9, -8)
 
@@ -114,6 +126,32 @@ shape = SubResource("RectangleShape2D_dr5sq")
 [node name="Walkway" type="CollisionShape2D" parent="Hitbox/StaticBody2DWalkway"]
 shape = SubResource("RectangleShape2D_q8qwe")
 
+[node name="AnimatedHitbox" type="Node2D" parent="Hitbox"]
+
+[node name="0left" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+
+[node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/0left"]
+position = Vector2(-7, 0)
+shape = SubResource("RectangleShape2D_wesoy")
+
+[node name="1left" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+
+[node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/1left"]
+position = Vector2(-3.5, 0)
+shape = SubResource("RectangleShape2D_dhujy")
+
+[node name="0right" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+
+[node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/0right"]
+position = Vector2(7, 0)
+shape = SubResource("RectangleShape2D_olnpt")
+
+[node name="1right" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+
+[node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/1right"]
+position = Vector2(3.5, 0)
+shape = SubResource("RectangleShape2D_pbgdf")
+
 [node name="Area2D" type="Area2D" parent="Hitbox"]
 collision_layer = 2
 collision_mask = 2
@@ -122,12 +160,15 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_q8qwe")
 
 [node name="LeftOccluder" type="LightOccluder2D" parent="Hitbox"]
+visible = false
 occluder = SubResource("OccluderPolygon2D_r27t5")
 
 [node name="RightOccluder" type="LightOccluder2D" parent="Hitbox"]
+visible = false
 occluder = SubResource("OccluderPolygon2D_pyetu")
 
 [node name="AnimatedOccluders" type="Node2D" parent="Hitbox"]
+visible = false
 
 [node name="0left" type="LightOccluder2D" parent="Hitbox/AnimatedOccluders"]
 occluder = SubResource("OccluderPolygon2D_omlib")
@@ -148,6 +189,7 @@ position = Vector2(-3, 0)
 occluder = SubResource("OccluderPolygon2D_jw75i")
 
 [node name="InteractArea" type="Area2D" parent="Hitbox"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox/InteractArea"]
 shape = ExtResource("5_ybgk5")
