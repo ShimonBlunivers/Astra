@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=7 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Player/Player.tscn" id="3_gb8si"]
+[ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
+[ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="5_mgng7"]
 
 [sub_resource type="Environment" id="Environment_seje7"]
 background_mode = 3
@@ -30,3 +32,24 @@ color = Color(0.67451, 0.764706, 0.945098, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_seje7")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="Further" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.01, 0.01)
+motion_mirroring = Vector2(20480, 20480)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Further"]
+scale = Vector2(10, 10)
+texture = ExtResource("4_7oqwe")
+centered = false
+
+[node name="Closer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.02, 0.02)
+motion_mirroring = Vector2(20480, 20480)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Closer"]
+scale = Vector2(10, 10)
+texture = ExtResource("5_mgng7")
+centered = false

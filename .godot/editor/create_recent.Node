@@ -1,3 +1,6 @@
+Sprite2D
+ParallaxLayer
+ParallaxBackground
 Area2D
 CollisionShape2D
 ProgressBar
@@ -6,7 +9,6 @@ Node2D
 Label
 Button
 LightOccluder2D
-Sprite2D
 StaticBody2D
 AnimatedSprite2D
 RigidBody2D
