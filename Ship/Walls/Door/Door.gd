@@ -36,6 +36,7 @@ func open():
 	if locked:
 		return
 	state = "open"
+	open_sound.pitch_scale = randf_range(0.9, 1.1)
 	open_sound.play()
 	update_sprites()
 	
@@ -43,6 +44,7 @@ func close():
 	if obstructed:
 		return
 	state = "closed"
+	close_sound.pitch_scale = randf_range(0.9, 1.1)
 	close_sound.play()
 	update_sprites()
 	walkway.set_collision_layer_value(collision_layer, true)
