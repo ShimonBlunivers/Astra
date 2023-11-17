@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://2cotqviqoq1b"]
+[gd_scene load_steps=6 format=3 uid="uid://2cotqviqoq1b"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Debris/Debris.gd" id="1_7g71x"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_cyj6g"]
+[ext_resource type="AudioStream" uid="uid://dwejrw3lqdlww" path="res://Ship/Walls/Debris/Sounds/break.mp3" id="3_sjgw7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pum8f"]
 atlas = ExtResource("2_cyj6g")
@@ -34,6 +35,7 @@ offset_bottom = 16.0
 flat = true
 
 [node name="Node2D" type="Node2D" parent="."]
+visible = false
 scale = Vector2(0.2, 0.2)
 
 [node name="Label" type="Label" parent="Node2D"]
@@ -49,3 +51,9 @@ offset_right = 4.0
 offset_bottom = 27.0
 step = -0.01
 metadata/_edit_use_anchors_ = true
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Spawn" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("3_sjgw7")
+max_distance = 1000.0

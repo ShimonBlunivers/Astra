@@ -12,3 +12,4 @@ res://Ship/Walls/Debris/Debris.gd
 res://Player/Player.gd
 res://Ship/Walls/Door/Door.gd
 res://Ship/Walls/Door/Door.tscn
+res://Ship/Walls/Wall/Wall.gd

@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-@onready var _animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
-@onready var _walk_sound : AudioStreamPlayer2D = $Sounds/Walk
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+@onready var walk_sound : AudioStreamPlayer2D = $Sounds/Walk
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
 
@@ -21,10 +21,10 @@ func _physics_process(delta: float) -> void:
 func control_ship(ship):
 	if ship != null:
 		
-		_walk_sound.stop()
+		walk_sound.stop()
 		_sprite_dir = 0
-		_animated_sprite.flip_h = false
-		_animated_sprite.play("Idle")
+		animated_sprite.flip_h = false
+		animated_sprite.play("Idle")
 		
 		ship.control(self)
 		change_view(0)
@@ -43,46 +43,46 @@ func _move(_delta: float) -> void:
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 	
 	if velocity.x < 0:
-		if !_walk_sound.playing: 
-			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
-			_walk_sound.play()
+		if !walk_sound.playing: 
+			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
+			walk_sound.play()
 		if _sprite_dir != 1:
 			_sprite_dir = 1
-			_animated_sprite.flip_h = true
-			_animated_sprite.play("WalkToSide")
+			animated_sprite.flip_h = true
+			animated_sprite.play("WalkToSide")
 		
 	elif velocity.x > 0:
-		if !_walk_sound.playing: 
-			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
-			_walk_sound.play()
+		if !walk_sound.playing: 
+			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
+			walk_sound.play()
 		if _sprite_dir != 2:
 			_sprite_dir = 2
-			_animated_sprite.flip_h = false
-			_animated_sprite.play("WalkToSide")
+			animated_sprite.flip_h = false
+			animated_sprite.play("WalkToSide")
 		
 	elif velocity.y > 0: 
-		if !_walk_sound.playing: 
-			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
-			_walk_sound.play()
+		if !walk_sound.playing: 
+			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
+			walk_sound.play()
 		if _sprite_dir != 3:
 			_sprite_dir = 3
-			_animated_sprite.flip_h = false
-			_animated_sprite.play("WalkDown")
+			animated_sprite.flip_h = false
+			animated_sprite.play("WalkDown")
 			
 	elif velocity.y < 0: 
-		if !_walk_sound.playing: 
-			_walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
-			_walk_sound.play()
+		if !walk_sound.playing: 
+			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
+			walk_sound.play()
 		if _sprite_dir != 4:
 			_sprite_dir = 4
-			_animated_sprite.flip_h = false
-			_animated_sprite.play("WalkUp")
+			animated_sprite.flip_h = false
+			animated_sprite.play("WalkUp")
 		
 	else:
 		if _sprite_dir != 0:
 			_sprite_dir = 0
-			_animated_sprite.flip_h = false
-			_animated_sprite.play("Idle")
+			animated_sprite.flip_h = false
+			animated_sprite.play("Idle")
 
 	move_and_slide()
 

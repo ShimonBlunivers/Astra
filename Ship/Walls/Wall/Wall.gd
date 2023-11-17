@@ -3,7 +3,9 @@ class_name Wall extends ShipPart
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var light_occluder : LightOccluder2D = $LightOccluder2D
-@onready var progress_bar : ProgressBar = $Node2D/ProgressBar
+@onready var hp : ProgressBar = $HP
+@onready var cracks : AnimatedSprite2D = $Cracks
+@onready var button : Button = $Button
 
 static var debris_scene = preload("res://Ship/Walls/Debris/Debris.tscn")
 
@@ -19,9 +21,28 @@ func set_texture(texture) -> void:
 
 
 func _on_button_pressed():
-	progress_bar.value -= 40
-	if (progress_bar.value <= 0):
+	damage(hp.step)
+
+func damage(dmg: float):
+	
+	hp.value += dmg
+
+	button.tooltip_text = str(snapped(hp.value / hp.max_value, 0.01)) + "%"
+
+	match hp.value / hp.max_value:
+		1:
+			cracks.frame = 0
+
+		0.75:
+			cracks.frame = 1
+		0.5:
+			cracks.frame = 2
+		0.25:
+			cracks.frame = 3
+
+	if (hp.value <= 0):
 		destroy()
+
 
 func destroy():
 	var _debris_object := debris_scene.instantiate()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=19 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_to8t1"]
 [ext_resource type="Texture2D" uid="uid://g8kmlxg16tj1" path="res://Player/animations/idle/0.png" id="2_mxscx"]
 [ext_resource type="Texture2D" uid="uid://dwqiatrnqowb" path="res://Player/animations/walkdown/0.png" id="3_1q2oe"]
+[ext_resource type="Texture2D" uid="uid://cpdw4weam3bmh" path="res://Player/animations/idle/1.png" id="3_8hlq4"]
 [ext_resource type="Texture2D" uid="uid://dk5mrnpmnodni" path="res://Player/animations/walkside/0.png" id="3_gepmi"]
 [ext_resource type="Texture2D" uid="uid://sgs76qmtx2gm" path="res://Player/animations/walkside/1.png" id="4_pwxco"]
 [ext_resource type="Texture2D" uid="uid://de61h3cjib0ft" path="res://Player/animations/walkside/2.png" id="5_dfsuv"]
@@ -26,10 +27,37 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mxscx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8hlq4")
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -37,7 +65,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkDown",
-"speed": 6.0
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -98,6 +126,7 @@ position = Vector2(-4.76837e-07, 0)
 scale = Vector2(6.4, 6.4)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
 animation = &"Idle"
+autoplay = "Idle"
 
 [node name="Vision" type="Node2D" parent="."]
 
