@@ -1,3 +1,5 @@
+RigidBody2D
+Polygon2D
 Control
 ProgressBar
 AnimatedSprite2D
@@ -14,7 +16,6 @@ Label
 Button
 LightOccluder2D
 StaticBody2D
-RigidBody2D
 CollisionPolygon2D
 CharacterBody2D
 TileMap

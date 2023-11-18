@@ -6,7 +6,94 @@ const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
 
 var ship = null
 
-	
+
+func _load_hitbox(_layer: int):
+	# ship.hitbox.polygon = toShape(deleteEdges(createEdges(_layer)))
+	# ship.visual.polygon = ship.hitbox.polygon
+
+	ship.hitbox.polygon = getPointsRect(get_used_rect())
+	ship.visual.polygon = ship.hitbox.polygon
+
+	ship.hitbox.scale = scale
+	ship.visual.scale = scale
+
+func getPoints(tile: Vector2i):
+	#1   2
+	#  
+	#0   3  
+	var tile_size = tile_set.tile_size
+
+	return [ 
+		Vector2(tile.x * tile_size.x, tile.y * tile_size.y + tile_size.y), # 0
+		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y + tile_size.y), # 3
+		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y), # 2
+		Vector2(tile.x * tile_size.x, tile.y * tile_size.y) # 1
+	]
+
+func getPointsRect(rect: Rect2):
+	#1   2
+	#  
+	#0   3  
+
+	var rect_position = rect.position
+	var rect_size = rect.size * Vector2(tile_set.tile_size)
+ 
+	return [ 
+		Vector2(rect_position.x * rect_size.x, rect_position.y * rect_size.y + rect_size.y), # 0
+		Vector2(rect_position.x * rect_size.x, rect_position.y * rect_size.y), # 1
+		Vector2(rect_position.x * rect_size.x + rect_size.x, rect_position.y * rect_size.y), # 2
+		Vector2(rect_position.x * rect_size.x + rect_size.x, rect_position.y * rect_size.y + rect_size.y) # 3
+	]
+func getLines(points):
+	return [
+		[points[0], points[1]],
+		[points[1], points[2]],
+		[points[2], points[3]],
+		[points[3], points[0]]
+	]
+
+func createEdges(layer: int):
+	var edges = []
+	var grid = get_used_cells(layer)
+	for tile in grid:
+		for line in getLines(getPoints(tile)):
+			edges.append(line)
+	return edges
+
+func deleteEdges(edges):
+	var markForDeletion = []
+	for currentLineIdx in range(edges.size()):
+		var currentLine = edges[currentLineIdx]
+		var currentLineInverted = [currentLine[1], currentLine[0]]
+		for lineIdx in range(edges.size()):
+			var line = edges[lineIdx]
+			if lineIdx == currentLineIdx: continue # skip ourself
+			if currentLine == line or currentLineInverted == line:
+				markForDeletion.append(currentLine)
+				markForDeletion.append(currentLineInverted)
+	for line in markForDeletion:
+		var idx = edges.find(line)
+		if idx >= 0: 
+			edges.remove_at(idx)
+	return edges
+
+func toShape(edges):
+	var result = []
+	var nextLine = edges[0] 
+	for idx in range(edges.size()):
+		for otherLine in edges:
+			if otherLine == nextLine: continue
+			if nextLine[1] == otherLine[0]:
+				nextLine = otherLine
+				break
+			elif nextLine[1] == otherLine[1]:
+				nextLine = [otherLine[1], otherLine[0]]
+		for point in nextLine:
+			result.append(point)
+
+	return result
+
+
 func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship
 	clear()
@@ -28,15 +115,9 @@ func load_ship(_ship, path : String = "station") -> bool:
 		
 	save_file.close()
 
-	var used_rect_position = map_to_local(get_used_rect().position)
-	var polygons = PackedVector2Array()
-	polygons.push_back(Vector2(used_rect_position))
-	polygons.push_back(Vector2(used_rect_position.x + get_used_rect().size.x + tile_set.tile_size.x, used_rect_position.y))
-	polygons.push_back(Vector2(used_rect_position.x + get_used_rect().size.x + tile_set.tile_size.x, used_rect_position.y + get_used_rect().size.y + tile_set.tile_size.y))
-	polygons.push_back(Vector2(used_rect_position.x, used_rect_position.y + get_used_rect().size.y + tile_set.tile_size.y))
-	ship.hitbox.polygon = polygons
+	_load_hitbox(layer)
 
-	_replace_interactive_tiles()
+	_replace_interactive_tiles()	
 
 	return true
 	
@@ -52,7 +133,10 @@ func _replace_interactive_tiles() -> bool:
 		match cell.get_custom_data("type"):
 
 			"door":
+
 				var _door_object = door_scene.instantiate()
+				_door_object.init(ship)
+				ship.mass += _door_object.mass
 				_door_object.direction = cell.get_custom_data("direction")
 				_door_object.position = map_to_local(cellpos)
 				add_child(_door_object)
@@ -60,7 +144,10 @@ func _replace_interactive_tiles() -> bool:
 			
 			"wall":
 
+
 				var _wall_object = wall_scene.instantiate()
+				_wall_object.init(ship)
+				ship.mass += _wall_object.mass
 				_wall_object.position = map_to_local(cellpos)
 				add_child(_wall_object)
 

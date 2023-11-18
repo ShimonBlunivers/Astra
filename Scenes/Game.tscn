@@ -25,7 +25,7 @@ position_smoothing_speed = 10.0
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
 
-[node name="Station0" parent="Ships" instance=ExtResource("2_g674q")]
+[node name="Station-0" parent="Ships" instance=ExtResource("2_g674q")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.67451, 0.764706, 0.945098, 1)

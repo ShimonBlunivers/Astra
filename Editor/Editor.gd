@@ -15,9 +15,7 @@ func _ready() -> void:
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
-	
 	handle_input()
-	
 	var layer := 0;
 	if (event.is_action_pressed("mb_left")):
 		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))

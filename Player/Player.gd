@@ -28,11 +28,12 @@ func control_ship(ship):
 		animated_sprite.flip_h = false
 		animated_sprite.play("Idle")
 		
-		ship.control(self)
+		ship.start_controlling(self)
 		change_view(0)
 	else:
 		change_view(1)
 		if ship_controlled != null: ship_controlled.stop_controlling(self)
+
 	ship_controlled = ship
 
 

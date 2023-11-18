@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var ship_scene = preload("res://Ship/Ship.tscn")
 
-@onready var main_station := $Station0
+@onready var main_station := $"Station-0"
 @onready var player = $"../Player"
 
 
@@ -15,7 +15,8 @@ func _ready() -> void:
 func _load() -> void:
 	main_station.load_ship(0, 0)
 
-func spawn_ship(x: int = 0, y: int = 0) -> bool:
+func spawn_ship(x: int = 0, y: int = 0) -> void:
 	var _ship = ship_scene.instantiate()
+	_ship.name = "Ship-" + str(get_children().size() - 1)
 	add_child(_ship)
-	return _ship.load_ship(x, y)
+	_ship.load_ship(x, y)

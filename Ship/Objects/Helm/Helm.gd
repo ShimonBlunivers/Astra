@@ -2,13 +2,11 @@ class_name Helm extends InteractableShipPart
 
 var controlled : bool = false
 
-var ship = null;
-
 var player_in_range = null
 
-func _init() -> void:
-	super(10)
 
+func init(_ship, _durability : float = 10, _mass : float = 1):
+	super(_ship, _durability, _mass)
 
 func _process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_control")) && interactable: interact()

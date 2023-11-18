@@ -13,8 +13,8 @@ var wall_tile_map : TileMap = null;
 var layer : int = 0;
 
 
-func _init() -> void:
-	super(100)
+func init(_ship, _durability : float = 100, _mass : float = 4):
+	super(_ship, _durability, _mass)
 
 func set_texture(texture) -> void:
 	sprite.texture = texture
@@ -53,4 +53,5 @@ func destroy():
 	var _pos = wall_tile_map.local_to_map(position)
 	wall_tile_map.set_cells_terrain_connect(layer, [_pos] , 0, -1, false)
 
-	queue_free()
+
+	remove()

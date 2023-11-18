@@ -17,8 +17,8 @@ var collision_layer = 1;
 var occluder_light_mask = 1;
 
 
-func _init() -> void:
-	super(100)
+func init(_ship, _durability : float = 100, _mass : float = 3):
+	super(_ship, _durability, _mass)
 
 func _ready() -> void:
 	if direction == "vertical":

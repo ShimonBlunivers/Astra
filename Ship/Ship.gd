@@ -1,9 +1,10 @@
-extends AnimatableBody2D
+extends RigidBody2D
 
 
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 @onready var hitbox := $Hitbox
+@onready var visual := $Polygon2D
 
 var dock_position : Vector2 = Vector2(100, 100)
 
@@ -11,40 +12,49 @@ var passengers := []
 
 var controlled : bool = false
 
-var velocity := Vector2(0, 0)
+var acceleration := Vector2(0, 0)
+
+var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT RIGHT
 
 # TODO: Make ship hitbox and make ships interactable between each other!
 
+var _old_position = position
 
-func load_ship(x: int, y: int) -> bool:
+func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
-	return wall_tile_map.load_ship(self) && object_tile_map.load_ship(self)
+	mass = 1
+	wall_tile_map.load_ship(self)
+	object_tile_map.load_ship(self)
+	mass -= 1
 
-func _physics_process(delta: float) -> void:
-	if controlled: _move(delta)
-	
-	
-func _move(delta: float):
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	state.apply_impulse(acceleration)
+	if controlled: control()
+	for passenger in passengers: passenger.position += position - _old_position
+	_old_position = position
 
-	var SPEED = 1000
+func control():
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
-	var _acceleration : Vector2 = Vector2(direction.x * SPEED, direction.y * SPEED) * delta
-	
-	velocity += _acceleration
+	acceleration = Vector2(0, 0)
 
-	for passenger in passengers:
-		passenger.position = round(passenger.position + velocity * delta)
+	if direction.x < 0: acceleration.x = -thrust_power.z
+	elif direction.x > 0: acceleration.x = thrust_power.w
 
-	
-	position = round(position + velocity * delta)
+	if direction.y < 0: acceleration.y = -thrust_power.x
+	elif direction.y > 0: acceleration.y = thrust_power.y
 
 
-func control(player):
+func start_controlling(player):
 	passengers.append(player)	
 	controlled = true
 
 func stop_controlling(player):
 	passengers.erase(player)	
 	controlled = false
+
+
+func _on_body_entered(body:Node) -> void:
+	print(body.name, " ENTERED ", name)
+

@@ -36,7 +36,7 @@ func _replace_interactive_tiles() -> bool:
 		var cell = get_cell_tile_data(layer, cellpos)
 		if cell.get_custom_data("object_ID") == "helm":
 			var helm_object = helm_scene.instantiate()
-			helm_object.ship = ship
+			helm_object.init(ship)
 			helm_object.position = map_to_local(cellpos)
 			add_child(helm_object)
 			set_cell(layer, cellpos, -1)
