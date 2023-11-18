@@ -8,8 +8,5 @@ res://Scenes/Editor.tscn
 res://Ship/Ship.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Debris/Debris.tscn
-res://Ship/Walls/Debris/Debris.gd
-res://Player/Player.gd
-res://Ship/Walls/Door/Door.gd
 res://Ship/Walls/Door/Door.tscn
-res://Ship/Walls/Wall/Wall.gd
+res://Ship/WallTileMap.gd

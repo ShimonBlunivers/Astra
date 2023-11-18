@@ -1,8 +1,9 @@
-extends RigidBody2D
+extends AnimatableBody2D
 
 
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
+@onready var hitbox := $Hitbox
 
 var dock_position : Vector2 = Vector2(100, 100)
 
@@ -10,13 +11,18 @@ var passengers := []
 
 var controlled : bool = false
 
+var velocity := Vector2(0, 0)
+
+# TODO: Make ship hitbox and make ships interactable between each other!
+
 
 func load_ship(x: int, y: int) -> bool:
 	position = Vector2i(x, y)
 	return wall_tile_map.load_ship(self) && object_tile_map.load_ship(self)
-	
+
 func _physics_process(delta: float) -> void:
 	if controlled: _move(delta)
+	
 	
 func _move(delta: float):
 
@@ -24,12 +30,16 @@ func _move(delta: float):
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
-	var _velocity : Vector2 = Vector2(direction.x * SPEED, direction.y * SPEED) * delta
+	var _acceleration : Vector2 = Vector2(direction.x * SPEED, direction.y * SPEED) * delta
 	
-	for passenger in passengers:
-		passenger.position += _velocity
+	velocity += _acceleration
 
-	move_and_collide(_velocity)
+	for passenger in passengers:
+		passenger.position = round(passenger.position + velocity * delta)
+
+	
+	position = round(position + velocity * delta)
+
 
 func control(player):
 	passengers.append(player)	

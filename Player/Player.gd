@@ -15,7 +15,9 @@ var ship_zoom : float = 0.1
 
 var use_range : float = 1000
 
+
 func _physics_process(delta: float) -> void:
+	# print("Player position: ", position)
 	if ship_controlled == null: _move(delta)
 
 func control_ship(ship):
@@ -91,4 +93,4 @@ func change_view(view: int) -> void:
 	match view:
 		0: tween.tween_property($Camera2D, "zoom", Vector2(ship_zoom, ship_zoom), 1)
 		1: tween.tween_property($Camera2D, "zoom", Vector2(normal_zoom, normal_zoom), 1)
-			
+	pass

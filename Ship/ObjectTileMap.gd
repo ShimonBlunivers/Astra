@@ -1,8 +1,10 @@
 extends TileMap
 
+
 const helm_scene = preload("res://Ship/Objects/Helm/Helm.tscn")
 
 var ship = null
+
 
 func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship

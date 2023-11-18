@@ -1,5 +1,6 @@
 extends Node2D
 
+
 @onready var console := $"../HUD/ConsoleLog"
 @onready var tool_preview := $"../HUD/ToolPreview"
 @onready var wall_tile_map := $WallTileMap
@@ -39,7 +40,6 @@ func use_tool(tile, layer) -> void:
 			wall_tile_map.set_cell(layer, tile, 0,  Vector2i(0, 0))
 		_: 
 			return
-		
 		
 func change_tool(key : String) -> void:
 	tool = tools[key]
@@ -94,23 +94,36 @@ func save_ship(path : String = "default_ship") -> void:
 func load_ship(path : String = "default_ship") -> bool:
 	
 	wall_tile_map.clear()
+	object_tile_map.clear()
 	
 	var layer : int = 0;
 	
-	if not FileAccess.file_exists("user://saves/ships/" + path + ".dat"):
+	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		return false
-	var save_file := FileAccess.open("user://saves/ships/" + path + ".dat", FileAccess.READ)
+	if not FileAccess.file_exists("user://saves/ships/" + path + "/objects.dat"):
+		return false
+
+	var walls_save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.READ)
+	var objects_save_file := FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.READ)
 	
 	var contents := [];
 	
-	while save_file.get_position() != save_file.get_length():
-		contents = [save_file.get_float(), save_file.get_float(), save_file.get_16(), save_file.get_float(), save_file.get_float(), save_file.get_16()]
+	while walls_save_file.get_position() != walls_save_file.get_length():
+		contents = [walls_save_file.get_float(), walls_save_file.get_float(), walls_save_file.get_16(), walls_save_file.get_float(), walls_save_file.get_float(), walls_save_file.get_16()]
 		var tile:= Vector2()
 		tile.x = contents[0]
 		tile.y = contents[1]
 		wall_tile_map.set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
-		
-	save_file.close()
+
+	while objects_save_file.get_position() != objects_save_file.get_length():
+		contents = [objects_save_file.get_float(), objects_save_file.get_float(), objects_save_file.get_16(), objects_save_file.get_float(), objects_save_file.get_float(), objects_save_file.get_16()]
+		var tile:= Vector2()
+		tile.x = contents[0]
+		tile.y = contents[1]
+		object_tile_map.set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
+
+	walls_save_file.close()
+	objects_save_file.close()
 	
 	console.print_out("LOADING, file -> " + path)
 	return true

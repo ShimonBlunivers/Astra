@@ -6,9 +6,9 @@ const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
 
 var ship = null
 
+	
 func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship
-	
 	clear()
 	
 	var layer : int = 0;
@@ -27,8 +27,15 @@ func load_ship(_ship, path : String = "station") -> bool:
 		set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
 		
 	save_file.close()
-	
-	_load_hitbox()
+
+	var used_rect_position = map_to_local(get_used_rect().position)
+	var polygons = PackedVector2Array()
+	polygons.push_back(Vector2(used_rect_position))
+	polygons.push_back(Vector2(used_rect_position.x + get_used_rect().size.x + tile_set.tile_size.x, used_rect_position.y))
+	polygons.push_back(Vector2(used_rect_position.x + get_used_rect().size.x + tile_set.tile_size.x, used_rect_position.y + get_used_rect().size.y + tile_set.tile_size.y))
+	polygons.push_back(Vector2(used_rect_position.x, used_rect_position.y + get_used_rect().size.y + tile_set.tile_size.y))
+	ship.hitbox.polygon = polygons
+
 	_replace_interactive_tiles()
 
 	return true
@@ -74,7 +81,3 @@ func _replace_interactive_tiles() -> bool:
 				set_cell(layer, cellpos, -1)
 
 	return true
-
-func _load_hitbox():
-	pass
-	

@@ -10,7 +10,7 @@ func _init() -> void:
 	super(10)
 
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_control")) && interactable: interact()
 
 
@@ -19,6 +19,7 @@ func _interact():
 		player_in_range.control_ship(null)
 	else:
 		player_in_range.control_ship(ship)
+		
 	controlled = !controlled
 		
 
