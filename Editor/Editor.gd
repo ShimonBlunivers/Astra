@@ -10,6 +10,16 @@ enum tools {wall, door, floor}
 var tool_previews = {"wall" : Vector2i(3, 0), "door" : Vector2i(4, 0), "floor" : Vector2i(0, 0)}
 var tool : tools = tools.floor
 
+# TODO: Make placing tiles smoother
+
+# TODO: Add autoflooring
+
+# TODO: Create menu for tools
+
+# TODO: Add Interactables
+
+# TODO: Make money system
+
 
 func _ready() -> void:
 	pass

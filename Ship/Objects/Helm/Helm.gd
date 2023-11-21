@@ -17,17 +17,16 @@ func _interact():
 		player_in_range.control_ship(null)
 	else:
 		player_in_range.control_ship(ship)
-		
 	controlled = !controlled
 		
 
-func _on_area_2d_body_entered(player):
-	if player.name == "Player":
-		player_in_range = player
+func _on_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Player"):
+		player_in_range = area.get_owner()
 		interactable = true
-		
-func _on_area_2d_body_exited(player):
-	if player.name == "Player":
+
+
+func _on_area_area_exited(area: Area2D) -> void:
+	if area.is_in_group("Player"):
 		player_in_range = null
 		interactable = false
-

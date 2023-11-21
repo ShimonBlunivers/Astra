@@ -34,11 +34,11 @@ offset_right = 16.0
 offset_bottom = 16.0
 flat = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Labels" type="Node2D" parent="."]
 visible = false
 scale = Vector2(0.2, 0.2)
 
-[node name="Label" type="Label" parent="Node2D"]
+[node name="Label" type="Label" parent="Labels"]
 offset_left = -35.0
 offset_top = -25.0
 offset_right = 103.0
@@ -46,7 +46,7 @@ offset_bottom = 1.0
 text = "Debris :("
 metadata/_edit_use_anchors_ = true
 
-[node name="ProgressBar" type="ProgressBar" parent="Node2D"]
+[node name="ProgressBar" type="ProgressBar" parent="Labels"]
 offset_right = 4.0
 offset_bottom = 27.0
 step = -0.01

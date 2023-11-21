@@ -30,6 +30,12 @@ func load_ship(_ship, path : String = "station") -> bool:
 	
 	return _replace_interactive_tiles()
 	
+func _draw() -> void:
+	var size = 3
+	for i in range(ship.hitbox.polygon.size()):
+		draw_circle(ship.hitbox.polygon[i], size, Color.RED);
+		size += 0.25
+
 func _replace_interactive_tiles() -> bool:
 	var layer := 0;
 	for cellpos in get_used_cells(layer):

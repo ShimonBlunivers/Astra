@@ -4,7 +4,8 @@ extends RigidBody2D
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 @onready var hitbox := $Hitbox
-@onready var visual := $Polygon2D
+@onready var visual := $Visual
+@onready var area := $Area/AreaHitbox
 
 var dock_position : Vector2 = Vector2(100, 100)
 
@@ -16,7 +17,17 @@ var acceleration := Vector2(0, 0)
 
 var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT RIGHT
 
-# TODO: Make ship hitbox and make ships interactable between each other!
+# TODO: Make Area2Ds for each room
+
+# TODO: Make ships destroyable by collisions
+
+# TODO: Add Thrusters & Canons
+
+# TODO: Add Radar
+
+# TODO: Make occluded darks completely dark
+
+# TODO: Create planets/moons/asteroids
 
 var _old_position = position
 
@@ -46,15 +57,18 @@ func control():
 	elif direction.y > 0: acceleration.y = thrust_power.y
 
 
-func start_controlling(player):
-	passengers.append(player)	
+func start_controlling():
 	controlled = true
 
-func stop_controlling(player):
-	passengers.erase(player)	
+func stop_controlling():
 	controlled = false
 
 
-func _on_body_entered(body:Node) -> void:
-	print(body.name, " ENTERED ", name)
+func _on_area_2d_body_entered(body:Node2D) -> void:
+	if body.is_in_group("Player"):
+		passengers.append(body)
 
+
+func _on_area_2d_body_exited(body:Node2D) -> void:
+	if body.is_in_group("Player"):
+		passengers.erase(body)

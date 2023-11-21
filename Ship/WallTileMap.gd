@@ -8,41 +8,42 @@ var ship = null
 
 
 func _load_hitbox(_layer: int):
-	# ship.hitbox.polygon = toShape(deleteEdges(createEdges(_layer)))
-	# ship.visual.polygon = ship.hitbox.polygon
 
-	ship.hitbox.polygon = getPointsRect(get_used_rect())
+	ship.hitbox.polygon = simplifyEdges(toShape(deleteEdges(createEdges(_layer))))
 	ship.visual.polygon = ship.hitbox.polygon
+	ship.area.polygon = ship.hitbox.polygon
 
 	ship.hitbox.scale = scale
 	ship.visual.scale = scale
+	ship.area.scale = scale
+
 
 func getPoints(tile: Vector2i):
-	#1   2
+	# 1   2
 	#  
-	#0   3  
+	# 0   3  
 	var tile_size = tile_set.tile_size
-
+	
 	return [ 
 		Vector2(tile.x * tile_size.x, tile.y * tile_size.y + tile_size.y), # 0
-		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y + tile_size.y), # 3
+		Vector2(tile.x * tile_size.x, tile.y * tile_size.y), # 1
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y), # 2
-		Vector2(tile.x * tile_size.x, tile.y * tile_size.y) # 1
+		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y + tile_size.y) # 3
 	]
 
 func getPointsRect(rect: Rect2):
-	#1   2
+	# 1   2
 	#  
-	#0   3  
+	# 0   3  
 
-	var rect_position = rect.position
+
+	var rect_position = rect.position * Vector2(tile_set.tile_size)
 	var rect_size = rect.size * Vector2(tile_set.tile_size)
- 
 	return [ 
-		Vector2(rect_position.x * rect_size.x, rect_position.y * rect_size.y + rect_size.y), # 0
-		Vector2(rect_position.x * rect_size.x, rect_position.y * rect_size.y), # 1
-		Vector2(rect_position.x * rect_size.x + rect_size.x, rect_position.y * rect_size.y), # 2
-		Vector2(rect_position.x * rect_size.x + rect_size.x, rect_position.y * rect_size.y + rect_size.y) # 3
+		Vector2(rect_position.x, rect_position.y + rect_size.y), # 0
+		Vector2(rect_position.x, rect_position.y), # 1
+		Vector2(rect_position.x + rect_size.x, rect_position.y), # 2
+		Vector2(rect_position.x + rect_size.x, rect_position.y + rect_size.y) # 3
 	]
 func getLines(points):
 	return [
@@ -51,7 +52,6 @@ func getLines(points):
 		[points[2], points[3]],
 		[points[3], points[0]]
 	]
-
 func createEdges(layer: int):
 	var edges = []
 	var grid = get_used_cells(layer)
@@ -59,7 +59,6 @@ func createEdges(layer: int):
 		for line in getLines(getPoints(tile)):
 			edges.append(line)
 	return edges
-
 func deleteEdges(edges):
 	var markForDeletion = []
 	for currentLineIdx in range(edges.size()):
@@ -67,7 +66,7 @@ func deleteEdges(edges):
 		var currentLineInverted = [currentLine[1], currentLine[0]]
 		for lineIdx in range(edges.size()):
 			var line = edges[lineIdx]
-			if lineIdx == currentLineIdx: continue # skip ourself
+			if lineIdx == currentLineIdx: continue # skip itself
 			if currentLine == line or currentLineInverted == line:
 				markForDeletion.append(currentLine)
 				markForDeletion.append(currentLineInverted)
@@ -76,9 +75,8 @@ func deleteEdges(edges):
 		if idx >= 0: 
 			edges.remove_at(idx)
 	return edges
-
 func toShape(edges):
-	var result = []
+	var result = PackedVector2Array()
 	var nextLine = edges[0] 
 	for idx in range(edges.size()):
 		for otherLine in edges:
@@ -88,11 +86,39 @@ func toShape(edges):
 				break
 			elif nextLine[1] == otherLine[1]:
 				nextLine = [otherLine[1], otherLine[0]]
-		for point in nextLine:
-			result.append(point)
-
+		
+		result.append(nextLine[0])
+	
+	
 	return result
 
+func simplifyEdges(edges):
+	var result = []
+	var point = edges[0]
+	var checking = edges[1]
+	var vector
+	for idx in range(1, edges.size() + 2):
+		vector = point - checking
+		checking = edges[idx%edges.size()]
+		var newVector = point - checking
+		var viable : bool = false
+		if vector == newVector:	
+			viable = true
+		
+		elif newVector.x == 0 && vector.x == 0:
+			viable = true
+				
+		elif newVector.y == 0 && vector.y == 0:
+			viable = true
+			
+		elif newVector.x != 0 && newVector.y != 0 && vector.x / newVector.x == vector.y / newVector.y:
+			viable = true
+
+		if !viable:
+			result.append(edges[idx%edges.size() - 1])
+			point = checking
+	
+	return result
 
 func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship

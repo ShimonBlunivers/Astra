@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var walk_sound : AudioStreamPlayer2D = $Sounds/Walk
+@onready var camera : Camera2D = $"../Camera2D"
+
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
 
@@ -14,6 +16,20 @@ var normal_zoom : float = 1
 var ship_zoom : float = 0.1
 
 var use_range : float = 1000
+
+# TODO: Make walking up & down animations
+
+# TODO: Edit player vision so object that are in the dark cannot be seen
+
+# TODO: Make player controling zoom out so it's in the center of ship and is scalable with the ship size
+
+# TODO: Fix player moving into walls when encountering moving ship
+
+# TODO: Add Damage & Death
+
+# TODO: Add floating
+
+# TODO: Change sounds according to walking terrain
 
 
 func _physics_process(delta: float) -> void:
@@ -28,11 +44,11 @@ func control_ship(ship):
 		animated_sprite.flip_h = false
 		animated_sprite.play("Idle")
 		
-		ship.start_controlling(self)
+		ship.start_controlling()
 		change_view(0)
 	else:
 		change_view(1)
-		if ship_controlled != null: ship_controlled.stop_controlling(self)
+		if ship_controlled != null: ship_controlled.stop_controlling()
 
 	ship_controlled = ship
 
@@ -92,6 +108,6 @@ func _move(_delta: float) -> void:
 func change_view(view: int) -> void:
 	var tween = create_tween()
 	match view:
-		0: tween.tween_property($Camera2D, "zoom", Vector2(ship_zoom, ship_zoom), 1)
-		1: tween.tween_property($Camera2D, "zoom", Vector2(normal_zoom, normal_zoom), 1)
+		0: tween.tween_property(camera, "zoom", Vector2(ship_zoom, ship_zoom), 1)
+		1: tween.tween_property(camera, "zoom", Vector2(normal_zoom, normal_zoom), 1)
 	pass
