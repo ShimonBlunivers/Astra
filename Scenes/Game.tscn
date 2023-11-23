@@ -19,7 +19,7 @@ metadata/_edit_vertical_guides_ = []
 position = Vector2(279.053, 878.6)
 scale = Vector2(0.8, 0.8)
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+[node name="CameraAttached" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
 update_rotation = false
 update_scale = false
@@ -30,7 +30,9 @@ script = ExtResource("2_0gdpv")
 [node name="Station-0" parent="Ships" instance=ExtResource("2_g674q")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.67451, 0.764706, 0.945098, 1)
+light_mask = 0
+visibility_layer = 0
+color = Color(0, 0, 0, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_seje7")
@@ -58,6 +60,5 @@ centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(279.053, 878.6)
-scale = Vector2(0.8, 0.8)
 process_callback = 0
 position_smoothing_speed = 10.0

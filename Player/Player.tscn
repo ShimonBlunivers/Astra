@@ -135,21 +135,22 @@ autoplay = "Idle"
 
 [node name="Vision" type="Node2D" parent="."]
 
-[node name="PointLight2D" type="PointLight2D" parent="Vision"]
+[node name="Light" type="PointLight2D" parent="Vision"]
 position = Vector2(4.76837e-07, 60)
-rotation = -0.00279561
 color = Color(0.988235, 1, 1, 1)
-energy = 0.6
+range_z_min = -1280
+range_z_max = 1280
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.419608)
 shadow_filter = 1
 texture = ExtResource("11_o2d8h")
-texture_scale = 3.0
+texture_scale = 5.0
+height = 100.0
 
 [node name="Internal" type="PointLight2D" parent="Vision"]
 light_mask = 2
 position = Vector2(4.76837e-07, 60)
-energy = 0.3
+blend_mode = 2
 range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)
 shadow_filter = 1

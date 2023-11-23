@@ -17,6 +17,7 @@ var acceleration := Vector2(0, 0)
 
 var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT RIGHT
 
+
 # TODO: Make Area2Ds for each room
 
 # TODO: Make ships destroyable by collisions
@@ -28,6 +29,7 @@ var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT 
 # TODO: Make occluded darks completely dark
 
 # TODO: Create planets/moons/asteroids
+
 
 var _old_position = position
 
@@ -56,6 +58,11 @@ func control():
 	if direction.y < 0: acceleration.y = -thrust_power.x
 	elif direction.y > 0: acceleration.y = thrust_power.y
 
+func get_rect():
+	return wall_tile_map.get_rect()
+
+func get_tile_size():
+	return Vector2(wall_tile_map.tile_set.tile_size) * wall_tile_map.scale
 
 func start_controlling():
 	controlled = true

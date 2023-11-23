@@ -3,9 +3,13 @@ extends TileMap
 
 const door_scene = preload("res://Ship/Walls/Door/Door.tscn")
 const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
+const core_scene = preload("res://Ship/Walls/Core/Core.tscn")
 
 var ship = null
 
+func get_rect():
+
+	return get_used_rect()
 
 func _load_hitbox(_layer: int):
 
@@ -192,5 +196,16 @@ func _replace_interactive_tiles() -> bool:
 				_wall_object.layer = layer
 
 				set_cell(layer, cellpos, -1)
+
+			"core":
+				var _core_object = core_scene.instantiate()
+				_core_object.init(ship)
+				ship.mass += _core_object.mass
+				_core_object.position = map_to_local(cellpos)
+				add_child(_core_object)
+
+
+				set_cell(layer, cellpos, -1)
+					
 
 	return true
