@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsoc1y308e4ms"]
+[gd_scene load_steps=7 format=3 uid="uid://dsoc1y308e4ms"]
 
 [ext_resource type="Script" path="res://Ship/Objects/Helm/Helm.gd" id="1_j0s6q"]
 [ext_resource type="Texture2D" uid="uid://l2irgva513of" path="res://Ship/object_tilesheet.png" id="2_2b2k8"]
+[ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="2_blisj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i73xg"]
 atlas = ExtResource("2_2b2k8")
@@ -22,9 +23,11 @@ animations = [{
 size = Vector2(10, 10)
 
 [node name="Helm" type="Node2D"]
+material = ExtResource("2_blisj")
 script = ExtResource("1_j0s6q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_5n8kf")
 
 [node name="Area" type="Area2D" parent="."]

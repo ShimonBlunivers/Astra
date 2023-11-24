@@ -16,11 +16,17 @@ var ship_controlled = null
 var normal_zoom : float = 1
 var ship_zoom : float = 0.2
 
-var normal_vision : float = 1
-var driving_vision : float = 0.25
+var normal_vision : float = 14
+var driving_vision : float = 1
 
+var suit = true;
 
 var use_range : float = 1000
+
+
+var _acceleration = Vector2(0, 0)
+
+var passenger_on := []
 
 
 # TODO: Make player controling zoom out so it's in the center of ship and is scalable with the ship size
@@ -36,9 +42,12 @@ var use_range : float = 1000
 # TODO: Add Damage & Death
 
 # TODO: Add floating
-
+	
 # TODO: Change sounds according to walking terrain
 
+
+func floating():
+	return passenger_on.size() == 0
 
 func _physics_process(delta: float) -> void:
 	# print("Player position: ", position)
@@ -60,14 +69,36 @@ func control_ship(ship):
 		if ship_controlled != null: ship_controlled.stop_controlling()
 		ship_controlled = null
 
+func move(by: Vector2):
+	position += by;
+	_acceleration = by
+
+func get_in(ship:):
+	passenger_on.append(ship)
+
+func get_off(ship):
+	passenger_on.erase(ship)
+
 func _move(_delta: float) -> void:
-	
+
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
 	var _sound_pitch_range := [0.9, 1.1]
 
-	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
-	
+	print(floating())
+
+	if !floating(): 
+		print("IF 1")
+		velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
+	else: 
+		print("ELSE 1")
+		if suit == null: 
+			velocity = _acceleration
+			print("IF 2")
+		else: 
+			velocity = _acceleration + direction * (SPEED + RUN_SPEED_MODIFIER * running)
+			print("ELSE 2")
+
 	if velocity.x < 0:
 		if !walk_sound.playing: 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
@@ -123,8 +154,8 @@ func change_view(view: int) -> void:
 		0: 
 			tween.parallel().tween_property(camera, "zoom", Vector2(ship_zoom, ship_zoom), duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(camera, "offset", -difference_between_ship_center + ship_offset, duration).set_ease(Tween.EASE_OUT)
-			tween.parallel().tween_property(vision, "energy", driving_vision, duration).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(vision, "texture_scale", driving_vision, duration).set_ease(Tween.EASE_OUT)
 		1: 
 			tween.parallel().tween_property(camera, "zoom", Vector2(normal_zoom, normal_zoom), duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(camera, "offset", Vector2.ZERO, duration).set_ease(Tween.EASE_OUT)
-			tween.parallel().tween_property(vision, "energy", normal_vision, duration).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)

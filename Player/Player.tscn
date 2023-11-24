@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://wmt34u2437t3" path="res://Player/animations/walkside/5.png" id="8_ep13f"]
 [ext_resource type="Texture2D" uid="uid://duiwn8v63rast" path="res://Player/animations/walkside/6.png" id="9_h46ia"]
 [ext_resource type="Texture2D" uid="uid://c2sa3xhrbfl02" path="res://Player/animations/walkside/7.png" id="10_h43fm"]
-[ext_resource type="Texture2D" uid="uid://cvvw3b2pu26ng" path="res://Lighting/light.png" id="11_o2d8h"]
+[ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="11_o2d8h"]
 [ext_resource type="Texture2D" uid="uid://cgqvi5a0xd58" path="res://Player/animations/walkup/0.png" id="12_pvxgp"]
 [ext_resource type="AudioStream" uid="uid://d3tvxu1m5k5e5" path="res://Player/sounds/walk.ogg" id="15_0v8jt"]
 
@@ -138,19 +138,16 @@ autoplay = "Idle"
 [node name="Light" type="PointLight2D" parent="Vision"]
 position = Vector2(4.76837e-07, 60)
 color = Color(0.988235, 1, 1, 1)
-range_z_min = -1280
-range_z_max = 1280
+energy = 0.5
 shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.419608)
 shadow_filter = 1
 texture = ExtResource("11_o2d8h")
-texture_scale = 5.0
-height = 100.0
+texture_scale = 14.0
 
 [node name="Internal" type="PointLight2D" parent="Vision"]
 light_mask = 2
 position = Vector2(4.76837e-07, 60)
-blend_mode = 2
+energy = 0.2
 range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)
 shadow_filter = 1

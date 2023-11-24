@@ -1,16 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=6 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Player/Player.tscn" id="3_gb8si"]
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
 [ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="5_mgng7"]
-
-[sub_resource type="Environment" id="Environment_seje7"]
-background_mode = 3
-glow_strength = 2.0
-glow_bloom = 0.5
-adjustment_enabled = true
 
 [node name="World" type="Node2D"]
 metadata/_edit_vertical_guides_ = []
@@ -32,10 +26,7 @@ script = ExtResource("2_0gdpv")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 light_mask = 0
 visibility_layer = 0
-color = Color(0, 0, 0, 1)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_seje7")
+color = Color(0.678431, 0.678431, 0.678431, 1)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true

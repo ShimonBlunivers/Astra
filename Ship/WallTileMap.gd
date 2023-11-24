@@ -23,9 +23,11 @@ func _load_hitbox(_layer: int):
 
 
 func getPoints(tile: Vector2i):
+	
 	# 1   2
 	#  
 	# 0   3  
+
 	var tile_size = tile_set.tile_size
 	
 	return [ 
@@ -36,10 +38,10 @@ func getPoints(tile: Vector2i):
 	]
 
 func getPointsRect(rect: Rect2):
+
 	# 1   2
 	#  
 	# 0   3  
-
 
 	var rect_position = rect.position * Vector2(tile_set.tile_size)
 	var rect_size = rect.size * Vector2(tile_set.tile_size)
@@ -204,8 +206,6 @@ func _replace_interactive_tiles() -> bool:
 				_core_object.position = map_to_local(cellpos)
 				add_child(_core_object)
 
-
-				set_cell(layer, cellpos, -1)
-					
+				set_cell(layer, cellpos, 0, Vector2i(0, 0))
 
 	return true

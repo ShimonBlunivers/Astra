@@ -43,7 +43,7 @@ func load_ship(x: int, y: int) -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.apply_impulse(acceleration)
 	if controlled: control()
-	for passenger in passengers: passenger.position += position - _old_position
+	for passenger in passengers: passenger.move(position - _old_position)
 	_old_position = position
 
 func control():
@@ -74,8 +74,10 @@ func stop_controlling():
 func _on_area_2d_body_entered(body:Node2D) -> void:
 	if body.is_in_group("Player"):
 		passengers.append(body)
+		body.get_in(self)
 
 
 func _on_area_2d_body_exited(body:Node2D) -> void:
 	if body.is_in_group("Player"):
 		passengers.erase(body)
+		body.get_off(self)
