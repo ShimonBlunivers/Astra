@@ -51,5 +51,4 @@ centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(279.053, 878.6)
-process_callback = 0
 position_smoothing_speed = 10.0

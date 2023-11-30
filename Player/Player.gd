@@ -19,17 +19,18 @@ var ship_zoom : float = 0.2
 var normal_vision : float = 14
 var driving_vision : float = 1
 
-var suit = true;
+var suit = false;
 
 var use_range : float = 1000
 
 
 var _acceleration = Vector2(0, 0)
+var _old_position = Vector2(0, 0)
 
 var passenger_on := []
 
 
-# TODO: Make player controling zoom out so it's in the center of ship and is scalable with the ship size
+# TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size  ✔
 
 # TODO: Add floating velocity
 
@@ -45,6 +46,9 @@ var passenger_on := []
 	
 # TODO: Change sounds according to walking terrain
 
+
+func _ready():
+	_old_position = position
 
 func floating():
 	return passenger_on.size() == 0
@@ -71,7 +75,6 @@ func control_ship(ship):
 
 func move(by: Vector2):
 	position += by;
-	_acceleration = by
 
 func get_in(ship:):
 	passenger_on.append(ship)
@@ -85,21 +88,19 @@ func _move(_delta: float) -> void:
 	var running := Input.get_action_strength("ui_run")
 	var _sound_pitch_range := [0.9, 1.1]
 
-	print(floating())
+	
+	_acceleration = position - _old_position
+	_old_position = position
 
-	if !floating(): 
-		print("IF 1")
-		velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
-	else: 
-		print("ELSE 1")
-		if suit == null: 
-			velocity = _acceleration
-			print("IF 2")
+	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
+	if floating(): 
+		position += _acceleration
+		if suit == false: 
+			velocity = Vector2(0, 0)
 		else: 
-			velocity = _acceleration + direction * (SPEED + RUN_SPEED_MODIFIER * running)
-			print("ELSE 2")
+			velocity *= .01
 
-	if velocity.x < 0:
+	if direction.x < 0:
 		if !walk_sound.playing: 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -108,7 +109,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = true
 			animated_sprite.play("WalkToSide")
 		
-	elif velocity.x > 0:
+	elif direction.x > 0:
 		if !walk_sound.playing: 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -117,7 +118,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("WalkToSide")
 		
-	elif velocity.y > 0: 
+	elif direction.y > 0: 
 		if !walk_sound.playing: 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -126,7 +127,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("WalkDown")
 			
-	elif velocity.y < 0: 
+	elif direction.y < 0: 
 		if !walk_sound.playing: 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -142,6 +143,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.play("Idle")
 
 	move_and_slide()
+
 
 func change_view(view: int) -> void:
 	var tween = create_tween()

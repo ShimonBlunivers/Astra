@@ -13,7 +13,7 @@ func get_rect():
 
 func _load_hitbox(_layer: int):
 
-	ship.hitbox.polygon = simplifyEdges(toShape(deleteEdges(createEdges(_layer))))
+	ship.hitbox.polygon = toShape(deleteEdges(createEdges(_layer)))
 	ship.visual.polygon = ship.hitbox.polygon
 	ship.area.polygon = ship.hitbox.polygon
 
@@ -98,33 +98,33 @@ func toShape(edges):
 	
 	return result
 
-func simplifyEdges(edges):
-	var result = []
-	var point = edges[0]
-	var checking = edges[1]
-	var vector
-	for idx in range(1, edges.size() + 2):
-		vector = point - checking
-		checking = edges[idx%edges.size()]
-		var newVector = point - checking
-		var viable : bool = false
-		if vector == newVector:	
-			viable = true
-		
-		elif newVector.x == 0 && vector.x == 0:
-			viable = true
-				
-		elif newVector.y == 0 && vector.y == 0:
-			viable = true
-			
-		elif newVector.x != 0 && newVector.y != 0 && vector.x / newVector.x == vector.y / newVector.y:
-			viable = true
+# func simplifyEdges(edges):
+# 	var result = []
+# 	var point = edges[0]
+# 	var checking = edges[1]
+# 	var vector
+# 	for idx in range(2, edges.size() + 2):
+# 		vector = point - checking
+# 		checking = edges[idx%edges.size()]
+# 		var newVector = point - checking
+# 		var viable : bool = false
 
-		if !viable:
-			result.append(edges[idx%edges.size() - 1])
-			point = checking
-	
-	return result
+# 		if vector == newVector:	
+# 			viable = true
+		
+# 		elif newVector.x == 0 && vector.x == 0:
+# 			viable = true
+				
+# 		elif newVector.y == 0 && vector.y == 0:
+# 			viable = true
+			
+# 		elif newVector.x != 0 && newVector.y != 0 && vector.x / newVector.x == vector.y / newVector.y:
+# 			viable = true
+# 			print("XD")
+# 		if !viable:
+# 			result.append(edges[idx%edges.size() - 1])
+# 			point = checking
+# 	return result
 
 func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship
@@ -176,7 +176,6 @@ func _replace_interactive_tiles() -> bool:
 			
 			"wall":
 
-
 				var _wall_object = wall_scene.instantiate()
 				_wall_object.init(ship)
 				ship.mass += _wall_object.mass
@@ -200,6 +199,7 @@ func _replace_interactive_tiles() -> bool:
 				set_cell(layer, cellpos, -1)
 
 			"core":
+			
 				var _core_object = core_scene.instantiate()
 				_core_object.init(ship)
 				ship.mass += _core_object.mass
