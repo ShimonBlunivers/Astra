@@ -18,6 +18,8 @@ var acceleration := Vector2(0, 0)
 var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT RIGHT
 
 
+# TODO: ✅ Fix bugging when the player exits at high speed
+
 # TODO: Make Area2Ds for each room
 
 # TODO: Make ships destroyable by collisions
@@ -26,14 +28,11 @@ var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT 
 
 # TODO: Add Radar
 
-# TODO: ❎ Make occluded darks completely dark
-
 # TODO: Create planets/moons/asteroids
 
 
-# TODO: Fix player bugging through when colliding at high speed
+# TODO: Fix player moving into walls when encountering moving ship
 
-# TODO: ✅ Fix bugging when the player exits at high speed
 
 
 var _old_position = position

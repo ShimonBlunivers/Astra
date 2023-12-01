@@ -19,7 +19,7 @@ var ship_zoom : float = 0.2
 var normal_vision : float = 14
 var driving_vision : float = 1
 
-var suit = false;
+var suit = true;
 
 var use_range : float = 1000
 
@@ -30,19 +30,15 @@ var _old_position = Vector2(0, 0)
 var passenger_on := []
 
 
-# TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size  ✔
+# TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
-# TODO: Add floating velocity
+# TODO: ✅ Add floating velocity
+
+# TODO: ✅ Edit player vision so object that are in the dark cannot be seen (Using lights as mask)
 
 # TODO: Make walking up & down animations
 
-# TODO: Edit player vision so object that are in the dark cannot be seen (Using lights as mask)
-
-# TODO: Fix player moving into walls when encountering moving ship
-
 # TODO: Add Damage & Death
-
-# TODO: Add floating
 	
 # TODO: Change sounds according to walking terrain
 
@@ -87,7 +83,6 @@ func get_off(ship):
 
 
 func _move(_delta: float) -> void:
-	print("A")
 
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
@@ -96,8 +91,6 @@ func _move(_delta: float) -> void:
 	_acceleration = position - _old_position
 	var _before_move = _old_position
 	_old_position = position
-
-	print(_acceleration)
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 

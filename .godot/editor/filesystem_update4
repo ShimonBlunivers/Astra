@@ -12,3 +12,7 @@ res://Ship/Walls/Debris/Debris.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Ship/Walls/Core/Core.tscn
 res://Ship/Ship.gd
+res://Ship/Walls/Thruster/Thruster.gd
+res://Ship/Walls/Thruster/Thruster.tscn
+res://Ship/ShipPartScript.gd
+res://Ship/Walls/Wall/Wall.gd
