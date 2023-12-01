@@ -57,9 +57,7 @@ func floating():
 func _physics_process(delta: float) -> void:
 	# print("Player position: ", position)
 	if ship_controlled == null: 
-		_move(delta)
-
-func _process(_delta):
+		_move(delta)	
 	_control_position = position
 
 func control_ship(ship):
@@ -89,6 +87,7 @@ func get_off(ship):
 
 
 func _move(_delta: float) -> void:
+	print("A")
 
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
@@ -97,6 +96,8 @@ func _move(_delta: float) -> void:
 	_acceleration = position - _old_position
 	var _before_move = _old_position
 	_old_position = position
+
+	print(_acceleration)
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 

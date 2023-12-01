@@ -1,3 +1,4 @@
+res://Player/Player.gd
 res://Scenes/Game.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
@@ -10,6 +11,4 @@ res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Debris/Debris.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Ship/Walls/Core/Core.tscn
-res://Player/Player.gd
 res://Ship/Ship.gd
-res://Scenes/ShipManager.gd
