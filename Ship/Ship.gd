@@ -33,7 +33,7 @@ var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT 
 
 # TODO: Fix player bugging through when colliding at high speed
 
-# TODO: Fix bugging when the player exites at high speed
+# TODO: ✅ Fix bugging when the player exits at high speed
 
 
 var _old_position = position

@@ -46,6 +46,7 @@ var passenger_on := []
 	
 # TODO: Change sounds according to walking terrain
 
+var _control_position = Vector2(0, 0);
 
 func _ready():
 	_old_position = position
@@ -55,7 +56,11 @@ func floating():
 
 func _physics_process(delta: float) -> void:
 	# print("Player position: ", position)
-	if ship_controlled == null: _move(delta)
+	if ship_controlled == null: 
+		_move(delta)
+
+func _process(_delta):
+	_control_position = position
 
 func control_ship(ship):
 
@@ -82,23 +87,29 @@ func get_in(ship:):
 func get_off(ship):
 	passenger_on.erase(ship)
 
+
 func _move(_delta: float) -> void:
 
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
 	var _sound_pitch_range := [0.9, 1.1]
 
-	
 	_acceleration = position - _old_position
+	var _before_move = _old_position
 	_old_position = position
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
-	if floating(): 
-		position += _acceleration
+
+	if floating(): 	
+		if (_control_position == position): 
+			position += _acceleration
+		else:
+			_old_position = _before_move
 		if suit == false: 
 			velocity = Vector2(0, 0)
 		else: 
 			velocity *= .01
+			
 
 	if direction.x < 0:
 		if !walk_sound.playing: 
@@ -141,9 +152,9 @@ func _move(_delta: float) -> void:
 			_sprite_dir = 0
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
+ 
 
 	move_and_slide()
-
 
 func change_view(view: int) -> void:
 	var tween = create_tween()

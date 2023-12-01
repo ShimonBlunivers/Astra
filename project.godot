@@ -26,6 +26,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Astra"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 ui_left={
