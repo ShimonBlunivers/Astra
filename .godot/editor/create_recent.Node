@@ -1,6 +1,7 @@
+Node2D
+GPUParticles2D
 CanvasGroup
 Sprite2D
-Node2D
 Area2D
 CollisionPolygon2D
 RemoteTransform2D
@@ -14,7 +15,6 @@ AnimationPlayer
 ParallaxLayer
 ParallaxBackground
 CollisionShape2D
-GPUParticles2D
 Label
 Button
 LightOccluder2D
@@ -30,4 +30,3 @@ Camera2D
 VBoxContainer
 MarginContainer
 WorldEnvironment
-Panel

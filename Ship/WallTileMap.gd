@@ -4,6 +4,7 @@ extends TileMap
 const door_scene = preload("res://Ship/Walls/Door/Door.tscn")
 const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
 const core_scene = preload("res://Ship/Walls/Core/Core.tscn")
+const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn")
 
 var ship = null
 
@@ -162,13 +163,14 @@ func _replace_interactive_tiles() -> bool:
 	for cellpos in get_used_cells(layer):
 		var cell := get_cell_tile_data(layer, cellpos)
 
+		var object_direction = get_cell_alternative_tile(layer, cellpos)
+
 		match cell.get_custom_data("type"):
 
 			"door":
 
 				var _door_object = door_scene.instantiate()
 				_door_object.init(ship)
-				ship.mass += _door_object.mass
 				_door_object.direction = cell.get_custom_data("direction")
 				_door_object.position = map_to_local(cellpos)
 				add_child(_door_object)
@@ -178,7 +180,6 @@ func _replace_interactive_tiles() -> bool:
 
 				var _wall_object = wall_scene.instantiate()
 				_wall_object.init(ship)
-				ship.mass += _wall_object.mass
 				_wall_object.position = map_to_local(cellpos)
 				add_child(_wall_object)
 
@@ -186,15 +187,12 @@ func _replace_interactive_tiles() -> bool:
 				
 				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
 				
-				for i in range(get_cell_alternative_tile(layer, cellpos)): tile_image.rotate_90(CLOCKWISE)
+				for i in range(object_direction): tile_image.rotate_90(CLOCKWISE)
 
 				var tile_texture := ImageTexture.create_from_image(tile_image)
 
 				tile_texture.set_size_override(Vector2i(32, 32))
 				_wall_object.set_texture(tile_texture)
-
-				_wall_object.wall_tile_map = self
-				_wall_object.layer = layer
 
 				set_cell(layer, cellpos, -1)
 
@@ -202,10 +200,31 @@ func _replace_interactive_tiles() -> bool:
 			
 				var _core_object = core_scene.instantiate()
 				_core_object.init(ship)
-				ship.mass += _core_object.mass
 				_core_object.position = map_to_local(cellpos)
 				add_child(_core_object)
 
 				set_cell(layer, cellpos, 0, Vector2i(0, 0))
+			
+			"thruster":
+				var _thruster_object = thruster_scene.instantiate()
+				_thruster_object.init(ship, object_direction)
+				_thruster_object.position = map_to_local(cellpos)
+
+				ship.thrust_power[object_direction] += _thruster_object.power;
+
+				add_child(_thruster_object)
+				_thruster_object.jet.rotation_degrees = object_direction * 90
+				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
+				
+				for i in range(object_direction): tile_image.rotate_90(CLOCKWISE)
+
+				var tile_texture := ImageTexture.create_from_image(tile_image)
+
+				tile_texture.set_size_override(Vector2i(32, 32))
+				_thruster_object.set_texture(tile_texture)
+
+				
+				_thruster_object.set_texture(tile_texture)
+				set_cell(layer, cellpos, -1)
 
 	return true

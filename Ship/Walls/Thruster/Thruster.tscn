@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bl1hdflkphqup"]
+[gd_scene load_steps=11 format=3 uid="uid://bl1hdflkphqup"]
 
+[ext_resource type="Script" path="res://Ship/Walls/Thruster/Thruster.gd" id="1_tutll"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_0a064"]
-[ext_resource type="Script" path="res://Ship/Walls/Core/Core.gd" id="2_0enhf"]
+[ext_resource type="Texture2D" uid="uid://d1dv1b375xke5" path="res://Ship/Walls/Thruster/particle_texture.png" id="3_a8jxn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hy2pl"]
 atlas = ExtResource("2_0a064")
@@ -10,8 +11,38 @@ region = Rect2(96, 64, 32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeoku"]
 size = Vector2(32, 32)
 
+[sub_resource type="Gradient" id="Gradient_5pfsn"]
+offsets = PackedFloat32Array(0, 0.213333, 1)
+colors = PackedColorArray(0.588235, 0.231373, 0.172549, 1, 0.524401, 0.288252, 0.482994, 1, 0.0743254, 0.715059, 0.985536, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kfmsg"]
+gradient = SubResource("Gradient_5pfsn")
+
+[sub_resource type="Curve" id="Curve_k7bk3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.105263), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dnlkm"]
+curve = SubResource("Curve_k7bk3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o734o"]
+lifetime_randomness = 0.1
+emission_shape = 3
+emission_box_extents = Vector3(2, 9, 1)
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.25
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_dnlkm")
+color_ramp = SubResource("GradientTexture1D_kfmsg")
+
 [node name="Thruster" type="Node2D"]
-script = ExtResource("2_0enhf")
+script = ExtResource("1_tutll")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
@@ -21,3 +52,14 @@ texture = SubResource("AtlasTexture_hy2pl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_yeoku")
+
+[node name="Jet" type="Node2D" parent="."]
+
+[node name="JetParticles" type="GPUParticles2D" parent="Jet"]
+position = Vector2(13, 0)
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_o734o")
+texture = ExtResource("3_a8jxn")
+lifetime = 0.65
+speed_scale = 2.0
+local_coords = true

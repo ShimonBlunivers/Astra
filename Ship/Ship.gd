@@ -15,8 +15,10 @@ var controlled : bool = false
 
 var acceleration := Vector2(0, 0)
 
-var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT RIGHT
+var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
 
+
+var thrusters := [[], [], [], []];# LEFT UP RIGHT DOWN
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
@@ -30,8 +32,9 @@ var thrust_power : Vector4 = Vector4(10000, 10000, 10000, 10000) # UP DOWN LEFT 
 
 # TODO: Create planets/moons/asteroids
 
-
 # TODO: Fix player moving into walls when encountering moving ship
+
+# TODO: Fix infinity position while moving too fast
 
 
 
@@ -49,7 +52,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if controlled: 
 		control()
 	state.apply_central_impulse(acceleration)
-	
+	update_thrusters()
 	var difference = position - _old_position
 	# print("Ship moved by: ", difference)
 	for passenger in passengers: passenger.move(difference)
@@ -58,12 +61,19 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func control():
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	
 
-	if direction.x < 0: acceleration.x = -thrust_power.z
-	elif direction.x > 0: acceleration.x = thrust_power.w
+	if direction.x < 0: acceleration.x -= thrust_power.x
+	elif direction.x > 0: acceleration.x += thrust_power.z
 
-	if direction.y < 0: acceleration.y = -thrust_power.x
-	elif direction.y > 0: acceleration.y = thrust_power.y
+	if direction.y < 0: acceleration.y -= thrust_power.y
+	elif direction.y > 0: acceleration.y += thrust_power.w
+
+func update_thrusters():
+	for thruster in thrusters[0]: thruster.set_status(acceleration.x < 0)
+	for thruster in thrusters[2]: thruster.set_status(acceleration.x > 0)
+	for thruster in thrusters[1]: thruster.set_status(acceleration.y < 0)
+	for thruster in thrusters[3]: thruster.set_status(acceleration.y > 0)
 
 func get_rect():
 	return wall_tile_map.get_rect()

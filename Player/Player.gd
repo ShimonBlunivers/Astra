@@ -42,6 +42,10 @@ var passenger_on := []
 	
 # TODO: Change sounds according to walking terrain
 
+# TODO: Add NPCs
+
+# TODO: Fix wrong hitbox while ship moving
+
 var _control_position = Vector2(0, 0);
 
 func _ready():

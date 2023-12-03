@@ -26,3 +26,5 @@ func init(_ship, _durability : float = 60, _mass : float = 1):
 func remove() -> void:
     ship.mass -= mass
     queue_free()
+
+    
