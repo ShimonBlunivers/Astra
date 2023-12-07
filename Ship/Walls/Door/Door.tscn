@@ -203,11 +203,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DoorOpen" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("3_csbmj")
-max_distance = 1000.0
+max_distance = 4000.0
+attenuation = 4.0
+bus = &"SFX"
 
 [node name="DoorClose" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("4_hv13g")
-max_distance = 1000.0
+max_distance = 4000.0
+attenuation = 4.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="Hitbox/Area2D" to="." method="_on_walkway_body_entered"]
 [connection signal="body_exited" from="Hitbox/Area2D" to="." method="_on_walkway_body_exited"]

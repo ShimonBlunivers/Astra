@@ -29,6 +29,7 @@ var _old_position = Vector2(0, 0)
 
 var passenger_on := []
 
+var _control_position = Vector2(0, 0);
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -46,7 +47,6 @@ var passenger_on := []
 
 # TODO: Fix wrong hitbox while ship moving
 
-var _control_position = Vector2(0, 0);
 
 func _ready():
 	_old_position = position
@@ -59,6 +59,8 @@ func _physics_process(delta: float) -> void:
 	if ship_controlled == null: 
 		_move(delta)	
 	_control_position = position
+
+	print(velocity)
 
 func control_ship(ship):
 
@@ -95,6 +97,12 @@ func _move(_delta: float) -> void:
 	_acceleration = position - _old_position
 	var _before_move = _old_position
 	_old_position = position
+
+	if abs(_acceleration.x) > Limits.VELOCITY_MAX or abs(_acceleration.y) > Limits.VELOCITY_MAX:
+		var new_speed = _acceleration.normalized()
+		new_speed *= Limits.VELOCITY_MAX
+		_acceleration = new_speed
+
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 

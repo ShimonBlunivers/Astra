@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bl1hdflkphqup"]
+[gd_scene load_steps=12 format=3 uid="uid://bl1hdflkphqup"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Thruster/Thruster.gd" id="1_tutll"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_0a064"]
 [ext_resource type="Texture2D" uid="uid://d1dv1b375xke5" path="res://Ship/Walls/Thruster/particle_texture.png" id="3_a8jxn"]
+[ext_resource type="AudioStream" uid="uid://csnros6lt208b" path="res://Ship/Walls/Thruster/jet.wav" id="4_xdkpc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hy2pl"]
 atlas = ExtResource("2_0a064")
@@ -63,3 +64,11 @@ texture = ExtResource("3_a8jxn")
 lifetime = 0.65
 speed_scale = 2.0
 local_coords = true
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Jet" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("4_xdkpc")
+max_distance = 4000.0
+attenuation = 4.0
+bus = &"SFX"

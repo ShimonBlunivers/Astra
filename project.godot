@@ -15,6 +15,15 @@ run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://Sound/bus_layout.tres"
+
+[autoload]
+
+Limits="*res://Settings/Limits.gd"
+Options="*res://Settings/Options.gd"
+
 [display]
 
 window/size/viewport_width=1280

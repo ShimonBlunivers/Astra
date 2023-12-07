@@ -4,6 +4,7 @@ class_name Thruster extends ShipPart
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var particles : GPUParticles2D = $Jet/JetParticles
 @onready var jet : Node2D = $Jet
+@onready var jet_sound : AudioStreamPlayer2D = $Sounds/Jet
 
 var layer : int = 0;
 
@@ -22,7 +23,11 @@ func init(_ship, _direction = 0, _power = 1000, _durability : float = 150, _mass
 	direction = _direction;
 	power = _power;
 	ship.thrusters[direction].append(self)
+	
+
 
 func set_status(status : bool):
 	running = status;
 	particles.emitting = running
+
+	jet_sound.playing = status

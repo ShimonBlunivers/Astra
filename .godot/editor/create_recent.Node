@@ -1,4 +1,6 @@
+AudioListener2D
 Node2D
+AudioStreamPlayer2D
 GPUParticles2D
 CanvasGroup
 Sprite2D
@@ -10,7 +12,6 @@ Polygon2D
 Control
 ProgressBar
 AnimatedSprite2D
-AudioStreamPlayer2D
 AnimationPlayer
 ParallaxLayer
 ParallaxBackground

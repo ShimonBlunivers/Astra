@@ -37,7 +37,6 @@ var thrusters := [[], [], [], []];# LEFT UP RIGHT DOWN
 # TODO: Fix infinity position while moving too fast
 
 
-
 var _old_position = position
 
 func load_ship(x: int, y: int) -> void:
@@ -46,6 +45,8 @@ func load_ship(x: int, y: int) -> void:
 	wall_tile_map.load_ship(self)
 	object_tile_map.load_ship(self)
 	mass -= 1
+	
+	for direction in thrusters: for thruster in direction: thruster.set_status(false)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	acceleration = Vector2(0, 0)
@@ -53,16 +54,23 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		control()
 	state.apply_central_impulse(acceleration)
 	update_thrusters()
+
+	if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
+		var new_speed = get_linear_velocity().normalized()
+		new_speed *= Limits.VELOCITY_MAX
+		set_linear_velocity(new_speed)
+
+	
 	var difference = position - _old_position
-	# print("Ship moved by: ", difference)
+	print("Ship moved by: ", difference)
 	for passenger in passengers: passenger.move(difference)
 	_old_position = position
+
 
 func control():
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-
 	if direction.x < 0: acceleration.x -= thrust_power.x
 	elif direction.x > 0: acceleration.x += thrust_power.z
 
@@ -70,10 +78,10 @@ func control():
 	elif direction.y > 0: acceleration.y += thrust_power.w
 
 func update_thrusters():
-	for thruster in thrusters[0]: thruster.set_status(acceleration.x < 0)
-	for thruster in thrusters[2]: thruster.set_status(acceleration.x > 0)
-	for thruster in thrusters[1]: thruster.set_status(acceleration.y < 0)
-	for thruster in thrusters[3]: thruster.set_status(acceleration.y > 0)
+	for thruster in thrusters[0]: if thruster.running != (acceleration.x < 0): thruster.set_status(acceleration.x < 0)
+	for thruster in thrusters[2]: if thruster.running != (acceleration.x > 0): thruster.set_status(acceleration.x > 0)
+	for thruster in thrusters[1]: if thruster.running != (acceleration.y < 0): thruster.set_status(acceleration.y < 0)
+	for thruster in thrusters[3]: if thruster.running != (acceleration.y > 0): thruster.set_status(acceleration.y > 0)
 
 func get_rect():
 	return wall_tile_map.get_rect()
