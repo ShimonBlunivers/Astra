@@ -60,7 +60,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		new_speed *= Limits.VELOCITY_MAX
 		set_linear_velocity(new_speed)
 
-	
 	var difference = position - _old_position
 	# print("Ship moved by: ", difference)
 	for passenger in passengers: passenger.move(difference)

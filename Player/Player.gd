@@ -101,7 +101,6 @@ func _move(_delta: float) -> void:
 		new_speed *= Limits.VELOCITY_MAX
 		_acceleration = new_speed
 
-
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 
 	if floating(): 	
@@ -113,10 +112,12 @@ func _move(_delta: float) -> void:
 			velocity = Vector2(0, 0)
 		else: 
 			velocity *= .01
-			
+
+	elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
+		position += _acceleration
 
 	if direction.x < 0:
-		if !walk_sound.playing: 
+		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
 		if _sprite_dir != 1:
@@ -125,7 +126,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.play("WalkToSide")
 		
 	elif direction.x > 0:
-		if !walk_sound.playing: 
+		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
 		if _sprite_dir != 2:
@@ -134,7 +135,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.play("WalkToSide")
 		
 	elif direction.y > 0: 
-		if !walk_sound.playing: 
+		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
 		if _sprite_dir != 3:
@@ -143,7 +144,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.play("WalkDown")
 			
 	elif direction.y < 0: 
-		if !walk_sound.playing: 
+		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
 		if _sprite_dir != 4:

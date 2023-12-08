@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxy55hwktdj2p"
-path="res://.godot/imported/4.png-e29db5a5c40d505b4bf26a78486a4e7d.ctex"
+path="res://.godot/imported/4.png-de6753dc6bfcb8995c41d6762140a8de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Animations/walkup/4.png"
-dest_files=["res://.godot/imported/4.png-e29db5a5c40d505b4bf26a78486a4e7d.ctex"]
+source_file="res://Player/animations/walkup/4.png"
+dest_files=["res://.godot/imported/4.png-de6753dc6bfcb8995c41d6762140a8de.ctex"]
 
 [params]
 

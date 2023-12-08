@@ -18,7 +18,7 @@ func set_texture(texture) -> void:
 	sprite.texture = texture
 
 
-func init(_ship, _direction = 0, _power = 1000, _durability : float = 150, _mass : float = 5):
+func init(_ship, _direction = 0, _power = 10000, _durability : float = 150, _mass : float = 5):
 	super(_ship, _durability, _mass);
 	direction = _direction;
 	power = _power;
