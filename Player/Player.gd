@@ -60,8 +60,6 @@ func _physics_process(delta: float) -> void:
 		_move(delta)	
 	_control_position = position
 
-	print(velocity)
-
 func control_ship(ship):
 
 	if ship != null:
@@ -159,7 +157,6 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
  
-
 	move_and_slide()
 
 func change_view(view: int) -> void:

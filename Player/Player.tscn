@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="11_o2d8h"]
 [ext_resource type="Texture2D" uid="uid://c2sa3xhrbfl02" path="res://Player/Animations/walkside/7.png" id="12_crpxx"]
 [ext_resource type="Texture2D" uid="uid://cgqvi5a0xd58" path="res://Player/Animations/walkup/0.png" id="13_rfp43"]
-[ext_resource type="AudioStream" uid="uid://d3tvxu1m5k5e5" path="res://Player/sounds/walk.ogg" id="15_c0vio"]
+[ext_resource type="AudioStream" uid="uid://d3tvxu1m5k5e5" path="res://Player/Sounds/walk.ogg" id="15_c0vio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
 size = Vector2(52, 128)

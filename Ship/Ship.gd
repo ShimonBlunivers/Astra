@@ -62,7 +62,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	
 	var difference = position - _old_position
-	print("Ship moved by: ", difference)
+	# print("Ship moved by: ", difference)
 	for passenger in passengers: passenger.move(difference)
 	_old_position = position
 

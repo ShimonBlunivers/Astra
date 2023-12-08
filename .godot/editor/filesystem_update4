@@ -1,4 +1,4 @@
-res://Ship/Walls/Thruster/Thruster.tscn
+res://Ship/Ship.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -6,17 +6,11 @@ res://Scenes/Game.tscn
 res://Player/Player.tscn
 res://Ship/Objects/Helm/Helm.tscn
 res://Scenes/Editor.tscn
-res://Ship/Ship.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Debris/Debris.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Ship/Walls/Core/Core.tscn
-res://Ship/Walls/Thruster/Thruster.gd
-res://Ship/Walls/Door/Door.gd
-res://default_bus_layout.tres
-res://Sound/bus_layout.tres
-res://Ship/ShipPartScript.gd
-res://Ship/Ship.gd
+res://Ship/Walls/Thruster/Thruster.tscn
 res://Player/Player.gd
-res://Settings/Limits.gd
-res://Settings/Settings.gd
+res://Ship/Ship.gd
+res://Ship/Walls/Thruster/Thruster.gd
