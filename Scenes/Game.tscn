@@ -19,11 +19,6 @@ remote_path = NodePath("../../Camera2D")
 update_rotation = false
 update_scale = false
 
-[node name="UIAttached" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../UI")
-update_rotation = false
-update_scale = false
-
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
 
@@ -55,19 +50,24 @@ scale = Vector2(10, 10)
 texture = ExtResource("5_mgng7")
 centered = false
 
-[node name="UI" type="Node2D" parent="."]
-position = Vector2(279.053, 878.6)
-scale = Vector2(0.8, 0.8)
-script = ExtResource("6_rstey")
-
-[node name="Floating" type="Label" parent="UI"]
-offset_left = 545.0
-offset_top = 318.0
-offset_right = 629.0
-offset_bottom = 348.0
-scale = Vector2(2.5, 2.5)
-text = "Floating"
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(279.053, 878.6)
 position_smoothing_speed = 10.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("6_rstey")
+
+[node name="Floating" type="Label" parent="UI"]
+offset_left = 1033.0
+offset_top = 620.0
+offset_right = 1117.0
+offset_bottom = 650.0
+scale = Vector2(2.5, 2.5)
+text = "Floating"
+
+[node name="PlayerPosition" type="Label" parent="UI"]
+offset_left = 8.0
+offset_top = 517.0
+offset_right = 208.0
+offset_bottom = 617.0
+scale = Vector2(2, 2)

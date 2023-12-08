@@ -23,7 +23,6 @@ var suit = true;
 
 var use_range : float = 1000
 
-
 var _acceleration = Vector2(0, 0)
 var _old_position = Vector2(0, 0)
 
@@ -84,7 +83,6 @@ func get_in(ship:):
 
 func get_off(ship):
 	passenger_on.erase(ship)
-
 
 func _move(_delta: float) -> void:
 

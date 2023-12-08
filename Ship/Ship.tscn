@@ -27,6 +27,7 @@ linear_damp = 0.0
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 0)
 
 [node name="Visual" type="Polygon2D" parent="."]
+visible = false
 z_index = 9
 texture_repeat = 2
 color = Color(1, 0.396078, 0.988235, 0.337255)

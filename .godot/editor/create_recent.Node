@@ -1,3 +1,5 @@
+CanvasLayer
+SubViewport
 Label
 Node2D
 RemoteTransform2D
@@ -25,8 +27,6 @@ TileMap
 CanvasModulate
 PointLight2D
 RichTextLabel
-CanvasLayer
 Container
 Camera2D
 VBoxContainer
-MarginContainer
