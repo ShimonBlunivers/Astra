@@ -1,14 +1,16 @@
+Sprite2D
+Node2D
+Node
+Control
+RichTextLabel
 CanvasLayer
 SubViewport
 Label
-Node2D
 RemoteTransform2D
-Control
 AudioListener2D
 AudioStreamPlayer2D
 GPUParticles2D
 CanvasGroup
-Sprite2D
 Area2D
 CollisionPolygon2D
 RigidBody2D
@@ -26,7 +28,5 @@ CharacterBody2D
 TileMap
 CanvasModulate
 PointLight2D
-RichTextLabel
 Container
 Camera2D
-VBoxContainer

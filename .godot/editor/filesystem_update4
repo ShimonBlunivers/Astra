@@ -13,6 +13,3 @@ res://Ship/Walls/Core/Core.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
 res://Ship/Ship.gd
 res://Player/Player.gd
-res://Ship/Walls/Thruster/Thruster.gd
-res://Scenes/ShipManager.gd
-res://UI/UIManager.gd

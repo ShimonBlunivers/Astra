@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=9 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
 [ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="5_mgng7"]
 [ext_resource type="Script" path="res://UI/UIManager.gd" id="6_rstey"]
+[ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
 
 [node name="World" type="Node2D"]
 metadata/_edit_vertical_guides_ = []
@@ -21,6 +23,7 @@ update_scale = false
 
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
+metadata/_edit_lock_ = true
 
 [node name="Station-0" parent="Ships" instance=ExtResource("2_g674q")]
 
@@ -57,7 +60,9 @@ position_smoothing_speed = 10.0
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("6_rstey")
 
-[node name="Floating" type="Label" parent="UI"]
+[node name="Debug" type="Node2D" parent="UI"]
+
+[node name="Floating" type="Label" parent="UI/Debug"]
 offset_left = 1033.0
 offset_top = 620.0
 offset_right = 1117.0
@@ -65,9 +70,43 @@ offset_bottom = 650.0
 scale = Vector2(2.5, 2.5)
 text = "Floating"
 
-[node name="PlayerPosition" type="Label" parent="UI"]
+[node name="PlayerPosition" type="Label" parent="UI/Debug"]
 offset_left = 8.0
 offset_top = 517.0
 offset_right = 208.0
 offset_bottom = 617.0
 scale = Vector2(2, 2)
+
+[node name="HUD" type="Node2D" parent="UI"]
+editor_description = "Not interactive"
+
+[node name="HealthBar" type="Node2D" parent="UI/HUD"]
+position = Vector2(25, 25)
+scale = Vector2(2.5, 2.5)
+
+[node name="Value" type="RichTextLabel" parent="UI/HUD/HealthBar"]
+offset_left = 18.0
+offset_top = -12.0
+offset_right = 70.0
+offset_bottom = 21.0
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0.537255, 0.470588, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("7_xryl1")
+theme_override_font_sizes/normal_font_size = 24
+text = "100"
+scroll_active = false
+autowrap_mode = 0
+text_direction = 1
+
+[node name="Icon" type="Sprite2D" parent="UI/HUD/HealthBar"]
+position = Vector2(-3.2, -5.2)
+scale = Vector2(1.025, 1.025)
+texture = ExtResource("7_kad54")
+centered = false
+
+[node name="GUI" type="Node2D" parent="UI"]
+editor_description = "Interactive"
+
+[connection signal="health_updated_signal" from="Player" to="UI" method="_on_player_health_updated_signal"]

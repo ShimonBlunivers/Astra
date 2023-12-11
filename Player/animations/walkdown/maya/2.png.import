@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nl7kewc82fu3"
-path="res://.godot/imported/2.png-32748f8be63e5fde93154a0b306b73e8.ctex"
+path="res://.godot/imported/2.png-bbc386c5eafae0396c6c7b492b691dfd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/animations/walkdown/maya/2.png"
-dest_files=["res://.godot/imported/2.png-32748f8be63e5fde93154a0b306b73e8.ctex"]
+source_file="res://Player/Animations/walkdown/maya/2.png"
+dest_files=["res://.godot/imported/2.png-bbc386c5eafae0396c6c7b492b691dfd.ctex"]
 
 [params]
 

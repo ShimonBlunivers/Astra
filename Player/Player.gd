@@ -23,12 +23,22 @@ var suit = true;
 
 var use_range : float = 1000
 
-var _acceleration = Vector2(0, 0)
+var acceleration = Vector2(0, 0)
 var _old_position = Vector2(0, 0)
 
 var passenger_on := []
 
 var _control_position = Vector2(0, 0);
+
+var max_health : float = 100
+var health : = max_health
+signal health_updated_signal
+signal died_signal
+var alive : bool = false
+
+var max_impact_velocity : float = 25
+
+var spawn_point : Vector2
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -36,9 +46,9 @@ var _control_position = Vector2(0, 0);
 
 # TODO: ✅ Edit player vision so object that are in the dark cannot be seen (Using lights as mask)
 
-# TODO: Make walking up & down animations
-
 # TODO: Add Damage & Death
+
+# TODO: Make walking up & down animations
 	
 # TODO: Change sounds according to walking terrain
 
@@ -47,8 +57,36 @@ var _control_position = Vector2(0, 0);
 # TODO: Fix wrong hitbox while ship moving
 
 
+func _process(_delta):
+	Input.action_press("ui_debug_spawn")
+
+
+func spawn():
+	alive = true
+	position = spawn_point
+
 func _ready():
+	spawn_point = position
+	spawn()
 	_old_position = position
+	
+func damage(amount : float):
+	health = max(health - amount, 0)
+	if health == 0: kill()
+	else: health_updated_signal.emit()
+
+func kill():
+	if !alive: return
+
+	health = 0
+	health_updated_signal.emit()
+	alive = false
+
+	if ship_controlled != null: control_ship(ship_controlled)
+
+	died_signal.emit()
+
+	print("DIED!!!")
 
 func floating():
 	return passenger_on.size() == 0
@@ -68,7 +106,7 @@ func control_ship(ship):
 		animated_sprite.flip_h = false
 		animated_sprite.play("Idle")
 		
-		ship.start_controlling()
+		ship.start_controlling(self)
 		change_view(0)
 	else:
 		change_view(1)
@@ -78,7 +116,7 @@ func control_ship(ship):
 func move(by: Vector2):
 	position += by;
 
-func get_in(ship:):
+func get_in(ship):
 	passenger_on.append(ship)
 
 func get_off(ship):
@@ -89,21 +127,23 @@ func _move(_delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var running := Input.get_action_strength("ui_run")
 	var _sound_pitch_range := [0.9, 1.1]
+	
+	if !alive: direction = Vector2.ZERO
 
-	_acceleration = position - _old_position
+	acceleration = position - _old_position
 	var _before_move = _old_position
 	_old_position = position
 
-	if abs(_acceleration.x) > Limits.VELOCITY_MAX or abs(_acceleration.y) > Limits.VELOCITY_MAX:
-		var new_speed = _acceleration.normalized()
+	if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX:
+		var new_speed = acceleration.normalized()
 		new_speed *= Limits.VELOCITY_MAX
-		_acceleration = new_speed
+		acceleration = new_speed
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 
 	if floating(): 	
 		if (_control_position == position): 
-			position += _acceleration
+			position += acceleration
 		else:
 			_old_position = _before_move
 		if suit == false: 
@@ -112,7 +152,7 @@ func _move(_delta: float) -> void:
 			velocity *= .01
 
 	elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
-		position += _acceleration
+		position += acceleration
 
 	if direction.x < 0:
 		if !walk_sound.playing && !floating(): 

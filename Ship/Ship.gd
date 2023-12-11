@@ -11,7 +11,7 @@ var dock_position : Vector2 = Vector2(100, 100)
 
 var passengers := []
 
-var controlled : bool = false
+var controlled_by = null
 
 var acceleration := Vector2(0, 0)
 
@@ -20,6 +20,8 @@ var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
 var thrusters := [[], [], [], []];# LEFT UP RIGHT DOWN
 
 # TODO: ✅ Fix bugging when the player exits at high speed
+
+# TODO: ✅ Fix infinity position while moving too fast
 
 # TODO: Make Area2Ds for each room
 
@@ -33,10 +35,9 @@ var thrusters := [[], [], [], []];# LEFT UP RIGHT DOWN
 
 # TODO: Fix player moving into walls when encountering moving ship
 
-# TODO: Fix infinity position while moving too fast
-
 
 var _old_position = position
+var _difference_in_position := Vector2(0, 0)
 
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
@@ -49,7 +50,7 @@ func load_ship(x: int, y: int) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	acceleration = Vector2(0, 0)
-	if controlled: 
+	if controlled_by != null: 
 		control()
 	state.apply_central_impulse(acceleration)
 	update_thrusters()
@@ -59,19 +60,20 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		new_speed *= Limits.VELOCITY_MAX
 		set_linear_velocity(new_speed)
 
-	var difference = position - _old_position
-	# print("Ship moved by: ", difference)
-	for passenger in passengers: passenger.move(difference)
+	_difference_in_position = position - _old_position
+	# print("Ship moved by: ", _difference_in_position)
+	for passenger in passengers: passenger.move(_difference_in_position)
 	_old_position = position
 
 
-	area.position = -difference
+	area.position = -_difference_in_position
 
 
 func control():
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
+	if !controlled_by.alive: direction = Vector2.ZERO
 	if direction.x < 0: acceleration.x -= thrust_power.x
 	elif direction.x > 0: acceleration.x += thrust_power.z
 
@@ -90,14 +92,15 @@ func get_rect():
 func get_tile_size():
 	return Vector2(wall_tile_map.tile_set.tile_size) * wall_tile_map.scale
 
-func start_controlling():
-	controlled = true
+func start_controlling(player):
+	controlled_by = player
 
 func stop_controlling():
-	controlled = false
+	controlled_by = null
 
 func _on_area_2d_body_entered(body:Node2D) -> void:
 	if body.is_in_group("Player"):
+		if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()
 		passengers.append(body)
 		body.get_in(self)
 
