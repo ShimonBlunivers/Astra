@@ -17,7 +17,7 @@ var acceleration := Vector2(0, 0)
 
 var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
 
-var thrusters := [[], [], [], []];# LEFT UP RIGHT DOWN
+var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
@@ -35,9 +35,9 @@ var thrusters := [[], [], [], []];# LEFT UP RIGHT DOWN
 
 # TODO: Fix player moving into walls when encountering moving ship
 
-
 var _old_position = position
 var _difference_in_position := Vector2(0, 0)
+
 
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
@@ -64,8 +64,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# print("Ship moved by: ", _difference_in_position)
 	for passenger in passengers: passenger.move(_difference_in_position)
 	_old_position = position
-
-
+	
 	area.position = -_difference_in_position
 
 

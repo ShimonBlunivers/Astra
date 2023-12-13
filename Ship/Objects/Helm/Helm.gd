@@ -8,6 +8,8 @@ var player_in_range = null
 func init(_ship, _durability : float = 10, _mass : float = 1):
 	super(_ship, _durability, _mass)
 
+# TODO: Rework how "interact" works. Create interactables in player and activate it throught player script.
+
 func _process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_control")) && interactable: interact()
 

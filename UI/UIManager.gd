@@ -5,6 +5,7 @@ extends CanvasLayer
 
 @onready var health_label = $HUD/HealthBar/Value
 
+@onready var death_screen = $HUD/DeathScreen
 
 # DEBUG
 
@@ -18,6 +19,9 @@ func _ready():
 
 func _on_player_health_updated_signal() -> void:
 	health_label.text = str(player.health)
+	death_screen.visible = !player.alive
+		
+
 
 
 # DEBUG

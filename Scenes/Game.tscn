@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=11 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
@@ -9,11 +9,17 @@
 [ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
 
+[sub_resource type="Gradient" id="Gradient_khipi"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gft63"]
+gradient = SubResource("Gradient_khipi")
+
 [node name="World" type="Node2D"]
 metadata/_edit_vertical_guides_ = []
 
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
-position = Vector2(279.053, 878.6)
+position = Vector2(640, 360)
 scale = Vector2(0.8, 0.8)
 
 [node name="CameraAttached" type="RemoteTransform2D" parent="Player"]
@@ -54,7 +60,7 @@ texture = ExtResource("5_mgng7")
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(279.053, 878.6)
+position = Vector2(640, 360)
 position_smoothing_speed = 10.0
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -105,6 +111,16 @@ position = Vector2(-3.2, -5.2)
 scale = Vector2(1.025, 1.025)
 texture = ExtResource("7_kad54")
 centered = false
+
+[node name="DeathScreen" type="Node2D" parent="UI/HUD"]
+visible = false
+modulate = Color(1, 0, 0, 0.431373)
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/HUD/DeathScreen"]
+z_index = 11
+position = Vector2(641.5, 360.125)
+scale = Vector2(5.16016, 763.75)
+texture = SubResource("GradientTexture1D_gft63")
 
 [node name="GUI" type="Node2D" parent="UI"]
 editor_description = "Interactive"

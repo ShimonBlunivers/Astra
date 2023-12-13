@@ -1,8 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=22 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_to8t1"]
+[ext_resource type="Texture2D" uid="uid://dox2fx063gnnu" path="res://Player/Animations/death/0.png" id="2_jshgq"]
 [ext_resource type="Texture2D" uid="uid://g8kmlxg16tj1" path="res://Player/Animations/idle/0.png" id="2_k3lh2"]
 [ext_resource type="Texture2D" uid="uid://cpdw4weam3bmh" path="res://Player/Animations/idle/1.png" id="3_j6xpt"]
+[ext_resource type="Texture2D" uid="uid://kkr0b2yr83kc" path="res://Player/Animations/death/1.png" id="3_mnqx0"]
+[ext_resource type="Texture2D" uid="uid://dtaycw1nxnpa6" path="res://Player/Animations/death/2.png" id="4_lhr1h"]
 [ext_resource type="Texture2D" uid="uid://dwqiatrnqowb" path="res://Player/Animations/walkdown/0.png" id="4_wk7f0"]
 [ext_resource type="Texture2D" uid="uid://dk5mrnpmnodni" path="res://Player/Animations/walkside/0.png" id="5_f8kg8"]
 [ext_resource type="Texture2D" uid="uid://sgs76qmtx2gm" path="res://Player/Animations/walkside/1.png" id="6_o5ngj"]
@@ -24,6 +27,23 @@ size = Vector2(64, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x6u5k"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jshgq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mnqx0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lhr1h")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_k3lh2")

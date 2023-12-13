@@ -58,16 +58,24 @@ var spawn_point : Vector2
 
 
 func _process(_delta):
-	Input.action_press("ui_debug_spawn")
+	if Input.is_action_just_pressed("ui_debug_die"):
+		damage(10)
+	if Input.is_action_just_pressed("ui_debug_spawn"):
+		spawn()
 
 
 func spawn():
+	animated_sprite.play("Idle")
 	alive = true
+	health = max_health
 	position = spawn_point
+	health_updated_signal.emit()
 
 func _ready():
-	spawn_point = position
-	spawn()
+	spawn_point = Vector2(280, 880)
+	alive = true
+	health = max_health
+	position = spawn_point
 	_old_position = position
 	
 func damage(amount : float):
@@ -78,12 +86,14 @@ func damage(amount : float):
 func kill():
 	if !alive: return
 
+	animated_sprite.play("Death")
+	
 	health = 0
-	health_updated_signal.emit()
 	alive = false
 
 	if ship_controlled != null: control_ship(ship_controlled)
 
+	health_updated_signal.emit()
 	died_signal.emit()
 
 	print("DIED!!!")
