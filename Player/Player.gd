@@ -28,6 +28,9 @@ var _old_position = Vector2(0, 0)
 
 var passenger_on := []
 
+var hovering_interactables := []
+var hovering_controllables := []
+
 var _control_position = Vector2(0, 0);
 
 var max_health : float = 100
@@ -57,12 +60,19 @@ var spawn_point : Vector2
 # TODO: Fix wrong hitbox while ship moving
 
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_debug_die"):
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("debug_die"):
 		damage(10)
-	if Input.is_action_just_pressed("ui_debug_spawn"):
+
+	if event.is_action_pressed("debug_spawn"):
 		spawn()
 
+	if alive:
+		if event.is_action_pressed("game_mb_left") && hovering_interactables.size() != 0:
+			hovering_interactables[0].interact()
+
+		if event.is_action_pressed("game_control") && hovering_controllables.size() != 0:
+			hovering_controllables[0].interact()
 
 func spawn():
 	animated_sprite.play("Idle")
@@ -85,14 +95,12 @@ func damage(amount : float):
 
 func kill():
 	if !alive: return
-
-	animated_sprite.play("Death")
-	
 	health = 0
 	alive = false
 
 	if ship_controlled != null: control_ship(ship_controlled)
 
+	animated_sprite.play("Death")
 	health_updated_signal.emit()
 	died_signal.emit()
 
@@ -135,7 +143,7 @@ func get_off(ship):
 func _move(_delta: float) -> void:
 
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var running := Input.get_action_strength("ui_run")
+	var running := Input.get_action_strength("game_run")
 	var _sound_pitch_range := [0.9, 1.1]
 	
 	if !alive: direction = Vector2.ZERO
@@ -201,7 +209,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.play("WalkUp")
 		
 	else:
-		if _sprite_dir != 0:
+		if alive && _sprite_dir != 0:
 			_sprite_dir = 0
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")

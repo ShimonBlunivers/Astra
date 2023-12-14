@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d4dbqrrqwxsb"]
+[gd_scene load_steps=26 format=3 uid="uid://d4dbqrrqwxsb"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Door/Door.gd" id="1_7o7ps"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_i5qhu"]
@@ -101,6 +101,9 @@ polygon = PackedVector2Array(6, -8, 6, -6, 5, -6, 5, -2, 6, -2, 6, 2, 5, 2, 5, 6
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jw75i"]
 polygon = PackedVector2Array(1, -8, 1, -6, 0, -6, 0, -2, 1, -2, 1, 2, 0, 2, 0, 6, 1, 6, 1, 8, 6, 8, 6, 6, 5, 6, 5, 2, 6, 2, 6, -2, 5, -2, 5, -6, 6, -6, 6, -8)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js5sb"]
+size = Vector2(32, 32)
+
 [node name="Door" type="Node2D"]
 script = ExtResource("1_7o7ps")
 
@@ -190,14 +193,10 @@ occluder = SubResource("OccluderPolygon2D_jw75i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox/InteractArea"]
 shape = ExtResource("5_ybgk5")
 
-[node name="Button" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-flat = true
-metadata/_edit_use_anchors_ = true
+[node name="Hitbox" type="Area2D" parent="Hitbox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox/Hitbox"]
+shape = SubResource("RectangleShape2D_js5sb")
 
 [node name="Sound" type="Node2D" parent="."]
 
@@ -217,4 +216,5 @@ bus = &"SFX"
 [connection signal="body_exited" from="Hitbox/Area2D" to="." method="_on_walkway_body_exited"]
 [connection signal="body_entered" from="Hitbox/InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="Hitbox/InteractArea" to="." method="_on_interact_area_body_exited"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="Hitbox/Hitbox" to="." method="_on_hitbox_mouse_entered"]
+[connection signal="mouse_exited" from="Hitbox/Hitbox" to="." method="_on_hitbox_mouse_exited"]

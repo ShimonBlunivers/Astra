@@ -91,9 +91,7 @@ func _on_frame_changed():
 			$"Hitbox/AnimatedOccluders/1left".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/1right".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = occluder_light_mask;
-			
-func _on_button_pressed() -> void:
-	interact()
+
 
 func _interact():
 	if state == "open":
@@ -110,10 +108,21 @@ func _on_walkway_body_exited(_body: Node2D):
 
 
 func _on_interact_area_body_entered(_body: Node2D):
-	if _body.name == "Player":
+	if _body.is_in_group("Player"):
+		player_in_range = _body
 		interactable = true
 
 
 func _on_interact_area_body_exited(_body: Node2D):
-	if _body.name == "Player":
+	if _body.is_in_group("Player"):
+		player_in_range = null
 		interactable = false
+
+
+func _on_hitbox_mouse_entered():
+	if player_in_range != null:
+		player_in_range.hovering_interactables.append(self)
+
+func _on_hitbox_mouse_exited():
+	if player_in_range != null:
+		player_in_range.hovering_interactables.erase(self)

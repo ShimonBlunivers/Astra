@@ -5,6 +5,7 @@ const door_scene = preload("res://Ship/Walls/Door/Door.tscn")
 const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
 const core_scene = preload("res://Ship/Walls/Core/Core.tscn")
 const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn")
+const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn")
 
 var ship = null
 
@@ -223,8 +224,23 @@ func _replace_interactive_tiles() -> bool:
 				tile_texture.set_size_override(Vector2i(32, 32))
 				_thruster_object.set_texture(tile_texture)
 
+				set_cell(layer, cellpos, -1)
+			
+			"connector":
+				var _connector_object = connector_scene.instantiate()
+				_connector_object.init(ship, object_direction)
+				_connector_object.position = map_to_local(cellpos)
+
+				add_child(_connector_object)
+				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
 				
-				_thruster_object.set_texture(tile_texture)
+				for i in range(object_direction): tile_image.rotate_90(CLOCKWISE)
+
+				var tile_texture := ImageTexture.create_from_image(tile_image)
+
+				tile_texture.set_size_override(Vector2i(32, 32))
+				_connector_object.set_texture(tile_texture)
+				
 				set_cell(layer, cellpos, -1)
 
 	return true

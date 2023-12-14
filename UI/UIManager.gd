@@ -20,9 +20,7 @@ func _ready():
 func _on_player_health_updated_signal() -> void:
 	health_label.text = str(player.health)
 	death_screen.visible = !player.alive
-		
-
-
+	
 
 # DEBUG
 

@@ -15,7 +15,7 @@ public partial class EditorCamera : Camera2D
 	{
 		Vector2 velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		float running = Input.GetActionStrength("ui_run");
+		float running = Input.GetActionStrength("game_run");
 
 		if (direction != Vector2.Zero)
 		{

@@ -27,6 +27,8 @@ var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 
 # TODO: Make ships destroyable by collisions
 
+# TODO: Add Ship Connector
+
 # TODO: Add Thrusters & Canons
 
 # TODO: Add Radar
@@ -48,7 +50,9 @@ func load_ship(x: int, y: int) -> void:
 	
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)
 
+
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+
 	acceleration = Vector2(0, 0)
 	if controlled_by != null: 
 		control()
@@ -66,6 +70,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	_old_position = position
 	
 	area.position = -_difference_in_position
+
 
 
 func control():

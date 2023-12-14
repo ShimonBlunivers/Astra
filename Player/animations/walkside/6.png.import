@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://duiwn8v63rast"
-path="res://.godot/imported/6.png-81b94b24522696fe4669fd7b7924b069.ctex"
+path="res://.godot/imported/6.png-d2208cf1e640083f27e930fedd44d1b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Animations/walkside/6.png"
-dest_files=["res://.godot/imported/6.png-81b94b24522696fe4669fd7b7924b069.ctex"]
+source_file="res://Player/animations/walkside/6.png"
+dest_files=["res://.godot/imported/6.png-d2208cf1e640083f27e930fedd44d1b0.ctex"]
 
 [params]
 

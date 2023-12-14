@@ -12,6 +12,8 @@ z_index = -1
 collision_layer = 512
 collision_mask = 512
 gravity_scale = 0.0
+max_contacts_reported = 20
+contact_monitor = true
 lock_rotation = true
 freeze_mode = 1
 linear_damp_mode = 1
@@ -47,6 +49,5 @@ tile_set = ExtResource("2_qq4gy")
 format = 2
 script = ExtResource("5_rjigq")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_area_2d_body_exited"]

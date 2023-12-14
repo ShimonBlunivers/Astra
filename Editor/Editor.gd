@@ -18,7 +18,7 @@ var tool : tools = tools.floor
 
 # TODO: Add Interactables
 
-# TODO: Make money system
+# TODO: Make money (energy) system
 
 
 func _ready() -> void:
@@ -27,10 +27,10 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	handle_input()
 	var layer := 0;
-	if (event.is_action_pressed("mb_left")):
+	if (event.is_action_pressed("game_mb_left")):
 		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))
 		use_tool(tile, layer)
-	if (event.is_action_pressed("mb_right")):
+	if (event.is_action_pressed("game_mb_right")):
 		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))
 		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
 		
@@ -54,7 +54,7 @@ func change_tool(key : String) -> void:
 	
 func handle_input():
 	for i in tools:
-		if (Input.is_action_just_pressed("ui_tool_set_" + i)):
+		if (Input.is_action_just_pressed("editor_tool_set_" + i)):
 			change_tool(i)
 			change_tool_preview(i)
 			
