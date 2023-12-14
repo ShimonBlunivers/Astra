@@ -1,11 +1,4 @@
-res://Ship/WallTileMap.gd
-res://Scenes/Editor.tscn
+res://NPC/NPC.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
-res://Player/Player.gd
-res://NPC/NPC.gd
-res://NPC/NPC.tscn
-res://Ship/Walls/Connector/Connector.tscn
-res://Scenes/Game.tscn
-res://Player/Player.tscn

@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1702550192
+::res://::1702552962
 icon.svg::CompressedTexture2D::210659895003409377::1700720216::1700720216::1::::<><>::
 Menu.gd::GDScript::-1::1699518300::0::1::::<>Control<>::
 ::res://Backgrounds/::1700720216
@@ -19,9 +19,9 @@ SpaceMono-Italic.ttf::FontFile::7400152291898754190::1702535455::1702535455::1::
 SpaceMono-Regular.ttf::FontFile::3658617699346294204::1702535455::1702535455::1::::<><>::
 ::res://Lighting/::1700826577
 light.png::CompressedTexture2D::7435074272941044662::1700826537::1700826577::1::::<><>::
-::res://NPC/::1702550478
-NPC.tscn::PackedScene::6194745858481719800::1702550187::0::1::::<><>::res://Player/Player.gd<>uid://bx3ntqyvpglvb::::res://Player/animations/death/00.png<>uid://q7bya5gls41u::::res://Player/animations/death/01.png<>uid://coph27wlybc5v::::res://Player/animations/death/02.png<>uid://kjyjtvp6d1g3::::res://Player/animations/death/03.png<>uid://brf5svimx8qi3::::res://Player/animations/death/04.png<>uid://g8kmlxg16tj1::::res://Player/animations/idle/0.png<>uid://cpdw4weam3bmh::::res://Player/animations/idle/1.png<>uid://dwqiatrnqowb::::res://Player/animations/walkdown/0.png<>uid://dk5mrnpmnodni::::res://Player/animations/walkside/0.png<>uid://sgs76qmtx2gm::::res://Player/animations/walkside/1.png<>uid://de61h3cjib0ft::::res://Player/animations/walkside/2.png<>uid://dmdhxwt4x1y5s::::res://Player/animations/walkside/3.png<>uid://da3hbmwmjjdmc::::res://Player/animations/walkside/4.png<>uid://wmt34u2437t3::::res://Player/animations/walkside/5.png<>uid://duiwn8v63rast::::res://Player/animations/walkside/6.png<>uid://c2sa3xhrbfl02::::res://Player/animations/walkside/7.png<>uid://cgqvi5a0xd58::::res://Player/animations/walkup/0.png<>uid://dd6ut7tl0o22u::::res://Lighting/light.png<>uid://d3tvxu1m5k5e5::::res://Player/sounds/walk.ogg
+::res://NPC/::1702550780
 NPC.gd::GDScript::-1::1702550322::0::1::::<>CharacterBody2D<>::
+NPC.tscn::PackedScene::6194745858481719800::1702550780::0::1::::<><>::res://NPC/NPC.gd<>uid://bx3ntqyvpglvb::::res://Player/animations/death/00.png<>uid://q7bya5gls41u::::res://Player/animations/death/01.png<>uid://coph27wlybc5v::::res://Player/animations/death/02.png<>uid://kjyjtvp6d1g3::::res://Player/animations/death/03.png<>uid://brf5svimx8qi3::::res://Player/animations/death/04.png<>uid://g8kmlxg16tj1::::res://NPC/animations/idle/0.png<>uid://cpdw4weam3bmh::::res://NPC/animations/idle/1.png<>uid://dwqiatrnqowb::::res://Player/animations/walkdown/0.png<>uid://dk5mrnpmnodni::::res://Player/animations/walkside/0.png<>uid://sgs76qmtx2gm::::res://Player/animations/walkside/1.png<>uid://de61h3cjib0ft::::res://Player/animations/walkside/2.png<>uid://dmdhxwt4x1y5s::::res://Player/animations/walkside/3.png<>uid://da3hbmwmjjdmc::::res://Player/animations/walkside/4.png<>uid://wmt34u2437t3::::res://Player/animations/walkside/5.png<>uid://duiwn8v63rast::::res://Player/animations/walkside/6.png<>uid://c2sa3xhrbfl02::::res://Player/animations/walkside/7.png<>uid://cgqvi5a0xd58::::res://Player/animations/walkup/0.png<>uid://d3tvxu1m5k5e5::::res://Player/sounds/walk.ogg
 ::res://NPC/animations/::1702550478
 ::res://NPC/animations/death/::1702550604
 0.png::CompressedTexture2D::8191036086232680978::1702535455::1702550604::1::::<><>::
@@ -32,7 +32,7 @@ NPC.gd::GDScript::-1::1702550322::0::1::::<>CharacterBody2D<>::
 2.png::CompressedTexture2D::8494312055916665939::1702535455::1702550604::1::::<><>::
 03.png::CompressedTexture2D::721942147246052472::1702536461::1702550604::1::::<><>::
 04.png::CompressedTexture2D::3591807684309297508::1702536461::1702550604::1::::<><>::
-::res://NPC/animations/idle/::1702550604
+::res://NPC/animations/idle/::1702550656
 0.png::CompressedTexture2D::489886740762641456::1702550652::1702550604::1::::<><>::
 1.png::CompressedTexture2D::5833255878793030339::1702550652::1702550656::1::::<><>::
 character.png::CompressedTexture2D::3925834031773818538::1699518300::1702550604::1::::<><>::
@@ -67,9 +67,9 @@ character.png::CompressedTexture2D::3925834031773818538::1699518300::1702550604:
 2.png::CompressedTexture2D::1990162140403579881::1699518300::1702550604::1::::<><>::
 3.png::CompressedTexture2D::6495235968476039472::1699518300::1702550604::1::::<><>::
 4.png::CompressedTexture2D::6438605322887544401::1699518300::1702550604::1::::<><>::
-::res://Player/::1702547074
+::res://Player/::1702550779
 Player.gd::GDScript::-1::1702547562::0::1::::<>CharacterBody2D<>::
-Player.tscn::PackedScene::723703468238129031::1702547074::0::1::::<><>::res://Player/Player.gd<>uid://bx3ntqyvpglvb
+Player.tscn::PackedScene::723703468238129031::1702550779::0::1::::<><>::res://Player/Player.gd<>uid://bx3ntqyvpglvb::::res://Player/animations/death/00.png<>uid://g8kmlxg16tj1::::res://Player/animations/idle/0.png<>uid://cpdw4weam3bmh::::res://Player/animations/idle/1.png<>uid://q7bya5gls41u::::res://Player/animations/death/01.png<>uid://coph27wlybc5v::::res://Player/animations/death/02.png<>uid://dwqiatrnqowb::::res://Player/animations/walkdown/0.png<>uid://kjyjtvp6d1g3::::res://Player/animations/death/03.png<>uid://dk5mrnpmnodni::::res://Player/animations/walkside/0.png<>uid://brf5svimx8qi3::::res://Player/animations/death/04.png<>uid://sgs76qmtx2gm::::res://Player/animations/walkside/1.png<>uid://de61h3cjib0ft::::res://Player/animations/walkside/2.png<>uid://dmdhxwt4x1y5s::::res://Player/animations/walkside/3.png<>uid://da3hbmwmjjdmc::::res://Player/animations/walkside/4.png<>uid://wmt34u2437t3::::res://Player/animations/walkside/5.png<>uid://duiwn8v63rast::::res://Player/animations/walkside/6.png<>uid://dd6ut7tl0o22u::::res://Lighting/light.png<>uid://c2sa3xhrbfl02::::res://Player/animations/walkside/7.png<>uid://cgqvi5a0xd58::::res://Player/animations/walkup/0.png<>uid://d3tvxu1m5k5e5::::res://Player/sounds/walk.ogg
 UVmap.png::CompressedTexture2D::8859839827717528695::1698871997::1698871997::1::::<><>::
 ::res://Player/animations/::1702535455
 ::res://Player/animations/death/::1702536464
@@ -118,10 +118,10 @@ character.png::CompressedTexture2D::3925834031773818538::1699518300::1702535503:
 4.png::CompressedTexture2D::6438605322887544401::1699518300::1702535503::1::::<><>::
 ::res://Player/sounds/::1702535503
 walk.ogg::AudioStreamOggVorbis::9165090071596914766::1700720216::1702535503::1::::<><>::
-::res://Scenes/::1702549706
+::res://Scenes/::1702550780
 Console.gd::GDScript::-1::1699520632::0::1::::<>Label<>::
-Editor.tscn::PackedScene::1055066584087250470::1702549706::0::1::::<><>::res://Scenes/Console.gd<>res://Editor/EditorCamera.cs<>res://Editor/Editor.gd<>uid://bfuqtumyjeq0m::::res://Ship/WallTileMap.tres<>uid://c5j4fanlmf5kc::::res://Ship/ObjectTileMap.tres
-Game.tscn::PackedScene::7991060393261098469::1702547074::0::1::::<><>::res://Scenes/ShipManager.gd<>uid://dai6awjw4ywn7
+Editor.tscn::PackedScene::1055066584087250470::1702550780::0::1::::<><>::res://Scenes/Console.gd<>res://Editor/EditorCamera.cs<>res://Editor/Editor.gd<>uid://bfuqtumyjeq0m::::res://Ship/WallTileMap.tres<>uid://c5j4fanlmf5kc::::res://Ship/ObjectTileMap.tres
+Game.tscn::PackedScene::7991060393261098469::1702550779::0::1::::<><>::res://Scenes/ShipManager.gd<>uid://dai6awjw4ywn7::::res://Ship/Ship.tscn<>uid://kktj4xnims84::::res://Player/Player.tscn<>uid://dkwpkswggbn7r::::res://Backgrounds/further_bodies.png<>uid://dhvixcsrhu5oc::::res://Backgrounds/closer_bodies.png<>res://UI/UIManager.gd<>uid://b261eyjbhule7::::res://UI/heart.png<>uid://bsei5thn81xxs::::res://Fonts/SpaceMono-Regular.ttf
 Menu.tscn::PackedScene::6898920841702974185::1699012135::0::1::::<><>::res://Menu.gd
 Settings.tscn::PackedScene::8029880765112334257::1698871997::0::1::::<><>::
 ShipManager.gd::GDScript::-1::1702027830::0::1::::<>Node2D<>::
@@ -153,9 +153,9 @@ InteractRangeHitbox.tres::RectangleShape2D::4522510776518602694::1700134713::0::
 Helm.gd::GDScript::-1::1702541290::0::1::::Helm<>InteractableShipPart<>::
 Helm.tscn::PackedScene::8451731694742886126::1702541632::0::1::::<><>::res://Ship/Objects/Helm/Helm.gd<>uid://l2irgva513of
 ::res://Ship/Walls/::1702543562
-::res://Ship/Walls/Connector/::1702547075
+::res://Ship/Walls/Connector/::1702550748
 Connector.gd::GDScript::-1::1702546809::0::1::::Connector<>ShipPart<>::
-Connector.tscn::PackedScene::3671286855801135314::1702547074::0::1::::<><>::uid://ds2tawebq6o8l
+Connector.tscn::PackedScene::3671286855801135314::1702550748::0::1::::<><>::uid://dobw14md45sbd::::res://Ship/wall_tilesheet.png<>res://Ship/Walls/Connector/Connector.gd
 ::res://Ship/Walls/Core/::1702547074
 Core.gd::GDScript::-1::1701346296::0::1::::Core<>ShipPart<>::
 Core.tscn::PackedScene::543859662471506434::1702547074::0::1::::<><>::res://Ship/Walls/Core/Core.gd<>uid://uq84s01yuksa
