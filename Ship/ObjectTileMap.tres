@@ -6,6 +6,8 @@
 texture = ExtResource("1_txbxa")
 2:0/0 = 0
 2:0/0/custom_data_0 = "helm"
+2:1/0 = 0
+2:1/0/custom_data_0 = "NPC"
 
 [resource]
 custom_data_layer_0/name = "object_ID"

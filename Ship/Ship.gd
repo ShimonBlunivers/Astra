@@ -23,11 +23,13 @@ var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 
 # TODO: ✅ Fix infinity position while moving too fast
 
+# TODO: ✅? Fix player moving into walls when encountering moving ship
+
+# TODO: Add Ship Connector
+
 # TODO: Make Area2Ds for each room
 
 # TODO: Make ships destroyable by collisions
-
-# TODO: Add Ship Connector
 
 # TODO: Add Thrusters & Canons
 
@@ -35,7 +37,6 @@ var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 
 # TODO: Create planets/moons/asteroids
 
-# TODO: Fix player moving into walls when encountering moving ship
 
 var _old_position = position
 var _difference_in_position := Vector2(0, 0)

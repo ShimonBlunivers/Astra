@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bskns8g4we6m5"]
+[gd_scene load_steps=5 format=3 uid="uid://bskns8g4we6m5"]
 
-[ext_resource type="Texture2D" uid="uid://ds2tawebq6o8l" path="res://Effects/DebugTexture.png" id="2_arclf"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_c2rcq"]
 [ext_resource type="Script" path="res://Ship/Walls/Connector/Connector.gd" id="2_cf7fn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt1gf"]
+atlas = ExtResource("2_c2rcq")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeoku"]
 size = Vector2(32, 32)
@@ -11,7 +15,7 @@ script = ExtResource("2_cf7fn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
-texture = ExtResource("2_arclf")
+texture = SubResource("AtlasTexture_yt1gf")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

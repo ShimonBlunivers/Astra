@@ -49,16 +49,15 @@ var spawn_point : Vector2
 
 # TODO: ✅ Edit player vision so object that are in the dark cannot be seen (Using lights as mask)
 
-# TODO: Add Damage & Death
+# TODO: ✅ Add Damage & Death
+
+# TODO: ✅  Fix wrong hitbox while ship moving
 
 # TODO: Make walking up & down animations
 	
 # TODO: Change sounds according to walking terrain
 
 # TODO: Add NPCs
-
-# TODO: Fix wrong hitbox while ship moving
-
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):

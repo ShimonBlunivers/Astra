@@ -1,3 +1,4 @@
+CharacterBody2D
 CollisionShape2D
 Area2D
 AnimationPlayer
@@ -24,7 +25,6 @@ ParallaxBackground
 Button
 LightOccluder2D
 StaticBody2D
-CharacterBody2D
 TileMap
 CanvasModulate
 PointLight2D
