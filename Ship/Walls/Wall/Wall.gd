@@ -14,20 +14,23 @@ var layer : int = 0;
 func init(_ship, _durability : float = 100, _mass : float = 4):
 	super(_ship, _durability, _mass)
 
+func _ready():
+	hp.max_value = durability_max;
+	hp.value = durability_max;
+
 func set_texture(texture) -> void:
 	sprite.texture = texture
 
-
 func _on_button_pressed():
-	damage(hp.step)
+	damage(25)
 
 func damage(dmg: float):
-	
-	hp.value += dmg
 
-	button.tooltip_text = str(snapped(hp.value / hp.max_value, 0.01)) + "%"
+	durability_current -= dmg;
 
-	match hp.value / hp.max_value:
+	button.tooltip_text = str(snapped(durability_current / durability_max, 0.01)) + "%"
+
+	match durability_current / durability_max:
 		1:
 			cracks.frame = 0
 		0.75:
@@ -37,7 +40,8 @@ func damage(dmg: float):
 		0.25:
 			cracks.frame = 3
 
-	if (hp.value <= 0):
+	hp.value = durability_current
+	if (durability_current <= 0):
 		destroy()
 
 

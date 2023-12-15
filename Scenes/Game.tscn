@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
-[ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Player/Player.tscn" id="3_gb8si"]
+[ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Character/Player/Player.tscn" id="3_gb8si"]
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
 [ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="5_mgng7"]
 [ext_resource type="Script" path="res://UI/UIManager.gd" id="6_rstey"]
@@ -16,6 +16,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_khipi")
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 metadata/_edit_vertical_guides_ = []
 
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]

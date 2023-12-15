@@ -9,6 +9,3 @@ var layer : int = 0;
 func init(_ship, _durability : float = 200, _mass : float = 5):
 	super(_ship, _durability, _mass)
 
-
-func set_texture(texture) -> void:
-	sprite.texture = texture

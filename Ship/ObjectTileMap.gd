@@ -2,6 +2,7 @@ extends TileMap
 
 
 const helm_scene = preload("res://Ship/Objects/Helm/Helm.tscn")
+const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 
 var ship = null
 
@@ -35,11 +36,23 @@ func _replace_interactive_tiles() -> bool:
 	var layer := 0;
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
-		if cell.get_custom_data("object_ID") == "helm":
-			var helm_object = helm_scene.instantiate()
-			helm_object.init(ship)
-			helm_object.position = map_to_local(cellpos)
-			add_child(helm_object)
-			set_cell(layer, cellpos, -1)
-			
+
+		match cell.get_custom_data("type"):
+			"helm":
+				var helm_object = helm_scene.instantiate()
+				helm_object.init(ship)
+				helm_object.position = map_to_local(cellpos)
+				add_child(helm_object)
+				set_cell(layer, cellpos, -1)
+
+			"NPC":
+				var NPC_object = NPC_scene.instantiate()
+				get_tree().root.get_node("World").add_child.call_deferred(NPC_object)
+				NPC_object.spawn_point = map_to_local(cellpos)
+				NPC_object.spawn()
+				NPC_object.init()
+				set_cell(layer, cellpos, -1)
+
+
+
 	return true

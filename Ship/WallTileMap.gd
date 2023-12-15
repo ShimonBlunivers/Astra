@@ -214,15 +214,9 @@ func _replace_interactive_tiles() -> bool:
 				ship.thrust_power[object_direction] += _thruster_object.power;
 
 				add_child(_thruster_object)
-				_thruster_object.jet.rotation_degrees = object_direction * 90
-				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
+
+				_thruster_object.rotation_degrees = object_direction * 90
 				
-				for i in range(object_direction): tile_image.rotate_90(CLOCKWISE)
-
-				var tile_texture := ImageTexture.create_from_image(tile_image)
-
-				tile_texture.set_size_override(Vector2i(32, 32))
-				_thruster_object.set_texture(tile_texture)
 
 				set_cell(layer, cellpos, -1)
 			
@@ -232,15 +226,9 @@ func _replace_interactive_tiles() -> bool:
 				_connector_object.position = map_to_local(cellpos)
 
 				add_child(_connector_object)
-				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
 				
-				for i in range(object_direction): tile_image.rotate_90(CLOCKWISE)
+				_connector_object.rotation_degrees = object_direction * 90
 
-				var tile_texture := ImageTexture.create_from_image(tile_image)
-
-				tile_texture.set_size_override(Vector2i(32, 32))
-				_connector_object.set_texture(tile_texture)
-				
 				set_cell(layer, cellpos, -1)
 
 	return true

@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://qo508d4kbv3i"]
+
+[ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="1_x6l87"]
+[ext_resource type="Texture2D" uid="uid://o2xd0cp3mp6x" path="res://Character/NPC/animations/idle/0.png" id="2_a5eoy"]
+[ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_d6b1x"]
+[ext_resource type="Texture2D" uid="uid://j3nt8t7tq3xd" path="res://Character/NPC/animations/idle/1.png" id="3_fdsyb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
+size = Vector2(52, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ua5a6"]
+size = Vector2(64, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4c1s2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fdsyb")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 3.0
+}]
+
+[node name="NPC" type="CharacterBody2D" groups=["Character"]]
+z_index = 10
+y_sort_enabled = true
+material = ExtResource("1_x6l87")
+scale = Vector2(0.8, 0.8)
+collision_layer = 3
+collision_mask = 3
+collision_priority = 2.0
+motion_mode = 1
+platform_on_leave = 2
+platform_floor_layers = 4278190080
+safe_margin = 0.5
+script = ExtResource("2_d6b1x")
+
+[node name="Area" type="Area2D" parent="." groups=["CharacterArea"]]
+collision_layer = 16
+collision_mask = 16
+
+[node name="BodyHitbox" type="CollisionShape2D" parent="Area"]
+shape = SubResource("RectangleShape2D_5jaj3")
+
+[node name="LegHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 57.5)
+shape = SubResource("RectangleShape2D_ua5a6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+use_parent_material = true
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(6.4, 6.4)
+sprite_frames = SubResource("SpriteFrames_4c1s2")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(0, 58)
+volume_db = -1.0
+max_distance = 1000.0
+bus = &"SFX"

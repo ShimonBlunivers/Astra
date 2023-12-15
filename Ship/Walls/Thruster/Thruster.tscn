@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bl1hdflkphqup"]
+[gd_scene load_steps=13 format=3 uid="uid://bl1hdflkphqup"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Thruster/Thruster.gd" id="1_tutll"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_0a064"]
@@ -42,6 +42,9 @@ scale_max = 0.25
 scale_curve = SubResource("CurveTexture_dnlkm")
 color_ramp = SubResource("GradientTexture1D_kfmsg")
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_glnne"]
+polygon = PackedVector2Array(-16, -8, -16, 8, 8, 8, 8, -8)
+
 [node name="Thruster" type="Node2D"]
 script = ExtResource("1_tutll")
 
@@ -54,9 +57,7 @@ texture = SubResource("AtlasTexture_hy2pl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_yeoku")
 
-[node name="Jet" type="Node2D" parent="."]
-
-[node name="JetParticles" type="GPUParticles2D" parent="Jet"]
+[node name="JetParticles" type="GPUParticles2D" parent="."]
 position = Vector2(13, 0)
 amount = 1000
 process_material = SubResource("ParticleProcessMaterial_o734o")
@@ -64,6 +65,9 @@ texture = ExtResource("3_a8jxn")
 lifetime = 0.65
 speed_scale = 2.0
 local_coords = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_glnne")
 
 [node name="Sounds" type="Node2D" parent="."]
 

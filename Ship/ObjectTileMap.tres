@@ -10,6 +10,6 @@ texture = ExtResource("1_txbxa")
 2:1/0/custom_data_0 = "NPC"
 
 [resource]
-custom_data_layer_0/name = "object_ID"
+custom_data_layer_0/name = "type"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_k7owb")
