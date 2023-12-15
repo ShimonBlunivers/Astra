@@ -41,7 +41,6 @@ var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 var _old_position = position
 var _difference_in_position := Vector2(0, 0)
 
-
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
 	mass = 1
@@ -70,8 +69,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for passenger in passengers: passenger.move(_difference_in_position)
 	_old_position = position
 	
-	area.position = -_difference_in_position
-
 
 
 func control():

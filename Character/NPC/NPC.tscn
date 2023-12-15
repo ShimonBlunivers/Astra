@@ -21,6 +21,27 @@ animations = [{
 "texture": ExtResource("2_a5eoy")
 }, {
 "duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a5eoy")
+}, {
+"duration": 1.0,
 "texture": ExtResource("3_fdsyb")
 }],
 "loop": true,
@@ -33,7 +54,7 @@ z_index = 10
 y_sort_enabled = true
 material = ExtResource("1_x6l87")
 scale = Vector2(0.8, 0.8)
-collision_layer = 3
+collision_layer = 256
 collision_mask = 3
 collision_priority = 2.0
 motion_mode = 1

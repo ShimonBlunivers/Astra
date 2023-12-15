@@ -1,10 +1,12 @@
 class_name Character extends CharacterBody2D
 
+
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
 
 var passenger_on := []
-
 
 var max_health : float = 100
 var health : = max_health

@@ -128,7 +128,8 @@ debug_die={
 2d_render/layer_1="Player vision"
 2d_render/layer_2="Player light-up"
 2d_physics/layer_1="Player collision"
-2d_physics/layer_5="Interactables"
+2d_physics/layer_5="Interactables collision"
+2d_physics/layer_9="Character to Ship collision"
 2d_physics/layer_10="Ship collision"
 
 [physics]

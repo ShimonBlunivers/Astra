@@ -48,7 +48,7 @@ func _replace_interactive_tiles() -> bool:
 			"NPC":
 				var NPC_object = NPC_scene.instantiate()
 				get_tree().root.get_node("World").add_child.call_deferred(NPC_object)
-				NPC_object.spawn_point = map_to_local(cellpos)
+				NPC_object.spawn_point = to_global(map_to_local(cellpos)) - Vector2(0, 20)
 				NPC_object.spawn()
 				NPC_object.init()
 				set_cell(layer, cellpos, -1)

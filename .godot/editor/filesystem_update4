@@ -2,6 +2,7 @@ res://Character/NPC/NPC.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
+res://Ship/Ship.gd
 res://Scenes/Editor.tscn
 res://Ship/Walls/Connector/Connector.tscn
 res://Ship/Walls/Wall/Wall.tscn
@@ -10,6 +11,6 @@ res://Ship/Walls/Debris/Debris.tscn
 res://Character/Player/Player.tscn
 res://Scenes/Game.tscn
 res://Ship/Objects/Helm/Helm.tscn
-res://Ship/ObjectTileMap.gd
 res://Ship/Walls/Door/Door.tscn
-res://Character/Player/Player.gd
+res://Ship/Ship.tscn
+res://Character/NPC/NPC.gd

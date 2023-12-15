@@ -1,7 +1,6 @@
 class_name Player extends Character
 
 
-@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var walk_sound : AudioStreamPlayer2D = $Sounds/Walk
 @onready var camera : Camera2D = $"../Camera2D"
 @onready var vision : PointLight2D = $Vision/Light
@@ -91,7 +90,6 @@ func kill():
 	health_updated_signal.emit()
 	died_signal.emit()
 
-	print("DIED!!!")
 
 func floating():
 	return passenger_on.size() == 0
@@ -100,7 +98,9 @@ func _physics_process(delta: float) -> void:
 	# print("Player position: ", position)
 	if ship_controlled == null: 
 		_move(delta)	
+		
 	_control_position = position
+
 
 func control_ship(ship):
 
