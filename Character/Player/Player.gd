@@ -25,7 +25,8 @@ var _old_position = Vector2(0, 0)
 var hovering_interactables := []
 var hovering_controllables := []
 
-var _control_position = Vector2(0, 0);
+var _started_floating : bool = false;
+var _started_floating_verifier : bool = false;
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -74,10 +75,6 @@ func _ready():
 	_old_position = position
 	nickname = "Player"
 	
-func damage(amount : float):
-	health = max(health - amount, 0)
-	if health == 0: kill()
-	else: health_updated_signal.emit()
 
 func kill():
 	if !alive: return
@@ -98,12 +95,9 @@ func _physics_process(delta: float) -> void:
 	# print("Player position: ", position)
 	if ship_controlled == null: 
 		_move(delta)	
-		
-	_control_position = position
 
 
 func control_ship(ship):
-
 	if ship != null:
 		ship_controlled = ship
 		walk_sound.stop()
@@ -132,7 +126,7 @@ func _move(_delta: float) -> void:
 	
 	if !alive: direction = Vector2.ZERO
 
-	acceleration = position - _old_position
+	acceleration = (position - _old_position) /_delta
 	var _before_move = _old_position
 	_old_position = position
 
@@ -142,19 +136,27 @@ func _move(_delta: float) -> void:
 		acceleration = new_speed
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
+	
+	print(speed);
 
 	if floating(): 	
-		if (_control_position == position): 
-			position += acceleration
-		else:
-			_old_position = _before_move
-		if suit == false: 
-			velocity = Vector2(0, 0)
-		else: 
-			velocity *= .01
+		if _started_floating_verifier && _started_floating:
+			_started_floating = false;
+		if !_started_floating_verifier: 
+			_started_floating = true;
+			_started_floating_verifier = true;
 
-	elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
-		position += acceleration
+		speed += acceleration
+
+		if suit == true: 
+			speed += velocity * .01;
+		velocity = speed;
+	else:
+		_started_floating_verifier = false;
+		_started_floating = false;
+		
+		velocity += speed;
+	
 
 	if direction.x < 0:
 		if !walk_sound.playing && !floating(): 

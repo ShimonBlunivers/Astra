@@ -3,6 +3,8 @@ class_name Character extends CharacterBody2D
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
+@onready var speed = Vector2.ZERO;
+
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
 
@@ -20,6 +22,7 @@ var nickname = ""
 
 var max_impact_velocity : float = 25
 
+
 func damage(amount : float):
 	health = max(health - amount, 0)
 	if health == 0: kill()
@@ -34,12 +37,15 @@ func kill():
 	health_updated_signal.emit()
 	died_signal.emit()
 
-
-func move(by: Vector2):
-	position += by;
-
 func spawn():
 	alive = true
 	health = max_health
 	position = spawn_point
 	health_updated_signal.emit()
+
+# func update_position():
+
+# 	speed = Vector2.ZERO;
+
+func move(by: Vector2):
+	speed += by;

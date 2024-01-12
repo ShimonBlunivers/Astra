@@ -105,7 +105,7 @@ func _on_area_2d_body_entered(body:Node2D) -> void:
 		passengers.append(body)
 		
 	if body.is_in_group("Player"):
-		if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()
+		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 		body.get_in(self)
 
 func _on_area_2d_body_exited(body:Node2D) -> void:
