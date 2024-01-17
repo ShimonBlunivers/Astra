@@ -39,7 +39,7 @@ var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 
 
 var _old_position = position
-var _difference_in_position := Vector2(0, 0)
+var difference_in_position := Vector2(0, 0)
 
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
@@ -64,9 +64,9 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		new_speed *= Limits.VELOCITY_MAX
 		set_linear_velocity(new_speed)
 
-	_difference_in_position = position - _old_position
+func _physics_process(_delta: float) -> void:
+	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
-	for passenger in passengers: passenger.move(_difference_in_position)
 	_old_position = position
 	
 
@@ -103,13 +103,13 @@ func stop_controlling():
 func _on_area_2d_body_entered(body:Node2D) -> void:
 	if body.is_in_group("Character"):
 		passengers.append(body)
-		
-	if body.is_in_group("Player"):
-		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 		body.get_in(self)
+
+	# if body.is_in_group("Player"):
+		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 
 func _on_area_2d_body_exited(body:Node2D) -> void:
 	if body.is_in_group("Character"):
 		passengers.erase(body)
-	if body.is_in_group("Player"):
 		body.get_off(self)
+	# if body.is_in_group("Player"):

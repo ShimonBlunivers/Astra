@@ -73,7 +73,7 @@ func _ready():
 	health = max_health
 	position = spawn_point
 	_old_position = position
-	nickname = "Player"
+	nickname = "Player_Samuel"
 	
 
 func kill():
@@ -88,10 +88,7 @@ func kill():
 	died_signal.emit()
 
 
-func floating():
-	return passenger_on.size() == 0
-
-func _physics_process(delta: float) -> void:
+func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
 	if ship_controlled == null: 
 		_move(delta)	
@@ -112,11 +109,6 @@ func control_ship(ship):
 		if ship_controlled != null: ship_controlled.stop_controlling()
 		ship_controlled = null
 
-func get_in(ship):
-	passenger_on.append(ship)
-
-func get_off(ship):
-	passenger_on.erase(ship)
 
 func _move(_delta: float) -> void:
 
@@ -137,25 +129,25 @@ func _move(_delta: float) -> void:
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 	
-	print(speed);
+	# print(speed);
 
-	if floating(): 	
-		if _started_floating_verifier && _started_floating:
-			_started_floating = false;
-		if !_started_floating_verifier: 
-			_started_floating = true;
-			_started_floating_verifier = true;
+	# if floating(): 	
+	# 	if _started_floating_verifier && _started_floating:
+	# 		_started_floating = false;
+	# 	if !_started_floating_verifier: 
+	# 		_started_floating = true;
+	# 		_started_floating_verifier = true;
 
-		speed += acceleration
+	# 	speed += acceleration
 
-		if suit == true: 
-			speed += velocity * .01;
-		velocity = speed;
-	else:
-		_started_floating_verifier = false;
-		_started_floating = false;
+	# 	if suit == true: 
+	# 		speed += velocity * .01;
+	# 	velocity = speed;
+	# else:
+	# 	_started_floating_verifier = false;
+	# 	_started_floating = false;
 		
-		velocity += speed;
+	# 	velocity += speed;
 	
 
 	if direction.x < 0:
