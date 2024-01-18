@@ -134,6 +134,8 @@ debug_die={
 
 [physics]
 
+common/physics_ticks_per_second=120
+common/max_physics_steps_per_frame=16
 3d/default_gravity=0.0
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
