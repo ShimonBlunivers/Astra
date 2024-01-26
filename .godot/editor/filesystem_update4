@@ -1,3 +1,16 @@
+res://Character/NPC/NPC.gd
+res://Ship/Walls/Thruster/Thruster.gd
+res://Ship/ShipPartScript.gd
+res://Ship/Walls/Wall/Wall.gd
+res://Ship/Walls/Door/Door.gd
+res://Ship/Walls/Debris/Debris.gd
+res://Ship/Walls/Core/Core.gd
+res://Ship/Walls/Connector/Connector.gd
+res://Ship/Objects/Helm/Helm.gd
+res://Character/Character.gd
+res://Character/Player/Player.gd
+res://Settings/Limits.gd
+res://Ship/WallTileMap.gd
 res://Scenes/Editor.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
@@ -12,5 +25,4 @@ res://Scenes/Game.tscn
 res://Ship/Objects/Helm/Helm.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Ship/Ship.tscn
-res://Character/Character.gd
-res://Character/NPC/NPC.gd
+res://Editor/EditorCamera.cs

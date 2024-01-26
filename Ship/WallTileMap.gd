@@ -208,7 +208,7 @@ func _replace_interactive_tiles() -> bool:
 			
 			"thruster":
 				var _thruster_object = thruster_scene.instantiate()
-				_thruster_object.init(ship, object_direction)
+				_thruster_object.init(ship, 150, 5, object_direction)
 				_thruster_object.position = map_to_local(cellpos)
 
 				ship.thrust_power[object_direction] += _thruster_object.power;

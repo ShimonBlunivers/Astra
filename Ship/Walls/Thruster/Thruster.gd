@@ -14,11 +14,11 @@ var direction : int;
 var running : bool = false;
 
 
-func init(_ship, _direction = 0, _power = 1000, _durability : float = 150, _mass : float = 5):
+func init(_ship, _durability : float = 150, _mass : float = 5, _direction = 0, _power = 1000):
 	super(_ship, _durability, _mass);
 	direction = _direction;
 	power = _power;
-	ship.thrusters[direction].append(self)
+	ship.thrusters[direction].append(self);
 	
 
 

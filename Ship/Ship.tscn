@@ -12,10 +12,10 @@ z_index = -1
 collision_layer = 512
 collision_mask = 512
 gravity_scale = 0.0
-max_contacts_reported = 20
-contact_monitor = true
 lock_rotation = true
 freeze_mode = 1
+max_contacts_reported = 20
+contact_monitor = true
 linear_damp_mode = 1
 script = ExtResource("1_set35")
 
@@ -40,7 +40,7 @@ texture = ExtResource("2_akbyg")
 [node name="WallTileMap" type="TileMap" parent="."]
 scale = Vector2(5, 5)
 tile_set = ExtResource("1_6t3py")
-cell_quadrant_size = 32
+rendering_quadrant_size = 32
 format = 2
 script = ExtResource("3_cl687")
 
