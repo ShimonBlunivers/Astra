@@ -21,7 +21,6 @@ metadata/_edit_vertical_guides_ = []
 
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
 position = Vector2(640, 360)
-scale = Vector2(0.8, 0.8)
 
 [node name="CameraAttached" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -62,6 +61,10 @@ centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 360)
+limit_left = -1000000000
+limit_top = -1000000000
+limit_right = 1000000000
+limit_bottom = 1000000000
 position_smoothing_speed = 10.0
 
 [node name="UI" type="CanvasLayer" parent="."]

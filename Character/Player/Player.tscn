@@ -22,10 +22,10 @@
 [ext_resource type="AudioStream" uid="uid://d3tvxu1m5k5e5" path="res://Character/Player/sounds/walk.ogg" id="15_c0vio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
-size = Vector2(52, 128)
+size = Vector2(50, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ua5a6"]
-size = Vector2(64, 15)
+size = Vector2(50, 10)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x6u5k"]
 animations = [{
@@ -135,7 +135,6 @@ z_index = 10
 y_sort_enabled = true
 collision_layer = 259
 collision_mask = 259
-collision_priority = 2.0
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4278190080
@@ -150,22 +149,22 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_5jaj3")
 
 [node name="LegHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 57.5)
+position = Vector2(0, 45)
 shape = SubResource("RectangleShape2D_ua5a6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 2
 y_sort_enabled = true
 position = Vector2(-4.76837e-07, 0)
-scale = Vector2(6.4, 6.4)
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
-animation = &"Idle"
+animation = &"WalkToSide"
 autoplay = "Idle"
 
 [node name="Vision" type="Node2D" parent="."]
 
 [node name="Light" type="PointLight2D" parent="Vision"]
-position = Vector2(4.76837e-07, 60)
+position = Vector2(0, 45)
 color = Color(0.988235, 1, 1, 1)
 energy = 0.5
 shadow_enabled = true
@@ -175,7 +174,6 @@ texture_scale = 14.0
 
 [node name="Internal" type="PointLight2D" parent="Vision"]
 light_mask = 2
-position = Vector2(4.76837e-07, 60)
 energy = 0.25
 range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)
@@ -185,12 +183,13 @@ texture = ExtResource("11_o2d8h")
 texture_scale = 3.0
 
 [node name="AudioListener" type="AudioListener2D" parent="."]
+position = Vector2(0, 45)
 current = true
 
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="Walk" type="AudioStreamPlayer2D" parent="Sounds"]
-position = Vector2(0, 58)
+position = Vector2(0, 45)
 stream = ExtResource("15_c0vio")
 volume_db = -1.0
 max_distance = 1000.0
