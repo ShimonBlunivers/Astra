@@ -1,14 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://qo508d4kbv3i"]
+[gd_scene load_steps=9 format=3 uid="uid://qo508d4kbv3i"]
 
+[ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="1_ssiap"]
 [ext_resource type="Texture2D" uid="uid://o2xd0cp3mp6x" path="res://Character/NPC/animations/idle/0.png" id="2_a5eoy"]
 [ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_d6b1x"]
 [ext_resource type="Texture2D" uid="uid://j3nt8t7tq3xd" path="res://Character/NPC/animations/idle/1.png" id="3_fdsyb"]
+[ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="5_lae3u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j6yp"]
 size = Vector2(50, 100)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtkm"]
-size = Vector2(50, 10)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmv3t"]
+size = Vector2(50, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4c1s2"]
 animations = [{
@@ -51,6 +53,7 @@ animations = [{
 [node name="NPC" type="CharacterBody2D" groups=["Character"]]
 z_index = 10
 y_sort_enabled = true
+material = ExtResource("1_ssiap")
 collision_layer = 256
 collision_mask = 3
 motion_mode = 1
@@ -67,8 +70,8 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_8j6yp")
 
 [node name="LegHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 45)
-shape = SubResource("RectangleShape2D_uqtkm")
+position = Vector2(0, 42.5)
+shape = SubResource("RectangleShape2D_lmv3t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
@@ -82,7 +85,17 @@ autoplay = "Idle"
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="Walk" type="AudioStreamPlayer2D" parent="Sounds"]
-position = Vector2(0, 45)
+position = Vector2(0, 42.5)
 volume_db = -1.0
 max_distance = 1000.0
 bus = &"SFX"
+
+[node name="EditorLight" type="PointLight2D" parent="."]
+position = Vector2(50, 0)
+editor_only = true
+color = Color(0.988235, 1, 1, 1)
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 1
+texture = ExtResource("5_lae3u")
+texture_scale = 14.0

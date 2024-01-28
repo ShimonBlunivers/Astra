@@ -48,7 +48,6 @@ func get_in(ship):
 func get_off(ship):
 	passenger_on.erase(ship)
 
-
 func kill():
 	if !alive: return
 	health = 0
@@ -64,7 +63,6 @@ func spawn():
 	health_updated_signal.emit()
 
 # func update_position():
-
 # 	speed = Vector2.ZERO;
 
 func _draw() -> void:

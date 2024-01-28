@@ -129,6 +129,7 @@ func _move(_delta: float) -> void:
 
 	# if floating(): 	return;
 
+	move_and_slide()
 
 	if direction.x < 0:
 		if !walk_sound.playing && !floating(): 
@@ -172,7 +173,6 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
  
-	move_and_slide()
 
 func change_view(view: int) -> void:
 	var tween = create_tween()
