@@ -28,8 +28,8 @@ var max_impact_velocity : float = 25
 
 func _physics_process(delta: float) -> void:
 	_in_physics(delta)
-	if !floating():
-		move_and_collide(passenger_on[0].difference_in_position);
+	# if !floating():
+	# 	move_and_collide(passenger_on[0].difference_in_position);
 	
 func _in_physics(_delta: float) -> void:
 	pass
@@ -56,6 +56,9 @@ func kill():
 	health_updated_signal.emit()
 	died_signal.emit()
 
+func move(by: Vector2):
+	position += by;
+	
 func spawn():
 	alive = true
 	health = max_health

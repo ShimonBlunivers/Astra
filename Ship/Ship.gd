@@ -51,24 +51,31 @@ func load_ship(x: int, y: int) -> void:
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)
 
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
-	acceleration = Vector2(0, 0)
+func _physics_process(_delta: float) -> void:
+
+	acceleration = Vector2.ZERO;
+
 	if controlled_by != null: 
 		control()
-	state.apply_central_impulse(acceleration)
+	
+	position += acceleration * _delta;
+
+	# state.apply_central_impulse(acceleration)
+
 	update_thrusters()
 
 	if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 		var new_speed = get_linear_velocity().normalized()
 		new_speed *= Limits.VELOCITY_MAX
 		set_linear_velocity(new_speed)
-
-func _physics_process(_delta: float) -> void:
 	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
-	_old_position = position
 	
+	for passenger in passengers: 
+		passenger.move(difference_in_position)
+
+	_old_position = position
 
 
 func control():

@@ -25,6 +25,7 @@ var _old_position = Vector2(0, 0)
 var hovering_interactables := []
 var hovering_controllables := []
 
+var _control_position = Vector2(0, 0);
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -91,6 +92,7 @@ func _in_physics(delta: float) -> void:
 	if ship_controlled == null: 
 		_move(delta)
 
+	_control_position = position
 
 func control_ship(ship):
 	if ship != null:
@@ -116,7 +118,7 @@ func _move(_delta: float) -> void:
 	
 	if !alive: direction = Vector2.ZERO
 
-	acceleration = (position - _old_position) /_delta
+	acceleration = position - _old_position
 	var _before_move = _old_position
 	_old_position = position
 
@@ -127,9 +129,18 @@ func _move(_delta: float) -> void:
 
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 
-	# if floating(): 	return;
+	if floating(): 	
+		if (_control_position == position): 
+			position += acceleration
+		else:
+			_old_position = _before_move
+		if suit == false: 
+			velocity = Vector2(0, 0)
+		else: 
+			velocity *= .01
 
-	move_and_slide()
+	elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
+		position += acceleration
 
 	if direction.x < 0:
 		if !walk_sound.playing && !floating(): 
@@ -172,6 +183,8 @@ func _move(_delta: float) -> void:
 			_sprite_dir = 0
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
+ 
+	move_and_slide()
  
 
 func change_view(view: int) -> void:
