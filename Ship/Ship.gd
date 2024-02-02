@@ -7,23 +7,31 @@ extends RigidBody2D
 @onready var visual := $Visual
 @onready var area := $Area/AreaHitbox
 
+var main_player;
+
 var dock_position : Vector2 = Vector2(100, 100)
 
 var passengers := []
 
 var controlled_by = null
 
-var acceleration := Vector2(0, 0)
+var acceleration := Vector2.ZERO;
+
+var velocity := Vector2.ZERO;
 
 var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
 
 var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
+
+var interactables := [];
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
 # TODO: ✅ Fix infinity position while moving too fast
 
 # TODO: ✅? Fix player moving into walls when encountering moving ship
+
+# TODO: CREATE OWN COLLISIONS
 
 # TODO: Add Ship Connector
 
@@ -39,7 +47,11 @@ var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
 
 
 var _old_position = position
-var difference_in_position := Vector2(0, 0)
+var difference_in_position := Vector2.ZERO;
+
+func _ready() -> void:
+	main_player = get_tree().get_root().get_node("World/Player")
+	print(main_player.name)
 
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
@@ -50,7 +62,12 @@ func load_ship(x: int, y: int) -> void:
 	
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)
 
-
+func get_tile(coords : Vector2i):
+	for tile in wall_tile_map.get_children():
+		if (tile is ShipPart):
+			if (coords == tile.tilemap_coords):
+				return tile;
+	return null
 
 func _physics_process(_delta: float) -> void:
 
@@ -59,10 +76,11 @@ func _physics_process(_delta: float) -> void:
 	if controlled_by != null: 
 		control()
 	
-	position += acceleration * _delta;
+
+	velocity += acceleration * _delta;
+	position += velocity * _delta;
 
 	# state.apply_central_impulse(acceleration)
-
 	update_thrusters()
 
 	if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
@@ -72,10 +90,13 @@ func _physics_process(_delta: float) -> void:
 	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
 	
-	for passenger in passengers: 
-		passenger.move(difference_in_position)
+	area.position = -difference_in_position;
 
-	_old_position = position
+	for passenger in passengers: 
+		passenger.move(difference_in_position);
+
+
+	_old_position = position;
 
 
 func control():

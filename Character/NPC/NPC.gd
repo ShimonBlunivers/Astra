@@ -4,6 +4,12 @@ var difference = Vector2.ZERO
 
 static var number_of_npcs = 0;
 
+# TODO: Add dialog
+
+# TODO: Add missions
+
+
+
 func init():
 	nickname = "NPC_Kevin_" + str(number_of_npcs);
 	number_of_npcs += 1;

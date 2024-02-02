@@ -1,11 +1,12 @@
 extends TileMap
 
 
-const door_scene = preload("res://Ship/Walls/Door/Door.tscn")
-const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
-const core_scene = preload("res://Ship/Walls/Core/Core.tscn")
-const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn")
-const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn")
+const door_scene = preload("res://Ship/Walls/Door/Door.tscn");
+const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn");
+const floor_scene = preload("res://Ship/Walls/Floor/Floor.tscn");
+const core_scene = preload("res://Ship/Walls/Core/Core.tscn");
+const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn");
+const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn");
 
 var ship = null
 
@@ -165,22 +166,32 @@ func _replace_interactive_tiles() -> bool:
 		var cell := get_cell_tile_data(layer, cellpos)
 
 		var object_direction = get_cell_alternative_tile(layer, cellpos)
-
+		
 		match cell.get_custom_data("type"):
+
+			"floor":
+				var _floor_object = floor_scene.instantiate()
+				_floor_object.init(ship, cellpos)
+				_floor_object.position = map_to_local(cellpos)
+				add_child(_floor_object)
+				set_cell(layer, cellpos, -1)
 
 			"door":
 
 				var _door_object = door_scene.instantiate()
-				_door_object.init(ship)
+				_door_object.init(ship, cellpos)
 				_door_object.direction = cell.get_custom_data("direction")
 				_door_object.position = map_to_local(cellpos)
 				add_child(_door_object)
+				var _floor_object = floor_scene.instantiate()
+				_floor_object.init(ship, cellpos)
+				_floor_object.position = map_to_local(cellpos)
+				add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
-			
 			"wall":
 
 				var _wall_object = wall_scene.instantiate()
-				_wall_object.init(ship)
+				_wall_object.init(ship, cellpos)
 				_wall_object.position = map_to_local(cellpos)
 				add_child(_wall_object)
 
@@ -200,15 +211,18 @@ func _replace_interactive_tiles() -> bool:
 			"core":
 			
 				var _core_object = core_scene.instantiate()
-				_core_object.init(ship)
+				_core_object.init(ship, cellpos)
 				_core_object.position = map_to_local(cellpos)
 				add_child(_core_object)
-
-				set_cell(layer, cellpos, 0, Vector2i(0, 0))
+				var _floor_object = floor_scene.instantiate()
+				_floor_object.init(ship, cellpos)
+				_floor_object.position = map_to_local(cellpos)
+				add_child(_floor_object)
+				set_cell(layer, cellpos, -1)
 			
 			"thruster":
 				var _thruster_object = thruster_scene.instantiate()
-				_thruster_object.init(ship, 150, 5, object_direction)
+				_thruster_object.init(ship, cellpos, 150, 5, object_direction)
 				_thruster_object.position = map_to_local(cellpos)
 
 				ship.thrust_power[object_direction] += _thruster_object.power;
@@ -222,7 +236,7 @@ func _replace_interactive_tiles() -> bool:
 			
 			"connector":
 				var _connector_object = connector_scene.instantiate()
-				_connector_object.init(ship, object_direction)
+				_connector_object.init(ship, cellpos)
 				_connector_object.position = map_to_local(cellpos)
 
 				add_child(_connector_object)

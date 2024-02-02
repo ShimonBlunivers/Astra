@@ -40,12 +40,13 @@ func _replace_interactive_tiles() -> bool:
 		match cell.get_custom_data("type"):
 			"helm":
 				var helm_object = helm_scene.instantiate()
-				helm_object.init(ship)
+				helm_object.init(ship, cellpos)
 				helm_object.position = map_to_local(cellpos)
 				add_child(helm_object)
 				set_cell(layer, cellpos, -1)
 
 			"NPC":
+
 				var NPC_object = NPC_scene.instantiate()
 				get_tree().root.get_node("World").add_child.call_deferred(NPC_object)
 				NPC_object.spawn_point = to_global(map_to_local(cellpos)) - Vector2(0, 20)

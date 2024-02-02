@@ -18,8 +18,9 @@ signal health_updated_signal
 signal died_signal
 var alive : bool = false
 
+# var _position_shift : Vector2 = Vector2.ZERO;
 
-var spawn_point : Vector2 = Vector2(0, 0)
+var spawn_point : Vector2 = Vector2.ZERO;
 
 var nickname = ""
 
@@ -27,6 +28,8 @@ var max_impact_velocity : float = 25
 
 
 func _physics_process(delta: float) -> void:
+	
+	queue_redraw()
 	_in_physics(delta)
 	# if !floating():
 	# 	move_and_collide(passenger_on[0].difference_in_position);
@@ -57,7 +60,10 @@ func kill():
 	died_signal.emit()
 
 func move(by: Vector2):
+	# _position_shift = by;
 	position += by;
+
+	
 	
 func spawn():
 	alive = true

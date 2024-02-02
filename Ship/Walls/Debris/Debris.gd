@@ -6,8 +6,8 @@ class_name Debris extends ShipPart
 @onready var spawn_sound : AudioStreamPlayer2D = $Sounds/Spawn
 
 
-func init(_ship, _durability : float = -1, _mass : float = 4):
-	super(_ship, _durability, _mass)
+func init(_ship, _coords : Vector2i, _durability : float = -1, _mass : float = 4):
+	super(_ship, _coords, _durability, _mass)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

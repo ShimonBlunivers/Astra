@@ -16,14 +16,17 @@ var locked := false
 var collision_layer = 1;
 var occluder_light_mask = 1;
 
+var interact_range = 300;
 
-func init(_ship, _durability : float = 100, _mass : float = 3):
-	super(_ship, _durability, _mass)
+var is_operating = false;
+
+func init(_ship, _coords : Vector2i, _durability : float = 100, _mass : float = 3):
+	_ship.interactables.append(self);
+	super(_ship, _coords, _durability, _mass)
 
 func _ready() -> void:
 	if direction == "vertical":
-		hitbox.rotation_degrees = 90;
-		animated_sprite.rotation_degrees = 90
+		rotation_degrees = 90;
 	animated_sprite.connect("frame_changed", _on_frame_changed)
 	
 func update_sprites():
@@ -41,8 +44,6 @@ func open():
 	update_sprites()
 	
 func close():
-	if obstructed:
-		return
 	state = "closed"
 	close_sound.pitch_scale = randf_range(0.9, 1.1)
 	close_sound.play()
@@ -50,8 +51,11 @@ func close():
 	walkway.set_collision_layer_value(collision_layer, true)
 
 func _on_frame_changed():
+
 	match animated_sprite.frame:
 		3: #  OTEVŘENO
+			is_operating = state != "open";
+			
 			$"Hitbox/AnimatedOccluders/0left".occluder_light_mask = 0;
 			$"Hitbox/AnimatedOccluders/0right".occluder_light_mask = 0;
 			$"Hitbox/AnimatedOccluders/1left".occluder_light_mask = 0;
@@ -91,11 +95,30 @@ func _on_frame_changed():
 			$"Hitbox/AnimatedOccluders/1left".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/1right".occluder_light_mask = occluder_light_mask;
 			$"Hitbox/AnimatedOccluders/2center".occluder_light_mask = occluder_light_mask;
+			is_operating = state != "closed";
+
 
 func _interact():
+	if (ship.main_player.global_position + Vector2(0, 42.5)).distance_to(global_position) > interact_range:
+		return
+	if is_operating:
+		return
+
+
+	# var tile = ship.get_tile(tilemap_coords + Vector2i(1, 0))
+	# print(tile)
+	# if tile != null:
+	# 	tile.destroy()
+	# ship.wall_tile_map.set_cell(0, tilemap_coords + Vector2i(1, 0), -1)
+
+	
 	if state == "open":
+		if obstructed:
+			return
+		is_operating = true;
 		close()
 	else:
+		is_operating = true;
 		open()
 
 func _on_walkway_body_entered(_body: Node2D):
@@ -104,21 +127,18 @@ func _on_walkway_body_entered(_body: Node2D):
 func _on_walkway_body_exited(_body: Node2D):
 	obstructed = false
 
-func _on_interact_area_body_entered(_body: Node2D):
-	if _body.is_in_group("Player"):
-		player_in_range = _body
-		interactable = true
+# func _on_interact_area_body_entered(_body: Node2D):
+# 	if _body.is_in_group("Player"):
+# 		interactable = true
 
-func _on_interact_area_body_exited(_body: Node2D):
-	if _body.is_in_group("Player"):
-		if self in _body.hovering_interactables: _body.hovering_interactables.erase(self)
-		player_in_range = null
-		interactable = false
+# func _on_interact_area_body_exited(_body: Node2D):
+# 	if _body.is_in_group("Player"):
+# 		interactable = false
 
-func _on_hitbox_mouse_entered():
-	if player_in_range != null:
-		player_in_range.hovering_interactables.append(self)
+func _on_hitbox_mouse_entered(): 
+	ship.main_player.hovering_interactables.append(self)
+	interactable = true;
 
 func _on_hitbox_mouse_exited():
-	if player_in_range != null && self in player_in_range.hovering_interactables:
-		player_in_range.hovering_interactables.erase(self)
+	ship.main_player.hovering_interactables.erase(self)
+	interactable = false;

@@ -24,6 +24,10 @@ buses/default_bus_layout="res://Sound/bus_layout.tres"
 Limits="*res://Settings/Limits.gd"
 Options="*res://Settings/Options.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/size/viewport_width=1280

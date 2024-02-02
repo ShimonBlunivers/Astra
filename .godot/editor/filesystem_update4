@@ -1,9 +1,7 @@
-res://Ship/Ship.gd
-res://Ship/Ship.tscn
+res://Scenes/Editor.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
-res://Scenes/Editor.tscn
 res://Ship/Walls/Connector/Connector.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
@@ -13,7 +11,9 @@ res://Character/Player/Player.tscn
 res://Scenes/Game.tscn
 res://Ship/Objects/Helm/Helm.tscn
 res://Ship/Walls/Door/Door.tscn
-res://Editor/EditorCamera.cs
-res://Character/Character.gd
-res://Settings/Limits.gd
+res://Ship/Ship.tscn
+res://Ship/Walls/Floor/Floor.tscn
+res://Ship/Walls/Door/Door.gd
 res://Character/Player/Player.gd
+res://Character/Character.gd
+res://Ship/Interactable/InteractableShipPart.gd

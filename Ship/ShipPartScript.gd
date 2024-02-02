@@ -11,20 +11,26 @@ var durability_current : float :
     get: return durability_current if durability_max >= 0 else 6942069.
     set(value): durability_current = min(value, durability_max)
 
-var mass : float
+var mass : float;
 
-var ship
+var ship;
 
-func init(_ship, _durability : float = 60, _mass : float = 1):
+var tilemap_coords : Vector2i;
+
+
+func init(_ship, _coords : Vector2i, _durability : float = 60, _mass : float = 1):
     ship = _ship
+    tilemap_coords = _coords;
     durability_max = _durability
     durability_current = _durability
     mass = _mass
 
     ship.mass += mass
 
+func destroy():
+    remove()
+
 func remove() -> void:
     ship.mass -= mass
     queue_free()
 
-    

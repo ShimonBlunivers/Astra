@@ -37,13 +37,13 @@ var _control_position = Vector2(0, 0);
 
 # TODO: ✅  Fix wrong hitbox while ship moving
 
+# TODO: Add load/save
+
 # TODO: Fix Michael Jackson walking
 	
 # TODO: Make walking up & down animations
 	
 # TODO: Change sounds according to walking terrain
-
-# TODO: Add NPCs
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -54,10 +54,12 @@ func _unhandled_input(event: InputEvent):
 
 	if alive:
 		if event.is_action_pressed("game_mb_left") && hovering_interactables.size() != 0:
-			hovering_interactables[0].interact()
+			for interactable in hovering_interactables:
+				interactable.interact()
 
 		if event.is_action_pressed("game_control") && hovering_controllables.size() != 0:
-			hovering_controllables[0].interact()
+			for controllable in hovering_controllables:
+				controllable.interact()
 
 func spawn():
 	animated_sprite.play("Idle")
@@ -73,7 +75,6 @@ func _ready():
 	position = spawn_point
 	_old_position = position
 	nickname = "Player_Samuel"
-	
 
 func kill():
 	if !alive: return
@@ -139,8 +140,8 @@ func _move(_delta: float) -> void:
 		else: 
 			velocity *= .01
 
-	elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
-		position += acceleration
+	# elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
+	# 	position += acceleration
 
 	if direction.x < 0:
 		if !walk_sound.playing && !floating(): 
@@ -183,9 +184,29 @@ func _move(_delta: float) -> void:
 			_sprite_dir = 0
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
+			
+		
+	var shift = velocity * _delta
+	velocity = acceleration
+	
+	move(shift)
+	if (floating()): 
+		var kincol = move_and_collide(acceleration, true)
+		if kincol != null:
+			print(acceleration, "; ", kincol)
+			collisionpos = kincol.get_position()
  
-	move_and_slide()
- 
+
+var collisionpos = Vector2.ZERO
+
+func _draw() -> void:
+	var rect = legs.shape.get_rect()
+	rect.position += Vector2(legs.position.x, legs.position.y)
+	draw_rect(rect, Color.RED)
+
+	print(collisionpos)
+	draw_circle(to_local(collisionpos), 25, Color.WHITE)
+	
 
 func change_view(view: int) -> void:
 	var tween = create_tween()

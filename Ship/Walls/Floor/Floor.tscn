@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhfy34lbk6ggm"]
+
+[ext_resource type="Script" path="res://Ship/Walls/Floor/Floor.gd" id="1_s06mp"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_ivfbr"]
+[ext_resource type="Texture2D" uid="uid://dql1xnhfuwip2" path="res://Ship/Destroyable/crack0.png" id="3_l1rcu"]
+[ext_resource type="Texture2D" uid="uid://cr3gytjseicgi" path="res://Ship/Destroyable/crack1.png" id="4_77fho"]
+[ext_resource type="Texture2D" uid="uid://coxtmt07numrx" path="res://Ship/Destroyable/crack2.png" id="5_epdfu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k627v"]
+atlas = ExtResource("2_ivfbr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w35h2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l1rcu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_77fho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_epdfu")
+}],
+"loop": false,
+"name": &"crack",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2q75"]
+size = Vector2(32, 32)
+
+[node name="Floor" type="Node2D"]
+script = ExtResource("1_s06mp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(1.90735e-06, 0)
+texture = SubResource("AtlasTexture_k627v")
+
+[node name="Cracks" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w35h2")
+animation = &"crack"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_w2q75")

@@ -11,8 +11,8 @@ static var debris_scene = preload("res://Ship/Walls/Debris/Debris.tscn")
 
 var layer : int = 0;
 
-func init(_ship, _durability : float = 100, _mass : float = 4):
-	super(_ship, _durability, _mass)
+func init(_ship, _coords : Vector2i, _durability : float = 100, _mass : float = 4):
+	super(_ship, _coords, _durability, _mass)
 
 func _ready():
 	hp.max_value = durability_max;
@@ -48,6 +48,7 @@ func damage(dmg: float):
 func destroy():
 	var _debris_object := debris_scene.instantiate()
 
+	_debris_object.init(ship, tilemap_coords);
 	_debris_object.position = position
 
 	get_parent().add_child(_debris_object)

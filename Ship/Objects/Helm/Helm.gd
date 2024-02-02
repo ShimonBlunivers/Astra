@@ -2,8 +2,9 @@ class_name Helm extends InteractableShipPart
 
 var controlled : bool = false
 
-func init(_ship, _durability : float = 10, _mass : float = 1):
-	super(_ship, _durability, _mass)
+func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1):
+	_coords = Vector2i(_coords.x / 4, _coords.y / 4);                                   # MAYBE DOESNT WORK!!
+	super(_ship, _coords, _durability, _mass)
 
 func _interact():
 	if controlled:
