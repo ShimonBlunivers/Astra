@@ -1,8 +1,7 @@
 class_name Player extends Character
 
-
 @onready var walk_sound : AudioStreamPlayer2D = $Sounds/Walk
-@onready var camera : Camera2D = $"../Camera2D"
+@onready var camera : Camera2D = $Camera2D
 @onready var vision : PointLight2D = $Vision/Light
 
 var _sprite_dir := 69
@@ -27,6 +26,8 @@ var hovering_controllables := []
 
 var _control_position = Vector2(0, 0);
 
+var passenger_on := []
+
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
 # TODO: ✅ Add floating velocity
@@ -44,6 +45,21 @@ var _control_position = Vector2(0, 0);
 # TODO: Make walking up & down animations
 	
 # TODO: Change sounds according to walking terrain
+
+func floating():
+	return passenger_on.size() == 0
+
+var changing_ship_to = null;
+
+func get_in(ship): # call_deferred
+	if (ship in passenger_on): return
+	passenger_on.append(ship)
+	reparent(ship.passengers_node)
+	
+
+func get_off(ship): # call_deferred
+	passenger_on.erase(ship)
+	reparent(get_tree().root.get_child(0))
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -64,17 +80,20 @@ func _unhandled_input(event: InputEvent):
 func spawn():
 	animated_sprite.play("Idle")
 	alive = true
-	health = max_health
-	position = spawn_point
-	health_updated_signal.emit()
-
-func _ready():
-	spawn_point = Vector2(280, 880)
-	alive = true
+	spawned = true;
 	health = max_health
 	position = spawn_point
 	_old_position = position
+	health_updated_signal.emit()
+	
+
+func _ready():
+	super();
+	spawn_point = Vector2(280, 880)
+
 	nickname = "Player_Samuel"
+	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
+	spawn()
 
 func kill():
 	if !alive: return
@@ -131,8 +150,9 @@ func _move(_delta: float) -> void:
 	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
 
 	if floating(): 	
+		
 		if (_control_position == position): 
-			position += acceleration
+			move_and_collide(acceleration) 
 		else:
 			_old_position = _before_move
 		if suit == false: 
@@ -186,16 +206,9 @@ func _move(_delta: float) -> void:
 			animated_sprite.play("Idle")
 			
 		
-	var shift = velocity * _delta
-	velocity = acceleration
-	
-	move(shift)
-	if (floating()): 
-		var kincol = move_and_collide(acceleration, true)
-		if kincol != null:
-			print(acceleration, "; ", kincol)
-			collisionpos = kincol.get_position()
- 
+	move_and_slide()
+
+
 
 var collisionpos = Vector2.ZERO
 
@@ -204,14 +217,14 @@ func _draw() -> void:
 	rect.position += Vector2(legs.position.x, legs.position.y)
 	draw_rect(rect, Color.RED)
 
-	print(collisionpos)
+	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)
 	
 
 func change_view(view: int) -> void:
 	var tween = create_tween()
 
-	var difference_between_ship_center = position - ship_controlled.position
+	var difference_between_ship_center = position
 	var ship_offset : Vector2 = (Vector2(ship_controlled.get_rect().position) * Vector2(ship_controlled.get_tile_size())) + (Vector2(ship_controlled.get_rect().size) * ship_controlled.get_tile_size()/2)
 	var duration = 1
 	

@@ -10,7 +10,7 @@ atlas = ExtResource("2_0a064")
 region = Rect2(96, 64, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeoku"]
-size = Vector2(32, 32)
+size = Vector2(160, 160)
 
 [sub_resource type="Gradient" id="Gradient_5pfsn"]
 offsets = PackedFloat32Array(0, 0.213333, 1)
@@ -30,13 +30,14 @@ curve = SubResource("Curve_k7bk3")
 lifetime_randomness = 0.1
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(2, 9, 1)
+emission_box_extents = Vector3(10, 45, 1)
+direction = Vector3(5, 0, 0)
 spread = 0.0
-initial_velocity_min = 80.0
-initial_velocity_max = 100.0
+initial_velocity_min = 400.0
+initial_velocity_max = 500.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.25
-scale_max = 0.25
+scale_min = 1.25
+scale_max = 1.25
 scale_curve = SubResource("CurveTexture_dnlkm")
 color_ramp = SubResource("GradientTexture1D_kfmsg")
 
@@ -48,6 +49,7 @@ script = ExtResource("1_tutll")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
+scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_hy2pl")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -56,7 +58,7 @@ texture = SubResource("AtlasTexture_hy2pl")
 shape = SubResource("RectangleShape2D_yeoku")
 
 [node name="JetParticles" type="GPUParticles2D" parent="."]
-position = Vector2(13, 0)
+position = Vector2(68, -1)
 amount = 1000
 process_material = SubResource("ParticleProcessMaterial_o734o")
 texture = ExtResource("3_a8jxn")
@@ -65,9 +67,11 @@ speed_scale = 2.0
 local_coords = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+scale = Vector2(5, 5)
 occluder = SubResource("OccluderPolygon2D_glnne")
 
 [node name="Sounds" type="Node2D" parent="."]
+visible = false
 
 [node name="Jet" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("4_xdkpc")

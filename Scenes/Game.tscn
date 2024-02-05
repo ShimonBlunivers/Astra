@@ -22,10 +22,12 @@ metadata/_edit_vertical_guides_ = []
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
 position = Vector2(640, 360)
 
-[node name="CameraAttached" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
-update_rotation = false
-update_scale = false
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = -1000000000
+limit_top = -1000000000
+limit_right = 1000000000
+limit_bottom = 1000000000
+position_smoothing_speed = 10.0
 
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
@@ -58,14 +60,6 @@ motion_mirroring = Vector2(20480, 20480)
 scale = Vector2(10, 10)
 texture = ExtResource("5_mgng7")
 centered = false
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, 360)
-limit_left = -1000000000
-limit_top = -1000000000
-limit_right = 1000000000
-limit_bottom = 1000000000
-position_smoothing_speed = 10.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("6_rstey")

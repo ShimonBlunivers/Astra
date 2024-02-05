@@ -19,12 +19,6 @@ func _load_hitbox(_layer: int):
 	ship.hitbox.polygon = toShape(deleteEdges(createEdges(_layer)))
 	ship.visual.polygon = ship.hitbox.polygon
 	ship.area.polygon = ship.hitbox.polygon
-
-	ship.hitbox.scale = scale
-	ship.visual.scale = scale
-	ship.area.scale = scale
-
-
 func getPoints(tile: Vector2i):
 	
 	# 1   2
@@ -39,7 +33,6 @@ func getPoints(tile: Vector2i):
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y), # 2
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y + tile_size.y) # 3
 	]
-
 func getPointsRect(rect: Rect2):
 
 	# 1   2
@@ -54,12 +47,12 @@ func getPointsRect(rect: Rect2):
 		Vector2(rect_position.x + rect_size.x, rect_position.y), # 2
 		Vector2(rect_position.x + rect_size.x, rect_position.y + rect_size.y) # 3
 	]
-func getLines(points):
+func getLines(points, _scale = Limits.TILE_SCALE):
 	return [
-		[points[0], points[1]],
-		[points[1], points[2]],
-		[points[2], points[3]],
-		[points[3], points[0]]
+		[points[0] * _scale, points[1] * _scale],
+		[points[1] * _scale, points[2] * _scale],
+		[points[2] * _scale, points[3] * _scale],
+		[points[3] * _scale, points[0] * _scale]
 	]
 func createEdges(layer: int):
 	var edges = []
@@ -86,7 +79,7 @@ func deleteEdges(edges):
 	return edges
 func toShape(edges):
 	var result = PackedVector2Array()
-	var nextLine = edges[0] 
+	var nextLine = edges[0]
 	for idx in range(edges.size()):
 		for otherLine in edges:
 			if otherLine == nextLine: continue
@@ -100,34 +93,6 @@ func toShape(edges):
 	
 	
 	return result
-
-# func simplifyEdges(edges):
-# 	var result = []
-# 	var point = edges[0]
-# 	var checking = edges[1]
-# 	var vector
-# 	for idx in range(2, edges.size() + 2):
-# 		vector = point - checking
-# 		checking = edges[idx%edges.size()]
-# 		var newVector = point - checking
-# 		var viable : bool = false
-
-# 		if vector == newVector:	
-# 			viable = true
-		
-# 		elif newVector.x == 0 && vector.x == 0:
-# 			viable = true
-				
-# 		elif newVector.y == 0 && vector.y == 0:
-# 			viable = true
-			
-# 		elif newVector.x != 0 && newVector.y != 0 && vector.x / newVector.x == vector.y / newVector.y:
-# 			viable = true
-# 			print("XD")
-# 		if !viable:
-# 			result.append(edges[idx%edges.size() - 1])
-# 			point = checking
-# 	return result
 
 func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship
@@ -147,7 +112,9 @@ func load_ship(_ship, path : String = "station") -> bool:
 		tile.x = contents[0]
 		tile.y = contents[1]
 		set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
+
 		
+
 	save_file.close()
 
 	_load_hitbox(layer)
@@ -167,12 +134,14 @@ func _replace_interactive_tiles() -> bool:
 
 		var object_direction = get_cell_alternative_tile(layer, cellpos)
 		
+		var tile_position = map_to_local(cellpos) * Limits.TILE_SCALE
+
 		match cell.get_custom_data("type"):
 
 			"floor":
 				var _floor_object = floor_scene.instantiate()
 				_floor_object.init(ship, cellpos)
-				_floor_object.position = map_to_local(cellpos)
+				_floor_object.position = tile_position
 				add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
 
@@ -181,21 +150,23 @@ func _replace_interactive_tiles() -> bool:
 				var _door_object = door_scene.instantiate()
 				_door_object.init(ship, cellpos)
 				_door_object.direction = cell.get_custom_data("direction")
-				_door_object.position = map_to_local(cellpos)
+				_door_object.position = tile_position
 				add_child(_door_object)
 				var _floor_object = floor_scene.instantiate()
 				_floor_object.init(ship, cellpos)
-				_floor_object.position = map_to_local(cellpos)
+				_floor_object.position = tile_position
 				add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
+
 			"wall":
 
 				var _wall_object = wall_scene.instantiate()
 				_wall_object.init(ship, cellpos)
-				_wall_object.position = map_to_local(cellpos)
+				_wall_object.position = tile_position
 				add_child(_wall_object)
 
 				_wall_object.light_occluder.occluder = cell.get_occluder(layer)
+				_wall_object.light_occluder.scale = Vector2(1, 1) * Limits.TILE_SCALE
 				
 				var tile_image := atlas_image.get_region(atlas.get_tile_texture_region(get_cell_atlas_coords(layer, cellpos)))
 				
@@ -212,18 +183,19 @@ func _replace_interactive_tiles() -> bool:
 			
 				var _core_object = core_scene.instantiate()
 				_core_object.init(ship, cellpos)
-				_core_object.position = map_to_local(cellpos)
+				_core_object.position = tile_position
 				add_child(_core_object)
 				var _floor_object = floor_scene.instantiate()
 				_floor_object.init(ship, cellpos)
-				_floor_object.position = map_to_local(cellpos)
+				_floor_object.position = tile_position
 				add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
+				
 			
 			"thruster":
 				var _thruster_object = thruster_scene.instantiate()
 				_thruster_object.init(ship, cellpos, 150, 5, object_direction)
-				_thruster_object.position = map_to_local(cellpos)
+				_thruster_object.position = tile_position
 
 				ship.thrust_power[object_direction] += _thruster_object.power;
 
@@ -237,7 +209,7 @@ func _replace_interactive_tiles() -> bool:
 			"connector":
 				var _connector_object = connector_scene.instantiate()
 				_connector_object.init(ship, cellpos)
-				_connector_object.position = map_to_local(cellpos)
+				_connector_object.position = tile_position
 
 				add_child(_connector_object)
 				

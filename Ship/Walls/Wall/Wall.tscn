@@ -31,10 +31,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2q75"]
-size = Vector2(32, 32)
+size = Vector2(160, 160)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fhldi"]
-polygon = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+polygon = PackedVector2Array(-40, -40, -40, 40, 40, 40, 40, -40)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85uss"]
 
@@ -43,9 +43,11 @@ script = ExtResource("1_d763y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 0)
+scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_t106e")
 
 [node name="Cracks" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_w35h2")
 animation = &"crack"
 
@@ -59,20 +61,18 @@ occluder = SubResource("OccluderPolygon2D_fhldi")
 
 [node name="HP" type="ProgressBar" parent="."]
 visible = false
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 28.0
-offset_bottom = 28.0
+offset_right = 160.0
+offset_bottom = 160.0
 scale = Vector2(0.25, 0.25)
 max_value = 4.0
 step = -1.0
 value = 4.0
 
 [node name="Button" type="Button" parent="."]
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_85uss")
 shortcut_feedback = false
 shortcut_in_tooltip = false

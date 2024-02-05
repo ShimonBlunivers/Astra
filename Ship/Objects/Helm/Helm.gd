@@ -24,4 +24,3 @@ func _on_area_area_exited(area: Area2D) -> void:
 		player_in_range.hovering_controllables.erase(self)
 		player_in_range = null
 		interactable = false
-

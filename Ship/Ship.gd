@@ -6,6 +6,7 @@ extends RigidBody2D
 @onready var hitbox := $Hitbox
 @onready var visual := $Visual
 @onready var area := $Area/AreaHitbox
+@onready var passengers_node := $Passengers
 
 var main_player;
 
@@ -69,32 +70,30 @@ func get_tile(coords : Vector2i):
 				return tile;
 	return null
 
-func _physics_process(_delta: float) -> void:
 
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	acceleration = Vector2.ZERO;
 
 	if controlled_by != null: 
 		control()
-	
 
-	velocity += acceleration * _delta;
-	position += velocity * _delta;
-
-	# state.apply_central_impulse(acceleration)
+	state.apply_central_impulse(acceleration)
 	update_thrusters()
 
 	if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 		var new_speed = get_linear_velocity().normalized()
 		new_speed *= Limits.VELOCITY_MAX
 		set_linear_velocity(new_speed)
+
+func _physics_process(_delta: float) -> void:
 	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
-	
-	area.position = -difference_in_position;
-
-	for passenger in passengers: 
-		passenger.move(difference_in_position);
-
+	# for passenger in passengers: 
+	# 	if passenger.is_in_group("NPC"):
+	# 		passenger.legs.position = passenger.legs_offset + difference_in_position;
+	# 		print(passenger.name, " ; ", passenger.legs.position)
+		
+	# area.position = -difference_in_position;
 
 	_old_position = position;
 
@@ -129,15 +128,29 @@ func stop_controlling():
 	controlled_by = null
 
 func _on_area_2d_body_entered(body:Node2D) -> void:
-	if body.is_in_group("Character"):
+	if body.is_in_group("Player"):
+		if (!body.spawned): 				return;
+		if (body.changing_ship_to == self): 
+			body.changing_ship_to = null;
+			return;
+		if (body.changing_ship_to != null): return;
+		if (body in passengers): 			return;
+		body.changing_ship_to = self;
 		passengers.append(body)
-		body.get_in(self)
-
+		# body.get_in(self)
+		
+		body.call_deferred("get_in", self)
+		
 	# if body.is_in_group("Player"):
 		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 
 func _on_area_2d_body_exited(body:Node2D) -> void:
-	if body.is_in_group("Character"):
+	if body.is_in_group("Player"):
+		if (!body.spawned): 				return;
+		if (body.changing_ship_to != null): return;
+		if !(body in passengers): 			return;
 		passengers.erase(body)
-		body.get_off(self)
+		body.call_deferred("get_off", self)
 	# if body.is_in_group("Player"):
+
+		

@@ -37,21 +37,25 @@ func _replace_interactive_tiles() -> bool:
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
 
+		var tile_position = map_to_local(cellpos) * Limits.TILE_SCALE
+
 		match cell.get_custom_data("type"):
 			"helm":
 				var helm_object = helm_scene.instantiate()
 				helm_object.init(ship, cellpos)
-				helm_object.position = map_to_local(cellpos)
+				helm_object.position = tile_position
 				add_child(helm_object)
 				set_cell(layer, cellpos, -1)
 
 			"NPC":
 
 				var NPC_object = NPC_scene.instantiate()
-				get_tree().root.get_node("World").add_child.call_deferred(NPC_object)
-				NPC_object.spawn_point = to_global(map_to_local(cellpos)) - Vector2(0, 20)
+				NPC_object.spawn_point = tile_position - Vector2(0, 20)
 				NPC_object.spawn()
 				NPC_object.init()
+				ship.passengers_node.add_child(NPC_object)
+				ship.passengers.append(NPC_object)
+				
 				set_cell(layer, cellpos, -1)
 
 

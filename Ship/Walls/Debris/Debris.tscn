@@ -9,17 +9,17 @@ atlas = ExtResource("2_cyj6g")
 region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c205f"]
-size = Vector2(32, 32)
+size = Vector2(160, 160)
 
 [node name="Debris" type="Node2D"]
 script = ExtResource("1_7g71x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 0)
+scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_pum8f")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 0
 
@@ -36,7 +36,6 @@ flat = true
 
 [node name="Labels" type="Node2D" parent="."]
 visible = false
-scale = Vector2(0.2, 0.2)
 
 [node name="Label" type="Label" parent="Labels"]
 offset_left = -35.0
