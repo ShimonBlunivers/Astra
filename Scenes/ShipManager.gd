@@ -12,7 +12,7 @@ func _ready() -> void:
 	spawn_ship(0, 2200)
 
 func _load() -> void:
-	main_station.load_ship(2000, 0)
+	main_station.load_ship(0, 0)
 
 func spawn_ship(x: int = 0, y: int = 0) -> void:
 	var _ship = ship_scene.instantiate()

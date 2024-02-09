@@ -4,6 +4,8 @@ class_name Player extends Character
 @onready var camera : Camera2D = $Camera2D
 @onready var vision : PointLight2D = $Vision/Light
 
+@onready var interact_area = $InteractArea
+
 var _sprite_dir := 69
 
 var ship_controlled = null
@@ -24,7 +26,7 @@ var _old_position = Vector2(0, 0)
 var hovering_interactables := []
 var hovering_controllables := []
 
-var _control_position = Vector2(0, 0);
+var _fix_position = Vector2(0, 0);
 
 var passenger_on := []
 
@@ -55,11 +57,13 @@ func get_in(ship): # call_deferred
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 	reparent(ship.passengers_node)
-	
+	_fix_position += ship.difference_in_position;
 
 func get_off(ship): # call_deferred
 	passenger_on.erase(ship)
 	reparent(get_tree().root.get_child(0))
+
+	_old_position -= ship.difference_in_position;
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -83,7 +87,7 @@ func spawn():
 	spawned = true;
 	health = max_health
 	position = spawn_point
-	_old_position = position
+	_old_position = global_position
 	health_updated_signal.emit()
 	
 
@@ -112,7 +116,6 @@ func _in_physics(delta: float) -> void:
 	if ship_controlled == null: 
 		_move(delta)
 
-	_control_position = position
 
 func control_ship(ship):
 	if ship != null:
@@ -138,29 +141,31 @@ func _move(_delta: float) -> void:
 	
 	if !alive: direction = Vector2.ZERO
 
-	acceleration = position - _old_position
+	acceleration = global_position - _old_position
 	var _before_move = _old_position
-	_old_position = position
+	_old_position = global_position
 
 	if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX:
 		var new_speed = acceleration.normalized()
 		new_speed *= Limits.VELOCITY_MAX
 		acceleration = new_speed
 
-	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running)
+	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running) + _fix_position;
+	_fix_position = Vector2.ZERO;
 
 	if floating(): 	
-		
-		if (_control_position == position): 
-			move_and_collide(acceleration) 
-		else:
-			_old_position = _before_move
+		interact_area.position = Vector2.ZERO;
+		move_and_collide(acceleration) 
 		if suit == false: 
 			velocity = Vector2(0, 0)
 		else: 
 			velocity *= .01
+	else:
+		interact_area.position = -passenger_on[0].difference_in_position;
 
-	# elif _control_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
+	move_and_slide()
+
+	# elif _fix_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
 	# 	position += acceleration
 
 	if direction.x < 0:
@@ -205,18 +210,22 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
 			
-		
-	move_and_slide()
-
-
 
 var collisionpos = Vector2.ZERO
 
-func _draw() -> void:
-	var rect = legs.shape.get_rect()
-	rect.position += Vector2(legs.position.x, legs.position.y)
-	draw_rect(rect, Color.RED)
 
+func _draw() -> void:
+	if (!Options.DEBUG_MODE): return;
+	var rect = legs.shape.get_rect();
+
+	rect.position += legs_offset;
+	draw_rect(rect, Color.RED);
+
+	if (!floating()):
+		rect = interact_area.get_child(0).shape.get_rect();
+		rect.position += legs_offset + interact_area.position;
+		draw_rect(rect, Color.ORANGE);
+		
 	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)
 	

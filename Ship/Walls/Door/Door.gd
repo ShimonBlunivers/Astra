@@ -2,12 +2,13 @@ class_name Door extends InteractableShipPart
 
 
 @onready var walkway : StaticBody2D = $Hitbox/StaticBody2DWalkway
-@onready var hitbox : Node2D = $Hitbox
 @onready var open_sound : AudioStreamPlayer2D = $Sound/DoorOpen
 @onready var close_sound : AudioStreamPlayer2D = $Sound/DoorClose
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
-var direction := "horizontal"
+@onready var mouse_hitbox : Node2D = $Hitbox/Area/MouseHitbox
+@onready var door_area : Node2D = $Hitbox/Area/Area2D
+
 var state := "closed"
 
 var obstructed := false
@@ -28,6 +29,9 @@ func _ready() -> void:
 	if direction == "vertical":
 		rotation_degrees = 90;
 	animated_sprite.connect("frame_changed", _on_frame_changed)
+
+	hitboxes_to_shift.append(mouse_hitbox);
+	hitboxes_to_shift.append(door_area);
 	
 func update_sprites():
 	if state == "open":
@@ -104,14 +108,12 @@ func _interact():
 	if is_operating:
 		return
 
-
 	# var tile = ship.get_tile(tilemap_coords + Vector2i(1, 0))
 	# print(tile)
 	# if tile != null:
 	# 	tile.destroy()
 	# ship.wall_tile_map.set_cell(0, tilemap_coords + Vector2i(1, 0), -1)
 
-	
 	if state == "open":
 		if obstructed:
 			return
@@ -122,9 +124,11 @@ func _interact():
 		open()
 
 func _on_walkway_body_entered(_body: Node2D):
+	print("entered")
 	obstructed = true
 
 func _on_walkway_body_exited(_body: Node2D):
+	print("exited")
 	obstructed = false
 
 # func _on_interact_area_body_entered(_body: Node2D):

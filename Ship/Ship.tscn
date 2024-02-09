@@ -11,14 +11,15 @@
 z_index = -1
 collision_layer = 512
 collision_mask = 512
-collision_priority = 8.0
 gravity_scale = 0.0
+can_sleep = false
 lock_rotation = true
 freeze_mode = 1
-max_contacts_reported = 20
-contact_monitor = true
+continuous_cd = 1
 linear_damp_mode = 1
 script = ExtResource("1_set35")
+
+[node name="Passengers" type="Node2D" parent="."]
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 1, 0, 1, -1, 0, -1)
@@ -49,7 +50,5 @@ tile_set = ExtResource("2_qq4gy")
 format = 2
 script = ExtResource("5_rjigq")
 
-[node name="Passengers" type="Node2D" parent="."]
-
-[connection signal="body_entered" from="Area" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Area" to="." method="_on_area_area_entered"]
+[connection signal="area_exited" from="Area" to="." method="_on_area_area_exited"]

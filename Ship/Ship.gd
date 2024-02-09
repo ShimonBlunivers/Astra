@@ -88,12 +88,11 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _physics_process(_delta: float) -> void:
 	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
-	# for passenger in passengers: 
-	# 	if passenger.is_in_group("NPC"):
-	# 		passenger.legs.position = passenger.legs_offset + difference_in_position;
-	# 		print(passenger.name, " ; ", passenger.legs.position)
-		
-	# area.position = -difference_in_position;
+	for passenger in passengers: 
+		if passenger.is_in_group("NPC"):
+			passenger.legs.position = passenger.legs_offset + difference_in_position;
+			
+	area.position = -difference_in_position;
 
 	_old_position = position;
 
@@ -127,8 +126,11 @@ func start_controlling(player):
 func stop_controlling():
 	controlled_by = null
 
-func _on_area_2d_body_entered(body:Node2D) -> void:
-	if body.is_in_group("Player"):
+
+
+func _on_area_area_entered(_area:Area2D) -> void:
+	if _area.is_in_group("PlayerInteractArea"):
+		var body = _area.get_parent()
 		if (!body.spawned): 				return;
 		if (body.changing_ship_to == self): 
 			body.changing_ship_to = null;
@@ -144,13 +146,12 @@ func _on_area_2d_body_entered(body:Node2D) -> void:
 	# if body.is_in_group("Player"):
 		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 
-func _on_area_2d_body_exited(body:Node2D) -> void:
-	if body.is_in_group("Player"):
+func _on_area_area_exited(_area:Area2D) -> void:
+	if _area.is_in_group("PlayerInteractArea"):
+		var body = _area.get_parent()
 		if (!body.spawned): 				return;
 		if (body.changing_ship_to != null): return;
 		if !(body in passengers): 			return;
 		passengers.erase(body)
 		body.call_deferred("get_off", self)
 	# if body.is_in_group("Player"):
-
-		

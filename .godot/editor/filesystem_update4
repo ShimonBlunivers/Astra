@@ -1,3 +1,7 @@
+res://Ship/Interactable/InteractableShipPart.gd
+res://Character/Player/Player.gd
+res://Ship/Ship.gd
+res://Ship/ShipPartScript.gd
 res://Scenes/Editor.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
@@ -13,8 +17,8 @@ res://Ship/Objects/Helm/Helm.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Ship/Ship.tscn
 res://Ship/Walls/Core/Core.tscn
-res://Character/Player/Player.gd
-res://Ship/Ship.gd
-res://Character/NPC/NPC.gd
+res://Ship/Walls/Door/Door.gd
+res://Scenes/ShipManager.gd
 res://Character/Character.gd
-res://Ship/ObjectTileMap.gd
+res://Ship/Walls/Connector/Connector.gd
+res://Settings/Limits.gd

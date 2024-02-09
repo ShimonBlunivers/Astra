@@ -133,9 +133,8 @@ animations = [{
 [node name="Player" type="CharacterBody2D" groups=["Character", "Player"]]
 z_index = 10
 y_sort_enabled = true
-collision_layer = 259
-collision_mask = 259
-collision_priority = 5.0
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4278190080
@@ -148,6 +147,14 @@ collision_mask = 16
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="Area"]
 shape = SubResource("RectangleShape2D_5jaj3")
+
+[node name="InteractArea" type="Area2D" parent="." groups=["PlayerInteractArea"]]
+collision_layer = 272
+collision_mask = 272
+
+[node name="InteractLegHitbox" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, 42.5)
+shape = SubResource("RectangleShape2D_ua5a6")
 
 [node name="LegHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 42.5)
@@ -175,7 +182,7 @@ texture_scale = 14.0
 
 [node name="Internal" type="PointLight2D" parent="Vision"]
 light_mask = 2
-position = Vector2(0, 42.5)
+position = Vector2(-151, 33)
 energy = 0.25
 range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)

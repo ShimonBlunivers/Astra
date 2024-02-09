@@ -31,9 +31,11 @@ var max_impact_velocity : float = 25
 func _ready() -> void:
 	legs_offset = legs.position;
 
-func _physics_process(delta: float) -> void:
-	
+func _process(_delta: float) -> void:
+	if (!Options.DEBUG_MODE): return;
 	queue_redraw()
+
+func _physics_process(delta: float) -> void:
 	_in_physics(delta)
 	# if !floating():
 	# 	move_and_collide(passenger_on[0].difference_in_position);
@@ -68,8 +70,11 @@ func spawn():
 # 	speed = Vector2.ZERO;
 
 func _draw() -> void:
+	if (!Options.DEBUG_MODE): return;
+	
 	var rect = legs.shape.get_rect()
 
 	rect.position += Vector2(legs.position.x, legs.position.y)
+
 
 	draw_rect(rect, Color.RED)

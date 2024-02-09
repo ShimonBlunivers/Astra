@@ -156,13 +156,6 @@ shape = SubResource("RectangleShape2D_olnpt")
 position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_pbgdf")
 
-[node name="Area2D" type="Area2D" parent="Hitbox"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="Walkway" type="CollisionShape2D" parent="Hitbox/Area2D"]
-shape = SubResource("RectangleShape2D_q8qwe")
-
 [node name="LeftOccluder" type="LightOccluder2D" parent="Hitbox"]
 scale = Vector2(5, 5)
 occluder = SubResource("OccluderPolygon2D_r27t5")
@@ -192,10 +185,19 @@ occluder = SubResource("OccluderPolygon2D_q8ih3")
 position = Vector2(-3, 0)
 occluder = SubResource("OccluderPolygon2D_jw75i")
 
-[node name="Hitbox" type="Area2D" parent="Hitbox"]
+[node name="Area" type="Node2D" parent="Hitbox"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox/Hitbox"]
+[node name="MouseHitbox" type="Area2D" parent="Hitbox/Area"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox/Area/MouseHitbox"]
 shape = SubResource("RectangleShape2D_js5sb")
+
+[node name="Area2D" type="Area2D" parent="Hitbox/Area"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Walkway" type="CollisionShape2D" parent="Hitbox/Area/Area2D"]
+shape = SubResource("RectangleShape2D_q8qwe")
 
 [node name="Sound" type="Node2D" parent="."]
 
@@ -211,7 +213,7 @@ max_distance = 4000.0
 attenuation = 4.0
 bus = &"SFX"
 
-[connection signal="body_entered" from="Hitbox/Area2D" to="." method="_on_walkway_body_entered"]
-[connection signal="body_exited" from="Hitbox/Area2D" to="." method="_on_walkway_body_exited"]
-[connection signal="mouse_entered" from="Hitbox/Hitbox" to="." method="_on_hitbox_mouse_entered"]
-[connection signal="mouse_exited" from="Hitbox/Hitbox" to="." method="_on_hitbox_mouse_exited"]
+[connection signal="mouse_entered" from="Hitbox/Area/MouseHitbox" to="." method="_on_hitbox_mouse_entered"]
+[connection signal="mouse_exited" from="Hitbox/Area/MouseHitbox" to="." method="_on_hitbox_mouse_exited"]
+[connection signal="body_entered" from="Hitbox/Area/Area2D" to="." method="_on_walkway_body_entered"]
+[connection signal="body_exited" from="Hitbox/Area/Area2D" to="." method="_on_walkway_body_exited"]

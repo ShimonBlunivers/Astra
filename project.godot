@@ -132,14 +132,13 @@ debug_die={
 2d_render/layer_1="Player vision"
 2d_render/layer_2="Player light-up"
 2d_physics/layer_1="Player collision"
+2d_physics/layer_2="Character collision"
 2d_physics/layer_5="Interactables collision"
 2d_physics/layer_9="Character to Ship collision"
 2d_physics/layer_10="Ship collision"
 
 [physics]
 
-2d/run_on_separate_thread=true
-2d/physics_engine="GodotPhysics2D"
 3d/default_gravity=0.0
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
