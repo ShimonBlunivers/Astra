@@ -27,6 +27,8 @@ Options="*res://Settings/Options.gd"
 [debug]
 
 gdscript/warnings/integer_division=0
+canvas_items/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
+shapes/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
 
 [display]
 
@@ -37,6 +39,11 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="Astra"
+
+[editor]
+
+movie_writer/movie_file="D:/Programming/Godot/MovieFolder/recording.avi"
+movie_writer/fps=30
 
 [filesystem]
 
@@ -152,3 +159,4 @@ textures/default_filters/anisotropic_filtering_level=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
 environment/defaults/default_clear_color=Color(0.501961, 0.556863, 0.8, 1)
+anti_aliasing/quality/msaa_2d=1

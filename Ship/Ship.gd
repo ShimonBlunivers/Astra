@@ -142,9 +142,9 @@ func _on_area_area_entered(_area:Area2D) -> void:
 		# body.get_in(self)
 		
 		body.call_deferred("get_in", self)
-		
 	# if body.is_in_group("Player"):
 		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
+
 
 func _on_area_area_exited(_area:Area2D) -> void:
 	if _area.is_in_group("PlayerInteractArea"):

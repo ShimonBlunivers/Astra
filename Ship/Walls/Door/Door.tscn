@@ -115,6 +115,7 @@ frame = 3
 [node name="Hitbox" type="Node2D" parent="."]
 
 [node name="StaticBody2DSides" type="StaticBody2D" parent="Hitbox"]
+visible = false
 
 [node name="Left" type="CollisionShape2D" parent="Hitbox/StaticBody2DSides"]
 position = Vector2(-65, 0)
@@ -125,11 +126,13 @@ position = Vector2(65, 0)
 shape = SubResource("RectangleShape2D_dr5sq")
 
 [node name="StaticBody2DWalkway" type="StaticBody2D" parent="Hitbox"]
+visible = false
 
 [node name="Walkway" type="CollisionShape2D" parent="Hitbox/StaticBody2DWalkway"]
 shape = SubResource("RectangleShape2D_q8qwe")
 
 [node name="AnimatedHitbox" type="Node2D" parent="Hitbox"]
+visible = false
 scale = Vector2(5, 5)
 
 [node name="0left" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
@@ -193,6 +196,7 @@ occluder = SubResource("OccluderPolygon2D_jw75i")
 shape = SubResource("RectangleShape2D_js5sb")
 
 [node name="Area2D" type="Area2D" parent="Hitbox/Area"]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -200,6 +204,7 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_q8qwe")
 
 [node name="Sound" type="Node2D" parent="."]
+visible = false
 
 [node name="DoorOpen" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("3_csbmj")

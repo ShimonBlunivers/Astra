@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dai6awjw4ywn7"]
+[gd_scene load_steps=8 format=3 uid="uid://dai6awjw4ywn7"]
 
 [ext_resource type="TileSet" uid="uid://bfuqtumyjeq0m" path="res://Ship/WallTileMap.tres" id="1_6t3py"]
 [ext_resource type="Script" path="res://Ship/Ship.gd" id="1_set35"]
@@ -7,24 +7,25 @@
 [ext_resource type="Script" path="res://Ship/WallTileMap.gd" id="3_cl687"]
 [ext_resource type="Script" path="res://Ship/ObjectTileMap.gd" id="5_rjigq"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3ntu0"]
+
 [node name="Ship" type="RigidBody2D"]
 z_index = -1
 collision_layer = 512
 collision_mask = 512
+physics_material_override = SubResource("PhysicsMaterial_3ntu0")
 gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
 freeze_mode = 1
-continuous_cd = 1
 linear_damp_mode = 1
 script = ExtResource("1_set35")
-
-[node name="Passengers" type="Node2D" parent="."]
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 1, 0, 1, -1, 0, -1)
 
 [node name="Area" type="Area2D" parent="."]
+visible = false
 collision_layer = 256
 collision_mask = 256
 linear_damp = 0.0
@@ -49,6 +50,8 @@ z_index = 1
 tile_set = ExtResource("2_qq4gy")
 format = 2
 script = ExtResource("5_rjigq")
+
+[node name="Passengers" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="Area" to="." method="_on_area_area_entered"]
 [connection signal="area_exited" from="Area" to="." method="_on_area_area_exited"]

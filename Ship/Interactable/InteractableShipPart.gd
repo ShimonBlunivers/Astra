@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-
+	if (!Options.DEBUG_MODE): return;
 	for hitbox in hitboxes_to_shift:
 		var rect = hitbox.get_child(0).shape.get_rect()
 		rect.position += hitbox.position

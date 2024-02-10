@@ -1,3 +1,3 @@
 extends Node
 
-@export var DEBUG_MODE = true
+@export var DEBUG_MODE = false

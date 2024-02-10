@@ -124,11 +124,9 @@ func _interact():
 		open()
 
 func _on_walkway_body_entered(_body: Node2D):
-	print("entered")
 	obstructed = true
 
 func _on_walkway_body_exited(_body: Node2D):
-	print("exited")
 	obstructed = false
 
 # func _on_interact_area_body_entered(_body: Node2D):

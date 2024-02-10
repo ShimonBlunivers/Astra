@@ -26,6 +26,8 @@ var _old_position = Vector2(0, 0)
 var hovering_interactables := []
 var hovering_controllables := []
 
+var controllables_in_use := []
+
 var _fix_position = Vector2(0, 0);
 
 var passenger_on := []
@@ -67,19 +69,27 @@ func get_off(ship): # call_deferred
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		damage(10)
+		damage(100)
 
 	if event.is_action_pressed("debug_spawn"):
 		spawn()
 
 	if alive:
-		if event.is_action_pressed("game_mb_left") && hovering_interactables.size() != 0:
+		if event.is_action_pressed("game_mb_left"):
 			for interactable in hovering_interactables:
 				interactable.interact()
 
-		if event.is_action_pressed("game_control") && hovering_controllables.size() != 0:
+		if event.is_action_pressed("game_control"):
 			for controllable in hovering_controllables:
 				controllable.interact()
+			for controllable in controllables_in_use:
+				if controllable in hovering_controllables: continue;
+				controllable.player_in_range = self;
+				controllable.interactable = true;
+				controllable.interact()
+				controllable.player_in_range = null;
+				controllable.interactable = false;
+
 
 func spawn():
 	animated_sprite.play("Idle")
@@ -93,7 +103,7 @@ func spawn():
 
 func _ready():
 	super();
-	spawn_point = Vector2(280, 880)
+	spawn_point = Vector2(280, 580)
 
 	nickname = "Player_Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
@@ -154,7 +164,7 @@ func _move(_delta: float) -> void:
 	_fix_position = Vector2.ZERO;
 
 	if floating(): 	
-		interact_area.position = Vector2.ZERO;
+		interact_area.position = -acceleration;
 		move_and_collide(acceleration) 
 		if suit == false: 
 			velocity = Vector2(0, 0)
@@ -216,16 +226,17 @@ var collisionpos = Vector2.ZERO
 
 func _draw() -> void:
 	if (!Options.DEBUG_MODE): return;
-	var rect = legs.shape.get_rect();
+	var rect;
+
+	rect = interact_area.get_child(0).shape.get_rect();
+	rect.position += legs_offset + interact_area.position;
+	draw_rect(rect, Color.ORANGE);
+
+	rect = legs.shape.get_rect();
 
 	rect.position += legs_offset;
 	draw_rect(rect, Color.RED);
 
-	if (!floating()):
-		rect = interact_area.get_child(0).shape.get_rect();
-		rect.position += legs_offset + interact_area.position;
-		draw_rect(rect, Color.ORANGE);
-		
 	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)
 	

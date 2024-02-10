@@ -9,8 +9,10 @@ func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1
 func _interact():
 	if controlled:
 		player_in_range.control_ship(null)
+		player_in_range.controllables_in_use.erase(self);
 	else:
 		player_in_range.control_ship(ship)
+		player_in_range.controllables_in_use.append(self);
 	controlled = !controlled
 
 func _on_area_area_entered(area: Area2D) -> void:
