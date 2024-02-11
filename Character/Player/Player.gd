@@ -28,8 +28,6 @@ var hovering_controllables := []
 
 var controllables_in_use := []
 
-var _fix_position = Vector2(0, 0);
-
 var passenger_on := []
 var parent_ship = null;
 
@@ -156,36 +154,42 @@ func control_ship(ship):
 
 func _move(_delta: float) -> void:
 
-	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") # Get input keys
 	var running := Input.get_action_strength("game_run")
-	var _sound_pitch_range := [0.9, 1.1]
+	var _sound_pitch_range := [0.9, 1.1] # Sound variation
 	
-	if !alive: direction = Vector2.ZERO
+	if !alive: direction = Vector2.ZERO # Death check
 
-	acceleration = global_position - _old_position
-	var _before_move = _old_position
+	acceleration = global_position - _old_position # Acceleration get by the difference of the position
 	_old_position = global_position
 
-	if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX:
-		var new_speed = acceleration.normalized()
-		new_speed *= Limits.VELOCITY_MAX
-		acceleration = new_speed
+	# if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX: # Speed limitation, need to redo that tho
+	# 	var new_speed = acceleration.normalized()
+	# 	new_speed *= Limits.VELOCITY_MAX
+	# 	acceleration = new_speed
 
-	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running) + _fix_position;
-	_fix_position = Vector2.ZERO;
+	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running); # velocity // the _fix_position is help variable made to remove bug
 
-	if floating(): 	
-		legs.position = legs_offset - acceleration;
+	if floating(): 	# If outside of the ship
+		legs.position = legs_offset - acceleration; # Counter steering the bug, where every hitbox of the ship shifts
 		if suit == false: 
-			velocity = Vector2(0, 0)
+			velocity = Vector2(0, 0) # No control over the direction u r flying if you don't have a suit
 		else: 
-			velocity *= .01
-		velocity += (acceleration - parent_ship.difference_in_position) / _delta ;
-	else:
-		legs.position = legs_offset - passenger_on[0].difference_in_position;
+			velocity *= .01 # Taking the velocity and dividing it by 100, to the player isn't so fast in the space like in ship
+		velocity += (acceleration - parent_ship.difference_in_position) / _delta ; # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
 
+	else:
+		legs.position = legs_offset - passenger_on[0].difference_in_position; # Again the counter steering against the bug
+
+
+
+	# if get_last_slide_collision():
+	# velocity = velocity.move_toward(Vector2(0, 0), 40)
+	# print("dampening now ; velocity:", velocity)
+	
 	move_and_slide()
 
+	# animation things down here..
 
 	# elif _fix_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
 	# 	position += acceleration

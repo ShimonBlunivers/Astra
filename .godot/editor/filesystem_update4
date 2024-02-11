@@ -1,7 +1,9 @@
-res://Ship/Walls/Wall/Wall.tscn
+res://TextBox/TextBox.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
+res://TextBox/TextBox.gd
+res://Ship/Walls/Wall/Wall.tscn
 res://Scenes/Editor.tscn
 res://Ship/Walls/Connector/Connector.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
@@ -14,4 +16,4 @@ res://Ship/Walls/Door/Door.tscn
 res://Ship/Ship.tscn
 res://Ship/Walls/Core/Core.tscn
 res://Ship/Walls/Floor/Floor.tscn
-res://Character/Character.gd
+res://Character/Player/Player.gd

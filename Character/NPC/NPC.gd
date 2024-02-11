@@ -8,7 +8,11 @@ static var number_of_npcs = 0;
 
 # TODO: Add missions
 
-
+var dialog_texts = {
+	"quest_ask" : [
+		
+	]
+}
 
 func init():
 	nickname = "NPC_Kevin_" + str(number_of_npcs);

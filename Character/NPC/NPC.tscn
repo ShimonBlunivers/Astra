@@ -53,7 +53,6 @@ animations = [{
 [node name="NPC" type="CharacterBody2D" groups=["Character", "NPC"]]
 z_index = 10
 y_sort_enabled = true
-material = ExtResource("1_ssiap")
 collision_layer = 258
 collision_mask = 258
 motion_mode = 1
@@ -75,7 +74,7 @@ shape = SubResource("RectangleShape2D_lmv3t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-use_parent_material = true
+material = ExtResource("1_ssiap")
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_4c1s2")
