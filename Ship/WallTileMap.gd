@@ -15,10 +15,13 @@ func get_rect():
 	return get_used_rect()
 
 func _load_hitbox(_layer: int):
+	ship.polygon = toShape(deleteEdges(createEdges(_layer)))
+	ship.hitbox.polygon = ship.polygon
+	ship.visual.polygon = ship.polygon
+	ship.area.polygon = ship.polygon
 
-	ship.hitbox.polygon = toShape(deleteEdges(createEdges(_layer)))
-	ship.visual.polygon = ship.hitbox.polygon
-	ship.area.polygon = ship.hitbox.polygon
+
+
 func getPoints(tile: Vector2i):
 	
 	# 1   2

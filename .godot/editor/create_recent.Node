@@ -1,5 +1,5 @@
-CharacterBody2D
 AnimatableBody2D
+CharacterBody2D
 StaticBody2D
 Sprite2D
 CollisionShape2D

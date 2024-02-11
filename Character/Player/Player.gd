@@ -31,6 +31,7 @@ var controllables_in_use := []
 var _fix_position = Vector2(0, 0);
 
 var passenger_on := []
+var parent_ship = null;
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -53,19 +54,24 @@ var passenger_on := []
 func floating():
 	return passenger_on.size() == 0
 
-var changing_ship_to = null;
 
-func get_in(ship): # call_deferred
+func get_in(ship):
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
-	reparent(ship.passengers_node)
-	_fix_position += ship.difference_in_position;
 
-func get_off(ship): # call_deferred
+func get_off(ship):
 	passenger_on.erase(ship)
-	reparent(get_tree().root.get_node("World"))
 
-	_old_position -= ship.difference_in_position;	
+func change_ship(ship):
+	parent_ship = ship;
+	call_deferred("reparent", ship.passengers_node)
+
+func get_closest_ship():
+	var ships = ObjectList.SHIPS;
+	var closest = ships[0];
+	for ship in ships:
+		if closest.get_closest_point(global_position).distance_to(global_position) > ship.get_closest_point(global_position).distance_to(global_position): closest = ship;
+	return closest;
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -73,6 +79,7 @@ func _unhandled_input(event: InputEvent):
 
 	if event.is_action_pressed("debug_spawn"):
 		spawn()
+		# print(get_closest_ship().name);
 
 	if alive:
 		if event.is_action_pressed("game_mb_left"):
@@ -123,8 +130,12 @@ func kill():
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
+	var closest_ship = get_closest_ship();
+	if closest_ship != parent_ship:
+		change_ship(closest_ship)
+
 	if ship_controlled == null: 
-		_move(delta)
+		_move(delta);
 
 
 func control_ship(ship):
@@ -169,7 +180,7 @@ func _move(_delta: float) -> void:
 			velocity = Vector2(0, 0)
 		else: 
 			velocity *= .01
-		velocity += acceleration / _delta
+		velocity += (acceleration - parent_ship.difference_in_position) / _delta ;
 	else:
 		legs.position = legs_offset - passenger_on[0].difference_in_position;
 
@@ -226,17 +237,17 @@ var collisionpos = Vector2.ZERO
 
 
 func _draw() -> void:
-	if (!Options.DEBUG_MODE): return;
-	var rect;
+	# if (!Options.DEBUG_MODE): return;
+	# var rect;
 
-	rect = interact_area.get_child(0).shape.get_rect();
-	rect.position += legs_offset + interact_area.position;
-	draw_rect(rect, Color.ORANGE);
+	# rect = interact_area.get_child(0).shape.get_rect();
+	# rect.position += legs_offset + interact_area.position;
+	# draw_rect(rect, Color.ORANGE);
 
-	rect = legs.shape.get_rect();
+	# rect = legs.shape.get_rect();
 
-	rect.position += legs_offset;
-	draw_rect(rect, Color.RED);
+	# rect.position += legs_offset;
+	# draw_rect(rect, Color.RED);
 
 	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)

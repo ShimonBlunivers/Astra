@@ -10,6 +10,8 @@ extends RigidBody2D
 
 var main_player;
 
+var polygon;
+
 var dock_position : Vector2 = Vector2(100, 100)
 
 var passengers := []
@@ -52,6 +54,7 @@ var difference_in_position := Vector2.ZERO;
 
 func _ready() -> void:
 	main_player = get_tree().get_root().get_node("World/Player")
+	ObjectList.SHIPS.append(self);
 	print(main_player.name)
 
 func load_ship(x: int, y: int) -> void:
@@ -69,6 +72,14 @@ func get_tile(coords : Vector2i):
 			if (coords == tile.tilemap_coords):
 				return tile;
 	return null
+
+func get_closest_point(point1 : Vector2) -> Vector2:
+	var closest = polygon[0] + global_position;
+	for point2 in polygon:
+		point2 = point2 + global_position;
+		if closest.distance_to(point1) > point2.distance_to(point1):
+			closest = point2;
+	return closest;
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
@@ -93,7 +104,6 @@ func _physics_process(_delta: float) -> void:
 	# 		passenger.legs.position = passenger.legs_offset + difference_in_position;
 			
 	# area.position = -difference_in_position;
-
 	_old_position = position;
 
 
@@ -126,22 +136,14 @@ func start_controlling(player):
 func stop_controlling():
 	controlled_by = null
 
-
-
 func _on_area_area_entered(_area:Area2D) -> void:
 	if _area.is_in_group("PlayerInteractArea"):
 		var body = _area.get_parent()
 		if (!body.spawned): 				return;
-		if (body.changing_ship_to == self): 
-			body.changing_ship_to = null;
-			return;
-		if (body.changing_ship_to != null): return;
 		if (body in passengers): 			return;
-		body.changing_ship_to = self;
 		passengers.append(body)
-		# body.get_in(self)
-		
-		body.call_deferred("get_in", self)
+		body.get_in(self);
+
 	# if body.is_in_group("Player"):
 		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 
@@ -150,8 +152,6 @@ func _on_area_area_exited(_area:Area2D) -> void:
 	if _area.is_in_group("PlayerInteractArea"):
 		var body = _area.get_parent()
 		if (!body.spawned): 				return;
-		if (body.changing_ship_to != null): return;
 		if !(body in passengers): 			return;
 		passengers.erase(body)
-		body.call_deferred("get_off", self)
-	# if body.is_in_group("Player"):
+		body.get_off(self)

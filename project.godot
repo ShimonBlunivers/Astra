@@ -23,6 +23,7 @@ buses/default_bus_layout="res://Sound/bus_layout.tres"
 
 Limits="*res://Settings/Limits.gd"
 Options="*res://Settings/Options.gd"
+ObjectList="*res://Settings/ObjectList.gd"
 
 [debug]
 
@@ -146,7 +147,6 @@ debug_die={
 
 [physics]
 
-common/max_physics_steps_per_frame=60
 3d/default_gravity=0.0
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
