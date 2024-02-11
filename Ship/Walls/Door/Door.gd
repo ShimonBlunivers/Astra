@@ -29,9 +29,7 @@ func _ready() -> void:
 	if direction == "vertical":
 		rotation_degrees = 90;
 	animated_sprite.connect("frame_changed", _on_frame_changed)
-
 	hitboxes_to_shift.append(mouse_hitbox);
-	hitboxes_to_shift.append(door_area);
 	
 func update_sprites():
 	if state == "open":
@@ -123,12 +121,6 @@ func _interact():
 		is_operating = true;
 		open()
 
-func _on_walkway_body_entered(_body: Node2D):
-	obstructed = true
-
-func _on_walkway_body_exited(_body: Node2D):
-	obstructed = false
-
 # func _on_interact_area_body_entered(_body: Node2D):
 # 	if _body.is_in_group("Player"):
 # 		interactable = true
@@ -144,3 +136,13 @@ func _on_hitbox_mouse_entered():
 func _on_hitbox_mouse_exited():
 	ship.main_player.hovering_interactables.erase(self)
 	interactable = false;
+
+
+func _on_area_2d_area_entered(area:Area2D) -> void:
+	if (area.is_in_group("PlayerInteractArea")):
+		obstructed = true
+
+
+func _on_area_2d_area_exited(area:Area2D) -> void:
+	if (area.is_in_group("PlayerInteractArea")):
+		obstructed = false

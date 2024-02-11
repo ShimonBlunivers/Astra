@@ -149,7 +149,6 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_5jaj3")
 
 [node name="InteractArea" type="Area2D" parent="." groups=["PlayerInteractArea"]]
-visible = false
 collision_layer = 272
 collision_mask = 272
 

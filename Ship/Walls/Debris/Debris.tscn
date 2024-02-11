@@ -19,11 +19,12 @@ position = Vector2(1.90735e-06, 0)
 scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_pum8f")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Hitbox" type="AnimatableBody2D" parent="."]
 collision_layer = 0
 collision_mask = 0
+sync_to_physics = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_c205f")
 
 [node name="Button" type="Button" parent="."]

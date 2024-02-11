@@ -25,9 +25,10 @@ use_parent_material = true
 scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_yt1gf")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Hitbox" type="AnimatableBody2D" parent="."]
+sync_to_physics = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_yeoku")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]

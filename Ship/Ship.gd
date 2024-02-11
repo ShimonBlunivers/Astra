@@ -88,11 +88,11 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _physics_process(_delta: float) -> void:
 	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
-	for passenger in passengers: 
-		if passenger.is_in_group("NPC"):
-			passenger.legs.position = passenger.legs_offset + difference_in_position;
+	# for passenger in passengers: 
+	# 	if passenger.is_in_group("NPC"):
+	# 		passenger.legs.position = passenger.legs_offset + difference_in_position;
 			
-	area.position = -difference_in_position;
+	# area.position = -difference_in_position;
 
 	_old_position = position;
 

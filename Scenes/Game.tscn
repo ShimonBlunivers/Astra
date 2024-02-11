@@ -1,13 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=13 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Character/Player/Player.tscn" id="3_gb8si"]
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
+[ext_resource type="Texture2D" uid="uid://ds2tawebq6o8l" path="res://Effects/DebugTexture.png" id="4_ebuyk"]
 [ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="5_mgng7"]
 [ext_resource type="Script" path="res://UI/UIManager.gd" id="6_rstey"]
 [ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hofce"]
+size = Vector2(192, 172)
 
 [sub_resource type="Gradient" id="Gradient_khipi"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -34,6 +38,18 @@ script = ExtResource("2_0gdpv")
 metadata/_edit_lock_ = true
 
 [node name="Station-0" parent="Ships" instance=ExtResource("2_g674q")]
+
+[node name="TestObject" type="RigidBody2D" parent="Ships"]
+position = Vector2(2000, -1500)
+lock_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ships/TestObject"]
+shape = SubResource("RectangleShape2D_hofce")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ships/TestObject"]
+position = Vector2(-6.73533e-06, -1.99676e-06)
+scale = Vector2(3, 2.6875)
+texture = ExtResource("4_ebuyk")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 light_mask = 0

@@ -11,6 +11,10 @@ var durability_current : float :
     get: return durability_current if durability_max >= 0 else 6942069.
     set(value): durability_current = min(value, durability_max)
 
+func _physics_process(_delta: float) -> void:
+    if ($Hitbox != null):
+        $Hitbox.position = Vector2.ZERO;
+
 var mass : float;
 
 var ship;

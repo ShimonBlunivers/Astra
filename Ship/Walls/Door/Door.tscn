@@ -114,8 +114,8 @@ frame = 3
 
 [node name="Hitbox" type="Node2D" parent="."]
 
-[node name="StaticBody2DSides" type="StaticBody2D" parent="Hitbox"]
-visible = false
+[node name="StaticBody2DSides" type="AnimatableBody2D" parent="Hitbox"]
+sync_to_physics = false
 
 [node name="Left" type="CollisionShape2D" parent="Hitbox/StaticBody2DSides"]
 position = Vector2(-65, 0)
@@ -125,35 +125,38 @@ shape = SubResource("RectangleShape2D_s3hcj")
 position = Vector2(65, 0)
 shape = SubResource("RectangleShape2D_dr5sq")
 
-[node name="StaticBody2DWalkway" type="StaticBody2D" parent="Hitbox"]
-visible = false
+[node name="StaticBody2DWalkway" type="AnimatableBody2D" parent="Hitbox"]
+sync_to_physics = false
 
 [node name="Walkway" type="CollisionShape2D" parent="Hitbox/StaticBody2DWalkway"]
 shape = SubResource("RectangleShape2D_q8qwe")
 
 [node name="AnimatedHitbox" type="Node2D" parent="Hitbox"]
-visible = false
 scale = Vector2(5, 5)
 
-[node name="0left" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+[node name="0left" type="AnimatableBody2D" parent="Hitbox/AnimatedHitbox"]
+sync_to_physics = false
 
 [node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/0left"]
 position = Vector2(-7, 0)
 shape = SubResource("RectangleShape2D_wesoy")
 
-[node name="1left" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+[node name="1left" type="AnimatableBody2D" parent="Hitbox/AnimatedHitbox"]
+sync_to_physics = false
 
 [node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/1left"]
 position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_dhujy")
 
-[node name="0right" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+[node name="0right" type="AnimatableBody2D" parent="Hitbox/AnimatedHitbox"]
+sync_to_physics = false
 
 [node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/0right"]
 position = Vector2(7, 0)
 shape = SubResource("RectangleShape2D_olnpt")
 
-[node name="1right" type="StaticBody2D" parent="Hitbox/AnimatedHitbox"]
+[node name="1right" type="AnimatableBody2D" parent="Hitbox/AnimatedHitbox"]
+sync_to_physics = false
 
 [node name="hitbox" type="CollisionShape2D" parent="Hitbox/AnimatedHitbox/1right"]
 position = Vector2(3.5, 0)
@@ -197,8 +200,8 @@ shape = SubResource("RectangleShape2D_js5sb")
 
 [node name="Area2D" type="Area2D" parent="Hitbox/Area"]
 visible = false
-collision_layer = 2
-collision_mask = 2
+collision_layer = 16
+collision_mask = 16
 
 [node name="Walkway" type="CollisionShape2D" parent="Hitbox/Area/Area2D"]
 shape = SubResource("RectangleShape2D_q8qwe")
@@ -220,5 +223,5 @@ bus = &"SFX"
 
 [connection signal="mouse_entered" from="Hitbox/Area/MouseHitbox" to="." method="_on_hitbox_mouse_entered"]
 [connection signal="mouse_exited" from="Hitbox/Area/MouseHitbox" to="." method="_on_hitbox_mouse_exited"]
-[connection signal="body_entered" from="Hitbox/Area/Area2D" to="." method="_on_walkway_body_entered"]
-[connection signal="body_exited" from="Hitbox/Area/Area2D" to="." method="_on_walkway_body_exited"]
+[connection signal="area_entered" from="Hitbox/Area/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Hitbox/Area/Area2D" to="." method="_on_area_2d_area_exited"]

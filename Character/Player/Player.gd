@@ -63,9 +63,9 @@ func get_in(ship): # call_deferred
 
 func get_off(ship): # call_deferred
 	passenger_on.erase(ship)
-	reparent(get_tree().root.get_child(0))
+	reparent(get_tree().root.get_node("World"))
 
-	_old_position -= ship.difference_in_position;
+	_old_position -= ship.difference_in_position;	
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -164,16 +164,17 @@ func _move(_delta: float) -> void:
 	_fix_position = Vector2.ZERO;
 
 	if floating(): 	
-		interact_area.position = -acceleration;
-		move_and_collide(acceleration) 
+		legs.position = legs_offset - acceleration;
 		if suit == false: 
 			velocity = Vector2(0, 0)
 		else: 
 			velocity *= .01
+		velocity += acceleration / _delta
 	else:
-		interact_area.position = -passenger_on[0].difference_in_position;
+		legs.position = legs_offset - passenger_on[0].difference_in_position;
 
 	move_and_slide()
+
 
 	# elif _fix_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
 	# 	position += acceleration
