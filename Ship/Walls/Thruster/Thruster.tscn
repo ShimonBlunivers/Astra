@@ -76,6 +76,7 @@ visible = false
 
 [node name="Jet" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("4_xdkpc")
+volume_db = -5.0
 max_distance = 4000.0
 attenuation = 4.0
 bus = &"SFX"

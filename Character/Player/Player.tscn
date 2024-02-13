@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://kktj4xnims84"]
+[gd_scene load_steps=25 format=3 uid="uid://kktj4xnims84"]
 
 [ext_resource type="Script" path="res://Character/Player/Player.gd" id="1_to8t1"]
 [ext_resource type="Texture2D" uid="uid://bx3ntqyvpglvb" path="res://Character/Player/animations/death/00.png" id="2_0a7lx"]
@@ -26,6 +26,9 @@ size = Vector2(50, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ua5a6"]
 size = Vector2(50, 15)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycmu8"]
+radius = 20.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x6u5k"]
 animations = [{
@@ -138,10 +141,10 @@ collision_mask = 3
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4278190080
-safe_margin = 0.5
 script = ExtResource("1_to8t1")
 
 [node name="Area" type="Area2D" parent="." groups=["CharacterArea", "PlayerArea"]]
+position = Vector2(0, -42.5)
 collision_layer = 16
 collision_mask = 16
 
@@ -149,6 +152,7 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_5jaj3")
 
 [node name="InteractArea" type="Area2D" parent="." groups=["PlayerInteractArea"]]
+position = Vector2(0, -42.5)
 collision_layer = 272
 collision_mask = 272
 
@@ -157,31 +161,30 @@ position = Vector2(0, 42.5)
 shape = SubResource("RectangleShape2D_ua5a6")
 
 [node name="LegHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 42.5)
-shape = SubResource("RectangleShape2D_ua5a6")
+shape = SubResource("CircleShape2D_ycmu8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 2
 y_sort_enabled = true
-position = Vector2(-4.76837e-07, 0)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
 animation = &"Idle"
 autoplay = "Idle"
+offset = Vector2(0, -8.5)
 
 [node name="Vision" type="Node2D" parent="."]
 
 [node name="Light" type="PointLight2D" parent="Vision"]
-position = Vector2(0, 42.5)
 color = Color(0.988235, 1, 1, 1)
 energy = 0.5
 shadow_enabled = true
 shadow_filter = 1
 texture = ExtResource("11_o2d8h")
-texture_scale = 14.0
+texture_scale = 12.0
 
 [node name="Internal" type="PointLight2D" parent="Vision"]
 light_mask = 2
+position = Vector2(0, -42.5)
 energy = 0.25
 range_item_cull_mask = 2
 shadow_color = Color(0, 0, 0, 0.419608)
@@ -191,13 +194,11 @@ texture = ExtResource("11_o2d8h")
 texture_scale = 3.0
 
 [node name="AudioListener" type="AudioListener2D" parent="."]
-position = Vector2(0, 42.5)
 current = true
 
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="Walk" type="AudioStreamPlayer2D" parent="Sounds"]
-position = Vector2(0, 42.5)
 stream = ExtResource("15_c0vio")
 volume_db = -1.0
 max_distance = 1000.0

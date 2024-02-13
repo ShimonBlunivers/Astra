@@ -3,8 +3,6 @@ extends MarginContainer
 @onready var label = $MarginContainer/Label
 @onready var timer = $LetterDisplayTimer
 
-func _ready() -> void:
-	display_text("Test test test tsest. tsetset.tse .set.set setsetsetetetest.testt")
 
 const MAX_WIDTH = 256
 
@@ -28,9 +26,10 @@ func display_text(text_to_display: String):
 		await resized; # wait for x resize
 		await resized; # wait for y resize
 		custom_minimum_size.y = size.y
-	
-	global_position.x -= size.x / 2
-	global_position.y -= size.y + 8
+		
+	print(size.x)
+	position.x -= (size.x / 2) * scale.x
+	position.y -= (size.y + 8) * scale.y
 	
 	label.text = ""
 	_display_letter()
@@ -53,4 +52,5 @@ func _display_letter():
 
 
 func _on_letter_display_timer_timeout() -> void:
+	# position = Vector2.ZERO
 	_display_letter()

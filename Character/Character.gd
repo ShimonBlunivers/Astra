@@ -9,6 +9,7 @@ class_name Character extends CharacterBody2D
 
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
+const TURN_SPEED = 1.0
 
 var legs_offset = Vector2.ZERO;
 
@@ -27,9 +28,11 @@ var nickname = ""
 
 var max_impact_velocity : float = 25
 
+signal _animation_time_offset
 
 func _ready() -> void:
 	legs_offset = legs.position;
+
 
 func _process(_delta: float) -> void:
 	queue_redraw()

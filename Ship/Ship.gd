@@ -20,6 +20,8 @@ var controlled_by = null
 
 var acceleration := Vector2.ZERO;
 
+var rotation_speed : float = 0; 
+
 var velocity := Vector2.ZERO;
 
 var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
@@ -84,12 +86,17 @@ func get_closest_point(point1 : Vector2) -> Vector2:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	acceleration = Vector2.ZERO;
+	rotation_speed = 0;
 
 	if controlled_by != null: 
 		control()
 
-	state.apply_central_impulse(acceleration)
 	update_thrusters()
+
+	acceleration = acceleration.rotated(global_rotation);
+	
+	state.apply_central_impulse(acceleration)
+	state.apply_torque_impulse(rotation_speed)
 
 	if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 		var new_speed = get_linear_velocity().normalized()
@@ -110,13 +117,19 @@ func _physics_process(_delta: float) -> void:
 func control():
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
+	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right");
+
+	var _rotation_power = 20000 * mass;
+
 	if !controlled_by.alive: direction = Vector2.ZERO
+
 	if direction.x < 0: acceleration.x -= thrust_power.x
 	elif direction.x > 0: acceleration.x += thrust_power.z
 
 	if direction.y < 0: acceleration.y -= thrust_power.y
 	elif direction.y > 0: acceleration.y += thrust_power.w
+
+	rotation_speed = _rotation_power * rotation_direction;
 
 func update_thrusters():
 	for thruster in thrusters[0]: if thruster.running != (acceleration.x < 0): thruster.set_status(acceleration.x < 0)

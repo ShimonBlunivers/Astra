@@ -31,6 +31,10 @@ var controllables_in_use := []
 var passenger_on := []
 var parent_ship = null;
 
+var dim_acceleration_for_frames = 0;
+
+var camera_difference = Vector2.ZERO;
+
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
 # TODO: ✅ Add floating velocity
@@ -54,8 +58,11 @@ func floating():
 
 
 func get_in(ship):
+	print("IN")
+	dim_acceleration_for_frames = 3;
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
+	call_deferred("set_rotation", 0)
 
 func get_off(ship):
 	passenger_on.erase(ship)
@@ -101,14 +108,14 @@ func spawn():
 	alive = true
 	spawned = true;
 	health = max_health
-	position = spawn_point
+	global_position = spawn_point
 	_old_position = global_position
 	health_updated_signal.emit()
 	
 
 func _ready():
 	super();
-	spawn_point = Vector2(280, 580)
+	spawn_point = Vector2(-650, 600)
 
 	nickname = "Player_Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
@@ -134,8 +141,9 @@ func _in_physics(delta: float) -> void:
 
 	if ship_controlled == null: 
 		_move(delta);
-
-
+	else:
+		camera.offset = camera_difference.rotated(global_rotation)
+	
 func control_ship(ship):
 	if ship != null:
 		ship_controlled = ship
@@ -155,7 +163,9 @@ func control_ship(ship):
 func _move(_delta: float) -> void:
 
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") # Get input keys
+	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right");
 	var running := Input.get_action_strength("game_run")
+
 	var _sound_pitch_range := [0.9, 1.1] # Sound variation
 	
 	if !alive: direction = Vector2.ZERO # Death check
@@ -163,23 +173,33 @@ func _move(_delta: float) -> void:
 	acceleration = global_position - _old_position # Acceleration get by the difference of the position
 	_old_position = global_position
 
+
 	# if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX: # Speed limitation, need to redo that tho
 	# 	var new_speed = acceleration.normalized()
 	# 	new_speed *= Limits.VELOCITY_MAX
 	# 	acceleration = new_speed
 
-	velocity = direction * (SPEED + RUN_SPEED_MODIFIER * running); # velocity // the _fix_position is help variable made to remove bug
+	velocity = (direction * (SPEED + RUN_SPEED_MODIFIER * running)).rotated(global_rotation); # velocity // the _fix_position is help variable made to remove bug
+
 
 	if floating(): 	# If outside of the ship
-		legs.position = legs_offset - acceleration; # Counter steering the bug, where every hitbox of the ship shifts
+		rotate(deg_to_rad(TURN_SPEED * rotation_direction))
+		legs.position = legs_offset - (acceleration).rotated(-global_rotation); # Counter steering the bug, where every hitbox of the ship shifts
 		if suit == false: 
 			velocity = Vector2(0, 0) # No control over the direction u r flying if you don't have a suit
 		else: 
 			velocity *= .01 # Taking the velocity and dividing it by 100, to the player isn't so fast in the space like in ship
-		velocity += (acceleration - parent_ship.difference_in_position) / _delta ; # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
 
+		if dim_acceleration_for_frames <= 0:
+			velocity += (acceleration - parent_ship.difference_in_position) / _delta; # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
+		else:
+			var _dim_factor = 10;
+			velocity += (acceleration - parent_ship.difference_in_position) / (_delta * _dim_factor);
 	else:
-		legs.position = legs_offset - passenger_on[0].difference_in_position; # Again the counter steering against the bug
+		legs.position = legs_offset - (passenger_on[0].difference_in_position).rotated(-global_rotation); # Again the counter steering against the bug
+
+	if dim_acceleration_for_frames > 0:
+		dim_acceleration_for_frames -= 1;
 
 
 
@@ -193,6 +213,7 @@ func _move(_delta: float) -> void:
 
 	# elif _fix_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
 	# 	position += acceleration
+
 
 	if direction.x < 0:
 		if !walk_sound.playing && !floating(): 
@@ -260,16 +281,23 @@ func _draw() -> void:
 func change_view(view: int) -> void:
 	var tween = create_tween()
 
-	var difference_between_ship_center = position
-	var ship_offset : Vector2 = (Vector2(ship_controlled.get_rect().position) * Vector2(ship_controlled.get_tile_size())) + (Vector2(ship_controlled.get_rect().size) * ship_controlled.get_tile_size()/2)
+
+	var ship_rect : Rect2 = Rect2(ship_controlled.get_rect().position.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().position.y * ship_controlled.get_tile_size().y * 5, ship_controlled.get_rect().size.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().size.y * ship_controlled.get_tile_size().y * 5)
+
+
+	var ship_center : Vector2 = ship_rect.size / 2 + ship_rect.position
+
+	camera_difference = ship_center - position
+	
 	var duration = 1
 	
 	match view:
 		0: 
 			tween.parallel().tween_property(camera, "zoom", Vector2(ship_zoom, ship_zoom), duration).set_ease(Tween.EASE_OUT)
-			tween.parallel().tween_property(camera, "offset", -difference_between_ship_center + ship_offset, duration).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(camera, "offset", camera_difference.rotated(global_rotation), duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(vision, "texture_scale", driving_vision, duration).set_ease(Tween.EASE_OUT)
 		1: 
+			camera_difference = Vector2.ZERO;
 			tween.parallel().tween_property(camera, "zoom", Vector2(normal_zoom, normal_zoom), duration).set_ease(Tween.EASE_OUT)
-			tween.parallel().tween_property(camera, "offset", Vector2.ZERO, duration).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(camera, "offset", camera_difference, duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)

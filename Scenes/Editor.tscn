@@ -54,7 +54,7 @@ layer_0/tile_data = PackedInt32Array(458746, 196608, 196609, 458747, 65536, 6553
 z_index = 10
 tile_set = ExtResource("5_lwkoj")
 format = 2
-layer_0/tile_data = PackedInt32Array(720892, 131072, 1, 720894, 131072, 1, 720899, 131072, 0)
+layer_0/tile_data = PackedInt32Array(720899, 131072, 0, 720894, 131072, 1, 720889, 131072, 1)
 
 [connection signal="pressed" from="HUD/Save" to="Ship" method="_on_save_pressed"]
 [connection signal="pressed" from="HUD/Load" to="Ship" method="_on_load_pressed"]

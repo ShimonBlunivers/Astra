@@ -50,7 +50,7 @@ func _replace_interactive_tiles() -> bool:
 			"NPC":
 
 				var NPC_object = NPC_scene.instantiate()
-				NPC_object.spawn_point = tile_position - Vector2(0, 20)
+				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
 				NPC_object.init()
 				ship.passengers_node.add_child(NPC_object)

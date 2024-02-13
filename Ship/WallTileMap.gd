@@ -10,9 +10,10 @@ const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn");
 
 var ship = null
 
-func get_rect():
+var _first_rect : Rect2i;
 
-	return get_used_rect()
+func get_rect():
+	return _first_rect;
 
 func _load_hitbox(_layer: int):
 	ship.polygon = toShape(deleteEdges(createEdges(_layer)))
@@ -122,11 +123,13 @@ func load_ship(_ship, path : String = "station") -> bool:
 
 	_load_hitbox(layer)
 
-	_replace_interactive_tiles()	
+	_first_rect = get_used_rect();
+
+	_replace_tiles()	
 
 	return true
 	
-func _replace_interactive_tiles() -> bool:
+func _replace_tiles() -> bool:
 	var layer := 0;
 
 	var atlas := tile_set.get_source(0) as TileSetAtlasSource

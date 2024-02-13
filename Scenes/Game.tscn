@@ -28,6 +28,7 @@ metadata/_edit_vertical_guides_ = []
 position = Vector2(640, 360)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+ignore_rotation = false
 limit_left = -1000000000
 limit_top = -1000000000
 limit_right = 1000000000
@@ -79,6 +80,7 @@ texture = ExtResource("5_mgng7")
 centered = false
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 2
 script = ExtResource("6_rstey")
 
 [node name="Debug" type="Node2D" parent="UI"]
@@ -99,6 +101,7 @@ offset_bottom = 617.0
 scale = Vector2(2, 2)
 
 [node name="DialogBox" parent="UI/Debug" instance=ExtResource("8_xchde")]
+visible = false
 offset_left = 564.0
 offset_top = 226.0
 offset_right = 628.0

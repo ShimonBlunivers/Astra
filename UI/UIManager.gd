@@ -26,5 +26,5 @@ func _on_player_health_updated_signal() -> void:
 
 func _process(_delta):
 	floating.visible = player.floating()
-	player_position.text = "X: " + str(round(player.position.x)) + ", Y: " + str(round(player.position.y))
+	player_position.text = "X: " + str(round(player.global_position.x)) + ", Y: " + str(round(player.global_position.y))
 
