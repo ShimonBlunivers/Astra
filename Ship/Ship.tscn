@@ -15,7 +15,7 @@ gravity_scale = 0.0
 can_sleep = false
 freeze_mode = 1
 linear_damp_mode = 1
-angular_damp = 10.0
+angular_damp = 5.0
 script = ExtResource("1_set35")
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="."]

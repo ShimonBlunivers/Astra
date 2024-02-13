@@ -57,3 +57,5 @@ metadata/_edit_use_anchors_ = true
 [node name="Spawn" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("3_sjgw7")
 max_distance = 1000.0
+bus = &"SFX"
+area_mask = 0

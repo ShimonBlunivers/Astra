@@ -58,8 +58,7 @@ func floating():
 
 
 func get_in(ship):
-	print("IN")
-	dim_acceleration_for_frames = 3;
+	dim_acceleration_for_frames = 5;
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 	call_deferred("set_rotation", 0)
@@ -75,7 +74,9 @@ func get_closest_ship():
 	var ships = ObjectList.SHIPS;
 	var closest = ships[0];
 	for ship in ships:
-		if closest.get_closest_point(global_position).distance_to(global_position) > ship.get_closest_point(global_position).distance_to(global_position): closest = ship;
+		if closest.get_closest_point(global_position).distance_to(global_position) > ship.get_closest_point(global_position).distance_to(global_position): 
+			closest = ship;
+			collisionpos = closest.get_closest_point(global_position)
 	return closest;
 
 func _unhandled_input(event: InputEvent):
@@ -108,14 +109,16 @@ func spawn():
 	alive = true
 	spawned = true;
 	health = max_health
+	change_ship(get_closest_ship())
 	global_position = spawn_point
 	_old_position = global_position
 	health_updated_signal.emit()
 	
+	
 
 func _ready():
 	super();
-	spawn_point = Vector2(-650, 600)
+	spawn_point = Vector2(0, 800)
 
 	nickname = "Player_Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
@@ -135,9 +138,10 @@ func kill():
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
-	var closest_ship = get_closest_ship();
-	if closest_ship != parent_ship:
-		change_ship(closest_ship)
+	if (floating):
+		var closest_ship = get_closest_ship();
+		if closest_ship != parent_ship:
+			change_ship(closest_ship)
 
 	if ship_controlled == null: 
 		_move(delta);
@@ -263,16 +267,6 @@ var collisionpos = Vector2.ZERO
 
 func _draw() -> void:
 	# if (!Options.DEBUG_MODE): return;
-	# var rect;
-
-	# rect = interact_area.get_child(0).shape.get_rect();
-	# rect.position += legs_offset + interact_area.position;
-	# draw_rect(rect, Color.ORANGE);
-
-	# rect = legs.shape.get_rect();
-
-	# rect.position += legs_offset;
-	# draw_rect(rect, Color.RED);
 
 	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)
@@ -280,17 +274,10 @@ func _draw() -> void:
 
 func change_view(view: int) -> void:
 	var tween = create_tween()
-
-
 	var ship_rect : Rect2 = Rect2(ship_controlled.get_rect().position.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().position.y * ship_controlled.get_tile_size().y * 5, ship_controlled.get_rect().size.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().size.y * ship_controlled.get_tile_size().y * 5)
-
-
 	var ship_center : Vector2 = ship_rect.size / 2 + ship_rect.position
-
 	camera_difference = ship_center - position
-	
 	var duration = 1
-	
 	match view:
 		0: 
 			tween.parallel().tween_property(camera, "zoom", Vector2(ship_zoom, ship_zoom), duration).set_ease(Tween.EASE_OUT)

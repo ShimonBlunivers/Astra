@@ -21,8 +21,6 @@ func _load_hitbox(_layer: int):
 	ship.visual.polygon = ship.polygon
 	ship.area.polygon = ship.polygon
 
-
-
 func getPoints(tile: Vector2i):
 	
 	# 1   2

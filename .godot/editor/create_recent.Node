@@ -1,5 +1,8 @@
-ColorRect
 Node2D
+Node
+CollisionShape2D
+Area2D
+ColorRect
 SubViewport
 SubViewportContainer
 Control
@@ -9,7 +12,3 @@ Label
 MarginContainer
 NinePatchRect
 AnimatableBody2D
-CharacterBody2D
-StaticBody2D
-Sprite2D
-CollisionShape2D

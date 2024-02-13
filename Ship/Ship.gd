@@ -76,9 +76,9 @@ func get_tile(coords : Vector2i):
 	return null
 
 func get_closest_point(point1 : Vector2) -> Vector2:
-	var closest = polygon[0] + global_position;
+	var closest = polygon[0].rotated(global_rotation) + global_position;
 	for point2 in polygon:
-		point2 = point2 + global_position;
+		point2 = point2.rotated(global_rotation) + global_position;
 		if closest.distance_to(point1) > point2.distance_to(point1):
 			closest = point2;
 	return closest;
@@ -92,6 +92,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		control()
 
 	update_thrusters()
+	update_side_trusters()
 
 	acceleration = acceleration.rotated(global_rotation);
 	
@@ -119,7 +120,7 @@ func control():
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right");
 
-	var _rotation_power = 20000 * mass;
+	var _rotation_power = 8000 * mass;
 
 	if !controlled_by.alive: direction = Vector2.ZERO
 
@@ -129,13 +130,23 @@ func control():
 	if direction.y < 0: acceleration.y -= thrust_power.y
 	elif direction.y > 0: acceleration.y += thrust_power.w
 
-	rotation_speed = _rotation_power * rotation_direction;
+	rotation_speed = _rotation_power * rotation_direction + rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size());
+
+
+func update_side_trusters():
+	for thruster_list in thrusters:
+		for thruster in thruster_list:
+			thruster.side_thrusters(rotation_speed)
 
 func update_thrusters():
-	for thruster in thrusters[0]: if thruster.running != (acceleration.x < 0): thruster.set_status(acceleration.x < 0)
-	for thruster in thrusters[2]: if thruster.running != (acceleration.x > 0): thruster.set_status(acceleration.x > 0)
-	for thruster in thrusters[1]: if thruster.running != (acceleration.y < 0): thruster.set_status(acceleration.y < 0)
-	for thruster in thrusters[3]: if thruster.running != (acceleration.y > 0): thruster.set_status(acceleration.y > 0)
+	for thruster in thrusters[0]: if thruster.running != (acceleration.x < 0): 
+		thruster.set_status(acceleration.x < 0)
+	for thruster in thrusters[2]: if thruster.running != (acceleration.x > 0): 
+		thruster.set_status(acceleration.x > 0)
+	for thruster in thrusters[1]: if thruster.running != (acceleration.y < 0): 
+		thruster.set_status(acceleration.y < 0)
+	for thruster in thrusters[3]: if thruster.running != (acceleration.y > 0): 
+		thruster.set_status(acceleration.y > 0)
 
 func get_rect():
 	return wall_tile_map.get_rect()

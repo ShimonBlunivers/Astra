@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://UI/UIManager.gd" id="6_rstey"]
 [ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
-[ext_resource type="PackedScene" uid="uid://cssgchvxfgjg0" path="res://TextBox/TextBox.tscn" id="8_xchde"]
+[ext_resource type="PackedScene" path="res://Conversation/TextBox.tscn" id="8_xchde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hofce"]
 size = Vector2(192, 172)
@@ -66,6 +66,7 @@ motion_scale = Vector2(0.01, 0.01)
 motion_mirroring = Vector2(20480, 20480)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Further"]
+position = Vector2(-223, -19)
 scale = Vector2(10, 10)
 texture = ExtResource("4_7oqwe")
 centered = false

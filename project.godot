@@ -24,6 +24,7 @@ buses/default_bus_layout="res://Sound/bus_layout.tres"
 Limits="*res://Settings/Limits.gd"
 Options="*res://Settings/Options.gd"
 ObjectList="*res://Settings/ObjectList.gd"
+DialogManager="*res://Conversation/DialogManager.gd"
 
 [debug]
 

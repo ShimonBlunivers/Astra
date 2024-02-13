@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmoi2ue2u4of6"
-path="res://.godot/imported/TextBox.png-2b1732d22edf4aea226709a5e22496cd.ctex"
+uid="uid://dhtphl8nnev0i"
+path="res://.godot/imported/sidejet_particle_texture.png-001d2a56fb5abd145fceb3a78ce9f7ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TextBox/TextBox.png"
-dest_files=["res://.godot/imported/TextBox.png-2b1732d22edf4aea226709a5e22496cd.ctex"]
+source_file="res://Ship/Walls/Thruster/sidejet_particle_texture.png"
+dest_files=["res://.godot/imported/sidejet_particle_texture.png-001d2a56fb5abd145fceb3a78ce9f7ec.ctex"]
 
 [params]
 
