@@ -1,3 +1,4 @@
+Label
 Node2D
 Node
 CollisionShape2D
@@ -8,7 +9,6 @@ SubViewportContainer
 Control
 CanvasLayer
 Timer
-Label
 MarginContainer
 NinePatchRect
 AnimatableBody2D

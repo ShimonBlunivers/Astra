@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://qo508d4kbv3i"]
+[gd_scene load_steps=9 format=3 uid="uid://qo508d4kbv3i"]
 
 [ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_d6b1x"]
 [ext_resource type="PackedScene" uid="uid://bkv0eyk6hhdw5" path="res://Character/NPC/NPCSprite.tscn" id="2_hqmdl"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="5_aggmp"]
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="5_lae3u"]
 [ext_resource type="Script" path="res://Conversation/DialogManager.gd" id="6_bx6ve"]
 
@@ -69,4 +70,21 @@ one_shot = true
 [node name="DialogManager" type="Node2D" parent="."]
 script = ExtResource("6_bx6ve")
 
+[node name="Nametag" type="Label" parent="."]
+visible = false
+z_index = 10
+offset_left = -20.0
+offset_top = -116.0
+offset_right = 20.0
+offset_bottom = -93.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_aggmp")
+text = "Nickname"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="mouse_entered" from="Area" to="." method="_on_area_mouse_entered"]
+[connection signal="mouse_exited" from="Area" to="." method="_on_area_mouse_exited"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]

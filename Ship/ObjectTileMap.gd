@@ -53,6 +53,7 @@ func _replace_interactive_tiles() -> bool:
 				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
 				NPC_object.init()
+				NPC_object.ship = ship
 				ship.passengers_node.add_child(NPC_object)
 				ship.passengers.append(NPC_object)
 				

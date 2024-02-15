@@ -28,7 +28,6 @@ func display_text(text_to_display: String):
 		await resized; # wait for y resize
 		custom_minimum_size.y = size.y
 		
-	print(size.x)
 	position.x -= (size.x / 2) * scale.x
 	position.y -= (size.y + 8) * scale.y
 	

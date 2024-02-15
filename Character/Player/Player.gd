@@ -15,7 +15,7 @@ var ship_controlled = null
 var normal_zoom : float = 1
 var ship_zoom : float = 0.2
 
-var normal_vision : float = 14
+var normal_vision : float = 12
 var driving_vision : float = 1
 
 var suit = true;
@@ -223,7 +223,7 @@ func _move(_delta: float) -> void:
 	# 	position += acceleration
 
 
-	if direction.x < 0:
+	if !floating() && direction.x < 0:
 		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -232,7 +232,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = true
 			animated_sprite.play("WalkToSide")
 		
-	elif direction.x > 0:
+	elif !floating() && direction.x > 0:
 		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -241,7 +241,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("WalkToSide")
 		
-	elif direction.y > 0: 
+	elif !floating() && direction.y > 0: 
 		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()
@@ -250,7 +250,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("WalkDown")
 			
-	elif direction.y < 0: 
+	elif !floating() && direction.y < 0: 
 		if !walk_sound.playing && !floating(): 
 			walk_sound.pitch_scale = randf_range(_sound_pitch_range[0], _sound_pitch_range[1])
 			walk_sound.play()

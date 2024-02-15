@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bkv0eyk6hhdw5"]
+[gd_scene load_steps=22 format=3 uid="uid://bkv0eyk6hhdw5"]
 
 [ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="1_6dtsc"]
 [ext_resource type="Script" path="res://Character/NPC/NPCSprite.gd" id="1_6pl8c"]
@@ -7,8 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bwta6is2rs42h" path="res://Character/NPC/animations/hair.png" id="4_x8puo"]
 [ext_resource type="Texture2D" uid="uid://bnq2vh6c4wvgv" path="res://Character/NPC/animations/torso.png" id="5_6watv"]
 [ext_resource type="Texture2D" uid="uid://csy62bpjmpo3a" path="res://Character/NPC/animations/legs.png" id="6_am41b"]
+[ext_resource type="Texture2D" uid="uid://cpvwaaejbb1o7" path="res://Character/NPC/animations/hair1.png" id="6_j1u67"]
 [ext_resource type="Texture2D" uid="uid://c7tcroan3pkrx" path="res://Character/NPC/animations/boots.png" id="7_lhyu1"]
+[ext_resource type="Texture2D" uid="uid://hwa4a32exw2e" path="res://Character/NPC/animations/hair2.png" id="7_w0nj0"]
+[ext_resource type="Texture2D" uid="uid://w6borh1tladw" path="res://Character/NPC/animations/hair3.png" id="8_eefih"]
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="8_he04e"]
+[ext_resource type="Texture2D" uid="uid://cohgwy1r8ew5f" path="res://Character/NPC/animations/hair4.png" id="9_5a5eq"]
+[ext_resource type="Texture2D" uid="uid://cwxveau87ill5" path="res://Character/NPC/animations/hair5.png" id="10_sladm"]
+[ext_resource type="Texture2D" uid="uid://brhmlfjw3ji1e" path="res://Character/NPC/animations/hair6.png" id="11_fdkie"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nf71f"]
 animations = [{
@@ -56,7 +62,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t1o1e"]
@@ -64,10 +70,28 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_x8puo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j1u67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w0nj0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_eefih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5a5eq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_sladm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fdkie")
 }],
 "loop": true,
-"name": &"Idle",
-"speed": 3.0
+"name": &"default",
+"speed": 0.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g25fr"]
@@ -131,8 +155,7 @@ material = ExtResource("1_6dtsc")
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_t1o1e")
-animation = &"Idle"
-autoplay = "Idle"
+frame = 6
 offset = Vector2(0, -8.5)
 
 [node name="Torso" type="AnimatedSprite2D" parent="."]

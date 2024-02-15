@@ -9,14 +9,19 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var random := RandomNumberGenerator.new();
+
 	skin_node.modulate = _random_color()
 	eyes_node.modulate = _random_color()
 	hair_node.modulate = _random_color()
+
+	hair_node.frame = random.randi_range(0, 6);
+	hair_node.flip_h = random.randi_range(0, 1) == 0
+
 	torso_node.modulate = _random_color()
 	legs_node.modulate = _random_color()
 	boots_node.modulate = Color.BLACK
 	
-	var random := RandomNumberGenerator.new();
 	eyes_node.stop()
 	$Timer.set_wait_time(random.randf_range(0, 2))
 	$Timer.start()
