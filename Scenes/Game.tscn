@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=15 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
+[ext_resource type="Script" path="res://Scenes/Background.gd" id="2_mups5"]
 [ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Character/Player/Player.tscn" id="3_gb8si"]
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
 [ext_resource type="Texture2D" uid="uid://ds2tawebq6o8l" path="res://Effects/DebugTexture.png" id="4_ebuyk"]
@@ -9,7 +10,7 @@
 [ext_resource type="Script" path="res://UI/UIManager.gd" id="6_rstey"]
 [ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
-[ext_resource type="PackedScene" path="res://Conversation/TextBox.tscn" id="8_xchde"]
+[ext_resource type="PackedScene" uid="uid://cssgchvxfgjg0" path="res://Conversation/TextBox.tscn" id="8_xchde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hofce"]
 size = Vector2(192, 172)
@@ -35,6 +36,24 @@ limit_right = 1000000000
 limit_bottom = 1000000000
 position_smoothing_speed = 10.0
 
+[node name="Background" type="Node2D" parent="Player"]
+scale = Vector2(5, 5)
+script = ExtResource("2_mups5")
+
+[node name="Further" type="Sprite2D" parent="Player/Background"]
+z_index = -10
+z_as_relative = false
+position = Vector2(-1000, -1000)
+texture = ExtResource("4_7oqwe")
+centered = false
+
+[node name="Closer" type="Sprite2D" parent="Player/Background"]
+z_index = -10
+z_as_relative = false
+position = Vector2(-1000, -1000)
+texture = ExtResource("5_mgng7")
+centered = false
+
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
 metadata/_edit_lock_ = true
@@ -59,26 +78,16 @@ visibility_layer = 0
 color = Color(0.678431, 0.678431, 0.678431, 1)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 scroll_ignore_camera_zoom = true
 
 [node name="Further" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.01, 0.01)
 motion_mirroring = Vector2(20480, 20480)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Further"]
-position = Vector2(-223, -19)
-scale = Vector2(10, 10)
-texture = ExtResource("4_7oqwe")
-centered = false
-
 [node name="Closer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.02, 0.02)
 motion_mirroring = Vector2(20480, 20480)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Closer"]
-scale = Vector2(10, 10)
-texture = ExtResource("5_mgng7")
-centered = false
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2

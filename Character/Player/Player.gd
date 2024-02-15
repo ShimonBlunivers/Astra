@@ -61,7 +61,9 @@ func get_in(ship):
 	dim_acceleration_for_frames = 5;
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
-	call_deferred("set_rotation", 0)
+
+	var tween = create_tween()
+	tween.tween_property(self, "rotation", 0, 0.5)
 
 func get_off(ship):
 	passenger_on.erase(ship)
@@ -271,7 +273,6 @@ func _draw() -> void:
 	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)
 	
-
 func change_view(view: int) -> void:
 	var tween = create_tween()
 	var ship_rect : Rect2 = Rect2(ship_controlled.get_rect().position.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().position.y * ship_controlled.get_tile_size().y * 5, ship_controlled.get_rect().size.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().size.y * ship_controlled.get_tile_size().y * 5)

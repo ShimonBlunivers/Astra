@@ -32,3 +32,4 @@ D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\refint\Astra
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.pdb
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.genruntimeconfig.cache
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\ref\Astra.dll
+D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.sourcelink.json
