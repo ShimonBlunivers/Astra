@@ -1,0 +1,176 @@
+[gd_scene load_steps=16 format=3 uid="uid://bkv0eyk6hhdw5"]
+
+[ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="1_6dtsc"]
+[ext_resource type="Script" path="res://Character/NPC/NPCSprite.gd" id="1_6pl8c"]
+[ext_resource type="Texture2D" uid="uid://dx7mwyhs81cg3" path="res://Character/NPC/animations/skin.png" id="2_i7b75"]
+[ext_resource type="Texture2D" uid="uid://d4f5xftda6eu5" path="res://Character/NPC/animations/eyes.png" id="3_n5seo"]
+[ext_resource type="Texture2D" uid="uid://bwta6is2rs42h" path="res://Character/NPC/animations/hair.png" id="4_x8puo"]
+[ext_resource type="Texture2D" uid="uid://bnq2vh6c4wvgv" path="res://Character/NPC/animations/torso.png" id="5_6watv"]
+[ext_resource type="Texture2D" uid="uid://csy62bpjmpo3a" path="res://Character/NPC/animations/legs.png" id="6_am41b"]
+[ext_resource type="Texture2D" uid="uid://c7tcroan3pkrx" path="res://Character/NPC/animations/boots.png" id="7_lhyu1"]
+[ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="8_he04e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nf71f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i7b75")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sget1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n5seo")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1o1e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_x8puo")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 3.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g25fr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_6watv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yo5xk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_am41b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f8x78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_lhyu1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="NPCSprite" type="Node2D"]
+script = ExtResource("1_6pl8c")
+
+[node name="Skin" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.894118, 0.694118, 0.564706, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_nf71f")
+offset = Vector2(0, -8.5)
+
+[node name="Eyes" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.317647, 0.337255, 0.890196, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_sget1")
+offset = Vector2(0, -8.5)
+
+[node name="Hair" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.298039, 0.27451, 0.156863, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_t1o1e")
+animation = &"Idle"
+autoplay = "Idle"
+offset = Vector2(0, -8.5)
+
+[node name="Torso" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.45098, 0, 0.603922, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_g25fr")
+offset = Vector2(0, -8.5)
+
+[node name="Legs" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.690196, 0.690196, 0.690196, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_yo5xk")
+offset = Vector2(0, -8.5)
+
+[node name="Boots" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.0392157, 0.0392157, 0.0392157, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_f8x78")
+offset = Vector2(0, -8.5)
+
+[node name="EditorLight" type="PointLight2D" parent="."]
+position = Vector2(255, -55)
+editor_only = true
+color = Color(0.988235, 1, 1, 1)
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 1
+texture = ExtResource("8_he04e")
+texture_scale = 14.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

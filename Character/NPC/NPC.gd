@@ -21,13 +21,7 @@ func init():
 func _ready() -> void:
 	legs_offset = legs.position;
 
-	var random := RandomNumberGenerator.new();
 
-	animated_sprite.stop()
-	$Timer.set_wait_time(random.randf_range(0, 2))
-	$Timer.start()
-	await $Timer.timeout
-	animated_sprite.play("Idle")
 
 
 func _on_interaction_area_area_entered(area:Area2D) -> void:

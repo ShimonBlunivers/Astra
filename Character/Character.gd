@@ -1,8 +1,6 @@
 class_name Character extends CharacterBody2D
 
 
-@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
-
 @onready var speed = Vector2.ZERO;
 
 @onready var legs = $LegHitbox

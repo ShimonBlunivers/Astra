@@ -1,9 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://qo508d4kbv3i"]
+[gd_scene load_steps=8 format=3 uid="uid://qo508d4kbv3i"]
 
-[ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="1_ssiap"]
-[ext_resource type="Texture2D" uid="uid://o2xd0cp3mp6x" path="res://Character/NPC/animations/idle/0.png" id="2_a5eoy"]
 [ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_d6b1x"]
-[ext_resource type="Texture2D" uid="uid://j3nt8t7tq3xd" path="res://Character/NPC/animations/idle/1.png" id="3_fdsyb"]
+[ext_resource type="PackedScene" uid="uid://bkv0eyk6hhdw5" path="res://Character/NPC/NPCSprite.tscn" id="2_hqmdl"]
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="5_lae3u"]
 [ext_resource type="Script" path="res://Conversation/DialogManager.gd" id="6_bx6ve"]
 
@@ -15,44 +13,6 @@ radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wh18y"]
 radius = 120.0
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4c1s2"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a5eoy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_fdsyb")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 3.0
-}]
 
 [node name="NPC" type="CharacterBody2D" groups=["Character", "NPC"]]
 z_index = 10
@@ -83,15 +43,7 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_wh18y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
-material = ExtResource("1_ssiap")
-position = Vector2(-4.76837e-07, 0)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_4c1s2")
-animation = &"Idle"
-autoplay = "Idle"
-offset = Vector2(0, -8.5)
+[node name="Sprite" parent="." instance=ExtResource("2_hqmdl")]
 
 [node name="Sounds" type="Node2D" parent="."]
 

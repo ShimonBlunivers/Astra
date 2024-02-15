@@ -1,5 +1,7 @@
 class_name Player extends Character
 
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+
 @onready var walk_sound : AudioStreamPlayer2D = $Sounds/Walk
 @onready var camera : Camera2D = $Camera2D
 @onready var vision : PointLight2D = $Vision/Light
