@@ -14,7 +14,7 @@ func _ready():
 	hair_node.modulate = _random_color()
 	torso_node.modulate = _random_color()
 	legs_node.modulate = _random_color()
-	boots_node.modulate = _random_color()
+	boots_node.modulate = Color.BLACK
 	
 	var random := RandomNumberGenerator.new();
 	eyes_node.stop()
@@ -25,4 +25,4 @@ func _ready():
 
 func _random_color() -> Color:
 	var random := RandomNumberGenerator.new();
-	return Color(random.randfn(), random.randfn(), random.randfn(), 1)
+	return Color(random.randfn() * 0.75, random.randfn() * 0.75, random.randfn() * 0.75, 1)

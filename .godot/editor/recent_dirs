@@ -1,3 +1,4 @@
+res://Backgrounds
 res://Character/NPC
 res://Conversation
 res://Settings
@@ -9,7 +10,6 @@ res://UI
 res://Ship/Walls/Thruster
 res://Ship
 res://Ship/Walls/Core
-res://Backgrounds
 res://Ship/Interactable
 res://Ship/Walls/Debris
 res://Ship/Walls
