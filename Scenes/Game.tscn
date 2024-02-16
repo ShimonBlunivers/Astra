@@ -165,6 +165,18 @@ position = Vector2(641.5, 360.125)
 scale = Vector2(5.16016, 763.75)
 texture = SubResource("GradientTexture1D_gft63")
 
+[node name="QuestLog" type="Node2D" parent="UI/HUD"]
+position = Vector2(100, 100)
+scale = Vector2(2, 2)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/QuestLog"]
+offset_right = 194.0
+offset_bottom = 281.0
+text = "\\dsfsdfasdfa
+dsfasdfasdf
+sadfsdfasdfasf
+adfasdfsasfsdf"
+
 [node name="GUI" type="Node2D" parent="UI"]
 editor_description = "Interactive"
 

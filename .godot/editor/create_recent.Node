@@ -1,4 +1,5 @@
 Node2D
+RichTextLabel
 Label
 Node
 CollisionShape2D
@@ -11,4 +12,3 @@ CanvasLayer
 Timer
 MarginContainer
 NinePatchRect
-AnimatableBody2D

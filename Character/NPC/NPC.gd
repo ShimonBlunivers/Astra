@@ -95,6 +95,7 @@ func _on_interaction_area_area_entered(area:Area2D) -> void:
 		interactable = true;
 		dialogs.conversations["greeting"].shuffle()
 		dialog_manager.start_dialog(Vector2(0, -105), dialogs.conversations["greeting"])
+		QuestManager.update_quest_log()
 
 
 func _on_area_mouse_entered() -> void:
