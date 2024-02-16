@@ -1,6 +1,7 @@
 extends Node
 
 @onready var text_box_scene = preload("res://Conversation/TextBox.tscn")
+@onready var parent = get_parent()
 
 var dialog_lines := []
 var current_line_index = 0
@@ -33,7 +34,7 @@ func _on_text_box_finished_displaying():
 
 func _input(event: InputEvent) -> void:
 
-	if event.is_action_pressed("game_use") && is_dialog_active && can_advance_line:
+	if event.is_action_pressed("game_use") && is_dialog_active && can_advance_line && parent.interactable:
 		text_box.queue_free()
 
 		current_line_index += 1

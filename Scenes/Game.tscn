@@ -16,12 +16,12 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3yehe"]
 shader = ExtResource("3_htlho")
 shader_parameter/background_position = null
-shader_parameter/speed_divider = 5e+06
+shader_parameter/speed_divider = 500000.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_upn82"]
 shader = ExtResource("3_htlho")
 shader_parameter/background_position = null
-shader_parameter/speed_divider = 1e+06
+shader_parameter/speed_divider = 100000.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hofce"]
 size = Vector2(192, 172)
@@ -49,7 +49,7 @@ position_smoothing_speed = 10.0
 
 [node name="Background" type="Node2D" parent="Player"]
 texture_repeat = 2
-scale = Vector2(5, 5)
+scale = Vector2(6, 6)
 script = ExtResource("2_mups5")
 
 [node name="Further" type="Sprite2D" parent="Player/Background"]

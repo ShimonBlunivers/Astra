@@ -123,8 +123,8 @@ func spawn():
 func _ready():
 	super();
 	spawn_point = Vector2(0, 800)
-
-	nickname = "Player_Samuel"
+	
+	nickname = "Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
 	spawn()
 

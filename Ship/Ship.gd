@@ -57,7 +57,6 @@ var difference_in_position := Vector2.ZERO;
 func _ready() -> void:
 	main_player = get_tree().get_root().get_node("World/Player")
 	ObjectList.SHIPS.append(self);
-	print(main_player.name)
 
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)

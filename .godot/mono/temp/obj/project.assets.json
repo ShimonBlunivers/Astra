@@ -88,24 +88,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bluni\\.nuget\\packages\\": {},
-    "D:\\Programs D\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Blunivers\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\Godot\\Astra\\Astra.csproj",
+      "projectUniqueName": "D:\\Files-D\\Programming\\Godot\\Astra-Godot\\Astra.csproj",
       "projectName": "Astra",
-      "projectPath": "D:\\Programming\\Godot\\Astra\\Astra.csproj",
-      "packagesPath": "C:\\Users\\Bluni\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\Godot\\Astra\\.godot\\mono\\temp\\obj\\",
+      "projectPath": "D:\\Files-D\\Programming\\Godot\\Astra-Godot\\Astra.csproj",
+      "packagesPath": "C:\\Users\\Blunivers\\.nuget\\packages\\",
+      "outputPath": "D:\\Files-D\\Programming\\Godot\\Astra-Godot\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Programs D\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Bluni\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Blunivers\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -160,7 +155,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,6 +1,5 @@
 class_name Dialogs
 
-
 var conversations = {
 	"greeting": [
 		"Ahoj!",

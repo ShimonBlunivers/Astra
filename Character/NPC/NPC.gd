@@ -67,6 +67,7 @@ static var names = [
 	
 ]
 
+var interactable = false;
 
 # TODO: Add dialog
 
@@ -79,7 +80,7 @@ func init():
 	$Nametag.text = nickname;
 	name = "NPC_" + nickname + "_" + str(number_of_npcs);
 	number_of_npcs += 1;
-	print(nickname, " SPAWNED on: " , position)
+	# print(nickname, " SPAWNED on: " , position)
 
 
 func _ready() -> void:
@@ -89,9 +90,10 @@ func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)
 
 
-
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
+		interactable = true;
+		dialogs.conversations["greeting"].shuffle()
 		dialog_manager.start_dialog(Vector2(0, -105), dialogs.conversations["greeting"])
 
 
@@ -101,3 +103,8 @@ func _on_area_mouse_entered() -> void:
 
 func _on_area_mouse_exited() -> void:
 	$Nametag.visible = false;
+
+
+func _on_interaction_area_area_exited(area:Area2D):
+	if area.is_in_group("PlayerInteractArea"):
+		interactable = false;
