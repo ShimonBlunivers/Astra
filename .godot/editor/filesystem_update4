@@ -14,4 +14,3 @@ res://Scenes/Editor.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Floor/Floor.tscn
 res://Items/Chip/Chip.tscn
-res://Character/Player/Player.gd
