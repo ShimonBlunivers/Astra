@@ -43,6 +43,7 @@ scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_k627v")
 
 [node name="Cracks" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_w35h2")
 animation = &"crack"

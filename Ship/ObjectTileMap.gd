@@ -44,7 +44,9 @@ func _replace_interactive_tiles() -> bool:
 				var helm_object = helm_scene.instantiate()
 				helm_object.init(ship, cellpos)
 				helm_object.position = tile_position
-				add_child(helm_object)
+
+				ship.object_tiles.add_child(helm_object)
+
 				set_cell(layer, cellpos, -1)
 
 			"NPC":

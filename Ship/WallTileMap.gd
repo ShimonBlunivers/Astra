@@ -146,7 +146,7 @@ func _replace_tiles() -> bool:
 				var _floor_object = floor_scene.instantiate()
 				_floor_object.init(ship, cellpos)
 				_floor_object.position = tile_position
-				add_child(_floor_object)
+				ship.wall_tiles.add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
 
 			"door":
@@ -155,11 +155,11 @@ func _replace_tiles() -> bool:
 				_door_object.init(ship, cellpos)
 				_door_object.direction = cell.get_custom_data("direction")
 				_door_object.position = tile_position
-				add_child(_door_object)
+				ship.wall_tiles.add_child(_door_object)
 				var _floor_object = floor_scene.instantiate()
 				_floor_object.init(ship, cellpos)
 				_floor_object.position = tile_position
-				add_child(_floor_object)
+				ship.wall_tiles.add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
 
 			"wall":
@@ -167,7 +167,7 @@ func _replace_tiles() -> bool:
 				var _wall_object = wall_scene.instantiate()
 				_wall_object.init(ship, cellpos)
 				_wall_object.position = tile_position
-				add_child(_wall_object)
+				ship.wall_tiles.add_child(_wall_object)
 
 				_wall_object.light_occluder.occluder = cell.get_occluder(layer)
 				_wall_object.light_occluder.scale = Vector2(1, 1) * Limits.TILE_SCALE
@@ -188,11 +188,11 @@ func _replace_tiles() -> bool:
 				var _core_object = core_scene.instantiate()
 				_core_object.init(ship, cellpos)
 				_core_object.position = tile_position
-				add_child(_core_object)
+				ship.wall_tiles.add_child(_core_object)
 				var _floor_object = floor_scene.instantiate()
 				_floor_object.init(ship, cellpos)
 				_floor_object.position = tile_position
-				add_child(_floor_object)
+				ship.wall_tiles.add_child(_floor_object)
 				set_cell(layer, cellpos, -1)
 				
 			
@@ -203,7 +203,7 @@ func _replace_tiles() -> bool:
 
 				ship.thrust_power[object_direction] += _thruster_object.power;
 
-				add_child(_thruster_object)
+				ship.wall_tiles.add_child(_thruster_object)
 
 				_thruster_object.rotation_degrees = object_direction * 90
 				
@@ -215,7 +215,7 @@ func _replace_tiles() -> bool:
 				_connector_object.init(ship, cellpos)
 				_connector_object.position = tile_position
 
-				add_child(_connector_object)
+				ship.wall_tiles.add_child(_connector_object)
 				
 				_connector_object.rotation_degrees = object_direction * 90
 

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5tbev0urahgc"]
+
+[ext_resource type="Texture2D" uid="uid://d4jm0tchr5nx6" path="res://Items/Chip/0.png" id="1_rebnb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q8de2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rebnb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Chip" type="Node2D"]
+z_index = 10
+y_sort_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -12)
+rotation = 1.57079
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_q8de2")
+autoplay = "default"

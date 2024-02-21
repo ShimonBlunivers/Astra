@@ -46,6 +46,10 @@ limit_top = -1000000000
 limit_right = 1000000000
 limit_bottom = 1000000000
 position_smoothing_speed = 10.0
+drag_left_margin = 0.0
+drag_top_margin = 0.0
+drag_right_margin = 0.0
+drag_bottom_margin = 0.0
 
 [node name="Background" type="Node2D" parent="Player"]
 texture_repeat = 2
@@ -156,12 +160,11 @@ texture = ExtResource("7_kad54")
 centered = false
 
 [node name="DeathScreen" type="Node2D" parent="UI/HUD"]
-visible = false
 modulate = Color(1, 0, 0, 0.431373)
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/HUD/DeathScreen"]
 z_index = 11
-position = Vector2(641.5, 360.125)
+position = Vector2(644, 736)
 scale = Vector2(5.16016, 763.75)
 texture = SubResource("GradientTexture1D_gft63")
 
@@ -170,6 +173,7 @@ position = Vector2(100, 100)
 scale = Vector2(2, 2)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/QuestLog"]
+visible = false
 offset_right = 194.0
 offset_bottom = 281.0
 text = "\\dsfsdfasdfa

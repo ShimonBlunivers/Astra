@@ -85,6 +85,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[connection signal="input_event" from="Area" to="." method="_on_area_input_event"]
 [connection signal="mouse_entered" from="Area" to="." method="_on_area_mouse_entered"]
 [connection signal="mouse_exited" from="Area" to="." method="_on_area_mouse_exited"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]

@@ -9,6 +9,7 @@
 
 [node name="Ship" type="RigidBody2D"]
 z_index = -1
+y_sort_enabled = true
 collision_layer = 512
 collision_mask = 512
 gravity_scale = 0.0
@@ -47,6 +48,13 @@ z_index = 1
 tile_set = ExtResource("2_qq4gy")
 format = 2
 script = ExtResource("5_rjigq")
+
+[node name="WallTiles" type="Node2D" parent="."]
+
+[node name="ObjectTiles" type="Node2D" parent="."]
+
+[node name="Items" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Passengers" type="Node2D" parent="."]
 y_sort_enabled = true

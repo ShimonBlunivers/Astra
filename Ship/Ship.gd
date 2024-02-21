@@ -1,8 +1,13 @@
-extends RigidBody2D
+class_name Ship extends RigidBody2D
 
 
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
+
+@onready var wall_tiles := $WallTiles
+@onready var object_tiles := $ObjectTiles
+@onready var items := $Items
+
 @onready var hitbox := $Hitbox
 @onready var visual := $Visual
 @onready var area := $Area/AreaHitbox

@@ -65,7 +65,11 @@ func get_in(ship):
 	passenger_on.append(ship)
 
 	var tween = create_tween()
-	tween.tween_property(self, "rotation", 0, 0.5)
+
+	if (rotation_degrees > 180):
+		tween.tween_property(self, "rotation_degrees", 360, 0.5)
+	else:
+		tween.tween_property(self, "rotation", 0, 0.5)
 
 func get_off(ship):
 	passenger_on.erase(ship)
@@ -74,22 +78,15 @@ func change_ship(ship):
 	parent_ship = ship;
 	call_deferred("reparent", ship.passengers_node)
 
-func get_closest_ship():
-	var ships = ObjectList.SHIPS;
-	var closest = ships[0];
-	for ship in ships:
-		if closest.get_closest_point(global_position).distance_to(global_position) > ship.get_closest_point(global_position).distance_to(global_position): 
-			closest = ship;
-			collisionpos = closest.get_closest_point(global_position)
-	return closest;
+
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
 		damage(100)
 
 	if event.is_action_pressed("debug_spawn"):
-		spawn()
-		# print(get_closest_ship().name);
+		# spawn()
+		Item.spawn(Item.ID.chip, get_global_mouse_position())
 
 	if alive:
 		if event.is_action_pressed("game_mb_left"):
@@ -113,12 +110,11 @@ func spawn():
 	alive = true
 	spawned = true;
 	health = max_health
-	change_ship(get_closest_ship())
+	change_ship(ObjectList.get_closest_ship(global_position))
 	global_position = spawn_point
 	_old_position = global_position
 	health_updated_signal.emit()
-	
-	
+
 
 func _ready():
 	super();
@@ -141,9 +137,9 @@ func kill():
 
 
 func _in_physics(delta: float) -> void:
-	# print("Player position: ", position)
+	print("Player position: ", position)
 	if (floating):
-		var closest_ship = get_closest_ship();
+		var closest_ship = ObjectList.get_closest_ship(global_position);
 		if closest_ship != parent_ship:
 			change_ship(closest_ship)
 
@@ -215,7 +211,7 @@ func _move(_delta: float) -> void:
 	# velocity = velocity.move_toward(Vector2(0, 0), 40)
 	# print("dampening now ; velocity:", velocity)
 	
-	move_and_slide()
+	if (velocity != Vector2.ZERO): move_and_slide();
 
 	# animation things down here..
 
