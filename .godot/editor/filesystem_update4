@@ -1,3 +1,5 @@
+res://Settings/World.gd
+res://Character/Player/Player.gd
 res://Character/Player/Player.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
@@ -14,3 +16,5 @@ res://Scenes/Editor.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Floor/Floor.tscn
 res://Items/Chip/Chip.tscn
+res://Settings/Limits.gd
+res://Backgrounds/Background.gd

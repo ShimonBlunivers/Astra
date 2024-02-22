@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=19 format=3 uid="uid://dl36ukldy48vp"]
 
+[ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="Script" path="res://Backgrounds/Background.gd" id="2_mups5"]
@@ -33,7 +34,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_khipi")
 
 [node name="World" type="Node2D"]
-y_sort_enabled = true
+script = ExtResource("1_4hqkb")
 metadata/_edit_vertical_guides_ = []
 
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
@@ -164,9 +165,9 @@ modulate = Color(1, 0, 0, 0.431373)
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/HUD/DeathScreen"]
 z_index = 11
-position = Vector2(644, 736)
-scale = Vector2(5.16016, 763.75)
+scale = Vector2(5, 720)
 texture = SubResource("GradientTexture1D_gft63")
+centered = false
 
 [node name="QuestLog" type="Node2D" parent="UI/HUD"]
 position = Vector2(100, 100)

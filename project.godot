@@ -13,6 +13,7 @@ config_version=5
 config/name="Astra"
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
+run/delta_smoothing=false
 config/icon="res://icon.svg"
 
 [audio]
@@ -37,7 +38,6 @@ shapes/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=4
 window/stretch/mode="canvas_items"
 
 [dotnet]

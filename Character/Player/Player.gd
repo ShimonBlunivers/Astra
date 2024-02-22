@@ -78,8 +78,6 @@ func change_ship(ship):
 	parent_ship = ship;
 	call_deferred("reparent", ship.passengers_node)
 
-
-
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
 		damage(100)
@@ -112,7 +110,7 @@ func spawn():
 	health = max_health
 	change_ship(ObjectList.get_closest_ship(global_position))
 	global_position = spawn_point
-	_old_position = global_position
+	_old_position = World.instance.get_distance_from_center(global_position)
 	health_updated_signal.emit()
 
 
@@ -137,7 +135,8 @@ func kill():
 
 
 func _in_physics(delta: float) -> void:
-	print("Player position: ", position)
+	
+	# print("Player position: ", position)
 	if (floating):
 		var closest_ship = ObjectList.get_closest_ship(global_position);
 		if closest_ship != parent_ship:
@@ -147,6 +146,8 @@ func _in_physics(delta: float) -> void:
 		_move(delta);
 	else:
 		camera.offset = camera_difference.rotated(global_rotation)
+
+	World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 	
 func control_ship(ship):
 	if ship != null:
@@ -173,9 +174,9 @@ func _move(_delta: float) -> void:
 	var _sound_pitch_range := [0.9, 1.1] # Sound variation
 	
 	if !alive: direction = Vector2.ZERO # Death check
-
-	acceleration = global_position - _old_position # Acceleration get by the difference of the position
-	_old_position = global_position
+	
+	acceleration = World.instance.get_distance_from_center(global_position) - _old_position # Acceleration get by the difference of the position
+	_old_position = World.instance.get_distance_from_center(global_position)
 
 
 	# if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX: # Speed limitation, need to redo that tho

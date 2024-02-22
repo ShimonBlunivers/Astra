@@ -111,7 +111,7 @@ func _on_interaction_area_area_exited(area:Area2D):
 		interactable = false;
 
 
-func _on_area_input_event(viewport:Node, event:InputEvent, shape_idx:int) -> void:
+func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:
 		dialog_manager.advance()
 
