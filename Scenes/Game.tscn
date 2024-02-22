@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="Script" path="res://Backgrounds/Background.gd" id="2_mups5"]
-[ext_resource type="PackedScene" uid="uid://kktj4xnims84" path="res://Character/Player/Player.tscn" id="3_gb8si"]
+[ext_resource type="PackedScene" uid="uid://8juqmqvh6edg" path="res://Character/Player/Player.tscn" id="3_gb8si"]
 [ext_resource type="Shader" path="res://Backgrounds/BackgroundShader.gdshader" id="3_htlho"]
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="4_7oqwe"]
 [ext_resource type="Texture2D" uid="uid://ds2tawebq6o8l" path="res://Effects/DebugTexture.png" id="4_ebuyk"]

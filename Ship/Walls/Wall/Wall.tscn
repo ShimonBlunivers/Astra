@@ -31,7 +31,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2q75"]
-size = Vector2(160, 160)
+size = Vector2(162, 162)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fhldi"]
 polygon = PackedVector2Array(-40, -40, -40, 40, 40, 40, 40, -40)

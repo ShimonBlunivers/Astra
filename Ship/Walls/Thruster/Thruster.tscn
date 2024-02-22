@@ -11,7 +11,7 @@ atlas = ExtResource("2_0a064")
 region = Rect2(96, 64, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeoku"]
-size = Vector2(160, 160)
+size = Vector2(162, 162)
 
 [sub_resource type="Gradient" id="Gradient_5pfsn"]
 offsets = PackedFloat32Array(0, 0.213333, 1)

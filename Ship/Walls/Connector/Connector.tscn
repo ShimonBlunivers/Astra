@@ -8,7 +8,7 @@ atlas = ExtResource("2_c2rcq")
 region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeoku"]
-size = Vector2(160, 160)
+size = Vector2(162, 162)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_npogu"]
 polygon = PackedVector2Array(-16, -8, -16, 8, 6, 8, 6, 7, 7, 7, 7, 6, 8, 6, 8, 5, 9, 5, 9, 4, 10, 4, 10, 3, 11, 3, 11, 2, 12, 2, 12, -2, 11, -2, 11, -3, 10, -3, 10, -4, 9, -4, 9, -5, 8, -5, 8, -6, 7, -6, 7, -7, 6, -7, 6, -8)
