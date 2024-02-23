@@ -11,8 +11,11 @@ public partial class EditorCamera : Camera2D
 	public const float ZoomSpeed = 0.1f;
 	public const float MaxZoom = 10.0f;
 	public const float MinZoom = 0.2f;
+
+	public bool locked = false;
 	public override void _PhysicsProcess(double delta)
 	{
+		if (locked) return;
 		Vector2 velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		float running = Input.GetActionStrength("game_run");
@@ -27,6 +30,7 @@ public partial class EditorCamera : Camera2D
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if (locked) return;
 		if (@event is InputEventMouseButton)
 		{
 			InputEventMouseButton emb = (InputEventMouseButton)@event;

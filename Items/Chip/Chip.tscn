@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5tbev0urahgc"]
+[gd_scene load_steps=8 format=3 uid="uid://b5tbev0urahgc"]
 
 [ext_resource type="Texture2D" uid="uid://d4jm0tchr5nx6" path="res://Items/Chip/0.png" id="1_rebnb"]
 [ext_resource type="Script" path="res://Items/Item.gd" id="1_wqcj8"]
 [ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="2_6j0h7"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="4_dh116"]
+[ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="5_y7kjp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sg73m"]
 size = Vector2(48, 24)
@@ -23,6 +25,16 @@ z_index = 10
 y_sort_enabled = true
 script = ExtResource("1_wqcj8")
 
+[node name="EditorLight" type="PointLight2D" parent="."]
+position = Vector2(80, -42)
+editor_only = true
+color = Color(0.988235, 1, 1, 1)
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 1
+texture = ExtResource("5_y7kjp")
+texture_scale = 14.0
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -38,4 +50,20 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_q8de2")
 autoplay = "default"
 
+[node name="Itemtag" type="Label" parent="."]
+z_index = 10
+offset_left = -20.0
+offset_top = -49.0
+offset_right = 20.0
+offset_bottom = -25.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_dh116")
+text = "Čip"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

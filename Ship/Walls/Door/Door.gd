@@ -101,7 +101,6 @@ func _on_frame_changed():
 
 
 func _interact():
-	print(ship.main_player.global_position.distance_to(global_position))
 	if ship.main_player.global_position.distance_to(global_position) > interact_range:
 		return
 	if is_operating:
