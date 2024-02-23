@@ -13,22 +13,22 @@ func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1
 
 func _physics_process(_delta: float) -> void:
 	for hitbox in hitboxes_to_shift:
-		hitbox.position = (- ship.difference_in_position).rotated(-global_rotation);
+		hitbox.position = (- ship.difference_in_position).rotated(-global_rotation)
 		# if direction == "horizontal":
-		# 	hitbox.position = (- ship.difference_in_position).rotated(-global_rotation);
+		# 	hitbox.position = (- ship.difference_in_position).rotated(-global_rotation)
 		# elif direction == "vertical":
-		# 	hitbox.position = (- ship.difference_in_position).rotated(-global_rotation);
+		# 	hitbox.position = (- ship.difference_in_position).rotated(-global_rotation)
 
 func _process(_delta: float) -> void:
-	if (!Options.DEBUG_MODE): return;
+	if (!Options.DEBUG_MODE): return
 	queue_redraw()
 
 func _draw() -> void:
-	if (!Options.DEBUG_MODE): return;
+	if (!Options.DEBUG_MODE): return
 	for hitbox in hitboxes_to_shift:
 		var rect = hitbox.get_child(0).shape.get_rect()
 		rect.position += hitbox.position
-		draw_rect(rect, Color.YELLOW);
+		draw_rect(rect, Color.YELLOW)
 
 func interact():
 	if interactable: _interact()

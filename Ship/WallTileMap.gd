@@ -1,19 +1,19 @@
 extends TileMap
 
 
-const door_scene = preload("res://Ship/Walls/Door/Door.tscn");
-const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn");
-const floor_scene = preload("res://Ship/Walls/Floor/Floor.tscn");
-const core_scene = preload("res://Ship/Walls/Core/Core.tscn");
-const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn");
-const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn");
+const door_scene = preload("res://Ship/Walls/Door/Door.tscn")
+const wall_scene = preload("res://Ship/Walls/Wall/Wall.tscn")
+const floor_scene = preload("res://Ship/Walls/Floor/Floor.tscn")
+const core_scene = preload("res://Ship/Walls/Core/Core.tscn")
+const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn")
+const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn")
 
 var ship = null
 
-var _first_rect : Rect2i;
+var _first_rect : Rect2i
 
 func get_rect():
-	return _first_rect;
+	return _first_rect
 
 func _load_hitbox(_layer: int):
 	ship.polygon = toShape(deleteEdges(createEdges(_layer)))
@@ -100,13 +100,13 @@ func load_ship(_ship, path : String = "station") -> bool:
 	ship = _ship
 	clear()
 	
-	var layer : int = 0;
+	var layer : int = 0
 	
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		return false
 	var save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.READ)
 	
-	var contents := [];
+	var contents := []
 	
 	while save_file.get_position() != save_file.get_length():
 		contents = [save_file.get_float(), save_file.get_float(), save_file.get_16(), save_file.get_float(), save_file.get_float(), save_file.get_16()]
@@ -121,14 +121,14 @@ func load_ship(_ship, path : String = "station") -> bool:
 
 	_load_hitbox(layer)
 
-	_first_rect = get_used_rect();
+	_first_rect = get_used_rect()
 
 	_replace_tiles()	
 
 	return true
 	
 func _replace_tiles() -> bool:
-	var layer := 0;
+	var layer := 0
 
 	var atlas := tile_set.get_source(0) as TileSetAtlasSource
 	var atlas_image := atlas.texture.get_image()
@@ -201,7 +201,7 @@ func _replace_tiles() -> bool:
 				_thruster_object.init(ship, cellpos, 150, 5, object_direction)
 				_thruster_object.position = tile_position
 
-				ship.thrust_power[object_direction] += _thruster_object.power;
+				ship.thrust_power[object_direction] += _thruster_object.power
 
 				ship.wall_tiles.add_child(_thruster_object)
 

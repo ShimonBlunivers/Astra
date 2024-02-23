@@ -14,18 +14,18 @@ var letter_time = 0.03
 var space_time = 0.06
 var punctuation_time = 0.2
 
-signal finished_displaying();
+signal finished_displaying()
 
 func display_text(text_to_display: String):
-	text = text_to_display;
-	label.text = text_to_display;
-	await resized;
+	text = text_to_display
+	label.text = text_to_display
+	await resized
 	custom_minimum_size.x = min(size.x, MAX_WIDTH)
 
 	if size.x > MAX_WIDTH:
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD
-		await resized; # wait for x resize
-		await resized; # wait for y resize
+		await resized # wait for x resize
+		await resized # wait for y resize
 		custom_minimum_size.y = size.y
 		
 	position.x -= (size.x / 2) * scale.x
@@ -38,8 +38,8 @@ func _display_letter():
 	label.text += text[letter_index]
 	letter_index += 1
 	if letter_index >= text.length():
-		finished_displaying.emit();
-		return;
+		finished_displaying.emit()
+		return
 	
 	match text[letter_index]:
 		"!", ".", ",", "?":

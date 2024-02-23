@@ -9,14 +9,14 @@ class_name Wall extends ShipPart
 
 static var debris_scene = preload("res://Ship/Walls/Debris/Debris.tscn")
 
-var layer : int = 0;
+var layer : int = 0
 
 func init(_ship, _coords : Vector2i, _durability : float = 100, _mass : float = 4):
 	super(_ship, _coords, _durability, _mass)
 
 func _ready():
-	hp.max_value = durability_max;
-	hp.value = durability_max;
+	hp.max_value = durability_max
+	hp.value = durability_max
 
 func set_texture(texture) -> void:
 	sprite.texture = texture
@@ -26,7 +26,7 @@ func _on_button_pressed():
 
 func damage(dmg: float):
 
-	durability_current -= dmg;
+	durability_current -= dmg
 
 	button.tooltip_text = str(snapped(durability_current / durability_max, 0.01)) + "%"
 
@@ -48,7 +48,7 @@ func damage(dmg: float):
 func destroy():
 	var _debris_object := debris_scene.instantiate()
 
-	_debris_object.init(ship, tilemap_coords);
+	_debris_object.init(ship, tilemap_coords)
 	_debris_object.position = position
 
 	get_parent().add_child(_debris_object)

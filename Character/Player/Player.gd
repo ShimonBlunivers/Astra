@@ -18,7 +18,7 @@ var ship_zoom : float = 0.2
 var normal_vision : float = 12
 var driving_vision : float = 1
 
-var suit = true;
+var suit = true
 
 var use_range : float = 1000
 
@@ -31,11 +31,11 @@ var hovering_controllables := []
 var controllables_in_use := []
 
 var passenger_on := []
-var parent_ship = null;
+var parent_ship = null
 
-var dim_acceleration_for_frames = 0;
+var dim_acceleration_for_frames = 0
 
-var camera_difference = Vector2.ZERO;
+var camera_difference = Vector2.ZERO
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -60,7 +60,7 @@ func floating():
 
 
 func get_in(ship):
-	dim_acceleration_for_frames = 5;
+	dim_acceleration_for_frames = 5
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 
@@ -75,7 +75,7 @@ func get_off(ship):
 	passenger_on.erase(ship)
 
 func change_ship(ship):
-	parent_ship = ship;
+	parent_ship = ship
 	call_deferred("reparent", ship.passengers_node)
 
 func _unhandled_input(event: InputEvent):
@@ -95,18 +95,18 @@ func _unhandled_input(event: InputEvent):
 			for controllable in hovering_controllables:
 				controllable.interact()
 			for controllable in controllables_in_use:
-				if controllable in hovering_controllables: continue;
-				controllable.player_in_range = self;
-				controllable.interactable = true;
+				if controllable in hovering_controllables: continue
+				controllable.player_in_range = self
+				controllable.interactable = true
 				controllable.interact()
-				controllable.player_in_range = null;
-				controllable.interactable = false;
+				controllable.player_in_range = null
+				controllable.interactable = false
 
 
 func spawn():
 	animated_sprite.play("Idle")
 	alive = true
-	spawned = true;
+	spawned = true
 	health = max_health
 	change_ship(ObjectList.get_closest_ship(global_position))
 	global_position = spawn_point
@@ -115,7 +115,7 @@ func spawn():
 
 
 func _ready():
-	super();
+	super()
 	spawn_point = Vector2(0, 800)
 	
 	nickname = "Samuel"
@@ -138,12 +138,12 @@ func _in_physics(delta: float) -> void:
 	
 	# print("Player position: ", position)
 	if (floating):
-		var closest_ship = ObjectList.get_closest_ship(global_position);
+		var closest_ship = ObjectList.get_closest_ship(global_position)
 		if closest_ship != parent_ship:
 			change_ship(closest_ship)
 
 	if ship_controlled == null: 
-		_move(delta);
+		_move(delta)
 	else:
 		camera.offset = camera_difference.rotated(global_rotation)
 
@@ -168,7 +168,7 @@ func control_ship(ship):
 func _move(_delta: float) -> void:
 
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") # Get input keys
-	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right");
+	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right")
 	var running := Input.get_action_strength("game_run")
 
 	var _sound_pitch_range := [0.9, 1.1] # Sound variation
@@ -184,35 +184,35 @@ func _move(_delta: float) -> void:
 	# 	new_speed *= Limits.VELOCITY_MAX
 	# 	acceleration = new_speed
 
-	velocity = (direction * (SPEED + RUN_SPEED_MODIFIER * running)).rotated(global_rotation); # velocity // the _fix_position is help variable made to remove bug
+	velocity = (direction * (SPEED + RUN_SPEED_MODIFIER * running)).rotated(global_rotation) # velocity // the _fix_position is help variable made to remove bug
 
 
 	if floating(): 	# If outside of the ship
 		rotate(deg_to_rad(TURN_SPEED * rotation_direction))
-		legs.position = legs_offset - (acceleration).rotated(-global_rotation); # Counter steering the bug, where every hitbox of the ship shifts
+		legs.position = legs_offset - (acceleration).rotated(-global_rotation) # Counter steering the bug, where every hitbox of the ship shifts
 		if suit == false: 
 			velocity = Vector2(0, 0) # No control over the direction u r flying if you don't have a suit
 		else: 
 			velocity *= .01 # Taking the velocity and dividing it by 100, to the player isn't so fast in the space like in ship
 
 		if dim_acceleration_for_frames <= 0:
-			velocity += (acceleration - parent_ship.difference_in_position) / _delta; # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
+			velocity += (acceleration - parent_ship.difference_in_position) / _delta # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
 		else:
-			var _dim_factor = 10;
-			velocity += (acceleration - parent_ship.difference_in_position) / (_delta * _dim_factor);
+			var _dim_factor = 10
+			velocity += (acceleration - parent_ship.difference_in_position) / (_delta * _dim_factor)
 	else:
-		legs.position = legs_offset - (passenger_on[0].difference_in_position).rotated(-global_rotation); # Again the counter steering against the bug
+		legs.position = legs_offset - (passenger_on[0].difference_in_position).rotated(-global_rotation) # Again the counter steering against the bug
 
 	if dim_acceleration_for_frames > 0:
-		dim_acceleration_for_frames -= 1;
+		dim_acceleration_for_frames -= 1
 
 
 
 	# if get_last_slide_collision():
 	# velocity = velocity.move_toward(Vector2(0, 0), 40)
-	# print("dampening now ; velocity:", velocity)
+	# print("dampening now  velocity:", velocity)
 	
-	if (velocity != Vector2.ZERO): move_and_slide();
+	if (velocity != Vector2.ZERO): move_and_slide()
 
 	# animation things down here..
 
@@ -267,7 +267,7 @@ var collisionpos = Vector2.ZERO
 
 
 func _draw() -> void:
-	# if (!Options.DEBUG_MODE): return;
+	# if (!Options.DEBUG_MODE): return
 
 	# print(collisionpos)
 	draw_circle(to_local(collisionpos), 25, Color.WHITE)
@@ -284,7 +284,7 @@ func change_view(view: int) -> void:
 			tween.parallel().tween_property(camera, "offset", camera_difference.rotated(global_rotation), duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(vision, "texture_scale", driving_vision, duration).set_ease(Tween.EASE_OUT)
 		1: 
-			camera_difference = Vector2.ZERO;
+			camera_difference = Vector2.ZERO
 			tween.parallel().tween_property(camera, "zoom", Vector2(normal_zoom, normal_zoom), duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(camera, "offset", camera_difference, duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)

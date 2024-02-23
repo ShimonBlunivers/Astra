@@ -13,9 +13,9 @@ class_name Ship extends RigidBody2D
 @onready var area := $Area/AreaHitbox
 @onready var passengers_node := $Passengers
 
-var main_player;
+var main_player
 
-var polygon;
+var polygon
 
 var dock_position : Vector2 = Vector2(100, 100)
 
@@ -23,17 +23,17 @@ var passengers := []
 
 var controlled_by = null
 
-var acceleration := Vector2.ZERO;
+var acceleration := Vector2.ZERO
 
-var rotation_speed : float = 0; 
+var rotation_speed : float = 0 
 
-var velocity := Vector2.ZERO;
+var velocity := Vector2.ZERO
 
 var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
 
-var thrusters := [[], [], [], []]; # LEFT UP RIGHT DOWN
+var thrusters := [[], [], [], []] # LEFT UP RIGHT DOWN
 
-var interactables := [];
+var interactables := []
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
@@ -57,11 +57,11 @@ var interactables := [];
 
 
 var _old_position = position
-var difference_in_position := Vector2.ZERO;
+var difference_in_position := Vector2.ZERO
 
 func _ready() -> void:
 	main_player = get_tree().get_root().get_node("World/Player")
-	ObjectList.SHIPS.append(self);
+	ObjectList.SHIPS.append(self)
 
 func load_ship(x: int, y: int) -> void:
 	position = Vector2i(x, y)
@@ -76,21 +76,21 @@ func get_tile(coords : Vector2i):
 	for tile in wall_tile_map.get_children():
 		if (tile is ShipPart):
 			if (coords == tile.tilemap_coords):
-				return tile;
+				return tile
 	return null
 
 func get_closest_point(point1 : Vector2) -> Vector2:
-	var closest = polygon[0].rotated(global_rotation) + global_position;
+	var closest = polygon[0].rotated(global_rotation) + global_position
 	for point2 in polygon:
-		point2 = point2.rotated(global_rotation) + global_position;
+		point2 = point2.rotated(global_rotation) + global_position
 		if closest.distance_to(point1) > point2.distance_to(point1):
-			closest = point2;
-	return closest;
+			closest = point2
+	return closest
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	acceleration = Vector2.ZERO;
-	rotation_speed = 0;
+	acceleration = Vector2.ZERO
+	rotation_speed = 0
 
 	if controlled_by != null: 
 		control()
@@ -98,7 +98,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	update_thrusters()
 	update_side_trusters()
 
-	acceleration = acceleration.rotated(global_rotation);
+	acceleration = acceleration.rotated(global_rotation)
 	
 	state.apply_central_impulse(acceleration)
 	state.apply_torque_impulse(rotation_speed)
@@ -113,18 +113,18 @@ func _physics_process(_delta: float) -> void:
 	# print("Ship moved by: ", _difference_in_position)
 	# for passenger in passengers: 
 	# 	if passenger.is_in_group("NPC"):
-	# 		passenger.legs.position = passenger.legs_offset + difference_in_position;
+	# 		passenger.legs.position = passenger.legs_offset + difference_in_position
 			
-	# area.position = -difference_in_position;
-	_old_position = position;
+	# area.position = -difference_in_position
+	_old_position = position
 
 
 func control():
 	
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right");
+	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right")
 
-	var _rotation_power = 8000 * mass;
+	var _rotation_power = 8000 * mass
 
 	if !controlled_by.alive: direction = Vector2.ZERO
 
@@ -134,7 +134,7 @@ func control():
 	if direction.y < 0: acceleration.y -= thrust_power.y
 	elif direction.y > 0: acceleration.y += thrust_power.w
 
-	rotation_speed = _rotation_power * rotation_direction + rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size());
+	rotation_speed = _rotation_power * rotation_direction + rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size())
 
 
 func update_side_trusters():
@@ -167,10 +167,10 @@ func stop_controlling():
 func _on_area_area_entered(_area:Area2D) -> void:
 	if _area.is_in_group("PlayerInteractArea"):
 		var body = _area.get_parent()
-		if (!body.spawned): 				return;
-		if (body in passengers): 			return;
+		if (!body.spawned): 				return
+		if (body in passengers): 			return
 		passengers.append(body)
-		body.get_in(self);
+		body.get_in(self)
 
 	# if body.is_in_group("Player"):
 		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
@@ -179,7 +179,7 @@ func _on_area_area_entered(_area:Area2D) -> void:
 func _on_area_area_exited(_area:Area2D) -> void:
 	if _area.is_in_group("PlayerInteractArea"):
 		var body = _area.get_parent()
-		if (!body.spawned): 				return;
-		if !(body in passengers): 			return;
+		if (!body.spawned): 				return
+		if !(body in passengers): 			return
 		passengers.erase(body)
 		body.get_off(self)

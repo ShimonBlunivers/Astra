@@ -1,6 +1,6 @@
 class_name World extends Node2D
 
-static var instance : World;
+static var instance : World
 
 var _center_of_universe = Vector2.ZERO
 

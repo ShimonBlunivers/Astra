@@ -12,13 +12,13 @@ func load_ship(_ship, path : String = "station") -> bool:
 	
 	clear()
 	
-	var layer : int = 0;
+	var layer : int = 0
 	
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/objects.dat"):
 		return false
 	var save_file := FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.READ)
 	
-	var contents := [];
+	var contents := []
 	
 	while save_file.get_position() != save_file.get_length():
 		contents = [save_file.get_float(), save_file.get_float(), save_file.get_16(), save_file.get_float(), save_file.get_float(), save_file.get_16()]
@@ -33,7 +33,7 @@ func load_ship(_ship, path : String = "station") -> bool:
 	
 
 func _replace_interactive_tiles() -> bool:
-	var layer := 0;
+	var layer := 0
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
 

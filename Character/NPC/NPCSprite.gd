@@ -9,13 +9,13 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var random := RandomNumberGenerator.new();
+	var random := RandomNumberGenerator.new()
 
 	skin_node.modulate = _random_color()
 	eyes_node.modulate = _random_color()
 	hair_node.modulate = _random_color()
 
-	hair_node.frame = random.randi_range(0, 6);
+	hair_node.frame = random.randi_range(0, 6)
 	hair_node.flip_h = random.randi_range(0, 1) == 0
 
 	torso_node.modulate = _random_color()
@@ -29,5 +29,5 @@ func _ready():
 	eyes_node.play("default")
 
 func _random_color() -> Color:
-	var random := RandomNumberGenerator.new();
+	var random := RandomNumberGenerator.new()
 	return Color(random.randfn() * 0.75, random.randfn() * 0.75, random.randfn() * 0.75, 1)

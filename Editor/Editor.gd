@@ -26,7 +26,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	handle_input()
-	var layer := 0;
+	var layer := 0
 	if (event.is_action_pressed("game_mb_left")):
 		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))
 		use_tool(tile, layer)
@@ -68,7 +68,7 @@ func change_tool_preview(_tool):
 
 
 func save_ship(path : String = "default_ship") -> void:
-	var layer : int = 0;
+	var layer : int = 0
 	DirAccess.make_dir_absolute("user://saves/")
 	DirAccess.make_dir_absolute("user://saves/ships/")
 	DirAccess.make_dir_absolute("user://saves/ships/"+path+"/")
@@ -104,7 +104,7 @@ func load_ship(path : String = "default_ship") -> bool:
 	wall_tile_map.clear()
 	object_tile_map.clear()
 	
-	var layer : int = 0;
+	var layer : int = 0
 	
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		return false
@@ -114,7 +114,7 @@ func load_ship(path : String = "default_ship") -> bool:
 	var walls_save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.READ)
 	var objects_save_file := FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.READ)
 	
-	var contents := [];
+	var contents := []
 	
 	while walls_save_file.get_position() != walls_save_file.get_length():
 		contents = [walls_save_file.get_float(), walls_save_file.get_float(), walls_save_file.get_16(), walls_save_file.get_float(), walls_save_file.get_float(), walls_save_file.get_16()]

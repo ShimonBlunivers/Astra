@@ -9,7 +9,7 @@ class_name UIManager extends CanvasLayer
 
 @onready var _quest_label = $HUD/QuestLog/RichTextLabel
 
-static var quest_label;
+static var quest_label
 # DEBUG
 
 @onready var floating = $Debug/Floating
@@ -18,7 +18,7 @@ static var quest_label;
 
 func _ready():
 	health_label.text = str(player.health)
-	quest_label = _quest_label;
+	quest_label = _quest_label
 	UIManager.set_quest_text("XD")
 
 func _on_player_health_updated_signal() -> void:

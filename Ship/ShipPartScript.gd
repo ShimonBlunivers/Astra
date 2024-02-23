@@ -13,18 +13,18 @@ var durability_current : float :
 
 func _physics_process(_delta: float) -> void:
     if ($Hitbox != null):
-        $Hitbox.position = Vector2.ZERO;
+        $Hitbox.position = Vector2.ZERO
 
-var mass : float;
+var mass : float
 
-var ship;
+var ship
 
-var tilemap_coords : Vector2i;
+var tilemap_coords : Vector2i
 
 
 func init(_ship, _coords : Vector2i, _durability : float = 60, _mass : float = 1):
     ship = _ship
-    tilemap_coords = _coords;
+    tilemap_coords = _coords
     durability_max = _durability
     durability_current = _durability
     mass = _mass

@@ -32,9 +32,9 @@ var conversations = {
 	],
 	
 	"mission" : []
-};
+}
 
 func random_phrase(dialog_type: String) -> String:
 	if (!conversations.has(dialog_type)): return ""
-	var random := RandomNumberGenerator.new();
+	var random := RandomNumberGenerator.new()
 	return conversations[dialog_type][random.randi_range(0, conversations[dialog_type].size() - 1)]
