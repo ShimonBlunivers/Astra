@@ -1,12 +1,7 @@
 res://Editor/Editor.gd
-res://Scenes/Editor.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
 res://Backgrounds/BackgroundShader.gdshader
-res://Scenes/Console.gd
-res://Editor/ShipEditor.gd
 res://Items/Item.gd
 res://Items/Chip/Chip.tscn
-res://Ship/ShipPartScript.gd
-res://Ship/Walls/Door/Door.gd
-res://Ship/Interactable/InteractableShipPart.gd
+res://Scenes/Editor.tscn

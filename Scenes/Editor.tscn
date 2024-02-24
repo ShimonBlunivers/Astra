@@ -31,6 +31,35 @@ offset_bottom = 204.0
 scroll_active = false
 scroll_following = true
 script = ExtResource("1_xklyf")
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="Control" parent="HUD"]
+layout_mode = 3
+anchor_right = 0.3
+anchor_bottom = 1.0
+offset_right = 0.399994
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.301961, 0.333333, 0.733333, 1)
+
+[node name="Label" type="Label" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -0.399994
+offset_bottom = 42.0
+grow_horizontal = 2
+text = "Inventář"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Savemenu" type="CanvasLayer" parent="."]
 visible = false
@@ -139,6 +168,7 @@ horizontal_alignment = 1
 script = ExtResource("3_2uq8m")
 
 [node name="Ship" type="Node2D" parent="."]
+visible = false
 script = ExtResource("3_glsei")
 
 [node name="WallTileMap" type="TileMap" parent="Ship"]
