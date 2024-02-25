@@ -1,7 +1,2 @@
-res://Editor/Editor.gd
-res://Ship/WallTileMap.tres
-res://Ship/ObjectTileMap.tres
-res://Backgrounds/BackgroundShader.gdshader
+res://Backgrounds/Background.gd
 res://Items/Item.gd
-res://Items/Chip/Chip.tscn
-res://Scenes/Editor.tscn

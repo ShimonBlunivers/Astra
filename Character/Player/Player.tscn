@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://8juqmqvh6edg"]
+[gd_scene load_steps=25 format=3 uid="uid://8juqmqvh6edg"]
 
 [ext_resource type="Script" path="res://Character/Player/Player.gd" id="1_to8t1"]
 [ext_resource type="Texture2D" uid="uid://bx3ntqyvpglvb" path="res://Character/Player/animations/death/00.png" id="2_0a7lx"]
@@ -26,6 +26,9 @@ size = Vector2(50, 100)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycmu8"]
 radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eo3g1"]
+radius = 300.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x6u5k"]
 animations = [{
@@ -157,6 +160,13 @@ collision_mask = 272
 position = Vector2(0, 42.5)
 shape = SubResource("CircleShape2D_ycmu8")
 
+[node name="Pickup" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Range" type="CollisionShape2D" parent="Pickup"]
+shape = SubResource("CircleShape2D_eo3g1")
+
 [node name="LegHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ycmu8")
 
@@ -200,3 +210,6 @@ stream = ExtResource("15_c0vio")
 volume_db = -1.0
 max_distance = 1000.0
 bus = &"SFX"
+
+[connection signal="area_entered" from="Pickup" to="." method="_on_pickup_area_entered"]
+[connection signal="area_exited" from="Pickup" to="." method="_on_pickup_area_exited"]

@@ -4,7 +4,9 @@ class_name Item extends Node2D
 
 var ship : Ship
 
-var ID;
+var ID
+
+var can_pickup = false
 
 static var number_of_items = 0
 
@@ -33,8 +35,8 @@ func _physics_process(_delta: float) -> void:
 	area.position = (- ship.difference_in_position).rotated(-global_rotation)
 
 func _on_area_2d_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
-	if event is InputEventMouseButton && event.button_mask == 1:
-		print("clicked item")
+	if event is InputEventMouseButton && event.button_mask == 1 && can_pickup:
+		pick_up()
 
 func _on_area_2d_mouse_entered() -> void:
 	$Itemtag.visible = true
@@ -42,3 +44,11 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	$Itemtag.visible = false
+
+func pick_up():
+	print("picked item")
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", ship.main_player.global_position - ship.main_player.acceleration, (global_position - ship.main_player.global_position).length() / 1200).set_ease(Tween.EASE_OUT)
+
+	await tween.finished
+	queue_free()

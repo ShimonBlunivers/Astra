@@ -164,6 +164,7 @@ editor_open_toolmenu={
 2d_render/layer_2="Player light-up"
 2d_physics/layer_1="Player collision"
 2d_physics/layer_2="Character collision"
+2d_physics/layer_3="Item collision"
 2d_physics/layer_5="Interactables collision"
 2d_physics/layer_9="Character to Ship collision"
 2d_physics/layer_10="Ship collision"

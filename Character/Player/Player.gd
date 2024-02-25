@@ -147,6 +147,8 @@ func _in_physics(delta: float) -> void:
 	else:
 		camera.offset = camera_difference.rotated(global_rotation)
 
+	$Pickup.position = (- acceleration).rotated(-global_rotation)
+
 	World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 	
 func control_ship(ship):
@@ -288,3 +290,11 @@ func change_view(view: int) -> void:
 			tween.parallel().tween_property(camera, "zoom", Vector2(normal_zoom, normal_zoom), duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(camera, "offset", camera_difference, duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)
+
+
+func _on_pickup_area_entered(area:Area2D) -> void:
+	area.get_parent().can_pickup = true
+
+
+func _on_pickup_area_exited(area:Area2D) -> void:
+	area.get_parent().can_pickup = false

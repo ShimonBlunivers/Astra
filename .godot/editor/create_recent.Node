@@ -1,6 +1,6 @@
-Label
 CollisionShape2D
 Area2D
+Label
 AnimatedSprite2D
 ColorRect
 Control
