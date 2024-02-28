@@ -61,6 +61,11 @@ func _replace_interactive_tiles() -> bool:
 				
 				set_cell(layer, cellpos, -1)
 
-
+			"item":
+				var random := RandomNumberGenerator.new()
+				var scaling = 10 * Limits.TILE_SCALE
+				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
+				Item.spawn(Item.random_item(), to_global(tile_position) + offset)
+				set_cell(layer, cellpos, -1)
 
 	return true

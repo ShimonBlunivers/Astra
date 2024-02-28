@@ -19,7 +19,6 @@ static var quest_label
 func _ready():
 	health_label.text = str(player.health)
 	quest_label = _quest_label
-	UIManager.set_quest_text("XD")
 
 func _on_player_health_updated_signal() -> void:
 	health_label.text = str(player.health)
@@ -27,6 +26,9 @@ func _on_player_health_updated_signal() -> void:
 
 static func set_quest_text(_text : String):
 	quest_label.text = _text
+
+static func get_quest_text() -> String:
+	return quest_label.text
 	
 # DEBUG
 

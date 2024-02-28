@@ -1,7 +1,8 @@
-CollisionShape2D
-Area2D
-Label
 AnimatedSprite2D
+Node2D
+Area2D
+CollisionShape2D
+Label
 ColorRect
 Control
 CanvasLayer
@@ -11,4 +12,3 @@ Button
 Sprite2D
 LineEdit
 TextEdit
-Node2D

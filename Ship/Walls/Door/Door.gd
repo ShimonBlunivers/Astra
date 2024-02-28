@@ -101,7 +101,7 @@ func _on_frame_changed():
 
 
 func _interact():
-	if ship.main_player.global_position.distance_to(global_position) > interact_range:
+	if Player.main_player.global_position.distance_to(global_position) > interact_range:
 		return
 	if is_operating:
 		return
@@ -130,11 +130,11 @@ func _interact():
 # 		interactable = false
 
 func _on_hitbox_mouse_entered(): 
-	ship.main_player.hovering_interactables.append(self)
+	Player.main_player.hovering_interactables.append(self)
 	interactable = true
 
 func _on_hitbox_mouse_exited():
-	ship.main_player.hovering_interactables.erase(self)
+	Player.main_player.hovering_interactables.erase(self)
 	interactable = false
 
 

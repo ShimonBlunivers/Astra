@@ -13,8 +13,6 @@ class_name Ship extends RigidBody2D
 @onready var area := $Area/AreaHitbox
 @onready var passengers_node := $Passengers
 
-var main_player
-
 var polygon
 
 var dock_position : Vector2 = Vector2(100, 100)
@@ -60,7 +58,7 @@ var _old_position = position
 var difference_in_position := Vector2.ZERO
 
 func _ready() -> void:
-	main_player = get_tree().get_root().get_node("World/Player")
+	Player.main_player = get_tree().get_root().get_node("World/Player")
 	ObjectList.SHIPS.append(self)
 
 func load_ship(x: int, y: int) -> void:

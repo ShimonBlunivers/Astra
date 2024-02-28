@@ -12,6 +12,8 @@ var text_box_position: Vector2
 var is_dialog_active = false
 var can_advance_line = false
 
+
+
 func start_dialog(position: Vector2, lines):
 	if is_dialog_active: return
 

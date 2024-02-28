@@ -6,7 +6,10 @@ class_name Player extends Character
 @onready var camera : Camera2D = $Camera2D
 @onready var vision : PointLight2D = $Vision/Light
 
+@onready var quest_arrow : AnimatedSprite2D = $QuestArrow/Arrow
 @onready var interact_area = $InteractArea
+
+static var main_player : Player
 
 var _sprite_dir := 69
 
@@ -50,9 +53,9 @@ var camera_difference = Vector2.ZERO
 # TODO: Add load/save
 
 # TODO: Fix Michael Jackson walking
-	
+
 # TODO: Make walking up & down animations
-	
+
 # TODO: Change sounds according to walking terrain
 
 func floating():
@@ -80,7 +83,7 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		damage(100)
+		QuestManager.quests.append(Quest.new("My Quest Title", "Quest Description", Goal.new()))
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
@@ -116,6 +119,8 @@ func spawn():
 
 func _ready():
 	super()
+	main_player = self
+
 	spawn_point = Vector2(0, 800)
 	
 	nickname = "Samuel"
