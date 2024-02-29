@@ -52,10 +52,9 @@ func pick_up():
 	tween.tween_property(self, "global_position", Player.main_player.global_position - Player.main_player.acceleration, (global_position - Player.main_player.global_position).length() / 1200).set_ease(Tween.EASE_OUT)
 
 	await tween.finished
-	print(QuestManager.active_quest_objects[Goal.Type.pick_up_item])
+
 	if self in QuestManager.active_quest_objects[Goal.Type.pick_up_item]:
-		QuestManager.picked_quest_item(self)
-		print("ITEM PICKED")
+		QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
 
 	queue_free()

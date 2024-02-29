@@ -16,4 +16,7 @@ func _init(_npc : NPC, _title : String, _description : String, _goal : Goal):
     goal = _goal
     QuestManager.quests.append(self)
     QuestManager.update_quest_log()
-    print(self)
+
+func finish():
+    npc.finished_missions.append(npc.active_quest)
+    QuestManager.quests.erase(self)

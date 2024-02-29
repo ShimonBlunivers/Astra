@@ -20,3 +20,6 @@ res://Scenes/Game.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Conversation/DialogManager.gd
 res://Conversation/TextBox.gd
+res://Editor/EditorCamera.cs
+res://Ship/ObjectTileMap.gd
+res://UI/UIManager.gd

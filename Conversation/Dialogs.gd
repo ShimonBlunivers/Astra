@@ -22,13 +22,19 @@ var conversations = {
 	],
 	
 	"mission" : [
+		[
 		"Ahoj, něco bych potřeboval přinést..",
 		# "Někde mi vypadnul čip, na kterým jsem měl celkem velkou kolekci dětského po..",
 		# "..povidlového čaje.. respektive receptu na něj.",
 		# "Přinesl bys mi ho?",
 		["Dětský čaj", "Přines mi prosím recept na čaj. pls", 0],
 		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj."
-	]
+		]
+	],
+
+	"mission_finished" : [
+		"Děkuji ti!",
+	],
 }
 
 func random_phrase(dialog_type: String) -> String:

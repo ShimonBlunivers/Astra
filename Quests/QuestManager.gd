@@ -20,18 +20,30 @@ func _process(_delta):
 		Player.main_player.quest_arrow.rotation = (quests[0].goal.get_position() - Player.main_player.global_position).angle() - Player.main_player.global_rotation
 		
 func update_quest_log():
+
+	UIManager.set_quest_text("")
 	if quests.size() > 0:
-		UIManager.set_quest_text("")
 		for quest in quests:
 			UIManager.set_quest_text(UIManager.get_quest_text() + "\n" + quest.title)
 
-func picked_quest_item(item: Item):
-	active_quest_objects[Goal.Type.pick_up_item].erase(item)
-	print(quests)
-	for quest in quests:
-		print(quest.goal.target)
-		if quest.goal.type == Goal.Type.pick_up_item:
-			print(quest.goal.target)
+func finished_quest_objective(quest: Quest):
+	active_quest_objects[quest.goal.type].erase(quest.goal.target)
+
+	match quest.goal.type:
+
+		Goal.Type.pick_up_item:
 			quest.goal = Goal.new(Goal.Type.talk_to_npc, quest.npc)
+			quest.title += " [1/2]"
+
+		Goal.Type.talk_to_npc:
+			quest.finish()
+
 	
+	QuestManager.update_quest_log()
+
+
+func get_quest(target) -> Quest:
+	for quest in quests: if quest.goal.target == target: return quest;
+	return null
+
 
