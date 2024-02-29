@@ -49,6 +49,7 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_ph2ak")
 
 [node name="Itemtag" type="Label" parent="."]
+visible = false
 z_index = 20
 material = ExtResource("2_1rmrj")
 anchors_preset = 7

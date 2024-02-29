@@ -13,7 +13,7 @@ size = Vector2(50, 100)
 radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wh18y"]
-radius = 120.0
+radius = 150.0
 
 [node name="NPC" type="CharacterBody2D" groups=["Character", "NPC"]]
 z_index = 10

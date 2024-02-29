@@ -27,6 +27,35 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1o1e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_x8puo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j1u67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w0nj0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_eefih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5a5eq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_sladm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fdkie")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_sget1"]
 animations = [{
 "frames": [{
@@ -63,35 +92,6 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 3.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_t1o1e"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_x8puo")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_j1u67")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_w0nj0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_eefih")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_5a5eq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_sladm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_fdkie")
-}],
-"loop": true,
-"name": &"default",
-"speed": 0.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g25fr"]
@@ -139,15 +139,6 @@ scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_nf71f")
 offset = Vector2(0, -8.5)
 
-[node name="Eyes" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.317647, 0.337255, 0.890196, 1)
-y_sort_enabled = true
-material = ExtResource("1_6dtsc")
-position = Vector2(-4.76837e-07, 0)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_sget1")
-offset = Vector2(0, -8.5)
-
 [node name="Hair" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.298039, 0.27451, 0.156863, 1)
 y_sort_enabled = true
@@ -156,6 +147,15 @@ position = Vector2(-4.76837e-07, 0)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_t1o1e")
 frame = 6
+offset = Vector2(0, -8.5)
+
+[node name="Eyes" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.317647, 0.337255, 0.890196, 1)
+y_sort_enabled = true
+material = ExtResource("1_6dtsc")
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_sget1")
 offset = Vector2(0, -8.5)
 
 [node name="Torso" type="AnimatedSprite2D" parent="."]

@@ -54,3 +54,10 @@ func advance():
 		
 		_show_text_box()
 
+func end_dialog():
+	text_box.queue_free()
+	dialog_finished.emit()
+	is_dialog_active = false
+	current_line_index = 0
+	return
+		

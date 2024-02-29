@@ -118,16 +118,16 @@ func _on_interaction_area_area_entered(area:Area2D) -> void:
 			dialog_manager.start_dialog(dialog_position, dialogs.conversations["greeting"])
 		QuestManager.update_quest_log()
 
+func _on_interaction_area_area_exited(area:Area2D):
+	if area.is_in_group("PlayerInteractArea"):
+		interactable = false
+		dialog_manager.end_dialog()
 
 func _on_area_mouse_entered() -> void:
 	$Nametag.visible = true
 
 func _on_area_mouse_exited() -> void:
 	$Nametag.visible = false
-
-func _on_interaction_area_area_exited(area:Area2D):
-	if area.is_in_group("PlayerInteractArea"):
-		interactable = false
 
 func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:
