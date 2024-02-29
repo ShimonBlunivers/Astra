@@ -28,7 +28,6 @@ var use_range : float = 1000
 var acceleration = Vector2(0, 0)
 var _old_position = Vector2(0, 0)
 
-var hovering_interactables := []
 var hovering_controllables := []
 
 var controllables_in_use := []
@@ -83,17 +82,13 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		QuestManager.quests.append(Quest.new("My Quest Title", "Quest Description", Goal.new()))
+		pass
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
 		Item.spawn(Item.Code.chip, get_global_mouse_position())
 
 	if alive:
-		if event.is_action_pressed("game_mb_left"):
-			for interactable in hovering_interactables:
-				interactable.interact()
-
 		if event.is_action_pressed("game_control"):
 			for controllable in hovering_controllables:
 				controllable.interact()

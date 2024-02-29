@@ -8,30 +8,27 @@ var conversations = {
 		"Ahojky!",
 		"Vítej zpátky!",
 		"Nazdar, kosmonaute!",
-		"Ahoj od stanice!",
-		"Ahoj, vesmírný poutníku!",
-		"Jak se daří v gravitaci nula?",
-		"Dobrý den ve vesmíru!",
-		"Ahojte, cestovatelé hvězdami!",
-		"Vesmírný den ti přeji!",
 		"Saluton, spaciano!",
-		"Vítej zpátky, dobrodruhu!",
-		"Jak to vypadá na cestě?",
-		"Jaká byla cesta?",
-		"Jak se daří ve vesmíru?",
-		"Jaké novinky?",
-		"Jak probíhá kosmická expedice?",
-		"Jaké máš plány dnes?",
-		"Co nového ve vesmírném dobrodružství?",
-		"Jaká je nálada v kosmické stanici?",
 		"Přeji příjemný pobyt!",
-		"Jak se daří tvému kosmickému plavidlu?",
-		"Co nového ve vesmírném světě?",
-		"Jak to jde v tvém koutě galaxie?",
-		"Jaký je tvůj vesmírný plán?"
+		"Co potřebuješ?",
+		"Jak to jde?",
+		"Můžu ti nějak pomoct?",
+		"Viděl jsi něco podezřelého?",
+		"Viděl jsi něco neobvyklýho?",
+		"Co si myslíš o vesmírné politice?",
+		"Co je podle tebe nejlepší část vesmíru?",
+		"Tvoje máma.",
+		"Smrdis.",
 	],
 	
-	"mission" : []
+	"mission" : [
+		"Ahoj, něco bych potřeboval přinést..",
+		# "Někde mi vypadnul čip, na kterým jsem měl celkem velkou kolekci dětského po..",
+		# "..povidlového čaje.. respektive receptu na něj.",
+		# "Přinesl bys mi ho?",
+		["Dětský čaj", "Přines mi prosím recept na čaj. pls", 0],
+		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj."
+	]
 }
 
 func random_phrase(dialog_type: String) -> String:

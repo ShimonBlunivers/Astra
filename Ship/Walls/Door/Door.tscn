@@ -221,7 +221,6 @@ max_distance = 4000.0
 attenuation = 4.0
 bus = &"SFX"
 
-[connection signal="mouse_entered" from="Hitbox/Area/MouseHitbox" to="." method="_on_hitbox_mouse_entered"]
-[connection signal="mouse_exited" from="Hitbox/Area/MouseHitbox" to="." method="_on_hitbox_mouse_exited"]
+[connection signal="input_event" from="Hitbox/Area/MouseHitbox" to="." method="_on_mouse_hitbox_input_event"]
 [connection signal="area_entered" from="Hitbox/Area/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Hitbox/Area/Area2D" to="." method="_on_area_2d_area_exited"]

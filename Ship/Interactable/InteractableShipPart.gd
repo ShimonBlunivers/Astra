@@ -2,8 +2,6 @@ class_name InteractableShipPart extends ShipPart
 
 var direction := "horizontal"
 
-var interactable = false
-
 var player_in_range = null
 
 var hitboxes_to_shift = []
@@ -31,7 +29,7 @@ func _draw() -> void:
 		draw_rect(rect, Color.YELLOW)
 
 func interact():
-	if interactable: _interact()
+	_interact()
 
 func _interact(): # VIRTUAL METHOD
 	pass

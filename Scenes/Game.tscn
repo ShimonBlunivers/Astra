@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=20 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://UI/UIManager.gd" id="6_rstey"]
 [ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
-[ext_resource type="PackedScene" uid="uid://cssgchvxfgjg0" path="res://Conversation/TextBox.tscn" id="8_xchde"]
 [ext_resource type="Texture2D" uid="uid://bx6p6lawg4mtv" path="res://Quests/arrow.png" id="14_nrt3x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1a0uh"]
@@ -150,13 +149,6 @@ offset_right = 208.0
 offset_bottom = 617.0
 scale = Vector2(2, 2)
 
-[node name="DialogBox" parent="UI/Debug" instance=ExtResource("8_xchde")]
-offset_left = 564.0
-offset_top = 226.0
-offset_right = 628.0
-offset_bottom = 258.0
-scale = Vector2(1.5, 1.5)
-
 [node name="HUD" type="Node2D" parent="UI"]
 editor_description = "Not interactive"
 
@@ -208,5 +200,3 @@ mouse_filter = 2
 [node name="GUI" type="Node2D" parent="UI"]
 editor_description = "Interactive"
 visible = false
-
-[connection signal="health_updated_signal" from="Player" to="UI" method="_on_player_health_updated_signal"]

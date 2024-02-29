@@ -121,23 +121,6 @@ func _interact():
 		is_operating = true
 		open()
 
-# func _on_interact_area_body_entered(_body: Node2D):
-# 	if _body.is_in_group("Player"):
-# 		interactable = true
-
-# func _on_interact_area_body_exited(_body: Node2D):
-# 	if _body.is_in_group("Player"):
-# 		interactable = false
-
-func _on_hitbox_mouse_entered(): 
-	Player.main_player.hovering_interactables.append(self)
-	interactable = true
-
-func _on_hitbox_mouse_exited():
-	Player.main_player.hovering_interactables.erase(self)
-	interactable = false
-
-
 func _on_area_2d_area_entered(area:Area2D) -> void:
 	if (area.is_in_group("PlayerInteractArea")):
 		obstructed = true
@@ -146,3 +129,8 @@ func _on_area_2d_area_entered(area:Area2D) -> void:
 func _on_area_2d_area_exited(area:Area2D) -> void:
 	if (area.is_in_group("PlayerInteractArea")):
 		obstructed = false
+
+
+func _on_mouse_hitbox_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):
+	if event is InputEventMouseButton && event.button_mask == 1 && Player.main_player.alive:
+		interact()

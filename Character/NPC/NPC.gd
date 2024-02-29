@@ -63,9 +63,11 @@ static var names = [
 	"Luboš",
 	"Šimon",
 	"Teo",
-	"Honza"
-	
+	"Honza",
+	"Vašek",
 ]
+
+static var npcs = []
 
 var interactable = false
 
@@ -75,11 +77,16 @@ var interactable = false
 
 var dialogs = Dialogs.new()
 
+static func get_npc(id: int) -> NPC:
+	if id >= npcs.size(): return null
+	return npcs[id]
+
 func init():
 	nickname = names.pick_random()
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(number_of_npcs)
 	number_of_npcs += 1
+	npcs.append(self)
 	# print(nickname, " SPAWNED on: " , position)
 
 
@@ -93,8 +100,11 @@ func _in_physics(_delta):
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
 		interactable = true
-		dialogs.conversations["greeting"].shuffle()
-		dialog_manager.start_dialog(Vector2(0, -105), dialogs.conversations["greeting"])
+		if self == NPC.get_npc(0):
+			dialog_manager.start_dialog(Vector2(0, -105), dialogs.conversations["mission"])
+		else:
+			dialogs.conversations["greeting"].shuffle()
+			dialog_manager.start_dialog(Vector2(0, -105), dialogs.conversations["greeting"])
 		QuestManager.update_quest_log()
 
 

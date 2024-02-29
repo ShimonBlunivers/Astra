@@ -12,7 +12,7 @@ var text_box_position: Vector2
 var is_dialog_active = false
 var can_advance_line = false
 
-
+signal dialog_finished()
 
 func start_dialog(position: Vector2, lines):
 	if is_dialog_active: return
@@ -24,10 +24,16 @@ func start_dialog(position: Vector2, lines):
 	is_dialog_active = true
 
 func _show_text_box():
+	if typeof(dialog_lines[current_line_index]) != TYPE_STRING:
+		Quest.new(parent, dialog_lines[current_line_index][0], dialog_lines[current_line_index][1], Goal.new(Goal.Type.pick_up_item, Item.get_item(dialog_lines[current_line_index][2])))
+		advance()
+		return
+
 	text_box = text_box_scene.instantiate()
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
 	add_child(text_box)
 	text_box.position = text_box_position
+
 	text_box.display_text(dialog_lines[current_line_index])
 	can_advance_line = false
 
@@ -41,8 +47,10 @@ func advance():
 		current_line_index += 1
 
 		if current_line_index >= dialog_lines.size():
+			dialog_finished.emit()
 			is_dialog_active = false
 			current_line_index = 0
 			return
 		
 		_show_text_box()
+
