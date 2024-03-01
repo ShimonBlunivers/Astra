@@ -24,16 +24,21 @@ var conversations = {
 	"mission" : [
 		[
 		"Ahoj, něco bych potřeboval přinést..",
-		"Někde mi vypadnul čip, na kterým jsem měl celkem velkou kolekci dětského po..",
-		"..povidlového čaje.. respektive receptu na něj.",
+		"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
 		"Přinesl bys mi ho?",
-		["Dětský čaj", "Přines mi prosím recept na čaj. pls", 0],
-		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj."
-		]
+		0,
+		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
+		],
+		[
+		"Ahoj, potřebuju, aby si s někým promluvil..",
+		"Je tu jedna úžasná holčina a já potřebuju, aby jsi za ní zašel..",
+		1,
+		"Děkuji!",
+		],
 	],
 
 	"mission_finished" : [
-		"Děkuji ti!",
+		"dyck",
 	],
 }
 

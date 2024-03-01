@@ -56,12 +56,11 @@ y_sort_enabled = true
 position = Vector2(-640, -360)
 
 [node name="Arrow" type="AnimatedSprite2D" parent="Player/QuestArrow"]
-modulate = Color(1, 1, 1, 0.705882)
+modulate = Color(1, 1, 1, 0.74902)
 z_index = 9
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(640, 359)
-rotation = 7.94125
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_1a0uh")
 offset = Vector2(26, 0)
@@ -107,7 +106,6 @@ region_rect = Rect2(0, 0, 2048, 2048)
 
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
-metadata/_edit_lock_ = true
 
 [node name="Station-0" parent="Ships" instance=ExtResource("2_g674q")]
 
@@ -188,14 +186,23 @@ scale = Vector2(5, 720)
 texture = SubResource("GradientTexture1D_gft63")
 centered = false
 
-[node name="QuestLog" type="Node2D" parent="UI/HUD"]
+[node name="Inventory" type="Node2D" parent="UI/HUD"]
+
+[node name="QuestLog" type="Node2D" parent="UI/HUD/Inventory"]
 position = Vector2(100, 100)
 scale = Vector2(2, 2)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/QuestLog"]
-offset_right = 194.0
-offset_bottom = 281.0
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/Inventory/QuestLog"]
+offset_left = -45.0
+offset_top = -16.0
+offset_right = 191.0
+offset_bottom = 265.0
 mouse_filter = 2
+bbcode_enabled = true
+text = "Test
+Test
+Test
+Test"
 
 [node name="GUI" type="Node2D" parent="UI"]
 editor_description = "Interactive"

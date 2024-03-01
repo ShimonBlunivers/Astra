@@ -1,6 +1,13 @@
+res://Items/Coin
+res://Items/Chip
+<<<<<<< Updated upstream
+res://Quests/Missions
+=======
+res://Items
+res://Quests/Missions
+>>>>>>> Stashed changes
 res://Editor
 res://Settings
-res://Items
 res://Quests
 res://Backgrounds
 res://Character/NPC
@@ -12,10 +19,3 @@ res://Lighting
 res://UI
 res://Ship/Walls/Thruster
 res://Ship
-res://Ship/Walls/Core
-res://Ship/Interactable
-res://Ship/Walls/Debris
-res://Ship/Walls
-res://Ship/Objects/Helm
-res://Scenes
-res://

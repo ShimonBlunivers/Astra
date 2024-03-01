@@ -7,7 +7,7 @@ const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 var ship = null
 
 
-func load_ship(_ship, path : String = "station") -> bool:
+func load_ship(_ship, path : String) -> bool:
 	ship = _ship
 	
 	clear()
@@ -62,8 +62,9 @@ func _replace_interactive_tiles() -> bool:
 				set_cell(layer, cellpos, -1)
 
 			"item":
+
 				var random := RandomNumberGenerator.new()
-				var scaling = 10 * Limits.TILE_SCALE
+				var scaling = 4 * Limits.TILE_SCALE
 				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
 				Item.spawn(Item.random_item(), to_global(tile_position) + offset)
 				set_cell(layer, cellpos, -1)

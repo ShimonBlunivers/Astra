@@ -86,7 +86,7 @@ func _unhandled_input(event: InputEvent):
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
-		Item.spawn(Item.Code.chip, get_global_mouse_position())
+		Item.spawn(Item.types["Chip"], get_global_mouse_position())
 
 	if alive:
 		if event.is_action_pressed("game_control"):

@@ -1,4 +1,4 @@
-class_name Goal
+class_name Goal extends Resource
 
 enum Type {
 	go_to_place,
@@ -6,14 +6,22 @@ enum Type {
 	pick_up_item,
 }
 
+@export var type : Type
+@export var target_ID : int
+var target : Node2D
 
-var type : Type
+func create():
+	match type:
+		Type.go_to_place:
+			pass
+		Type.talk_to_npc:
+			target = NPC.get_npc(target_ID)
+		Type.pick_up_item:
+			target = Item.get_item(target_ID)
 
-var target
+	update_quest_objects()
 
-func _init(_type : Type, _target):
-	type = _type
-	target = _target
+func update_quest_objects():
 	QuestManager.active_quest_objects[type].append(target)
 
 func get_position() -> Vector2:

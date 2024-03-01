@@ -8,6 +8,8 @@ var active_quest_objects = {
 	Goal.Type.go_to_place : [],
 }
 
+var active_quest = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -17,14 +19,28 @@ func _process(_delta):
 	if Player.main_player == null: return
 	Player.main_player.quest_arrow.visible = quests.size() > 0
 	if quests.size() > 0:
-		Player.main_player.quest_arrow.rotation = (quests[0].goal.get_position() - Player.main_player.global_position).angle() - Player.main_player.global_rotation
+		var distance = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).length()
+		var minimal_range = 200
+		var maximal_range = 400
+
+		if distance < minimal_range:
+			Player.main_player.quest_arrow.visible = false
+			Player.main_player.quest_arrow.modulate.a = 0.75
+		else:
+			Player.main_player.quest_arrow.visible = true
+			var normalized_distance = clamp((distance - minimal_range) / (maximal_range - minimal_range), 0, 0.75)
+			Player.main_player.quest_arrow.modulate.a = normalized_distance
+
+
+
+		Player.main_player.quest_arrow.rotation = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).angle() - Player.main_player.global_rotation
 		
 func update_quest_log():
 
-	UIManager.set_quest_text("")
+	UIManager.quest_label.text = ""
 	if quests.size() > 0:
 		for quest in quests:
-			UIManager.set_quest_text(UIManager.get_quest_text() + "\n" + quest.title)
+			UIManager.quest_label.text += "\n[b]" + quest.title + "[/b]\n" + quest.description
 
 func finished_quest_objective(quest: Quest):
 	active_quest_objects[quest.goal.type].erase(quest.goal.target)
@@ -32,18 +48,24 @@ func finished_quest_objective(quest: Quest):
 	match quest.goal.type:
 
 		Goal.Type.pick_up_item:
-			quest.goal = Goal.new(Goal.Type.talk_to_npc, quest.npc)
+			quest.goal.type = Goal.Type.talk_to_npc
+			quest.goal.target = quest.npc
+			quest.goal.update_quest_objects()
 			quest.title += " [1/2]"
 
 		Goal.Type.talk_to_npc:
 			quest.finish()
 
-	
 	QuestManager.update_quest_log()
 
 
-func get_quest(target) -> Quest:
+func get_quest(target : Node2D) -> Quest:
 	for quest in quests: if quest.goal.target == target: return quest;
 	return null
+
+func get_quest_by_id(id : int) -> Quest:
+	for quest in quests: if quest.id == id: return quest;
+	return null
+
 
 

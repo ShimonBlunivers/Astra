@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4jm0tchr5nx6"
-path="res://.godot/imported/0.png-70f9aa9bd5dd721f581dc632624232d9.ctex"
+path="res://.godot/imported/Chip.png-37686f654a1c12996ca53f61a68d3470.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Chip/0.png"
-dest_files=["res://.godot/imported/0.png-70f9aa9bd5dd721f581dc632624232d9.ctex"]
+source_file="res://Items/Chip/Chip.png"
+dest_files=["res://.godot/imported/Chip.png-37686f654a1c12996ca53f61a68d3470.ctex"]
 
 [params]
 

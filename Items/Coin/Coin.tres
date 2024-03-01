@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=4 format=3 uid="uid://biyxqxh1rtjb2"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_nyl4a"]
+[ext_resource type="Texture2D" uid="uid://c0hfr52hqwyek" path="res://Items/Coin/Coin.png" id="2_fl7j5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_084mh"]
+size = Vector2(24, 24)
+
+[resource]
+script = ExtResource("1_nyl4a")
+texture = ExtResource("2_fl7j5")
+name = "Coin"
+nickname = "Mince"
+shape = SubResource("RectangleShape2D_084mh")

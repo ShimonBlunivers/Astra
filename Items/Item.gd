@@ -1,6 +1,10 @@
 class_name Item extends Node2D
 
 @onready var area = $Area2D
+@onready var sprite = $Sprite2D
+@onready var collision_shape = $Area2D/CollisionShape2D
+@onready var itemtag = $Itemtag
+
 
 var ship : Ship
 
@@ -8,29 +12,32 @@ var can_pickup = false
 
 static var existing_items = []
 
-static var item_scenes = [
-	preload("res://Items/Chip/Chip.tscn"),
-	preload("res://Items/Coin/Coin.tscn"),
-]
+static var item_scene = preload("res://Items/Item.tscn")
 
-enum Code {
-	chip,
-	coin,
-}
+static var types = {}
 
 static func get_item(id : int) -> Item:
 	return existing_items[id]
 
-static func random_item() -> Code: # IMPLEMENT
-	return Code.chip
+static func random_item() -> ItemType: # IMPLEMENT
+	return types["Chip"]
 
-static func spawn(item : Code, global_coords : Vector2) -> Item: # Returns ID of the item
-	var new_item = item_scenes[item].instantiate()
+static func spawn(item_type : ItemType, global_coords : Vector2) -> Item:
+	var new_item = item_scene.instantiate()
 	var closest_ship = ObjectList.get_closest_ship(global_coords)
 	closest_ship.items.add_child(new_item)
 	new_item.global_position = global_coords
 	new_item.ship = closest_ship
+
+	new_item.sprite.texture = item_type.texture
+	print(new_item.collision_shape.shape)
+	new_item.collision_shape.shape = item_type.shape
+	print(new_item.collision_shape.shape)
+	new_item.itemtag.text = item_type.nickname
+
 	existing_items.append(new_item)
+
+
 	return new_item
 
 func _physics_process(_delta: float) -> void:

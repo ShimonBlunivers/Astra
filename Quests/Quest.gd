@@ -1,22 +1,25 @@
-class_name Quest
+class_name Quest extends Resource
 
 static var number_of_quests = 0
 
 var active := false
-var title : String
-var description : String
-var goal : Goal
+@export var id : int
+@export var title : String
+@export_multiline var description : String
+@export var goal : Goal
 var npc : NPC
 
-func _init(_npc : NPC, _title : String, _description : String, _goal : Goal):
+
+func init(_npc : NPC):
     number_of_quests += 1
     npc = _npc
-    title = _title
-    description = _description
-    goal = _goal
     QuestManager.quests.append(self)
     QuestManager.update_quest_log()
+    goal.create()
+
+    npc.blocked_missions.append(id)
+    QuestManager.active_quest = id
+
 
 func finish():
-    npc.finished_missions.append(npc.active_quest)
     QuestManager.quests.erase(self)

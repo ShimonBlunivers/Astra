@@ -58,14 +58,13 @@ var _old_position = position
 var difference_in_position := Vector2.ZERO
 
 func _ready() -> void:
-	Player.main_player = get_tree().get_root().get_node("World/Player")
 	ObjectList.SHIPS.append(self)
 
-func load_ship(x: int, y: int) -> void:
-	position = Vector2i(x, y)
+func load_ship(_position : Vector2, path : String) -> void:
+	global_position = _position
 	mass = 1
-	wall_tile_map.load_ship(self)
-	object_tile_map.load_ship(self)
+	wall_tile_map.load_ship(self, path)
+	object_tile_map.load_ship(self, path)
 	mass -= 1
 	
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)

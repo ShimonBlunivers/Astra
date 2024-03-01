@@ -96,7 +96,7 @@ func toShape(edges):
 	
 	return result
 
-func load_ship(_ship, path : String = "station") -> bool:
+func load_ship(_ship, path : String) -> bool:
 	ship = _ship
 	clear()
 	

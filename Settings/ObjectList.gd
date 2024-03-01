@@ -9,3 +9,7 @@ func get_closest_ship(from_global_pos : Vector2) -> Ship:
 		if closest.get_closest_point(from_global_pos).distance_to(from_global_pos) > ship.get_closest_point(from_global_pos).distance_to(from_global_pos): 
 			closest = ship
 	return closest
+
+func _ready() -> void:
+	load("res://Items/Chip/Chip.tres").create()
+	load("res://Items/Coin/Coin.tres").create()

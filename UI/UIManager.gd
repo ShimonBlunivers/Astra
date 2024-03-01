@@ -7,7 +7,7 @@ class_name UIManager extends CanvasLayer
 
 @onready var death_screen = $HUD/DeathScreen
 
-@onready var _quest_label = $HUD/QuestLog/RichTextLabel
+@onready var _quest_label = $HUD/Inventory/QuestLog/RichTextLabel
 
 static var quest_label
 # DEBUG
@@ -24,11 +24,6 @@ func _on_player_health_updated_signal() -> void:
 	health_label.text = str(player.health)
 	death_screen.visible = !player.alive
 
-static func set_quest_text(_text : String):
-	quest_label.text = _text
-
-static func get_quest_text() -> String:
-	return quest_label.text
 	
 # DEBUG
 

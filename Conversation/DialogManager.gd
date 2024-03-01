@@ -25,7 +25,8 @@ func start_dialog(position: Vector2, lines):
 
 func _show_text_box():
 	if typeof(dialog_lines[current_line_index]) != TYPE_STRING:
-		Quest.new(parent, dialog_lines[current_line_index][0], dialog_lines[current_line_index][1], Goal.new(Goal.Type.pick_up_item, Item.get_item(dialog_lines[current_line_index][2])))
+		
+		load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
 		advance()
 		return
 
@@ -55,6 +56,7 @@ func advance():
 		_show_text_box()
 
 func end_dialog():
+	if !is_dialog_active: return
 	text_box.queue_free()
 	dialog_finished.emit()
 	is_dialog_active = false

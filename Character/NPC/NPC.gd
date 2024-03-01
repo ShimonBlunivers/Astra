@@ -71,9 +71,9 @@ static var npcs = []
 
 var interactable = false
 
-var finished_missions = []
+var blocked_missions = []
 
-var active_quest = 0 # RANDOMLY GENERATE QUEST
+var active_quest = -1 # RANDOMLY GENERATE QUEST
 
 # TODO: Add dialog
 
@@ -86,6 +86,7 @@ static func get_npc(id: int) -> NPC:
 	return npcs[id]
 
 func init():
+	load("res://Items/Chip/Chip.tres")
 	nickname = names.pick_random()
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(number_of_npcs)
@@ -102,17 +103,15 @@ func _in_physics(_delta):
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
 		interactable = true
-
 		var dialog_position = Vector2(0, -105)
-
 		if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
 			dialog_manager.start_dialog(dialog_position, dialogs.conversations["mission_finished"])
 			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
-		elif self == NPC.get_npc(0):
+		elif self == NPC.get_npc(1):
 			active_quest = 0;
-			if !active_quest in finished_missions:
-				dialog_manager.start_dialog(dialog_position, dialogs.conversations["mission"][0])
+			if !active_quest in blocked_missions:
+				dialog_manager.start_dialog(dialog_position, dialogs.conversations["mission"][active_quest])
 		else:
 			dialogs.conversations["greeting"].shuffle()
 			dialog_manager.start_dialog(dialog_position, dialogs.conversations["greeting"])
