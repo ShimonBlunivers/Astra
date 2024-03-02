@@ -131,8 +131,8 @@ func control():
 	if direction.y < 0: acceleration.y -= thrust_power.y
 	elif direction.y > 0: acceleration.y += thrust_power.w
 
-	rotation_speed = _rotation_power * rotation_direction + rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size())
-
+	if ((thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size()) == 0): rotation_speed = 0
+	else: rotation_speed = _rotation_power * rotation_direction + rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size())
 
 func update_side_trusters():
 	for thruster_list in thrusters:

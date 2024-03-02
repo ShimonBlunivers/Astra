@@ -9,5 +9,11 @@ res://Ship/Ship.tscn
 res://Scenes/Game.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Items/Item.tscn
-res://Items/Chip/Chip.tres
-res://Items/Coin/Coin.tres
+res://Items/Item.gd
+res://Items/ItemType.gd
+res://Quests/Goal.gd
+res://Quests/Quest.gd
+res://Quests/QuestManager.gd
+res://Scenes/ShipManager.gd
+res://Character/NPC/NPC.gd
+res://Ship/Ship.gd

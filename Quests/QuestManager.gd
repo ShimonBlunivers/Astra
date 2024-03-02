@@ -20,8 +20,8 @@ func _process(_delta):
 	Player.main_player.quest_arrow.visible = quests.size() > 0
 	if quests.size() > 0:
 		var distance = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).length()
-		var minimal_range = 200
-		var maximal_range = 400
+		var minimal_range = 150
+		var maximal_range = 250
 
 		if distance < minimal_range:
 			Player.main_player.quest_arrow.visible = false

@@ -28,11 +28,8 @@ static func spawn(item_type : ItemType, global_coords : Vector2) -> Item:
 	closest_ship.items.add_child(new_item)
 	new_item.global_position = global_coords
 	new_item.ship = closest_ship
-
 	new_item.sprite.texture = item_type.texture
-	print(new_item.collision_shape.shape)
 	new_item.collision_shape.shape = item_type.shape
-	print(new_item.collision_shape.shape)
 	new_item.itemtag.text = item_type.nickname
 
 	existing_items.append(new_item)
