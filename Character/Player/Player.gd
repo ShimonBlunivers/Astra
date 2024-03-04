@@ -135,7 +135,6 @@ func kill():
 
 
 func _in_physics(delta: float) -> void:
-	
 	# print("Player position: ", position)
 	if (floating):
 		var closest_ship = ObjectList.get_closest_ship(global_position)
@@ -148,9 +147,9 @@ func _in_physics(delta: float) -> void:
 		camera.offset = camera_difference.rotated(global_rotation)
 
 	$Pickup.position = (- acceleration).rotated(-global_rotation)
-
-	World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 	
+	World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
+	 
 func control_ship(ship):
 	if ship != null:
 		ship_controlled = ship

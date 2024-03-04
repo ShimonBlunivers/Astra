@@ -100,10 +100,12 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.apply_central_impulse(acceleration)
 	state.apply_torque_impulse(rotation_speed)
 
-	if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
-		var new_speed = get_linear_velocity().normalized()
-		new_speed *= Limits.VELOCITY_MAX
-		set_linear_velocity(new_speed)
+	print(linear_velocity)
+
+	# if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
+	# 	var new_speed = get_linear_velocity().normalized()
+	# 	new_speed *= Limits.VELOCITY_MAX
+	# 	set_linear_velocity(new_speed)
 
 func _physics_process(_delta: float) -> void:
 	difference_in_position = position - _old_position
