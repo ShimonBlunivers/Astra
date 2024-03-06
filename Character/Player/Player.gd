@@ -76,7 +76,7 @@ func get_in(ship):
 func get_off(ship):
 	passenger_on.erase(ship)
 
-func change_ship(ship):
+func change_ship(ship):		
 	parent_ship = ship
 	call_deferred("reparent", ship.passengers_node)
 
@@ -136,7 +136,7 @@ func kill():
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
-	if (floating):
+	if (floating()):
 		var closest_ship = ObjectList.get_closest_ship(global_position)
 		if closest_ship != parent_ship:
 			change_ship(closest_ship)

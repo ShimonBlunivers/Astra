@@ -62,6 +62,7 @@ func _ready() -> void:
 
 func load_ship(_position : Vector2, path : String) -> void:
 	global_position = _position
+	_old_position = _position
 	mass = 1
 	wall_tile_map.load_ship(self, path)
 	object_tile_map.load_ship(self, path)
@@ -100,7 +101,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.apply_central_impulse(acceleration)
 	state.apply_torque_impulse(rotation_speed)
 
-	print(linear_velocity)
 
 	# if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 	# 	var new_speed = get_linear_velocity().normalized()
@@ -116,6 +116,9 @@ func _physics_process(_delta: float) -> void:
 			
 	# area.position = -difference_in_position
 	_old_position = position
+
+	if Player.main_player.parent_ship == self: hitbox.position = (-difference_in_position).rotated(-global_rotation) # Hitbox counter bug
+	else: hitbox.position = Vector2.ZERO
 
 
 func control():
