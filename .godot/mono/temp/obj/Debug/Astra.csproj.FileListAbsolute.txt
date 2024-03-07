@@ -26,10 +26,10 @@ D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.Genera
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.AssemblyInfoInputs.cache
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.AssemblyInfo.cs
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.csproj.CoreCompileInputs.cache
-D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.csproj.CopyComplete
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.dll
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\refint\Astra.dll
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.pdb
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.genruntimeconfig.cache
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\ref\Astra.dll
 D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.sourcelink.json
+D:\Files-D\Programming\Godot\Astra-Godot\.godot\mono\temp\obj\Debug\Astra.csproj.Up2Date

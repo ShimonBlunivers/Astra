@@ -59,5 +59,8 @@ y_sort_enabled = true
 [node name="Passengers" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+
 [connection signal="area_entered" from="Area" to="." method="_on_area_area_entered"]
 [connection signal="area_exited" from="Area" to="." method="_on_area_area_exited"]

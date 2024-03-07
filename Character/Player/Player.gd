@@ -33,7 +33,7 @@ var hovering_controllables := []
 var controllables_in_use := []
 
 var passenger_on := []
-var parent_ship = null
+var parent_ship : Ship = null
 
 var dim_acceleration_for_frames = 0
 
@@ -60,8 +60,12 @@ var camera_difference = Vector2.ZERO
 func floating():
 	return passenger_on.size() == 0
 
-
 func get_in(ship):
+
+	var closest_ship = ObjectList.get_closest_ship(global_position)
+	if closest_ship != parent_ship:
+		change_ship(closest_ship)
+
 	dim_acceleration_for_frames = 5
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
@@ -72,13 +76,17 @@ func get_in(ship):
 		tween.tween_property(self, "rotation_degrees", 360, 0.5)
 	else:
 		tween.tween_property(self, "rotation", 0, 0.5)
+		
 
 func get_off(ship):
 	passenger_on.erase(ship)
 
 func change_ship(ship):		
 	parent_ship = ship
+	# parent_ship.hitbox.position = (parent_ship.difference_in_position).rotated(parent_ship.global_rotation)
 	call_deferred("reparent", ship.passengers_node)
+	parent_ship.make_invulnerable()
+
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -95,10 +103,8 @@ func _unhandled_input(event: InputEvent):
 			for controllable in controllables_in_use:
 				if controllable in hovering_controllables: continue
 				controllable.player_in_range = self
-				controllable.interactable = true
 				controllable.interact()
 				controllable.player_in_range = null
-				controllable.interactable = false
 
 
 func spawn():
@@ -136,10 +142,10 @@ func kill():
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
-	if (floating()):
-		var closest_ship = ObjectList.get_closest_ship(global_position)
-		if closest_ship != parent_ship:
-			change_ship(closest_ship)
+	# if (floating()):
+	# 	var closest_ship = ObjectList.get_closest_ship(global_position)
+	# 	if closest_ship != parent_ship:
+	# 		change_ship(closest_ship)
 
 	if ship_controlled == null: 
 		_move(delta)
@@ -148,7 +154,7 @@ func _in_physics(delta: float) -> void:
 
 	$Pickup.position = (- acceleration).rotated(-global_rotation)
 	
-	World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
+	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 	 
 func control_ship(ship):
 	if ship != null:
@@ -187,22 +193,22 @@ func _move(_delta: float) -> void:
 
 	velocity = (direction * (SPEED + RUN_SPEED_MODIFIER * running)).rotated(global_rotation) # velocity // the _fix_position is help variable made to remove bug
 
+	if parent_ship != null:
+		if floating(): 	# If outside of the ship
+			rotate(deg_to_rad(TURN_SPEED * rotation_direction))
+			legs.position = legs_offset - (acceleration).rotated(-global_rotation) # Counter steering the bug, where every hitbox of the ship shifts
+			if suit == false: 
+				velocity = Vector2(0, 0) # No control over the direction u r flying if you don't have a suit
+			else: 
+				velocity *= .01 # Taking the velocity and dividing it by 100, to the player isn't so fast in the space like in ship
 
-	if floating(): 	# If outside of the ship
-		rotate(deg_to_rad(TURN_SPEED * rotation_direction))
-		legs.position = legs_offset - (acceleration).rotated(-global_rotation) # Counter steering the bug, where every hitbox of the ship shifts
-		if suit == false: 
-			velocity = Vector2(0, 0) # No control over the direction u r flying if you don't have a suit
-		else: 
-			velocity *= .01 # Taking the velocity and dividing it by 100, to the player isn't so fast in the space like in ship
-
-		if dim_acceleration_for_frames <= 0:
-			velocity += (acceleration - parent_ship.difference_in_position) / _delta # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
+			if dim_acceleration_for_frames <= 0:
+				velocity += (acceleration - parent_ship.difference_in_position) / _delta # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
+			else:
+				var _dim_factor = 10
+				velocity += (acceleration - parent_ship.difference_in_position) / (_delta * _dim_factor)
 		else:
-			var _dim_factor = 10
-			velocity += (acceleration - parent_ship.difference_in_position) / (_delta * _dim_factor)
-	else:
-		legs.position = legs_offset - (passenger_on[0].difference_in_position).rotated(-global_rotation) # Again the counter steering against the bug
+			legs.position = legs_offset - (passenger_on[0].difference_in_position).rotated(-global_rotation) # Again the counter steering against the bug
 
 	if dim_acceleration_for_frames > 0:
 		dim_acceleration_for_frames -= 1

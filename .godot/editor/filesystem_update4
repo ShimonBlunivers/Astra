@@ -1,4 +1,3 @@
-res://Ship/Ship.gd
 res://Scenes/Editor.tscn
 res://Editor/Editor.gd
 res://Ship/WallTileMap.tres
@@ -10,7 +9,12 @@ res://Ship/Ship.tscn
 res://Scenes/Game.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Items/Item.tscn
-res://Ship/ShipPartScript.gd
-res://Ship/WallTileMap.gd
-res://Ship/Interactable/InteractableShipPart.gd
+res://Editor/EditorCamera.cs
+res://Character/NPC/NPC.gd
 res://Character/Player/Player.gd
+res://Items/Item.gd
+res://Settings/ObjectList.gd
+res://Ship/Ship.gd
+res://Quests/Goal.gd
+res://Scenes/ShipManager.gd
+res://Conversation/DialogManager.gd

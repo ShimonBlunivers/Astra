@@ -11,7 +11,7 @@ static var instance
 func _ready() -> void:
 	instance = self
 	_load()
-	spawn_ship(Vector2(0, 2200), "small_shuttle")
+	spawn_ship(Vector2(0, -2200), "small_shuttle")
 
 func _load() -> void:
 	main_station.load_ship(Vector2.ZERO, "station")
