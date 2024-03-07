@@ -40,9 +40,11 @@ var interactables := []
 
 # TODO: ✅ Fix infinity position while moving too fast
 
-# TODO: ✅? Fix player moving into walls when encountering moving ship
+# TODO: ✅ Fix player moving into walls when encountering moving ship
 
-# TODO: Fix Ship center
+# TODO: ✅ Fix Ship center
+
+# TODO: ✅ Add Thrusters
 
 # TODO: Add Ship Connector
 
@@ -50,7 +52,7 @@ var interactables := []
 
 # TODO: Make ships destroyable by collisions
 
-# TODO: Add Thrusters & Canons
+# TODO: Add Canons
 
 # TODO: Add Radar
 

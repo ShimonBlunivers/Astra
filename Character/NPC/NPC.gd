@@ -75,9 +75,9 @@ var blocked_missions = []
 
 var active_quest = -1 # RANDOMLY GENERATE QUEST
 
-# TODO: Add dialog
+# TODO: ✅ Add dialog
 
-# TODO: Add missions
+# TODO: ✅ Add missions
 
 var dialogs = Dialogs.new()
 
@@ -93,6 +93,8 @@ func init():
 	number_of_npcs += 1
 	npcs.append(self)
 	# print(nickname, " SPAWNED on: " , position)
+
+	
 
 func _ready() -> void:
 	legs_offset = legs.position

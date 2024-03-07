@@ -47,15 +47,16 @@ var camera_difference = Vector2.ZERO
 
 # TODO: ✅ Add Damage & Death
 
-# TODO: ✅  Fix wrong hitbox while ship moving
+# TODO: ✅ Fix wrong hitbox while ship moving
+
+# TODO: ✅ Fix Michael Jackson walking
+
+# TODO: ✅ Change sounds according to walking terrain
 
 # TODO: Add load/save
 
-# TODO: Fix Michael Jackson walking
+# TODO: Add animations
 
-# TODO: Make walking up & down animations
-
-# TODO: Change sounds according to walking terrain
 
 func floating():
 	return passenger_on.size() == 0

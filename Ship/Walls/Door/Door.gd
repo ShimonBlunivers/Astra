@@ -121,14 +121,19 @@ func _interact():
 		is_operating = true
 		open()
 
+var obstructers = []
+
 func _on_area_2d_area_entered(area:Area2D) -> void:
-	if (area.is_in_group("PlayerInteractArea")):
+	if (area.is_in_group("CharacterInteractArea")):
 		obstructed = true
+		obstructers.append(area)
 
 
 func _on_area_2d_area_exited(area:Area2D) -> void:
-	if (area.is_in_group("PlayerInteractArea")):
-		obstructed = false
+	if (area.is_in_group("CharacterInteractArea")):
+		obstructers.erase(area)
+
+		if obstructers.is_empty(): obstructed = false
 
 
 func _on_mouse_hitbox_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):

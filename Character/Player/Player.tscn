@@ -154,7 +154,7 @@ collision_mask = 16
 [node name="BodyHitbox" type="CollisionShape2D" parent="Area"]
 shape = SubResource("RectangleShape2D_5jaj3")
 
-[node name="InteractArea" type="Area2D" parent="." groups=["PlayerInteractArea"]]
+[node name="InteractArea" type="Area2D" parent="." groups=["CharacterInteractArea", "PlayerInteractArea"]]
 position = Vector2(0, -42.5)
 collision_layer = 272
 collision_mask = 272
