@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "4M2fh1Kj8jkHjPjPQMYKBtDZa1LzUvkRMNAZnylxXIfo6X6z8EqHlUJd7pN+nNprfwwfWpFXh5ELBl5gRajoDA==",
+  "dgSpecHash": "+zat4BiFjT4YFiic16iiJpY6NMubQWyz48bCqtiggPccayqxi8JJN5BdNCWv0qOOyEv7khVkhGvB+ObKGctzLw==",
   "success": true,
-  "projectFilePath": "D:\\Files-D\\Programming\\Godot\\Astra-Godot\\Astra.csproj",
+  "projectFilePath": "D:\\Programming\\Godot\\Astra\\Astra.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Blunivers\\.nuget\\packages\\godot.sourcegenerators\\4.2.1\\godot.sourcegenerators.4.2.1.nupkg.sha512",
-    "C:\\Users\\Blunivers\\.nuget\\packages\\godotsharp\\4.2.1\\godotsharp.4.2.1.nupkg.sha512",
-    "C:\\Users\\Blunivers\\.nuget\\packages\\godotsharpeditor\\4.2.1\\godotsharpeditor.4.2.1.nupkg.sha512"
+    "C:\\Users\\Bluni\\.nuget\\packages\\godot.sourcegenerators\\4.2.1\\godot.sourcegenerators.4.2.1.nupkg.sha512",
+    "C:\\Users\\Bluni\\.nuget\\packages\\godotsharp\\4.2.1\\godotsharp.4.2.1.nupkg.sha512",
+    "C:\\Users\\Bluni\\.nuget\\packages\\godotsharpeditor\\4.2.1\\godotsharpeditor.4.2.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -16,12 +16,12 @@ func get_rect():
 	return _first_rect
 
 func _load_hitbox(_layer: int):
-	ship.polygon = toShape(deleteEdges(createEdges(_layer)))
+	ship.polygon = _to_shape(_delete_edges(_create_edges(_layer)))
 	ship.hitbox.polygon = ship.polygon
 	ship.visual.polygon = ship.polygon
 	ship.area.polygon = ship.polygon
 
-func getPoints(tile: Vector2i):
+func _get_points(tile: Vector2i):
 	
 	# 1   2
 	#  
@@ -35,7 +35,7 @@ func getPoints(tile: Vector2i):
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y), # 2
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y + tile_size.y) # 3
 	]
-func getPointsRect(rect: Rect2):
+func _get_points_rect(rect: Rect2):
 
 	# 1   2
 	#  
@@ -49,21 +49,21 @@ func getPointsRect(rect: Rect2):
 		Vector2(rect_position.x + rect_size.x, rect_position.y), # 2
 		Vector2(rect_position.x + rect_size.x, rect_position.y + rect_size.y) # 3
 	]
-func getLines(points, _scale = Limits.TILE_SCALE):
+func _get_lines(points, _scale = Limits.TILE_SCALE):
 	return [
 		[points[0] * _scale, points[1] * _scale],
 		[points[1] * _scale, points[2] * _scale],
 		[points[2] * _scale, points[3] * _scale],
 		[points[3] * _scale, points[0] * _scale]
 	]
-func createEdges(layer: int):
+func _create_edges(layer: int):
 	var edges = []
 	var grid = get_used_cells(layer)
 	for tile in grid:
-		for line in getLines(getPoints(tile)):
+		for line in _get_lines(_get_points(tile)):
 			edges.append(line)
 	return edges
-func deleteEdges(edges):
+func _delete_edges(edges):
 	var markForDeletion = []
 	for currentLineIdx in range(edges.size()):
 		var currentLine = edges[currentLineIdx]
@@ -79,7 +79,7 @@ func deleteEdges(edges):
 		if idx >= 0: 
 			edges.remove_at(idx)
 	return edges
-func toShape(edges):
+func _to_shape(edges):
 	var result = PackedVector2Array()
 	var nextLine = edges[0]
 	for idx in range(edges.size()):
@@ -95,6 +95,21 @@ func toShape(edges):
 	
 	
 	return result
+
+func update_center_of_mass(layer : int):
+	var grid = get_used_cells(layer)
+	var leftmost_point : float = grid[0].x
+	var rightmost_point : float = grid[0].x
+	var highest_point : float = grid[0].y
+	var lowest_point : float = grid[0].y
+
+	for point in grid:
+		if point.x < leftmost_point: leftmost_point = point.x
+		if point.x > rightmost_point: rightmost_point = point.x
+		if point.y > lowest_point: lowest_point = point.y
+		if point.y < highest_point: highest_point = point.y
+
+	ship.center_of_mass = Vector2(5 * tile_set.tile_size.x * (0.5 + (leftmost_point + rightmost_point) / 2), 5 * tile_set.tile_size.y * (0.5 + (highest_point + lowest_point) / 2))
 
 func load_ship(_ship, path : String) -> bool:
 	ship = _ship
@@ -115,11 +130,11 @@ func load_ship(_ship, path : String) -> bool:
 		tile.y = contents[1]
 		set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
 
-		
-
 	save_file.close()
 
 	_load_hitbox(layer)
+
+	update_center_of_mass(layer)
 
 	_first_rect = get_used_rect()
 

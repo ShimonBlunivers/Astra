@@ -14,3 +14,10 @@ func shift_origin(by:Vector2):
 
 func get_distance_from_center(pos : Vector2) -> Vector2:
     return pos - _center_of_universe
+
+
+func _process(_delta):
+    queue_redraw()
+
+func _draw():
+    draw_circle(-_center_of_universe , 25 , Color.LIGHT_BLUE)

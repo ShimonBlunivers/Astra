@@ -136,7 +136,7 @@ func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
 	if passenger_on.size() == 1 && passenger_on[0] != parent_ship:
 		change_ship(passenger_on[0])
-	elif floating() || passenger_on.size() > 1:
+	elif floating():
 		var closest_ship = ObjectList.get_closest_ship(global_position)
 		if closest_ship != parent_ship:
 			change_ship(closest_ship)
@@ -267,12 +267,6 @@ func _move(_delta: float) -> void:
 var collisionpos = Vector2.ZERO
 
 
-func _draw() -> void:
-	# if (!Options.DEBUG_MODE): return
-
-	# print(collisionpos)
-	draw_circle(to_local(collisionpos), 25, Color.WHITE)
-	
 func change_view(view: int) -> void:
 	var tween = create_tween()
 	var ship_rect : Rect2 = Rect2(ship_controlled.get_rect().position.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().position.y * ship_controlled.get_tile_size().y * 5, ship_controlled.get_rect().size.x * ship_controlled.get_tile_size().x * 5, ship_controlled.get_rect().size.y * ship_controlled.get_tile_size().y * 5)

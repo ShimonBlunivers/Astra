@@ -10,10 +10,8 @@ res://Scenes/Game.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Items/Item.tscn
 res://Editor/EditorCamera.cs
-res://Character/NPC/NPC.gd
 res://Ship/Ship.gd
+res://Settings/World.gd
 res://Character/Player/Player.gd
-res://Scenes/ShipManager.gd
-res://Settings/ObjectList.gd
-res://Quests/QuestManager.gd
-res://Quests/Goal.gd
+res://Character/Character.gd
+res://Ship/WallTileMap.gd

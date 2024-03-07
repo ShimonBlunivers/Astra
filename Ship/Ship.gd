@@ -58,6 +58,12 @@ var interactables := []
 var _old_position = position
 var difference_in_position := Vector2.ZERO
 
+func _process(_delta):
+	queue_redraw()
+
+func _draw():
+	draw_circle(center_of_mass, 25, Color.RED)
+
 func _ready() -> void:
 	ObjectList.SHIPS.append(self)
 

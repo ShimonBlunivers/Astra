@@ -13,6 +13,7 @@ y_sort_enabled = true
 collision_layer = 512
 collision_mask = 512
 gravity_scale = 0.0
+center_of_mass_mode = 1
 can_sleep = false
 freeze_mode = 1
 linear_damp_mode = 1
