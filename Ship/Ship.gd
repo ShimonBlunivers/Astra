@@ -87,18 +87,6 @@ func get_closest_point(point1 : Vector2) -> Vector2:
 	return closest
 
 
-func make_invulnerable():
-	hitbox.call_deferred("set_disabled", true)
-	# timer.start(0.001)
-	timer.start(2)
-
-	await timer.timeout
-	hitbox.position = -hitbox.position
-	hitbox.call_deferred("set_disabled", false)
-	print("XD")
-
-
-
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	acceleration = Vector2.ZERO
 	rotation_speed = 0
@@ -126,13 +114,11 @@ func _physics_process(_delta: float) -> void:
 	# for passenger in passengers: 
 	# 	if passenger.is_in_group("NPC"):
 	# 		passenger.legs.position = passenger.legs_offset + difference_in_position
-			
 	# area.position = -difference_in_position
 	_old_position = position
 
 	# if Player.main_player.parent_ship == self: hitbox.position = (-difference_in_position).rotated(-global_rotation) # Hitbox counter bug
 	# else: hitbox.position = Vector2.ZERO
-
 
 func control():
 	

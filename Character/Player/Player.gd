@@ -61,22 +61,15 @@ func floating():
 	return passenger_on.size() == 0
 
 func get_in(ship):
-
-	var closest_ship = ObjectList.get_closest_ship(global_position)
-	if closest_ship != parent_ship:
-		change_ship(closest_ship)
-
 	dim_acceleration_for_frames = 5
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 
 	var tween = create_tween()
-
 	if (rotation_degrees > 180):
 		tween.tween_property(self, "rotation_degrees", 360, 0.5)
 	else:
 		tween.tween_property(self, "rotation", 0, 0.5)
-		
 
 func get_off(ship):
 	passenger_on.erase(ship)
@@ -85,8 +78,7 @@ func change_ship(ship):
 	parent_ship = ship
 	# parent_ship.hitbox.position = (parent_ship.difference_in_position).rotated(parent_ship.global_rotation)
 	call_deferred("reparent", ship.passengers_node)
-	parent_ship.make_invulnerable()
-
+	# parent_ship.make_invulnerable()
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
@@ -142,10 +134,12 @@ func kill():
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
-	# if (floating()):
-	# 	var closest_ship = ObjectList.get_closest_ship(global_position)
-	# 	if closest_ship != parent_ship:
-	# 		change_ship(closest_ship)
+	if passenger_on.size() == 1 && passenger_on[0] != parent_ship:
+		change_ship(passenger_on[0])
+	elif floating() || passenger_on.size() > 1:
+		var closest_ship = ObjectList.get_closest_ship(global_position)
+		if closest_ship != parent_ship:
+			change_ship(closest_ship)
 
 	if ship_controlled == null: 
 		_move(delta)

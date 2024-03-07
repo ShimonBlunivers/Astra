@@ -15,7 +15,6 @@ collision_mask = 512
 gravity_scale = 0.0
 can_sleep = false
 freeze_mode = 1
-continuous_cd = 2
 linear_damp_mode = 1
 angular_damp = 5.0
 script = ExtResource("1_set35")
