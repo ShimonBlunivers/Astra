@@ -86,7 +86,8 @@ func _unhandled_input(event: InputEvent):
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
-		Item.spawn(Item.types["Chip"], get_global_mouse_position())
+		# Item.spawn(Item.types["Chip"], get_global_mouse_position())
+		ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
 
 	if alive:
 		if event.is_action_pressed("game_control"):

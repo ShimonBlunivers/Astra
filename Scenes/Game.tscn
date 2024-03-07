@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
-[ext_resource type="Script" path="res://Scenes/ShipManager.gd" id="2_0gdpv"]
+[ext_resource type="Script" path="res://Ship/ShipManager.gd" id="2_0gdpv"]
 [ext_resource type="PackedScene" uid="uid://dai6awjw4ywn7" path="res://Ship/Ship.tscn" id="2_g674q"]
 [ext_resource type="Script" path="res://Backgrounds/Background.gd" id="2_mups5"]
 [ext_resource type="PackedScene" uid="uid://8juqmqvh6edg" path="res://Character/Player/Player.tscn" id="3_gb8si"]

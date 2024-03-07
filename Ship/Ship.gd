@@ -14,6 +14,8 @@ class_name Ship extends RigidBody2D
 @onready var passengers_node := $Passengers
 @onready var timer := $Timer
 
+var id : int
+
 var polygon
 
 var dock_position : Vector2 = Vector2(100, 100)
@@ -58,11 +60,11 @@ var interactables := []
 var _old_position = position
 var difference_in_position := Vector2.ZERO
 
-func _process(_delta):
-	queue_redraw()
+# func _process(_delta):
+# 	queue_redraw()
 
-func _draw():
-	draw_circle(center_of_mass, 25, Color.RED)
+# func _draw():
+# 	draw_circle(center_of_mass, 25, Color.RED)
 
 func _ready() -> void:
 	ObjectList.SHIPS.append(self)
