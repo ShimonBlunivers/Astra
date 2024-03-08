@@ -17,8 +17,8 @@ var conversations = {
 		"Viděl jsi něco neobvyklýho?",
 		"Co si myslíš o vesmírné politice?",
 		"Co je podle tebe nejlepší část vesmíru?",
-		"Tvoje máma.",
-		"Smrdis.",
+		# "Tvoje máma.",
+		# "Smrdis.",
 	],
 	
 	"mission" : [
@@ -28,12 +28,6 @@ var conversations = {
 		"Přinesl bys mi ho?",
 		0,
 		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
-		],
-		[
-		"Ahoj, potřebuju, aby si s někým promluvil..",
-		"Je tu jedna úžasná holčina a já potřebuju, aby jsi za ní zašel..",
-		1,
-		"Děkuji!",
 		],
 	],
 

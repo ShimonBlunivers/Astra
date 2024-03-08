@@ -171,6 +171,7 @@ texture = SubResource("GradientTexture1D_gft63")
 centered = false
 
 [node name="Inventory" type="Node2D" parent="UI/HUD"]
+position = Vector2(-500, 0)
 
 [node name="QuestLog" type="Node2D" parent="UI/HUD/Inventory"]
 position = Vector2(100, 100)
@@ -181,13 +182,17 @@ offset_left = -45.0
 offset_top = -16.0
 offset_right = 191.0
 offset_bottom = 265.0
-mouse_filter = 2
+mouse_filter = 1
 bbcode_enabled = true
-text = "Test
+text = "Testaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 Test
 Test
 Test"
+shortcut_keys_enabled = false
+meta_underlined = false
 
 [node name="GUI" type="Node2D" parent="UI"]
 editor_description = "Interactive"
 visible = false
+
+[connection signal="meta_clicked" from="UI/HUD/Inventory/QuestLog/RichTextLabel" to="UI" method="_on_quest_meta_clicked"]
