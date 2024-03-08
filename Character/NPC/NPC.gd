@@ -75,21 +75,33 @@ var blocked_missions = []
 
 var active_quest = -1 # RANDOMLY GENERATE QUEST
 
+var id : int
+
 # TODO: ✅ Add dialog
 
 # TODO: ✅ Add missions
 
 var dialogs = Dialogs.new()
 
-static func get_npc(id: int) -> NPC:
-	if id >= npcs.size(): return null
-	return npcs[id]
+static func get_npc(_id: int) -> NPC:
+	for npc in npcs: if npc.id == _id: return npc
+	return null
 
-func init():
+func init(_id : int = -1):
 	load("res://Items/Chip/Chip.tres")
 	nickname = names.pick_random()
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(number_of_npcs)
+
+	if _id != -1 && NPC.get_npc(_id) == null:
+		id = _id
+	else:
+		_id = number_of_npcs
+		while true:
+			if NPC.get_npc(_id) == null:
+				id = _id
+				break
+
 	number_of_npcs += 1
 	npcs.append(self)
 	# print(nickname, " SPAWNED on: " , position)

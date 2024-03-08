@@ -7,7 +7,7 @@ const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 var ship = null
 
 
-func load_ship(_ship, path : String) -> bool:
+func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) -> bool:
 	ship = _ship
 	
 	clear()

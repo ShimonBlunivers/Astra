@@ -71,12 +71,12 @@ var difference_in_position := Vector2.ZERO
 func _ready() -> void:
 	ObjectList.SHIPS.append(self)
 
-func load_ship(_position : Vector2, path : String) -> void:
+func load_ship(_position : Vector2, path : String, custom_object_spawn : CustomObjectSpawn) -> void:
 	global_position = _position
 	_old_position = _position
 	mass = 1
 	wall_tile_map.load_ship(self, path)
-	object_tile_map.load_ship(self, path)
+	object_tile_map.load_ship(self, path, custom_object_spawn)
 	mass -= 1
 	
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)

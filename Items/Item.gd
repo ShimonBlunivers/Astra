@@ -10,19 +10,22 @@ var ship : Ship
 
 var can_pickup = false
 
+var id : int
+
 static var existing_items = []
 
 static var item_scene = preload("res://Items/Item.tscn")
 
 static var types = {}
 
-static func get_item(id : int) -> Item:
-	return existing_items[id]
+static func get_item(_id : int) -> Item:
+	for item in existing_items: if item.id == _id: return item
+	return null
 
 static func random_item() -> ItemType: # IMPLEMENT
 	return types["Chip"]
 
-static func spawn(item_type : ItemType, global_coords : Vector2) -> Item:
+static func spawn(item_type : ItemType, global_coords : Vector2, _id : int = -1) -> Item:
 	var new_item = item_scene.instantiate()
 	var closest_ship = ObjectList.get_closest_ship(global_coords)
 	closest_ship.items.add_child(new_item)
@@ -31,6 +34,15 @@ static func spawn(item_type : ItemType, global_coords : Vector2) -> Item:
 	new_item.sprite.texture = item_type.texture
 	new_item.collision_shape.shape = item_type.shape
 	new_item.itemtag.text = item_type.nickname
+
+	if _id != -1 && Item.get_item(_id) == null:
+		new_item.id = _id
+	else:
+		_id = existing_items.size()
+		while true:
+			if Item.get_item(_id) == null:
+				new_item.id = _id
+				break
 
 	existing_items.append(new_item)
 

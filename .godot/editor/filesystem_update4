@@ -17,3 +17,11 @@ res://Ship/Walls/Wall/Wall.tscn
 res://Conversation/TextBox.gd
 res://Quests/Goal.gd
 res://Character/Player/Player.gd
+res://Ship/ShipManager.gd
+res://Quests/CustomObjectSpawn.gd
+res://Ship/Ship.gd
+res://Ship/ObjectTileMap.gd
+res://Character/NPC/NPC.gd
+res://Items/Item.gd
+res://Items/ItemType.gd
+res://Editor/EditorCamera.cs
