@@ -1,3 +1,7 @@
+res://Quests/QuestManager.gd
+res://Ship/ShipManager.gd
+res://UI/UIManager.gd
+res://Ship/Walls/Door/Door.gd
 res://Scenes/Editor.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -10,4 +14,8 @@ res://Scenes/Game.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Items/Item.tscn
 res://Ship/Walls/Wall/Wall.tscn
-res://UI/UIManager.gd
+res://Editor/EditorCamera.cs
+res://Character/NPC/NPCSprite.gd
+res://Character/NPC/NPCSprite.tscn
+res://Ship/ObjectTileMap.gd
+res://Items/Item.gd

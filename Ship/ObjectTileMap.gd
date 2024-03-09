@@ -4,7 +4,7 @@ extends TileMap
 const helm_scene = preload("res://Ship/Objects/Helm/Helm.tscn")
 const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 
-var ship = null
+var ship : Ship = null
 
 
 func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) -> bool:
@@ -29,10 +29,10 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) ->
 
 	save_file.close()
 	
-	return _replace_interactive_tiles()
+	return _replace_interactive_tiles(custom_object_spawn)
 	
 
-func _replace_interactive_tiles() -> bool:
+func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool:
 	var layer := 0
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
@@ -54,7 +54,12 @@ func _replace_interactive_tiles() -> bool:
 				var NPC_object = NPC_scene.instantiate()
 				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
-				NPC_object.init()
+				
+				if custom_object_spawn != null && custom_object_spawn.npc_preset != null:
+					NPC_object.init(custom_object_spawn.npc_preset[0], custom_object_spawn.npc_preset[1])
+				else:
+					NPC_object.init()
+
 				NPC_object.ship = ship
 				ship.passengers_node.add_child(NPC_object)
 				ship.passengers.append(NPC_object)
@@ -62,11 +67,16 @@ func _replace_interactive_tiles() -> bool:
 				set_cell(layer, cellpos, -1)
 
 			"item":
-
+					
 				var random := RandomNumberGenerator.new()
 				var scaling = 4 * Limits.TILE_SCALE
 				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
-				Item.spawn(Item.random_item(), to_global(tile_position) + offset)
+				
+				if custom_object_spawn != null && custom_object_spawn.item_preset != null:
+					Item.spawn(custom_object_spawn.item_preset[1], to_global(tile_position) + offset, custom_object_spawn.item_preset[0], ship)
+				else:
+					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship)
+
 				set_cell(layer, cellpos, -1)
 
 	return true

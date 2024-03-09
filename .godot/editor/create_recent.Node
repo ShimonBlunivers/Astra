@@ -1,3 +1,4 @@
+CanvasGroup
 Timer
 Label
 CollisionShape2D
@@ -11,5 +12,3 @@ CanvasLayer
 Container
 RichTextLabel
 Button
-LineEdit
-TextEdit

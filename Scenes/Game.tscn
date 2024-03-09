@@ -73,7 +73,7 @@ drag_top_margin = 0.0
 drag_right_margin = 0.0
 drag_bottom_margin = 0.0
 
-[node name="Background" type="Node2D" parent="Player"]
+[node name="Background" type="CanvasGroup" parent="Player"]
 texture_repeat = 2
 scale = Vector2(6, 6)
 script = ExtResource("2_mups5")
@@ -114,7 +114,7 @@ color = Color(0.678431, 0.678431, 0.678431, 1)
 layer = 2
 script = ExtResource("6_rstey")
 
-[node name="Debug" type="Node2D" parent="UI"]
+[node name="Debug" type="CanvasGroup" parent="UI"]
 
 [node name="Floating" type="Label" parent="UI/Debug"]
 offset_left = 1033.0
@@ -131,7 +131,7 @@ offset_right = 208.0
 offset_bottom = 617.0
 scale = Vector2(2, 2)
 
-[node name="HUD" type="Node2D" parent="UI"]
+[node name="HUD" type="CanvasGroup" parent="UI"]
 editor_description = "Not interactive"
 
 [node name="HealthBar" type="Node2D" parent="UI/HUD"]
@@ -171,7 +171,6 @@ texture = SubResource("GradientTexture1D_gft63")
 centered = false
 
 [node name="Inventory" type="Node2D" parent="UI/HUD"]
-position = Vector2(-500, 0)
 
 [node name="QuestLog" type="Node2D" parent="UI/HUD/Inventory"]
 position = Vector2(100, 100)
@@ -190,8 +189,9 @@ Test
 Test"
 shortcut_keys_enabled = false
 meta_underlined = false
+metadata/_edit_use_anchors_ = true
 
-[node name="GUI" type="Node2D" parent="UI"]
+[node name="GUI" type="CanvasGroup" parent="UI"]
 editor_description = "Interactive"
 visible = false
 

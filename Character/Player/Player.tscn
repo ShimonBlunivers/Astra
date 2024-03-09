@@ -190,7 +190,7 @@ energy = 0.5
 shadow_enabled = true
 shadow_filter = 1
 texture = ExtResource("11_o2d8h")
-texture_scale = 12.0
+texture_scale = 4.0
 
 [node name="Internal" type="PointLight2D" parent="Vision"]
 light_mask = 2

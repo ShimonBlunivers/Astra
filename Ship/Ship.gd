@@ -71,7 +71,7 @@ var difference_in_position := Vector2.ZERO
 func _ready() -> void:
 	ObjectList.SHIPS.append(self)
 
-func load_ship(_position : Vector2, path : String, custom_object_spawn : CustomObjectSpawn) -> void:
+func load_ship(_position : Vector2, path : String, custom_object_spawn : CustomObjectSpawn, _lock_rotation : bool = false) -> void:
 	global_position = _position
 	_old_position = _position
 	mass = 1
@@ -80,6 +80,10 @@ func load_ship(_position : Vector2, path : String, custom_object_spawn : CustomO
 	mass -= 1
 	
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)
+
+	if !_lock_rotation:
+		var rng = RandomNumberGenerator.new()
+		rotation = rng.randf_range(0, 2 * PI)
 
 func get_tile(coords : Vector2i):
 	for tile in wall_tile_map.get_children():

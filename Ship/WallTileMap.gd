@@ -8,7 +8,7 @@ const core_scene = preload("res://Ship/Walls/Core/Core.tscn")
 const thruster_scene = preload("res://Ship/Walls/Thruster/Thruster.tscn")
 const connector_scene = preload("res://Ship/Walls/Connector/Connector.tscn")
 
-var ship = null
+var ship : Ship = null
 
 var _first_rect : Rect2i
 

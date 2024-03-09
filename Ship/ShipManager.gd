@@ -15,7 +15,7 @@ func _ready() -> void:
 	ShipManager.spawn_ship(Vector2(0, -1500), "small_shuttle")
 
 func _load() -> void:
-	main_station.load_ship(Vector2.ZERO, "station", null)
+	main_station.load_ship(Vector2.ZERO, "station", null, true)
 
 static func spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> void:
 
@@ -25,3 +25,6 @@ static func spawn_ship(_position : Vector2, path : String = "station", custom_ob
 	number_of_ships += 1
 	instance.add_child(_ship)
 	_ship.load_ship(_position, path, custom_object_spawn)
+
+static func get_quest_ship_path() -> String:
+	return "small_shuttle"

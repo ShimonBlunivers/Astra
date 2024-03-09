@@ -34,15 +34,13 @@ func _process(_delta):
 		Player.main_player.quest_arrow.rotation = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).angle() - Player.main_player.global_rotation
 		
 func update_quest_log():
-
-	if quests.size() > 0:
-		var string_to_add = ""
-		for quest in quests:
-			if quest.id == active_quest: string_to_add += "[u]"
-			string_to_add += "\n[url=" + str(quest.id) + "][b]" + quest.title + "[/b][/url]"
-			if quest.id == active_quest: string_to_add += "[/u]"
-			string_to_add += "\n" + quest.description
-		UIManager.quest_label.text = string_to_add
+	var string_to_add = ""
+	for quest in quests:
+		if quest.id == active_quest: string_to_add += "[u]"
+		string_to_add += "\n[url=" + str(quest.id) + "][b]" + quest.title + "[/b][/url]"
+		if quest.id == active_quest: string_to_add += "[/u]"
+		string_to_add += "\n" + quest.description
+	UIManager.quest_label.text = string_to_add
 		
 
 func finished_quest_objective(quest: Quest):

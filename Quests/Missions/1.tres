@@ -6,11 +6,11 @@
 [sub_resource type="Resource" id="Resource_w2mku"]
 script = ExtResource("1_hxqqa")
 type = 1
-targetID = 1
+target_ID = 0
 
 [resource]
 script = ExtResource("2_ewkbp")
-ID = 1
+id = 0
 title = "Promluvit si"
 description = "Je lonely, promluv si s ní."
 goal = SubResource("Resource_w2mku")

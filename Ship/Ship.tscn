@@ -49,9 +49,9 @@ tile_set = ExtResource("2_qq4gy")
 format = 2
 script = ExtResource("5_rjigq")
 
-[node name="WallTiles" type="Node2D" parent="."]
+[node name="WallTiles" type="CanvasGroup" parent="."]
 
-[node name="ObjectTiles" type="Node2D" parent="."]
+[node name="ObjectTiles" type="CanvasGroup" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
 y_sort_enabled = true

@@ -6,17 +6,27 @@ class_name Item extends Node2D
 @onready var itemtag = $Itemtag
 
 
-var ship : Ship
+var ship : Ship = null
 
 var can_pickup = false
 
 var id : int
+
+var type : ItemType
 
 static var existing_items = []
 
 static var item_scene = preload("res://Items/Item.tscn")
 
 static var types = {}
+
+static func get_uid() -> int:
+	var _id = 0
+	while true:
+		if Item.get_item(_id) == null:
+			return _id
+		_id += 1
+	return 0
 
 static func get_item(_id : int) -> Item:
 	for item in existing_items: if item.id == _id: return item
@@ -25,29 +35,38 @@ static func get_item(_id : int) -> Item:
 static func random_item() -> ItemType: # IMPLEMENT
 	return types["Chip"]
 
-static func spawn(item_type : ItemType, global_coords : Vector2, _id : int = -1) -> Item:
+static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _ship = null) -> Item:
 	var new_item = item_scene.instantiate()
-	var closest_ship = ObjectList.get_closest_ship(global_coords)
-	closest_ship.items.add_child(new_item)
+	new_item.type = _type
+
+	if _ship != null:
+		new_item.ship = _ship
+		new_item.ship.add_child(new_item)
+	else:
+		var closest_ship = ObjectList.get_closest_ship(global_coords)
+		closest_ship.items.add_child(new_item)
+		new_item.ship = closest_ship
+
+
 	new_item.global_position = global_coords
-	new_item.ship = closest_ship
-	new_item.sprite.texture = item_type.texture
-	new_item.collision_shape.shape = item_type.shape
-	new_item.itemtag.text = item_type.nickname
 
 	if _id != -1 && Item.get_item(_id) == null:
 		new_item.id = _id
 	else:
-		_id = existing_items.size()
+		_id = 0
 		while true:
 			if Item.get_item(_id) == null:
 				new_item.id = _id
 				break
+			_id += 1
 
 	existing_items.append(new_item)
-
-
 	return new_item
+
+func _ready() -> void:
+	sprite.texture = type.texture
+	collision_shape.shape = type.shape
+	itemtag.text = type.nickname
 
 func _physics_process(_delta: float) -> void:
 	area.position = (- ship.difference_in_position).rotated(-global_rotation)

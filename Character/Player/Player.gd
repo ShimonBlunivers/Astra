@@ -18,8 +18,8 @@ var ship_controlled = null
 var normal_zoom : float = 1
 var ship_zoom : float = 0.2
 
-var normal_vision : float = 12
-var driving_vision : float = 1
+var normal_vision : float = 4
+var driving_vision : float = 0.4
 
 var suit = true
 

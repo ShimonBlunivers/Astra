@@ -20,12 +20,12 @@ var conversations = {
 		# "Tvoje máma.",
 		# "Smrdis.",
 	],
-	
+
 	"mission" : [
 		[
 		"Ahoj, něco bych potřeboval přinést..",
-		"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
-		"Přinesl bys mi ho?",
+		# "Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
+		# "Přinesl bys mi ho?",
 		0,
 		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
 		],

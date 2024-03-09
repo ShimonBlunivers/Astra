@@ -13,7 +13,7 @@ class_name UIManager extends CanvasLayer
 
 static var quest_label
 
-var inventory_open = false
+var inventory_open = true
 var inventory_positions = Vector2(0, -500) # open, closed
 # DEBUG
 

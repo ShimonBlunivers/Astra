@@ -11,16 +11,16 @@ extends Node2D
 func _ready():
 	var random := RandomNumberGenerator.new()
 
-	skin_node.modulate = _random_color()
-	eyes_node.modulate = _random_color()
-	hair_node.modulate = _random_color()
+	skin_node.set_modulate(_random_color())
+	eyes_node.set_modulate(_random_color())
+	hair_node.set_modulate(_random_color())
 
 	hair_node.frame = random.randi_range(0, 6)
 	hair_node.flip_h = random.randi_range(0, 1) == 0
 
-	torso_node.modulate = _random_color()
-	legs_node.modulate = _random_color()
-	boots_node.modulate = Color.BLACK
+	torso_node.set_modulate(_random_color())
+	legs_node.set_modulate(_random_color())
+	boots_node.set_modulate(Color.BLACK)
 	
 	eyes_node.stop()
 	$Timer.set_wait_time(random.randf_range(0, 2))

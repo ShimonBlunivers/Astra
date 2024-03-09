@@ -83,24 +83,34 @@ var id : int
 
 var dialogs = Dialogs.new()
 
+static func get_uid() -> int:
+
+	var _id = 0
+	while true:
+		if NPC.get_npc(_id) == null:
+			return _id
+		_id += 1
+	return 0
+
 static func get_npc(_id: int) -> NPC:
 	for npc in npcs: if npc.id == _id: return npc
 	return null
 
-func init(_id : int = -1):
+func init(_id : int = -1, _nickname : String = names.pick_random()):
 	load("res://Items/Chip/Chip.tres")
-	nickname = names.pick_random()
+	nickname = _nickname
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(number_of_npcs)
 
 	if _id != -1 && NPC.get_npc(_id) == null:
 		id = _id
 	else:
-		_id = number_of_npcs
+		_id = 0
 		while true:
 			if NPC.get_npc(_id) == null:
 				id = _id
 				break
+			_id += 1
 
 	number_of_npcs += 1
 	npcs.append(self)
