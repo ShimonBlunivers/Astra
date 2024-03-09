@@ -11,6 +11,8 @@ class_name Player extends Character
 
 static var main_player : Player
 
+var currency : float = 0
+
 var _sprite_dir := 69
 
 var ship_controlled = null
@@ -38,6 +40,8 @@ var parent_ship : Ship = null
 var dim_acceleration_for_frames = 0
 
 var camera_difference = Vector2.ZERO
+
+signal currency_updated_signal
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -68,9 +72,9 @@ func get_in(ship):
 
 	var tween = create_tween()
 	if (rotation_degrees > 180):
-		tween.tween_property(self, "rotation_degrees", 360, 0.5)
+		tween.tween_property(self, "rotation_degrees", 360, 1)
 	else:
-		tween.tween_property(self, "rotation", 0, 0.5)
+		tween.tween_property(self, "rotation", 0, 1)
 
 func get_off(ship):
 	passenger_on.erase(ship)

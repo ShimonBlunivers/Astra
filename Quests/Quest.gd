@@ -6,6 +6,8 @@ var active := false
 @export var id : int
 @export var title : String
 @export_multiline var description : String
+
+@export var reward : int
 @export var goal : Goal
 var npc : NPC
 
@@ -15,6 +17,7 @@ func init(_npc : NPC):
     npc = _npc
     QuestManager.quests.append(self)
     QuestManager.update_quest_log()
+
     goal.create()
 
     npc.blocked_missions.append(id)
@@ -23,3 +26,5 @@ func init(_npc : NPC):
 
 func finish():
     QuestManager.quests.erase(self)
+    Player.main_player.currency += reward
+    Player.main_player.currency_updated_signal.emit()

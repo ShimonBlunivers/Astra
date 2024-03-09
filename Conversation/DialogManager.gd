@@ -24,7 +24,7 @@ func start_dialog(position: Vector2, lines):
 	is_dialog_active = true
 
 func _show_text_box():
-	if typeof(dialog_lines[current_line_index]) != TYPE_STRING:
+	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
 		
 		load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
 		advance()

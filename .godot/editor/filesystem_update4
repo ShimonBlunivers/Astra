@@ -1,9 +1,15 @@
-res://Scenes/Editor.tscn
+res://Conversation/DialogManager.gd
+res://Quests/Goal.gd
+res://Quests/Quest.gd
+res://Character/Character.gd
+res://Character/Player/Player.gd
+res://Character/Player/Player.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
 res://Editor/Editor.gd
 res://Backgrounds/BackgroundShader.gdshader
-res://Character/Player/Player.tscn
+res://Quests/Missions/0.tres
+res://Scenes/Editor.tscn
 res://Character/NPC/NPC.tscn
 res://Ship/Ship.tscn
 res://Scenes/Game.tscn
@@ -11,3 +17,4 @@ res://Ship/Walls/Door/Door.tscn
 res://Items/Item.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://UI/UIManager.gd
+res://Quests/QuestManager.gd

@@ -1,9 +1,8 @@
 class_name UIManager extends CanvasLayer
 
 
-@onready var player = $"../Player" 
-
 @onready var health_label = $HUD/HealthBar/Value
+@onready var currency_label = $HUD/Currency/Value
 
 @onready var death_screen = $HUD/DeathScreen
 
@@ -22,12 +21,16 @@ var inventory_positions = Vector2(0, -500) # open, closed
 
 
 func _ready():
-	health_label.text = str(player.health)
+	health_label.text = str(Player.main_player.health)
+	currency_label.text = str(Player.main_player.currency)
 	quest_label = _quest_label
 
 func _on_player_health_updated_signal() -> void:
-	health_label.text = str(player.health)
-	death_screen.visible = !player.alive
+	health_label.text = str(Player.main_player.health)
+	death_screen.visible = !Player.main_player.alive 
+
+func _on_player_currency_updated_signal() -> void:
+	currency_label.text = str(Player.main_player.currency)
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("game_toggle_inventory"):
@@ -49,6 +52,6 @@ func _on_quest_meta_clicked(meta:Variant) -> void:
 # DEBUG
 
 func _process(_delta):
-	floating.visible = player.floating()
-	player_position.text = "X: " + str(round(player.global_position.x)) + ", Y: " + str(round(player.global_position.y))
+	floating.visible = Player.main_player.floating()
+	player_position.text = "X: " + str(round(Player.main_player.global_position.x)) + ", Y: " + str(round(Player.main_player.global_position.y))
 

@@ -91,5 +91,6 @@ func pick_up():
 	if self in QuestManager.active_quest_objects[Goal.Type.pick_up_item]:
 		QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
+	existing_items.erase(self)
 
 	queue_free()
