@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
+Tool
 Quest
 ItemType
-=======
 ItemType
 Quest
->>>>>>> Stashed changes

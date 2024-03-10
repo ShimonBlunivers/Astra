@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://bcgwm80inkgni"]
+
+[ext_resource type="Script" path="res://Editor/Tools/Tool.gd" id="1_r63wp"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_u1sro"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa7tw"]
+atlas = ExtResource("2_u1sro")
+region = Rect2(128, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_r63wp")
+name = "door"
+nickname = "Dveře"
+texture = SubResource("AtlasTexture_qa7tw")

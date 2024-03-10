@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://b6faokhye3xxc"]
+
+[ext_resource type="Script" path="res://Editor/Tools/Tool.gd" id="1_03gj1"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_whvvv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hg4w"]
+atlas = ExtResource("2_whvvv")
+region = Rect2(64, 64, 32, 32)
+
+[resource]
+script = ExtResource("1_03gj1")
+name = "core"
+nickname = "Jádro"
+texture = SubResource("AtlasTexture_8hg4w")

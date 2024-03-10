@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://cq1ksdh6mkovb"]
+
+[ext_resource type="Script" path="res://Editor/Tools/Tool.gd" id="1_l3rv7"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_nr2i3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8j6w"]
+atlas = ExtResource("2_nr2i3")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_l3rv7")
+name = "wall"
+nickname = "Zeď"
+texture = SubResource("AtlasTexture_u8j6w")

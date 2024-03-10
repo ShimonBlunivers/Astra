@@ -6,9 +6,10 @@ extends Node2D
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 
-enum tools {wall, door, floor}
-var tool_previews = {"wall" : Vector2i(3, 0), "door" : Vector2i(4, 0), "floor" : Vector2i(0, 0)}
-var tool : tools = tools.floor
+var tools := {}
+# var tool_previews = {"door" : Vector2i(4, 0), "floor" : Vector2i(0, 0)}
+
+var tool : Tool = load("res://Editor/Tools/wall.tres")
 
 # TODO: Make placing tiles smoother
 
@@ -20,8 +21,24 @@ var tool : tools = tools.floor
 
 # TODO: Make money (energy) system
 
+func _ready() -> void:
+	load_tools()
+
+func load_tools():
+	var dir = DirAccess.open("res://Editor/Tools")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				if ".tres" in file_name:
+					load(file_name).create()
+			file_name = dir.get_next()
+
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	handle_input()
+	# handle_input()
 	var layer := 0
 	if (event.is_action_pressed("game_mb_left")):
 		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))
@@ -31,15 +48,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
 		
 func use_tool(tile, layer) -> void:
-	tools.values()
-	match tool:
-		tools.wall: 
+	match tool.name:
+		"wall": 
 			wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, 0)
-		tools.door:
+		"door":
 			print(wall_tile_map.get_cell_atlas_coords(layer, tile))
 			if (wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0) || wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0)):
 				wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, 1)
-		tools.floor:
+		"floor":
 			wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
 			wall_tile_map.set_cell(layer, tile, 0,  Vector2i(0, 0))
 		_: 
@@ -47,21 +63,14 @@ func use_tool(tile, layer) -> void:
 		
 func change_tool(key : String) -> void:
 	tool = tools[key]
+	tool_preview.texture = tool.texture
 	
-func handle_input():
-	for i in tools:
-		if (Input.is_action_just_pressed("editor_tool_set_" + i)):
-			change_tool(i)
-			change_tool_preview(i)
-			
-func change_tool_preview(_tool):
-	var atlas = wall_tile_map.tile_set.get_source(0) as TileSetAtlasSource
-	var atlasImage = atlas.texture.get_image()
-	var tileImage = atlasImage.get_region(atlas.get_tile_texture_region(tool_previews[_tool]))
-	var tiletexture = ImageTexture.create_from_image(tileImage)
-	tiletexture.set_size_override(Vector2i(1, 1))
-	tool_preview.texture = tiletexture
-
+# func handle_input():
+# 	return
+# 	for key in tools:
+# 		var value = tools[key]
+# 		if (Input.is_action_just_pressed("editor_tool_set_" + value.name)):
+# 			change_tool(value.name)
 
 func save_ship(path : String = "default_ship") -> void:
 	var layer : int = 0
@@ -131,5 +140,4 @@ func load_ship(path : String = "default_ship") -> bool:
 	
 	console.print_out("Načtena loď s názvem: " + path)
 	return true
-
 
