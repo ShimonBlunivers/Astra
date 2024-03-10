@@ -18,13 +18,12 @@ func init(_npc : NPC):
     QuestManager.quests.append(self)
     QuestManager.update_quest_log()
 
-    goal.create()
+    goal.create(id)
 
     npc.blocked_missions.append(id)
     QuestManager.active_quest = id
 
 
 func finish():
+    Player.main_player.add_currency(reward)
     QuestManager.quests.erase(self)
-    Player.main_player.currency += reward
-    Player.main_player.currency_updated_signal.emit()

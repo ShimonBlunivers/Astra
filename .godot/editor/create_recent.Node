@@ -1,4 +1,6 @@
 Label
+ColorRect
+GPUParticles2D
 Node2D
 CanvasGroup
 Timer
@@ -6,9 +8,7 @@ CollisionShape2D
 Area2D
 Sprite2D
 AnimatedSprite2D
-ColorRect
 Control
 CanvasLayer
 Container
 RichTextLabel
-Button

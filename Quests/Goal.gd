@@ -9,21 +9,26 @@ enum Type {
 @export var type : Type
 @export var target_ID : int
 
+var mission_id : int
+
 var target : Node2D
 
-func create():
+var status : int
+var finish_status : int
 
+func create(_mission_id : int):
+	status = 0
 	if target_ID < 0:
 		spawn_quest_ship()
-
 	match type:
 		Type.go_to_place:
-			pass
+			finish_status = 1
 		Type.talk_to_npc:
 			target = NPC.get_npc(target_ID)
+			finish_status = 1
 		Type.pick_up_item:
 			target = Item.get_item(target_ID)
-
+			finish_status = 2
 	update_quest_objects()
 
 func update_quest_objects():
@@ -56,4 +61,4 @@ func spawn_quest_ship():
 			target_ID = Item.get_uid()
 			_custom_object_spawn = CustomObjectSpawn.create([target_ID, Item.types["Chip"]], null)
 
-	ShipManager.spawn_ship(new_ship_pos, ShipManager.get_quest_ship_path(), _custom_object_spawn)
+	ShipManager.spawn_ship(new_ship_pos, ShipManager.get_quest_ship_path(mission_id), _custom_object_spawn)

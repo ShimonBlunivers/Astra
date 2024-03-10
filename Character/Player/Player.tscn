@@ -214,5 +214,12 @@ volume_db = -1.0
 max_distance = 1000.0
 bus = &"SFX"
 
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="Effects"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "aasdfasd"
+
 [connection signal="area_entered" from="Pickup" to="." method="_on_pickup_area_entered"]
 [connection signal="area_exited" from="Pickup" to="." method="_on_pickup_area_exited"]

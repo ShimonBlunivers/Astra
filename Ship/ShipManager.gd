@@ -26,5 +26,5 @@ static func spawn_ship(_position : Vector2, path : String = "station", custom_ob
 	instance.add_child(_ship)
 	_ship.load_ship(_position, path, custom_object_spawn)
 
-static func get_quest_ship_path() -> String:
+static func get_quest_ship_path(mission_id : int) -> String:
 	return "small_shuttle"

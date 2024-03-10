@@ -37,7 +37,9 @@ func update_quest_log():
 	var string_to_add = ""
 	for quest in quests:
 		if quest.id == active_quest: string_to_add += "[u]"
-		string_to_add += "\n[url=" + str(quest.id) + "][b]" + quest.title + "[/b][/url]"
+		string_to_add += "\n[url=" + str(quest.id) + "][b]" + quest.title
+		if quest.goal.status > 0: string_to_add += "[" + str(quest.goal.status) + "/" + str(quest.goal.finish_status) + "]"
+		string_to_add += "[/b][/url]"
 		if quest.id == active_quest: string_to_add += "[/u]"
 		string_to_add += "\n" + quest.description
 	UIManager.quest_label.text = string_to_add
@@ -46,16 +48,14 @@ func update_quest_log():
 func finished_quest_objective(quest: Quest):
 	active_quest_objects[quest.goal.type].erase(quest.goal.target)
 
+	quest.goal.status += 1
 	match quest.goal.type:
-
 		Goal.Type.pick_up_item:
 			quest.goal.type = Goal.Type.talk_to_npc
 			quest.goal.target = quest.npc
 			quest.goal.update_quest_objects()
-			quest.title += " [1/2]"
 
-		Goal.Type.talk_to_npc:
-			quest.finish()
+	if quest.goal.status == quest.goal.finish_status: quest.finish()
 
 	QuestManager.update_quest_log()
 

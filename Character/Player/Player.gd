@@ -61,6 +61,9 @@ signal currency_updated_signal
 
 # TODO: Add animations
 
+func add_currency(amount : int):
+	currency += amount
+	currency_updated_signal.emit()
 
 func floating():
 	return passenger_on.size() == 0

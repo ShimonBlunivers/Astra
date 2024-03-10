@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=20 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Ship/ShipManager.gd" id="2_0gdpv"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://b261eyjbhule7" path="res://UI/heart.png" id="7_kad54"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
 [ext_resource type="Texture2D" uid="uid://bb7iejyou2vsu" path="res://UI/currency.png" id="13_6sc61"]
+[ext_resource type="FontFile" uid="uid://dbekrgkvpg3lc" path="res://Fonts/SpaceMono-Bold.ttf" id="13_q4h4p"]
 [ext_resource type="Texture2D" uid="uid://bx6p6lawg4mtv" path="res://Quests/arrow.png" id="14_nrt3x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1a0uh"]
@@ -172,17 +173,45 @@ texture = SubResource("GradientTexture1D_gft63")
 centered = false
 
 [node name="Inventory" type="Node2D" parent="UI/HUD"]
+position = Vector2(-500, 0)
 
 [node name="QuestLog" type="Node2D" parent="UI/HUD/Inventory"]
 position = Vector2(100, 100)
 scale = Vector2(2, 2)
 
+[node name="ColorRect" type="ColorRect" parent="UI/HUD/Inventory/QuestLog"]
+offset_left = -48.0
+offset_top = -20.0
+offset_right = 196.0
+offset_bottom = 269.0
+color = Color(0.0862745, 0.152941, 0.313726, 0.588235)
+
+[node name="ColorRect2" type="ColorRect" parent="UI/HUD/Inventory/QuestLog"]
+offset_left = -48.0
+offset_top = -20.0
+offset_right = 196.0
+offset_bottom = 8.0
+color = Color(0.0862745, 0.152941, 0.462745, 0.588235)
+
+[node name="Label" type="Label" parent="UI/HUD/Inventory/QuestLog"]
+offset_left = -43.5
+offset_top = -16.5
+offset_right = 191.5
+offset_bottom = 6.5
+text = "Úkoly"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/Inventory/QuestLog"]
 offset_left = -45.0
-offset_top = -16.0
+offset_top = 4.5
 offset_right = 191.0
-offset_bottom = 265.0
+offset_bottom = 264.5
 mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("7_xryl1")
+theme_override_fonts/bold_font = ExtResource("13_q4h4p")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 14
 bbcode_enabled = true
 shortcut_keys_enabled = false
 meta_underlined = false
