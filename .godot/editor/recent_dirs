@@ -1,3 +1,4 @@
+res://Ship
 res://Items/Coin
 res://Items/Chip
 <<<<<<< Updated upstream
@@ -18,4 +19,3 @@ res://Character/Player
 res://Lighting
 res://UI
 res://Ship/Walls/Thruster
-res://Ship

@@ -244,6 +244,44 @@ scale = Vector2(1.025, 1.025)
 texture = ExtResource("13_6sc61")
 centered = false
 
+[node name="AddCurrencyLabel" type="Label" parent="UI/HUD/Currency"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.6
+offset_top = -24.0
+offset_right = 69.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.776471, 0.34902, 1)
+theme_override_fonts/font = ExtResource("7_xryl1")
+theme_override_font_sizes/font_size = 14
+text = "aasdfasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RemoveCurrencyLabel" type="Label" parent="UI/HUD/Currency"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.6
+offset_top = -24.0
+offset_right = 69.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.0941176, 0.172549, 1)
+theme_override_fonts/font = ExtResource("7_xryl1")
+theme_override_font_sizes/font_size = 14
+text = "aasdfasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GUI" type="CanvasGroup" parent="UI"]
 editor_description = "Interactive"
 visible = false

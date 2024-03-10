@@ -61,8 +61,11 @@ signal currency_updated_signal
 
 # TODO: Add animations
 
+
+
 func add_currency(amount : int):
 	currency += amount
+	UIManager.currency_change_effect(amount)
 	currency_updated_signal.emit()
 
 func floating():
@@ -90,12 +93,13 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		pass
+		add_currency(-150)
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
 		# Item.spawn(Item.types["Chip"], get_global_mouse_position())
-		ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
+		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
+		add_currency(150)
 
 	if alive:
 		if event.is_action_pressed("game_control"):

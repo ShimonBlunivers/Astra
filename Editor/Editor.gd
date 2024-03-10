@@ -11,8 +11,23 @@ extends Node2D
 
 @onready var ship_list := $Savemenu/Control/ShipList
 
+@onready var inventory = $HUD/Inventory
+
 var ships = []
 
+
+var inventory_open = false
+var inventory_positions = Vector2(0, -400) # open, closed
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("editor_toggle_toolmenu"):
+		inventory_open = !inventory_open
+		var tween = create_tween()
+		var duration = 0.5
+		if inventory_open: tween.tween_property(inventory, "position", Vector2(inventory_positions.x, 0), duration).set_ease(Tween.EASE_OUT)
+		else: tween.tween_property(inventory, "position", Vector2(inventory_positions.y, 0), duration).set_ease(Tween.EASE_IN)
+
+
+		
 func _ready():
 	DirAccess.make_dir_absolute("user://saves/")
 	DirAccess.make_dir_absolute("user://saves/ships")
@@ -27,7 +42,8 @@ func _on_save_pressed() -> void:
 	ship_editor.save_ship(ship_name_label.text)
 	_update_ship_list()
 
-
+		
+		
 func _update_ship_list():
 	ships = []
 

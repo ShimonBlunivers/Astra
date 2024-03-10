@@ -132,7 +132,6 @@ func _on_area_2d_area_entered(area:Area2D) -> void:
 func _on_area_2d_area_exited(area:Area2D) -> void:
 	if (area.is_in_group("CharacterInteractArea")):
 		obstructers.erase(area)
-
 		if obstructers.is_empty(): obstructed = false
 
 

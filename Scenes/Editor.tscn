@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://pbc17eeutgje"]
+[gd_scene load_steps=9 format=3 uid="uid://pbc17eeutgje"]
 
 [ext_resource type="Script" path="res://Editor/Editor.gd" id="1_a75tt"]
 [ext_resource type="Script" path="res://Scenes/Console.gd" id="1_xklyf"]
 [ext_resource type="Script" path="res://Editor/EditorCamera.cs" id="3_2uq8m"]
 [ext_resource type="Script" path="res://Editor/ShipEditor.gd" id="3_glsei"]
+[ext_resource type="FontFile" uid="uid://dbekrgkvpg3lc" path="res://Fonts/SpaceMono-Bold.ttf" id="3_ulu17"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="4_0r2ym"]
 [ext_resource type="TileSet" uid="uid://bfuqtumyjeq0m" path="res://Ship/WallTileMap.tres" id="4_kyc86"]
 [ext_resource type="TileSet" uid="uid://c5j4fanlmf5kc" path="res://Ship/ObjectTileMap.tres" id="5_lwkoj"]
 
@@ -13,15 +15,16 @@ script = ExtResource("1_a75tt")
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Savemenu" type="Button" parent="HUD"]
-offset_left = 1150.0
+offset_left = 1113.0
 offset_top = 15.0
-offset_right = 1266.0
-offset_bottom = 46.0
+offset_right = 1268.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Uložit / Načíst"
 metadata/_edit_use_anchors_ = true
 
 [node name="ToolPreview" type="Sprite2D" parent="HUD"]
-position = Vector2(70, 578)
+position = Vector2(1180, 620)
 scale = Vector2(100, 100)
 
 [node name="ConsoleLog" type="RichTextLabel" parent="HUD"]
@@ -35,11 +38,11 @@ script = ExtResource("1_xklyf")
 metadata/_edit_use_anchors_ = true
 
 [node name="Inventory" type="Control" parent="HUD"]
-visible = false
 layout_mode = 3
 anchor_right = 0.3
 anchor_bottom = 1.0
-offset_right = 0.399994
+offset_left = -400.0
+offset_right = -399.6
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -59,12 +62,12 @@ anchor_right = 1.0
 offset_right = -0.399994
 offset_bottom = 42.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ulu17")
 text = "Inventář"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Savemenu" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Background" type="ColorRect" parent="Savemenu"]
 modulate = Color(0.0980392, 0.0980392, 0.0980392, 0.545098)
@@ -75,10 +78,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Exit" type="Button" parent="Savemenu"]
-offset_left = 1150.0
+offset_left = 1113.0
 offset_top = 15.0
-offset_right = 1266.0
-offset_bottom = 46.0
+offset_right = 1268.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Zpět"
 metadata/_edit_use_anchors_ = true
 
@@ -91,6 +95,7 @@ offset_top = 134.0
 offset_right = 149.0
 offset_bottom = 165.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_0r2ym")
 placeholder_text = "Ship name"
 alignment = 1
 
@@ -106,6 +111,7 @@ offset_right = -20.0
 offset_bottom = -136.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Save"
 
 [node name="Load" type="Button" parent="Savemenu"]
@@ -120,6 +126,7 @@ offset_right = 68.0
 offset_bottom = -136.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Load
 "
 
@@ -155,14 +162,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("4_0r2ym")
 bbcode_enabled = true
 meta_underlined = false
 
 [node name="ShipListLabel" type="Label" parent="Savemenu"]
 offset_left = 566.0
-offset_top = 271.0
+offset_top = 280.0
 offset_right = 714.0
-offset_bottom = 294.0
+offset_bottom = 304.0
+theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Ship list:"
 horizontal_alignment = 1
 
