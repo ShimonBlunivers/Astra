@@ -12,3 +12,6 @@ script = ExtResource("1_r63wp")
 name = "door"
 nickname = "Dveře"
 texture = SubResource("AtlasTexture_qa7tw")
+placeable_on_atlas_choords = Vector2i(2, 0)
+terrain_id = 1
+atlas_coords = Vector2i(-1, -1)

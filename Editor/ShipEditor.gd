@@ -1,77 +1,138 @@
-extends Node2D
+class_name ShipEditor extends Node2D
 
 
 @onready var console : Console = $"../HUD/ConsoleLog"
-@onready var tool_preview := $"../HUD/ToolPreview"
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 
-var tools := {}
-# var tool_previews = {"door" : Vector2i(4, 0), "floor" : Vector2i(0, 0)}
+static var instance
+static var tool_preview
+var inventory : Inventory
 
-var tool : Tool = load("res://Editor/Tools/wall.tres")
+static var tools := {}
 
-# TODO: Make placing tiles smoother
+static var tool : Tool = null
+
+# TODO: ✅ Make placing tiles smoother
+
+# TODO: ✅ Create menu for tools
+
+# TODO: ✅ Make money (energy) system
 
 # TODO: Add autoflooring
 
-# TODO: Create menu for tools
-
 # TODO: Add Interactables
 
-# TODO: Make money (energy) system
+static func get_wall_tile_type(coords : Vector2i, layer := 0) -> String:
+	if instance.wall_tile_map == null: return ""
+	var source_id = instance.wall_tile_map.get_cell_source_id(layer, coords)
+	if source_id == null || source_id == -1: return ""
+	var atlas_coord =  instance.wall_tile_map.get_cell_atlas_coords(layer, coords)
+	if atlas_coord == null || atlas_coord == Vector2i(-1, -1): return ""
+	var tile_data =  instance.wall_tile_map.tile_set.get_source(source_id).get_tile_data(atlas_coord, 0)
+	if tile_data == null: return ""
+	var custom_data = tile_data.get_custom_data("type")
+	return custom_data
 
+static func get_object_tile_type(coords : Vector2i, layer := 0) -> String:
+	if instance.object_tile_map == null: return ""
+	var source_id = instance.object_tile_map.get_cell_source_id(layer, coords)
+	if source_id == null || source_id == -1: return ""
+	var atlas_coord =  instance.object_tile_map.get_cell_atlas_coords(layer, coords)
+	if atlas_coord == null || atlas_coord == Vector2i(-1, -1): return ""
+	var tile_data =  instance.object_tile_map.tile_set.get_source(source_id).get_tile_data(atlas_coord, 0)
+	if tile_data == null: return ""
+	var custom_data = tile_data.get_custom_data("type")
+	return custom_data
+
+func evide_tiles():
+	var layer = 0
+	for coords in wall_tile_map.get_used_cells(layer):
+		var type = ShipEditor.get_wall_tile_type(coords)
+		if type in tools.keys():
+			tools[type].number_of_instances += 1
+	for coords in object_tile_map.get_used_cells(layer):
+		var type = ShipEditor.get_wall_tile_type(coords)
+		if type in tools.keys():
+			tools[type].number_of_instances += 1
+
+	
 func _ready() -> void:
 	load_tools()
 
+	instance = self
+	tool_preview = $"../HUD/ToolPreview"
+
+	evide_tiles()
+
 func load_tools():
-	var dir = DirAccess.open("res://Editor/Tools")
+	var path = "res://Editor/Tools"
+	var dir = DirAccess.open(path)
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
 				if ".tres" in file_name:
-					load(file_name).create()
+					load(path + "/" + file_name).create()
 			file_name = dir.get_next()
 
-
+static func get_mouse_tile() -> Vector2i:
+	return instance.wall_tile_map.local_to_map(instance.to_local(instance.get_global_mouse_position()))
 
 func _unhandled_input(event: InputEvent) -> void:
-	# handle_input()
-	var layer := 0
-	if (event.is_action_pressed("game_mb_left")):
-		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))
-		use_tool(tile, layer)
-	if (event.is_action_pressed("game_mb_right")):
-		var tile = wall_tile_map.local_to_map(to_local(get_global_mouse_position()))
-		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
+	if event is InputEventMouseMotion || event is InputEventMouseButton: 
+		var layer = 0
+		if event.button_mask == 1:
+			use_tool(ShipEditor.get_mouse_tile(), layer)
+		elif event.button_mask == 2:
+			sell_tile(ShipEditor.get_mouse_tile())
+
 		
-func use_tool(tile, layer) -> void:
-	match tool.name:
-		"wall": 
-			wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, 0)
-		"door":
-			print(wall_tile_map.get_cell_atlas_coords(layer, tile))
-			if (wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0) || wall_tile_map.get_cell_atlas_coords(layer, tile) == Vector2i(2, 0)):
-				wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, 1)
-		"floor":
-			wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
-			wall_tile_map.set_cell(layer, tile, 0,  Vector2i(0, 0))
-		_: 
+func use_tool(tile : Vector2i, layer : int) -> void:
+	if tool == null: return
+	if !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return
+	if ShipEditor.get_wall_tile_type(tile, layer) == tool.name: return
+	var placing_on_something = false
+	if tool.placeable_on_atlas_choords != Vector2i(-1, -1):
+		placing_on_something = true
+		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(layer, tile):
 			return
-		
-func change_tool(key : String) -> void:
+
+	sell_tile(tile, false)
+	if !Inventory.add_currency(-tool.price):
+		return
+
+	tool.number_of_instances += 1
+
+	if !placing_on_something:
+		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
+
+	if tool.terrain_id != -1:
+		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, tool.terrain_id)	
+		return
+	
+	if tool.atlas_coords != Vector2i(-1, -1):
+		wall_tile_map.set_cell(layer, tile, 0, tool.atlas_coords)
+		return
+
+func sell_tile(coords : Vector2i, delete_tile := true) -> bool:
+	var sold = false
+	var layer = 0
+	var type = ShipEditor.get_wall_tile_type(coords, layer)
+	if type in tools.keys():
+		tools[type].number_of_instances -= 1
+		Inventory.add_currency(tools[type].price, delete_tile)
+		sold = true
+
+	if delete_tile: wall_tile_map.set_cells_terrain_connect(layer, [coords], 0, -1, false)
+	return sold
+
+static func change_tool(key : String) -> void:
+	Inventory.add_currency(0)
 	tool = tools[key]
 	tool_preview.texture = tool.texture
 	
-# func handle_input():
-# 	return
-# 	for key in tools:
-# 		var value = tools[key]
-# 		if (Input.is_action_just_pressed("editor_tool_set_" + value.name)):
-# 			change_tool(value.name)
-
 func save_ship(path : String = "default_ship") -> void:
 	var layer : int = 0
 	DirAccess.make_dir_absolute("user://saves/")
@@ -107,7 +168,10 @@ func save_ship(path : String = "default_ship") -> void:
 func load_ship(path : String = "default_ship") -> bool:
 	
 	var layer : int = 0
-	
+	for key in tools.keys():
+		tools[key].number_of_instances = 0
+
+
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		return false
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/objects.dat"):
@@ -137,6 +201,8 @@ func load_ship(path : String = "default_ship") -> bool:
 
 	walls_save_file.close()
 	objects_save_file.close()
+
+	evide_tiles()
 	
 	console.print_out("Načtena loď s názvem: " + path)
 	return true

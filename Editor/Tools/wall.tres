@@ -12,3 +12,6 @@ script = ExtResource("1_l3rv7")
 name = "wall"
 nickname = "Zeď"
 texture = SubResource("AtlasTexture_u8j6w")
+placeable_on_atlas_choords = Vector2(-1, -1)
+terrain_id = 0
+atlas_coords = Vector2(-1, -1)

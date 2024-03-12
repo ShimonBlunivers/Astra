@@ -1,4 +1,4 @@
-extends Node2D
+class_name Editor extends Node2D
 
 
 @onready var console : Console = $HUD/ConsoleLog
@@ -13,11 +13,12 @@ extends Node2D
 
 @onready var inventory = $HUD/Inventory
 
+
 var ships = []
 
 
 var inventory_open = false
-var inventory_positions = Vector2(0, -400) # open, closed
+var inventory_positions = Vector2(160, -165) # open, closed
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("editor_toggle_toolmenu"):
 		inventory_open = !inventory_open
@@ -33,6 +34,9 @@ func _ready():
 	DirAccess.make_dir_absolute("user://saves/ships")
 
 	_update_ship_list()
+
+	ship_editor.inventory = inventory
+	inventory.load_grid()
 
 func _on_save_pressed() -> void:
 	if (ship_name_label.text == ""): 

@@ -1,3 +1,5 @@
+res://Scenes
+res://Editor
 res://Editor/Tools
 res://Ship
 res://Items/Coin
@@ -8,7 +10,6 @@ res://Quests/Missions
 res://Items
 res://Quests/Missions
 >>>>>>> Stashed changes
-res://Editor
 res://Settings
 res://Quests
 res://Backgrounds
@@ -19,4 +20,3 @@ res://Ship/Walls/Floor
 res://Character/Player
 res://Lighting
 res://UI
-res://Ship/Walls/Thruster

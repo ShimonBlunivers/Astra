@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcorpu3oqfn3n"]
+
+[ext_resource type="Script" path="res://Editor/Inventory/Inventory.gd" id="1_rp5fp"]
+[ext_resource type="FontFile" uid="uid://dbekrgkvpg3lc" path="res://Fonts/SpaceMono-Bold.ttf" id="2_p4vjq"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="3_ojvx4"]
+[ext_resource type="Texture2D" uid="uid://bb7iejyou2vsu" path="res://UI/currency.png" id="4_ndkgv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6yrk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_hqxyx"]
+Panel/styles/panel = SubResource("StyleBoxFlat_s6yrk")
+
+[node name="Inventory" type="Node2D"]
+script = ExtResource("1_rp5fp")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = 720.0
+grow_horizontal = 2
+theme = SubResource("Theme_hqxyx")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -0.399994
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_p4vjq")
+text = "Inventář"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = -150.0
+offset_top = 63.0
+offset_right = 150.0
+offset_bottom = 667.0
+mouse_filter = 2
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = 60
+columns = 5
+
+[node name="Currency" type="Node2D" parent="."]
+position = Vector2(-147, 689)
+scale = Vector2(2, 2)
+
+[node name="Value" type="Label" parent="Currency"]
+offset_left = 18.0
+offset_top = -9.5
+offset_right = 70.0
+offset_bottom = 23.5
+scale = Vector2(0.8, 0.8)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_ojvx4")
+text = "0"
+vertical_alignment = 1
+text_direction = 1
+
+[node name="Icon" type="Sprite2D" parent="Currency"]
+position = Vector2(-3.2, -5.2)
+scale = Vector2(1.025, 1.025)
+texture = ExtResource("4_ndkgv")
+centered = false
+
+[node name="AddCurrencyLabel" type="Label" parent="Currency"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.6
+offset_top = -24.0
+offset_right = 69.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.776471, 0.34902, 1)
+theme_override_fonts/font = ExtResource("3_ojvx4")
+theme_override_font_sizes/font_size = 14
+text = "aasdfasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RemoveCurrencyLabel" type="Label" parent="Currency"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.6
+offset_top = -24.0
+offset_right = 69.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.0941176, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_ojvx4")
+theme_override_font_sizes/font_size = 14
+text = "aasdfasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="Currency"]

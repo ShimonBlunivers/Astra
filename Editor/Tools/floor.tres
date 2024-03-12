@@ -12,3 +12,6 @@ script = ExtResource("1_fdvbj")
 name = "floor"
 nickname = "Podlaha"
 texture = SubResource("AtlasTexture_t8hnt")
+placeable_on_atlas_choords = Vector2i(-1, -1)
+terrain_id = -1
+atlas_coords = Vector2i(0, 0)
