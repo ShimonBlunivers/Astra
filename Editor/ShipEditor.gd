@@ -23,40 +23,18 @@ static var tool : Tool = null
 
 # TODO: Add Interactables
 
-static func get_wall_tile_type(coords : Vector2i, layer := 0) -> String:
-	if instance.wall_tile_map == null: return ""
-	var source_id = instance.wall_tile_map.get_cell_source_id(layer, coords)
-	if source_id == null || source_id == -1: return ""
-	var atlas_coord =  instance.wall_tile_map.get_cell_atlas_coords(layer, coords)
-	if atlas_coord == null || atlas_coord == Vector2i(-1, -1): return ""
-	var tile_data =  instance.wall_tile_map.tile_set.get_source(source_id).get_tile_data(atlas_coord, 0)
-	if tile_data == null: return ""
-	var custom_data = tile_data.get_custom_data("type")
-	return custom_data
-
-static func get_object_tile_type(coords : Vector2i, layer := 0) -> String:
-	if instance.object_tile_map == null: return ""
-	var source_id = instance.object_tile_map.get_cell_source_id(layer, coords)
-	if source_id == null || source_id == -1: return ""
-	var atlas_coord =  instance.object_tile_map.get_cell_atlas_coords(layer, coords)
-	if atlas_coord == null || atlas_coord == Vector2i(-1, -1): return ""
-	var tile_data =  instance.object_tile_map.tile_set.get_source(source_id).get_tile_data(atlas_coord, 0)
-	if tile_data == null: return ""
-	var custom_data = tile_data.get_custom_data("type")
-	return custom_data
 
 func evide_tiles():
 	var layer = 0
 	for coords in wall_tile_map.get_used_cells(layer):
-		var type = ShipEditor.get_wall_tile_type(coords)
+		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
 	for coords in object_tile_map.get_used_cells(layer):
-		var type = ShipEditor.get_wall_tile_type(coords)
+		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
 
-	
 func _ready() -> void:
 	load_tools()
 
@@ -64,6 +42,8 @@ func _ready() -> void:
 	tool_preview = $"../HUD/ToolPreview"
 
 	evide_tiles()
+
+	ShipValidator.autofill_floor(wall_tile_map)
 
 func load_tools():
 	var path = "res://Editor/Tools"
@@ -87,12 +67,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			use_tool(ShipEditor.get_mouse_tile(), layer)
 		elif event.button_mask == 2:
 			sell_tile(ShipEditor.get_mouse_tile())
-
 		
 func use_tool(tile : Vector2i, layer : int) -> void:
 	if tool == null: return
 	if !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return
-	if ShipEditor.get_wall_tile_type(tile, layer) == tool.name: return
+	if ShipValidator.get_tile_type(wall_tile_map, tile, layer) == tool.name: return
 	var placing_on_something = false
 	if tool.placeable_on_atlas_choords != Vector2i(-1, -1):
 		placing_on_something = true
@@ -100,6 +79,7 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 			return
 
 	sell_tile(tile, false)
+
 	if !Inventory.add_currency(-tool.price):
 		return
 
@@ -110,22 +90,26 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 
 	if tool.terrain_id != -1:
 		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, tool.terrain_id)	
-		return
-	
-	if tool.atlas_coords != Vector2i(-1, -1):
+	elif tool.atlas_coords != Vector2i(-1, -1):
 		wall_tile_map.set_cell(layer, tile, 0, tool.atlas_coords)
-		return
+
+	if tool.name in ShipValidator.walls:
+		ShipValidator.autofill_floor(wall_tile_map)
 
 func sell_tile(coords : Vector2i, delete_tile := true) -> bool:
 	var sold = false
 	var layer = 0
-	var type = ShipEditor.get_wall_tile_type(coords, layer)
+	var type = ShipValidator.get_tile_type(wall_tile_map, coords, layer)
+
 	if type in tools.keys():
 		tools[type].number_of_instances -= 1
 		Inventory.add_currency(tools[type].price, delete_tile)
 		sold = true
 
 	if delete_tile: wall_tile_map.set_cells_terrain_connect(layer, [coords], 0, -1, false)
+
+	if type in ShipValidator.walls:
+		ShipValidator.autofill_floor(wall_tile_map)
 	return sold
 
 static func change_tool(key : String) -> void:
@@ -206,4 +190,3 @@ func load_ship(path : String = "default_ship") -> bool:
 	
 	console.print_out("Načtena loď s názvem: " + path)
 	return true
-

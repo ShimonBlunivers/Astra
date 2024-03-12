@@ -29,6 +29,7 @@ grow_vertical = 2
 texture = ExtResource("2_2numf")
 
 [node name="Nickname" type="Label" parent="."]
+layout_mode = 0
 offset_top = -24.0
 offset_right = 51.0
 theme_override_fonts/font = ExtResource("3_62q8m")

@@ -10,7 +10,7 @@ static var currency_timer
 
 const slot_scene := preload("res://Editor/Inventory/Slot.tscn")
 
-static var currency = 1000
+static var currency = 100000
 
 static func add_currency(amount : int, visual := true) -> bool:
     if currency + amount < 0: 

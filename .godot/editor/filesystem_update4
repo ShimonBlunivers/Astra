@@ -1,3 +1,4 @@
+res://Editor/ShipValidator.gd
 res://Character/Player/Player.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -13,9 +14,3 @@ res://Scenes/Editor.tscn
 res://Editor/Inventory/Inventory.tscn
 res://Editor/Inventory/Slot.tscn
 res://Editor/ShipEditor.gd
-res://Editor/Inventory/Inventory.gd
-res://Editor/Tools/Tool.gd
-res://UI/UIManager.gd
-res://Editor/Inventory/Slot.gd
-res://Ship/ShipManager.gd
-res://Ship/WallTileMap.gd
