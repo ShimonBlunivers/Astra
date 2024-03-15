@@ -3,12 +3,18 @@ class_name ShipValidator
 static var layer := 0
 static var fill_atlas := Vector2i(0, 1)
 static var walls = ["wall", "door", "thruster", "connector"]
+static var floors = ["floor"]
 
 static func autofill_floor(tilemap : TileMap):
+    if tilemap.get_used_cells(layer).size() == 0: return
     var edges = [_find_bottom_left_edge(tilemap), _find_top_right_edge(tilemap)]
     _bucket(tilemap, Vector4i(edges[0].x - 1, edges[1].x + 1, edges[1].y - 1, edges[0].y + 1))
     _invert_floor_tiles(tilemap, Vector4i(edges[0].x - 1, edges[1].x + 1, edges[1].y - 1, edges[0].y + 1))
 
+static func check_validity(tilemap : TileMap) -> bool:
+    if tilemap.get_used_cells(layer).size() == 0: return false
+    var edges = [_find_bottom_left_edge(tilemap), _find_top_right_edge(tilemap)]
+    return _validate(tilemap, Vector4i(edges[0].x, edges[1].x, edges[1].y, edges[0].y))
 
 static func _find_bottom_left_edge(tilemap : TileMap) -> Vector2i:
     var edge = tilemap.get_used_cells(layer)[0]
@@ -30,6 +36,7 @@ static func _bucket(tilemap : TileMap, limits : Vector4i): # left, right, top, b
     while points_to_check.size() != 0:
         for point in points_to_check:
             if !_is_wall(tilemap, point):
+                ShipEditor.sell_tile(tilemap, point)
                 tilemap.set_cell(layer, point, 0, fill_atlas)
                 for cell in _get_surrounding_cells(point, limits):
                     if !cell in checked_points: points_to_check.append(cell)
@@ -38,6 +45,7 @@ static func _bucket(tilemap : TileMap, limits : Vector4i): # left, right, top, b
 
 static func _is_wall(tilemap : TileMap, coords : Vector2i) -> bool:
     return get_tile_type(tilemap, coords, layer) in walls
+
 
 static func get_tile_type(tilemap : TileMap, coords : Vector2i, _layer := 0) -> String:
     if tilemap == null: return ""
@@ -65,3 +73,37 @@ static func _invert_floor_tiles(tilemap : TileMap, limits : Vector4i, atlas_coor
         for y in range(limits.z, limits.w + 1):
             if tilemap.get_cell_atlas_coords(layer, Vector2i(x, y)) == Vector2i(-1, -1): tilemap.set_cell(layer, Vector2i(x, y), 0, atlas_coords_fill)
             if tilemap.get_cell_atlas_coords(layer, Vector2i(x, y)) == fill_atlas: tilemap.set_cell(layer, Vector2i(x, y), 0, Vector2i(-1, -1))
+
+
+static func _validate(tilemap : TileMap, limits : Vector4i) -> bool:
+
+
+    var checked_points = []
+    var points_to_check = []
+
+    var connected_tiles = []
+    for cell in tilemap.get_used_cells(layer):
+        if get_tile_type(tilemap, cell) == "core": 
+            connected_tiles.append(cell)
+            for point in _get_surrounding_cells(cell, limits):
+                if !point in checked_points: points_to_check.append(point)
+
+    if connected_tiles.size() == 0: return false
+
+
+    while points_to_check.size() != 0:
+        for point in points_to_check:
+            if _is_wall(tilemap, point) || get_tile_type(tilemap, point) in floors:
+                connected_tiles.append(point)
+                for cell in _get_surrounding_cells(point, limits):
+                    if !cell in checked_points: points_to_check.append(cell)
+            points_to_check.erase(point)
+            checked_points.append(point)
+
+    for x in range(limits.x, limits.y + 1):
+        for y in range(limits.z, limits.w + 1):
+            var point = Vector2i(x, y)
+            if _is_wall(tilemap, point) || get_tile_type(tilemap, point) in floors:
+                if !point in connected_tiles: 
+                    return false
+    return true

@@ -66,7 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_mask == 1:
 			use_tool(ShipEditor.get_mouse_tile(), layer)
 		elif event.button_mask == 2:
-			sell_tile(ShipEditor.get_mouse_tile())
+			ShipEditor.sell_tile(wall_tile_map, ShipEditor.get_mouse_tile())
 		
 func use_tool(tile : Vector2i, layer : int) -> void:
 	if tool == null: return
@@ -78,7 +78,7 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(layer, tile):
 			return
 
-	sell_tile(tile, false)
+	ShipEditor.sell_tile(wall_tile_map, tile, false)
 
 	if !Inventory.add_currency(-tool.price):
 		return
@@ -96,20 +96,20 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 	if tool.name in ShipValidator.walls:
 		ShipValidator.autofill_floor(wall_tile_map)
 
-func sell_tile(coords : Vector2i, delete_tile := true) -> bool:
+static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true) -> bool:
 	var sold = false
 	var layer = 0
-	var type = ShipValidator.get_tile_type(wall_tile_map, coords, layer)
+	var type = ShipValidator.get_tile_type(tilemap, coords, layer)
 
 	if type in tools.keys():
 		tools[type].number_of_instances -= 1
 		Inventory.add_currency(tools[type].price, delete_tile)
 		sold = true
 
-	if delete_tile: wall_tile_map.set_cells_terrain_connect(layer, [coords], 0, -1, false)
+	if delete_tile: tilemap.set_cells_terrain_connect(layer, [coords], 0, -1, false)
 
 	if type in ShipValidator.walls:
-		ShipValidator.autofill_floor(wall_tile_map)
+		ShipValidator.autofill_floor(tilemap)
 	return sold
 
 static func change_tool(key : String) -> void:

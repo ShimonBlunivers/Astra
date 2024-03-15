@@ -28,14 +28,22 @@ position = Vector2(1180, 620)
 scale = Vector2(3, 3)
 
 [node name="ConsoleLog" type="RichTextLabel" parent="HUD"]
-offset_left = -149.0
-offset_top = -135.0
-offset_right = 237.0
-offset_bottom = 69.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -397.38
+offset_top = 65.0
+offset_right = -11.3799
+offset_bottom = 269.0
+grow_horizontal = 0
+mouse_filter = 2
+bbcode_enabled = true
 scroll_active = false
 scroll_following = true
 script = ExtResource("1_xklyf")
 metadata/_edit_use_anchors_ = true
+
+[node name="ConsoleTimer" type="Timer" parent="HUD/ConsoleLog"]
 
 [node name="Inventory" parent="HUD" instance=ExtResource("4_g3mus")]
 position = Vector2(-165, 0)
@@ -158,7 +166,7 @@ script = ExtResource("3_glsei")
 [node name="WallTileMap" type="TileMap" parent="Ship"]
 tile_set = ExtResource("4_kyc86")
 format = 2
-layer_0/tile_data = PackedInt32Array(196608, 196608, 196609, 131073, 0, 0, 196609, 262144, 0, 196610, 131072, 65536, 65536, 196608, 1, 131072, 131072, 0, 1, 65536, 196610, 65537, 65536, 196609, 65538, 131072, 65536, 131074, 131072, 2, 65539, 196608, 65537, 131075, 131072, 0, 196611, 196608, 131073, 131081, 65536, 0, 196617, 65536, 131072)
+layer_0/tile_data = PackedInt32Array(196608, 196608, 196609, 131073, 0, 0, 196609, 262144, 0, 196610, 131072, 65536, 65536, 196608, 1, 131072, 131072, 0, 1, 65536, 196610, 65537, 65536, 196609, 65538, 131072, 65536, 131074, 131072, 2, 65539, 196608, 65537, 131075, 131072, 0, 196611, 196608, 131073)
 
 [node name="ObjectTileMap" type="TileMap" parent="Ship"]
 z_index = 10

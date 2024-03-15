@@ -39,6 +39,9 @@ func _ready():
 	inventory.load_grid()
 
 func _on_save_pressed() -> void:
+	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
+		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
+		return 
 	if (ship_name_label.text == ""): 
 		ship_editor.save_ship()
 		_update_ship_list()
@@ -46,7 +49,6 @@ func _on_save_pressed() -> void:
 	ship_editor.save_ship(ship_name_label.text)
 	_update_ship_list()
 
-		
 		
 func _update_ship_list():
 	ships = []
