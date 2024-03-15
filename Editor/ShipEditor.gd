@@ -9,6 +9,15 @@ static var instance
 static var tool_preview
 var inventory : Inventory
 
+static var directions = {
+	0 : "doprava",
+	1 : "dolů",
+	2 : "doleva",
+	3 : "nahoru",
+}
+
+static var direction := 0
+
 static var autoflooring = false
 
 static var tools := {}
@@ -24,7 +33,6 @@ static var tool : Tool = null
 # TODO: ✅ Add autoflooring
 
 # TODO: Add Interactables
-
 
 func evide_tiles():
 	var layer = 0
@@ -69,7 +77,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			use_tool(ShipEditor.get_mouse_tile(), layer)
 		elif event.button_mask == 2:
 			ShipEditor.sell_tile(wall_tile_map, ShipEditor.get_mouse_tile())
-		
+	
+	
+	if event.is_action_pressed("editor_change_direction"):
+		ShipEditor.direction = (ShipEditor.direction + 1) % 4
+		Editor.instance.direction_label.text = "Směr: " + directions[direction]
+
 func use_tool(tile : Vector2i, layer : int) -> void:
 	if tool == null: return
 	if !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return

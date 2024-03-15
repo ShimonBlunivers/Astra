@@ -76,6 +76,14 @@ offset_bottom = 116.0
 theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Autoflooring"
 
+[node name="DirectionLabel" type="Label" parent="HUD"]
+offset_left = 1115.0
+offset_top = 680.0
+offset_right = 1223.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("4_0r2ym")
+text = "Směr: dolů"
+
 [node name="Savemenu" type="CanvasLayer" parent="."]
 visible = false
 

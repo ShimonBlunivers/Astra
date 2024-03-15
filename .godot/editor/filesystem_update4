@@ -19,3 +19,5 @@ res://Editor/Tools/floor.tres
 res://Editor/Inventory/Inventory.gd
 res://Scenes/Console.gd
 res://Editor/Inventory/Slot.gd
+res://Editor/Tools/Tool.gd
+res://Editor/Tools/core.tres

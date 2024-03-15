@@ -13,9 +13,12 @@ class_name Editor extends Node2D
 
 @onready var inventory = $HUD/Inventory
 
+@onready var direction_label = $HUD/DirectionLabel
+
 
 var ships = []
 
+static var instance
 
 var inventory_open = false
 var inventory_positions = Vector2(160, -165) # open, closed
@@ -30,6 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		
 func _ready():
+	Editor.instance = self
 	DirAccess.make_dir_absolute("user://saves/")
 	DirAccess.make_dir_absolute("user://saves/ships")
 

@@ -13,6 +13,7 @@ name = "core"
 nickname = "Jádro"
 texture = SubResource("AtlasTexture_8hg4w")
 price = 100
+rotatable = false
 spawn_tile_on_remove = ""
 world_limit = 1
 placeable_on_atlas_choords = Vector2i(0, 0)

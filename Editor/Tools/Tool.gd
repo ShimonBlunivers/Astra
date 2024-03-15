@@ -6,6 +6,8 @@ class_name Tool extends Resource
 
 @export var price : int = 100
 
+@export var rotatable : bool = false
+
 @export var spawn_tile_on_remove : String = ""
 
 @export var world_limit : int = -1
