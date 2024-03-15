@@ -82,6 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("editor_change_direction"):
 		ShipEditor.direction = (ShipEditor.direction + 1) % 4
 		Editor.instance.direction_label.text = "Směr: " + directions[direction]
+		update_preview_rotation()
 
 func use_tool(tile : Vector2i, layer : int) -> void:
 	if tool == null: return
@@ -106,10 +107,12 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 	if tool.terrain_id != -1:
 		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, tool.terrain_id)	
 	elif tool.atlas_coords != Vector2i(-1, -1):
-		wall_tile_map.set_cell(layer, tile, 0, tool.atlas_coords)
+		wall_tile_map.set_cell(layer, tile, 0, tool.atlas_coords, direction if tool.rotatable else 0)
 
 	if tool.name in ShipValidator.walls && autoflooring:
 		ShipValidator.autofill_floor(wall_tile_map)
+
+	# wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
 
 static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true) -> bool:
 	var sold = false
@@ -130,6 +133,13 @@ static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true)
 static func change_tool(key : String) -> void:
 	tool = tools[key]
 	tool_preview.texture = tool.texture
+	update_preview_rotation()
+
+static func update_preview_rotation():
+	if tool.rotatable:
+		tool_preview.rotation_degrees = 90 * direction
+	else:
+		tool_preview.rotation_degrees = 0
 	
 func save_ship(path : String = "default_ship") -> void:
 	var layer : int = 0

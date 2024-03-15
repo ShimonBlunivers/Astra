@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://c4a1kyc84qkn5"]
+
+[ext_resource type="Script" path="res://Editor/Tools/Tool.gd" id="1_bypm0"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_0il6t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwwv6"]
+atlas = ExtResource("2_0il6t")
+region = Rect2(32, 64, 32, 32)
+
+[resource]
+script = ExtResource("1_bypm0")
+name = "connector"
+nickname = "Spojovník"
+texture = SubResource("AtlasTexture_iwwv6")
+price = 100
+rotatable = true
+spawn_tile_on_remove = ""
+world_limit = -1
+placeable_on_atlas_choords = Vector2i(-1, -1)
+terrain_id = -1
+atlas_coords = Vector2i(1, 2)

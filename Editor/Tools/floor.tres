@@ -13,6 +13,7 @@ name = "floor"
 nickname = "Podlaha"
 texture = SubResource("AtlasTexture_t8hnt")
 price = 0
+rotatable = false
 spawn_tile_on_remove = ""
 world_limit = -1
 placeable_on_atlas_choords = Vector2i(-1, -1)

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://dr10fjd5yxqej"]
+
+[ext_resource type="Script" path="res://Editor/Tools/Tool.gd" id="1_1bnsl"]
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_0he4m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq6vc"]
+atlas = ExtResource("2_0he4m")
+region = Rect2(96, 64, 32, 32)
+
+[resource]
+script = ExtResource("1_1bnsl")
+name = "thruster"
+nickname = "Tryska"
+texture = SubResource("AtlasTexture_xq6vc")
+price = 200
+rotatable = true
+spawn_tile_on_remove = ""
+world_limit = -1
+placeable_on_atlas_choords = Vector2i(-1, -1)
+terrain_id = -1
+atlas_coords = Vector2i(3, 2)
