@@ -73,6 +73,7 @@ func _on_load_pressed() -> void:
 	if !success: console.print_out("Loď s názvem '" + ship_name_label.text + "' nebyla nalezena!")
 
 func _on_open_savemenu_pressed() -> void:
+	ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
 	savemenu.visible = true
 	$HUD/Savemenu.visible = false
 	camera.locked = true
@@ -85,3 +86,11 @@ func _on_exit_pressed() -> void:
 
 func _on_ship_list_meta_clicked(meta:Variant) -> void:
 	ship_name_label.text = meta
+
+
+func _on_autofloor_pressed():
+	ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
+
+
+func _on_autofloor_button_toggled(toggled_on:bool):
+	ShipEditor.autoflooring = toggled_on

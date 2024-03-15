@@ -18,3 +18,4 @@ res://Editor/ShipEditor.gd
 res://Editor/Tools/floor.tres
 res://Editor/Inventory/Inventory.gd
 res://Scenes/Console.gd
+res://Editor/Inventory/Slot.gd

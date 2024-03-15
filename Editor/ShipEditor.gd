@@ -9,6 +9,8 @@ static var instance
 static var tool_preview
 var inventory : Inventory
 
+static var autoflooring = false
+
 static var tools := {}
 
 static var tool : Tool = null
@@ -19,7 +21,7 @@ static var tool : Tool = null
 
 # TODO: ✅ Make money (energy) system
 
-# TODO: Add autoflooring
+# TODO: ✅ Add autoflooring
 
 # TODO: Add Interactables
 
@@ -43,7 +45,7 @@ func _ready() -> void:
 
 	evide_tiles()
 
-	ShipValidator.autofill_floor(wall_tile_map)
+	# ShipValidator.autofill_floor(wall_tile_map)
 
 func load_tools():
 	var path = "res://Editor/Tools"
@@ -93,7 +95,7 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 	elif tool.atlas_coords != Vector2i(-1, -1):
 		wall_tile_map.set_cell(layer, tile, 0, tool.atlas_coords)
 
-	if tool.name in ShipValidator.walls:
+	if tool.name in ShipValidator.walls && autoflooring:
 		ShipValidator.autofill_floor(wall_tile_map)
 
 static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true) -> bool:
@@ -108,12 +110,11 @@ static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true)
 
 	if delete_tile: tilemap.set_cells_terrain_connect(layer, [coords], 0, -1, false)
 
-	if type in ShipValidator.walls:
+	if type in ShipValidator.walls && autoflooring:
 		ShipValidator.autofill_floor(tilemap)
 	return sold
 
 static func change_tool(key : String) -> void:
-	Inventory.add_currency(0)
 	tool = tools[key]
 	tool_preview.texture = tool.texture
 	

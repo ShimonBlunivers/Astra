@@ -77,7 +77,6 @@ static func _invert_floor_tiles(tilemap : TileMap, limits : Vector4i, atlas_coor
 
 static func _validate(tilemap : TileMap, limits : Vector4i) -> bool:
 
-
     var checked_points = []
     var points_to_check = []
 
