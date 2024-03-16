@@ -13,6 +13,7 @@ const slot_scene := preload("res://Editor/Inventory/Slot.tscn")
 static var currency = 100000
 
 static func add_currency(amount : int, visual := true) -> bool:
+    if amount == 0: return false
     if currency + amount < 0: 
         if visual: Inventory.currency_change_effect(0)
         return false

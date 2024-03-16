@@ -98,3 +98,4 @@ func _on_autofloor_pressed():
 
 func _on_autofloor_button_toggled(toggled_on:bool):
 	ShipEditor.autoflooring = toggled_on
+	if toggled_on: ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)

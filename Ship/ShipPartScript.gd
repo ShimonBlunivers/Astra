@@ -17,7 +17,7 @@ func _physics_process(_delta: float) -> void:
 
 var mass : float
 
-var ship
+var ship : Ship
 
 var tilemap_coords : Vector2i
 

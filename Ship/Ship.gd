@@ -86,7 +86,7 @@ func load_ship(_position : Vector2, path : String, custom_object_spawn : CustomO
 		rotation = rng.randf_range(0, 2 * PI)
 
 func get_tile(coords : Vector2i):
-	for tile in wall_tile_map.get_children():
+	for tile in wall_tiles.get_children():
 		if (tile is ShipPart):
 			if (coords == tile.tilemap_coords):
 				return tile

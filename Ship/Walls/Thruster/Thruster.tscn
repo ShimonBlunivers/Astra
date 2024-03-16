@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bl1hdflkphqup"]
+[gd_scene load_steps=21 format=3 uid="uid://bl1hdflkphqup"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Thruster/Thruster.gd" id="1_tutll"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_0a064"]
@@ -20,6 +20,14 @@ colors = PackedColorArray(0.588235, 0.231373, 0.172549, 1, 0.524401, 0.288252, 0
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kfmsg"]
 gradient = SubResource("Gradient_5pfsn")
 
+[sub_resource type="Curve" id="Curve_hmsjk"]
+max_value = 5.0
+_data = [Vector2(0.62037, 0.470661), 0.0, 0.0, 0, 0, Vector2(0.987654, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_itnbh"]
+curve = SubResource("Curve_hmsjk")
+
 [sub_resource type="Curve" id="Curve_otvt4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.105263), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -32,15 +40,18 @@ lifetime_randomness = 0.1
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(10, 45, 1)
-direction = Vector3(5, 0, 0)
 spread = 0.0
-initial_velocity_min = 400.0
-initial_velocity_max = 500.0
+initial_velocity_min = 600.0
+initial_velocity_max = 700.0
+radial_velocity_min = -400.0
+radial_velocity_max = -400.0
+radial_velocity_curve = SubResource("CurveTexture_itnbh")
 gravity = Vector3(0, 0, 0)
-scale_min = 1.25
 scale_max = 1.25
 scale_curve = SubResource("CurveTexture_dnlkm")
 color_ramp = SubResource("GradientTexture1D_kfmsg")
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.0
 
 [sub_resource type="Gradient" id="Gradient_7pate"]
 colors = PackedColorArray(1, 1, 1, 1, 0.650128, 0.650128, 0.650128, 1)
@@ -87,12 +98,14 @@ shape = SubResource("RectangleShape2D_yeoku")
 
 [node name="JetParticles" type="GPUParticles2D" parent="."]
 position = Vector2(68, -1)
-amount = 1000
+amount = 2000
 process_material = SubResource("ParticleProcessMaterial_o734o")
 texture = ExtResource("3_krnpy")
-lifetime = 0.65
+lifetime = 0.75
 speed_scale = 2.0
 local_coords = true
+trail_enabled = true
+trail_lifetime = 0.1
 
 [node name="RightSideJetParticles" type="GPUParticles2D" parent="."]
 z_index = -1

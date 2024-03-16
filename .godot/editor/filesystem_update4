@@ -1,8 +1,8 @@
+res://Editor/Editor.gd
 res://Character/Player/Player.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
 res://Backgrounds/BackgroundShader.gdshader
-res://Editor/Editor.gd
 res://Character/NPC/NPC.tscn
 res://Ship/Ship.tscn
 res://Scenes/Game.tscn
@@ -14,6 +14,11 @@ res://Editor/Inventory/Inventory.tscn
 res://Editor/Inventory/Slot.tscn
 res://Scenes/Menu.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
+res://Editor/ShipValidator.gd
+res://Editor/ShipEditor.gd
+res://Scenes/Console.gd
+res://Menu.gd
 res://Ship/Walls/Thruster/Thruster.gd
-res://Items/Item.gd
-res://Items/Chip/Chip.tres
+res://Editor/Inventory/Inventory.gd
+res://Quests/Goal.gd
+res://Ship/Ship.gd

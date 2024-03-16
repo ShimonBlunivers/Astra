@@ -13,7 +13,11 @@ func print_out(string: String):
 	await timer.timeout
 
 	var tween = create_tween()
-
+	
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0), text_timeout / 2)
 
+	tween.connect("finished", _clear)
+
+func _clear():
+	text = ""
 

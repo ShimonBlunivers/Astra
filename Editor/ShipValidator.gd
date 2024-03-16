@@ -36,7 +36,7 @@ static func _bucket(tilemap : TileMap, limits : Vector4i): # left, right, top, b
     while points_to_check.size() != 0:
         for point in points_to_check:
             if !_is_wall(tilemap, point):
-                ShipEditor.sell_tile(tilemap, point)
+                ShipEditor.sell_tile(tilemap, point, true, true)
                 tilemap.set_cell(layer, point, 0, fill_atlas)
                 for cell in _get_surrounding_cells(point, limits):
                     if !cell in checked_points: points_to_check.append(cell)
