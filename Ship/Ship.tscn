@@ -41,7 +41,6 @@ texture = ExtResource("2_akbyg")
 [node name="WallTileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_6t3py")
 format = 2
-layer_0/tile_data = PackedInt32Array(-65536, 196608, 1, 0, 131072, 0, 65536, 196608, 196609, 65537, 131072, 65536, 65538, 131072, 65536, 65539, 131072, 65536, -65533, 131072, 65536, -65534, 131072, 65536, -65535, 131072, 65536, 4, 131072, 0, 65540, 196608, 131073, -65531, 196608, 2, -65532, 65536, 65537)
 script = ExtResource("3_cl687")
 
 [node name="ObjectTileMap" type="TileMap" parent="."]
@@ -50,9 +49,9 @@ tile_set = ExtResource("2_qq4gy")
 format = 2
 script = ExtResource("5_rjigq")
 
-[node name="WallTiles" type="CanvasGroup" parent="."]
+[node name="WallTiles" type="Node2D" parent="."]
 
-[node name="ObjectTiles" type="CanvasGroup" parent="."]
+[node name="ObjectTiles" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
 y_sort_enabled = true

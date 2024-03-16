@@ -25,7 +25,7 @@ func init(_ship, _coords : Vector2i, _durability : float = 150, _mass : float = 
 	power = _power
 	ship.thrusters[direction].append(self)
 
-	call_deferred("get_blocked_sides")
+	# call_deferred("get_blocked_sides")
 
 func set_status(status : bool):
 	running = status

@@ -41,7 +41,7 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 
 	if _ship != null:
 		new_item.ship = _ship
-		new_item.ship.add_child(new_item)
+		new_item.ship.items.add_child(new_item)
 	else:
 		var closest_ship = ObjectList.get_closest_ship(global_coords)
 		closest_ship.items.add_child(new_item)

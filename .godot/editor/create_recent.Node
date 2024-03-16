@@ -1,3 +1,4 @@
+Node2D
 Label
 CheckButton
 Timer
@@ -5,7 +6,6 @@ TextureRect
 Control
 Panel
 GridContainer
-Node2D
 Node
 ColorRect
 GPUParticles2D
