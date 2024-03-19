@@ -2,6 +2,7 @@ extends Node
 
 var SHIPS = []
 
+
 func get_closest_ship(from_global_pos : Vector2) -> Ship:
 	var ships = ObjectList.SHIPS
 	var closest = ships[0]
@@ -13,3 +14,10 @@ func get_closest_ship(from_global_pos : Vector2) -> Ship:
 func _ready() -> void:
 	load("res://Items/Chip/Chip.tres").create()
 	load("res://Items/Coin/Coin.tres").create()
+
+func get_saveable_items():
+	var list = []
+	list.append_array(SHIPS)
+	list.append_array(NPC.npcs)
+	list.append_array(Item.existing_items)
+	return list

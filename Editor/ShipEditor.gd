@@ -128,6 +128,7 @@ static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true,
 
 	if autoflooring && !react_autofill:
 		ShipValidator.autofill_floor(tilemap)
+
 	return sold
 
 static func change_tool(key : String) -> void:

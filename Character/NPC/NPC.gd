@@ -3,6 +3,7 @@ class_name NPC extends Character
 var difference = Vector2.ZERO
 
 @onready var dialog_manager = $DialogManager
+@onready var sprites = $Sprite
 
 var ship
 

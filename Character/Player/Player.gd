@@ -99,7 +99,9 @@ func _unhandled_input(event: InputEvent):
 		# spawn()
 		# Item.spawn(Item.types["Chip"], get_global_mouse_position())
 		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
-		add_currency(150)
+		# add_currency(150)
+		
+		World.save_file.save_world()
 
 	if alive:
 		if event.is_action_pressed("game_control"):
