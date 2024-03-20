@@ -93,7 +93,8 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		add_currency(-150)
+		World.save_file.save_world()
+		add_currency(150)
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
@@ -101,7 +102,7 @@ func _unhandled_input(event: InputEvent):
 		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
 		# add_currency(150)
 		
-		World.save_file.save_world()
+		World.save_file.load_world()
 
 	if alive:
 		if event.is_action_pressed("game_control"):
@@ -113,17 +114,22 @@ func _unhandled_input(event: InputEvent):
 				controllable.interact()
 				controllable.player_in_range = null
 
+func teleport(pos : Vector2):
+	global_position = pos
+	_old_position = World.instance.get_distance_from_center(global_position)
 
-func spawn():
-	animated_sprite.play("Idle")
+func spawn(pos := spawn_point, _acceleration := Vector2.ZERO):
+	if !alive: animated_sprite.play("Idle")
 	alive = true
 	spawned = true
 	health = max_health
 	change_ship(ObjectList.get_closest_ship(global_position))
-	global_position = spawn_point
-	_old_position = World.instance.get_distance_from_center(global_position)
-	health_updated_signal.emit()
+	global_position = pos + World.instance._center_of_universe
+	print(global_position)
+	_old_position = World.instance.get_distance_from_center(global_position - _acceleration)
+	
 
+	health_updated_signal.emit()
 
 func _ready():
 	super()
@@ -133,6 +139,7 @@ func _ready():
 	
 	nickname = "Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
+	animated_sprite.play("Idle")
 	spawn()
 
 func kill():
@@ -194,6 +201,7 @@ func _move(_delta: float) -> void:
 	acceleration = World.instance.get_distance_from_center(global_position) - _old_position # Acceleration get by the difference of the position
 	_old_position = World.instance.get_distance_from_center(global_position)
 
+	# print("f: ", floating(), "ACC: ", acceleration)
 
 	# if abs(acceleration.x) > Limits.VELOCITY_MAX or abs(acceleration.y) > Limits.VELOCITY_MAX: # Speed limitation, need to redo that tho
 	# 	var new_speed = acceleration.normalized()
@@ -202,6 +210,7 @@ func _move(_delta: float) -> void:
 
 	velocity = (direction * (SPEED + RUN_SPEED_MODIFIER * running)).rotated(global_rotation) # velocity // the _fix_position is help variable made to remove bug
 
+
 	if parent_ship != null:
 		if floating(): 	# If outside of the ship
 			rotate(deg_to_rad(TURN_SPEED * rotation_direction))
@@ -209,7 +218,7 @@ func _move(_delta: float) -> void:
 			if suit == false: 
 				velocity = Vector2(0, 0) # No control over the direction u r flying if you don't have a suit
 			else: 
-				velocity *= .01 # Taking the velocity and dividing it by 100, to the player isn't so fast in the space like in ship
+				velocity *= .01 # Taking the velocity and dividing it by 100, so the player isn't so fast in the space like in ship
 
 			if dim_acceleration_for_frames <= 0:
 				velocity += (acceleration - parent_ship.difference_in_position) / _delta # Removing the parent_ship (ship he is attached to) velocity, so the acceleration won't throw him into deep space
@@ -221,7 +230,6 @@ func _move(_delta: float) -> void:
 
 	if dim_acceleration_for_frames > 0:
 		dim_acceleration_for_frames -= 1
-
 
 
 	# if get_last_slide_collision():

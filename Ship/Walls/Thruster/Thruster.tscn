@@ -97,6 +97,7 @@ sync_to_physics = false
 shape = SubResource("RectangleShape2D_yeoku")
 
 [node name="JetParticles" type="GPUParticles2D" parent="."]
+z_index = 1
 position = Vector2(68, -1)
 amount = 2000
 process_material = SubResource("ParticleProcessMaterial_o734o")

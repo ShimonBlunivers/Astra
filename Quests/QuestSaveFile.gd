@@ -17,3 +17,6 @@ static func save():
         files.append(file)
 
     return files
+
+func load():
+    pass

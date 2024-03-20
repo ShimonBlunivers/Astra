@@ -138,6 +138,8 @@ func load_ship(_ship, path : String) -> bool:
 
 	_first_rect = get_used_rect()
 
+	# ship.original_wall_tile_map = self
+
 	_replace_tiles()	
 
 	return true

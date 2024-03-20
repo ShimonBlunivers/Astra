@@ -40,6 +40,10 @@ func _in_physics(_delta: float) -> void:
 	pass
 
 
+func set_health(amount : float):
+	health = amount
+	damage(0)
+
 func damage(amount : float):
 	health = max(health - amount, 0)
 	if health == 0: kill()

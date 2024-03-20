@@ -14,6 +14,9 @@ class_name Ship extends RigidBody2D
 @onready var passengers_node := $Passengers
 @onready var timer := $Timer
 
+# var original_wall_tile_map : TileMap
+# var original_object_tile_map : TileMap
+
 var id : int
 
 var polygon
@@ -28,13 +31,13 @@ var acceleration := Vector2.ZERO
 
 var rotation_speed : float = 0 
 
-var velocity := Vector2.ZERO
-
 var thrust_power : Vector4 = Vector4(0, 0, 0, 0) # LEFT UP RIGHT DOWN
 
 var thrusters := [[], [], [], []] # LEFT UP RIGHT DOWN
 
 var interactables := []
+
+var path : String
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
@@ -71,12 +74,14 @@ var difference_in_position := Vector2.ZERO
 func _ready() -> void:
 	ObjectList.SHIPS.append(self)
 
-func load_ship(_position : Vector2, path : String, custom_object_spawn : CustomObjectSpawn, _lock_rotation : bool = false) -> void:
+func load_ship(_position : Vector2, _path : String, custom_object_spawn : CustomObjectSpawn, _lock_rotation : bool = false) -> void:
 	global_position = _position
 	_old_position = _position
+	path = _path
 	mass = 1
-	wall_tile_map.load_ship(self, path)
-	object_tile_map.load_ship(self, path, custom_object_spawn)
+	wall_tile_map.load_ship(self, _path)
+	object_tile_map.load_ship(self, _path, custom_object_spawn)
+
 	mass -= 1
 	
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)

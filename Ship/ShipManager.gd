@@ -11,8 +11,8 @@ static var number_of_ships = 0
 func _ready() -> void:
 	instance = self
 	_load()
-	ShipManager.spawn_ship(Vector2(0, -800), "small_shuttle")
-	ShipManager.spawn_ship(Vector2(0, -2000), "small_shuttle")
+	ShipManager.spawn_ship(Vector2(0, -2600), "small_shuttle")
+	ShipManager.spawn_ship(Vector2(0, -4000), "small_shuttle")
 
 func _load() -> void:
 	main_station.load_ship(Vector2.ZERO, "station", null, true)

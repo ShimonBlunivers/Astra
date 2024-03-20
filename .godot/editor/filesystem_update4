@@ -1,12 +1,8 @@
-res://Quests/QuestSaveFile.gd
-res://Quests/Quest.gd
-res://Quests/QuestManager.gd
-res://Conversation/Dialogs.gd
-res://Conversation/DialogManager.gd
-res://Quests/Goal.gd
+res://Settings/SaveFile.gd
 res://Character/Player/Player.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
+res://Editor/Editor.gd
 res://Backgrounds/BackgroundShader.gdshader
 res://Character/NPC/NPC.tscn
 res://Ship/Ship.tscn
@@ -19,7 +15,4 @@ res://Editor/Inventory/Inventory.tscn
 res://Editor/Inventory/Slot.tscn
 res://Scenes/Menu.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
-res://Settings/SaveFile.gd
 res://Character/Player/Player.gd
-res://Character/NPC/NPC.gd
-res://Character/NPC/NPCSaveFile.gd

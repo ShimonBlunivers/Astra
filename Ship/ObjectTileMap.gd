@@ -29,6 +29,8 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) ->
 
 	save_file.close()
 	
+	# ship.original_object_tile_map = self
+
 	return _replace_interactive_tiles(custom_object_spawn)
 	
 
