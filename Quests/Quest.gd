@@ -27,3 +27,7 @@ func init(_npc : NPC):
 func finish():
     Player.main_player.add_currency(reward)
     QuestManager.quests.erase(self)
+
+func delete():
+    QuestManager.quests.erase(self)
+    QuestManager.update_quest_log()

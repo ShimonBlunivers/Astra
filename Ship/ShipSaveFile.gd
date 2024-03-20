@@ -18,4 +18,9 @@ static func save():
     return files
 
 func load():
-    pass
+
+    var ship = ShipManager.spawn_ship(position, path)
+    ship.rotation = rotation
+    ship.linear_velocity = velocity
+
+    # spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> void:

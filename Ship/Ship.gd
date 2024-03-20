@@ -83,7 +83,10 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	object_tile_map.load_ship(self, _path, custom_object_spawn)
 
 	mass -= 1
-	
+
+	id = ShipManager.number_of_ships
+	ShipManager.number_of_ships += 1
+
 	for direction in thrusters: for thruster in direction: thruster.set_status(false)
 
 	if !_lock_rotation:
@@ -203,3 +206,11 @@ func _on_area_area_exited(_area:Area2D) -> void:
 		if !(body in passengers): 			return
 		passengers.erase(body)
 		body.get_off(self)
+
+
+
+func delete():
+	if self == Player.main_player.parent_ship:
+		Player.main_player.reparent(World.instance)
+	ObjectList.SHIPS.erase(self)
+	queue_free()

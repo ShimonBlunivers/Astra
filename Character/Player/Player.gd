@@ -93,8 +93,9 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		World.save_file.save_world()
-		add_currency(150)
+		# World.save_file.save_world()
+		# add_currency(150)
+		parent_ship.delete()
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
@@ -314,3 +315,7 @@ func _on_pickup_area_entered(area:Area2D) -> void:
 
 func _on_pickup_area_exited(area:Area2D) -> void:
 	area.get_parent().can_pickup = false
+
+func deleting_ship(_ship : Ship):
+	if _ship == parent_ship:
+		call_deferred("reparent", World.instance)

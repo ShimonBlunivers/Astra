@@ -20,3 +20,4 @@ static func save():
 
 func load():
     pass
+

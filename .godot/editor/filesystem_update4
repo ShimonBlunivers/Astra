@@ -15,4 +15,4 @@ res://Editor/Inventory/Inventory.tscn
 res://Editor/Inventory/Slot.tscn
 res://Scenes/Menu.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
-res://Character/Player/Player.gd
+res://Settings/ObjectList.gd

@@ -85,7 +85,6 @@ var id : int
 var dialogs = Dialogs.new()
 
 static func get_uid() -> int:
-
 	var _id = 0
 	while true:
 		if NPC.get_npc(_id) == null:
@@ -157,3 +156,7 @@ func _on_area_mouse_exited() -> void:
 func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:
 		dialog_manager.advance()
+
+func delete():
+	npcs.erase(self)
+	queue_free()
