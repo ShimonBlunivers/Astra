@@ -58,7 +58,6 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 	if _id != -1 && Item.get_item(_id) == null:
 		new_item.id = _id
 	else:
-		print(_id)
 		_id = 0
 		while true:
 			if Item.get_item(_id) == null:

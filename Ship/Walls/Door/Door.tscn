@@ -110,6 +110,7 @@ script = ExtResource("1_7o7ps")
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_gghna")
 animation = &"closed"
+frame = 3
 
 [node name="Hitbox" type="Node2D" parent="."]
 

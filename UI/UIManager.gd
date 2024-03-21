@@ -69,7 +69,9 @@ func _on_player_currency_updated_signal() -> void:
 	currency_label.text = str(Player.main_player.currency)
 
 
-func loading_screen(time : float = 1.4):
+func loading_screen(time : float = 1.5):
+
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
 	loading_screen_node.visible = true
 	loading_screen_node.modulate = Color.WHITE
 	loading_screen_timer.start(time)
@@ -77,10 +79,12 @@ func loading_screen(time : float = 1.4):
 	var tween = create_tween()
 	tween.tween_property(loading_screen_node, "modulate", Color(1, 1, 1, 0), time / 2)
 
+
 	tween.connect("finished", _clear_loading_screen)
 
 func _clear_loading_screen():
 	loading_screen_node.visible = false
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("game_toggle_inventory"):
@@ -108,10 +112,10 @@ func _process(_delta):
 
 	if loading_screen_timer.time_left > 0:
 		var ratio = (loading_screen_timer.wait_time - loading_screen_timer.time_left) / loading_screen_timer.wait_time
-		loading_screen_bar.value = ratio
+		loading_screen_bar.value = ratio - 0.0420
 
-		var _scale = 0.7 + ratio * 13
+		var _scale = 0.65 + ratio * 10
 		loading_screen_background.scale = Vector2(_scale, _scale)
-		loading_screen_background.rotation = ratio
+		loading_screen_background.rotation = ratio * 2
 
 		

@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bdiaebe5x6sb5"]
+
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="1_3g6d7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shfod"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.356863, 0.619608, 0.984314, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_3g6d7")
+Button/styles/disabled = SubResource("StyleBoxFlat_shfod")
+Button/styles/focus = SubResource("StyleBoxFlat_shfod")
+Button/styles/hover = SubResource("StyleBoxFlat_shfod")
+Button/styles/normal = SubResource("StyleBoxFlat_shfod")
+Button/styles/pressed = SubResource("StyleBoxFlat_shfod")

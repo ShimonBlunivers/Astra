@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=22 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Ship/ShipManager.gd" id="2_0gdpv"]
@@ -40,6 +40,27 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_gft63"]
 gradient = SubResource("Gradient_khipi")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7voj"]
+bg_color = Color(0.396078, 0.231373, 0.435294, 0.615686)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hx8a"]
+bg_color = Color(0.184314, 0.207843, 0.85098, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_aneky"]
+ProgressBar/colors/font_color = Color(1, 1, 1, 1)
+ProgressBar/colors/font_outline_color = Color(1, 1, 1, 1)
+ProgressBar/constants/outline_size = 0
+ProgressBar/font_sizes/font_size = 16
+ProgressBar/fonts/font = ExtResource("7_xryl1")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_k7voj")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_7hx8a")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_4hqkb")
@@ -327,9 +348,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
+theme = SubResource("Theme_aneky")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_xryl1")
 max_value = 1.0
+value = 0.5
 
 [node name="Label" type="Label" parent="UI/HUD/LoadingScreen"]
 anchors_preset = 8
