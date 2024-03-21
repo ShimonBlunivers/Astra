@@ -120,14 +120,16 @@ func teleport(pos : Vector2):
 	global_position = pos
 	_old_position = World.instance.get_distance_from_center(global_position)
 
-func spawn(pos := spawn_point, _acceleration := Vector2.ZERO):
+func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 	if !alive: animated_sprite.play("Idle")
 	alive = true
 	spawned = true
 	health = max_health
+	if _rotation != null: global_rotation = _rotation
 	change_ship(ObjectList.get_closest_ship(global_position))
-	global_position = pos + World.instance._center_of_universe
+	global_position = pos - World.instance._center_of_universe
 	_old_position = World.instance.get_distance_from_center(global_position - _acceleration)
+
 	
 
 	health_updated_signal.emit()

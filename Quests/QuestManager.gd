@@ -2,7 +2,7 @@ extends Node
 
 var quests = []
 
-var active_quest_objects = {
+static var active_quest_objects = {
 	Goal.Type.pick_up_item : [],
 	Goal.Type.talk_to_npc : [],
 	Goal.Type.go_to_place : [],
@@ -46,17 +46,7 @@ func update_quest_log():
 		
 
 func finished_quest_objective(quest: Quest):
-	active_quest_objects[quest.goal.type].erase(quest.goal.target)
-
-	quest.goal.status += 1
-	match quest.goal.type:
-		Goal.Type.pick_up_item:
-			quest.goal.type = Goal.Type.talk_to_npc
-			quest.goal.target = quest.npc
-			quest.goal.update_quest_objects()
-
-	if quest.goal.status == quest.goal.finish_status: quest.finish()
-
+	quest.progress()
 	QuestManager.update_quest_log()
 
 func get_quest(target : Node2D) -> Quest:

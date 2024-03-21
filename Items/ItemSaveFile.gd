@@ -4,6 +4,7 @@ class_name ItemSaveFile extends Resource
 @export var id : int
 @export var type : ItemType
 @export var ship_id : int
+@export var ship_slot_id : int
 
 
 static func save():
@@ -16,6 +17,7 @@ static func save():
         file.position = item.global_position
         file.type = item.type
         file.ship_id = item.ship.id
+        file.ship_slot_id = item.ship_slot_id
 
         files.append(file)
 

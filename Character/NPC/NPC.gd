@@ -5,7 +5,7 @@ var difference = Vector2.ZERO
 @onready var dialog_manager = $DialogManager
 @onready var sprites = $Sprite
 
-var ship
+var ship : Ship
 
 static var names = [
 	"Kevin",
@@ -94,12 +94,19 @@ static func get_npc(_id: int) -> NPC:
 	for npc in npcs: if npc.id == _id: return npc
 	return null
 
-func init(_id : int = -1, _nickname : String = names.pick_random()):
+var skin = null
+var hair = null
+
+func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_missions = null, _skin = null, _hair = null):
 	load("res://Items/Chip/Chip.tres")
 	nickname = _nickname
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(npcs.size())
 
+	if _blocked_missions != null: blocked_missions = _blocked_missions
+	skin = _skin
+	hair = _hair
+	
 	if _id != -1 && NPC.get_npc(_id) == null:
 		id = _id
 	else:
@@ -111,11 +118,21 @@ func init(_id : int = -1, _nickname : String = names.pick_random()):
 			_id += 1
 
 	npcs.append(self)
+
 	# print(nickname, " SPAWNED on: " , position)
 
 
 func _ready() -> void:
 	legs_offset = legs.position
+
+	if skin != null:
+		sprites.set_skin(skin[0], skin[1], skin[2], skin[3], skin[4])
+
+	if hair != null:
+		sprites.hair_node.frame = hair[0]
+		sprites.hair_node.flip_h = hair[1]
+
+	skin = sprites.skin
 
 func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)

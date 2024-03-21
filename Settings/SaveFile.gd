@@ -44,9 +44,17 @@ func _load(): # deferred
 	while Item.items.size() != 0: Item.items[0].delete()
 	while QuestManager.quests.size() != 0: QuestManager.quests[0].delete()
 	QuestManager.active_quest = -1
+	QuestManager.active_quest_objects = {
+		Goal.Type.pick_up_item : [],
+		Goal.Type.talk_to_npc : [],
+		Goal.Type.go_to_place : [],
+	}
 	# var tree := World.instance.get_tree().get_root()
 	# World.instance.free()
 	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
+
+	World.instance._center_of_universe = Vector2.ZERO
+	World.instance.transform.origin = Vector2.ZERO
 
 	player_save_file.load() #
 	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 

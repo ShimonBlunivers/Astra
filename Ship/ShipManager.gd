@@ -13,11 +13,11 @@ func _ready() -> void:
 	ShipManager.spawn_ship(Vector2(0, -4000), "small_shuttle")
 	ShipManager.spawn_ship(Vector2(2000, -2500), "small_shuttle")
 
-static func spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> Ship:
+static func spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null, _from_save := false) -> Ship:
 	var _ship = ship_scene.instantiate()
 	_ship.name = "Ship-" + str(_ship.id)
 	instance.add_child(_ship)
-	_ship.load_ship(_position, path, custom_object_spawn)
+	_ship.load_ship(_position, path, custom_object_spawn, false, _from_save)
 	return _ship
 
 

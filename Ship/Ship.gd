@@ -27,6 +27,8 @@ var dock_position : Vector2 = Vector2(100, 100)
 
 var passengers := []
 
+var used_item_slots = 0
+
 var controlled_by = null
 
 var acceleration := Vector2.ZERO
@@ -40,6 +42,11 @@ var thrusters := [[], [], [], []] # LEFT UP RIGHT DOWN
 var interactables := []
 
 var path : String
+
+var destroyed_walls := []
+var opened_doors := []
+var pickedup_items := []
+
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
@@ -76,13 +83,13 @@ var difference_in_position := Vector2.ZERO
 func _ready() -> void:
 	Ship.ships.append(self)
 
-func load_ship(_position : Vector2, _path : String, custom_object_spawn : CustomObjectSpawn, _lock_rotation : bool = false) -> void:
+func load_ship(_position : Vector2, _path : String, custom_object_spawn : CustomObjectSpawn, _lock_rotation : bool = false, _from_save := false) -> void:
 	global_position = _position
 	_old_position = _position
 	path = _path
 	mass = 1
 	wall_tile_map.load_ship(self, _path)
-	object_tile_map.load_ship(self, _path, custom_object_spawn)
+	object_tile_map.load_ship(self, _path, custom_object_spawn, _from_save)
 
 	mass -= 1
 
@@ -170,6 +177,21 @@ func update_side_trusters():
 		for thruster in thruster_list:
 			thruster.side_thrusters(rotation_speed)
 
+func apply_changes(_destroyed_walls = [], _opened_doors = []):
+
+	for coords in _opened_doors:
+		var tile = get_tile(coords)
+		if tile != null: tile.open()
+
+	for coords in _destroyed_walls:
+		var tile = get_tile(coords)
+		if tile != null: tile.destroy()
+
+	# for item_id in _pickedup_items:
+	# 	var item = Item.get_item(item_id)
+	# 	print(item.name)
+	# 	if item != null: item.delete()
+
 func update_thrusters():
 	for thruster in thrusters[0]: if thruster.running != (acceleration.x < 0): 
 		thruster.set_status(acceleration.x < 0)
@@ -217,6 +239,6 @@ func _on_area_area_exited(_area:Area2D) -> void:
 func delete():
 	if self == Player.main_player.parent_ship:
 		Player.main_player.reparent(World.instance)
-
+	ShipManager.number_of_ships -= 1
 	Ship.ships.erase(self)
 	queue_free()

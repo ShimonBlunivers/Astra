@@ -44,6 +44,8 @@ func open():
 	open_sound.pitch_scale = randf_range(0.9, 1.1)
 	open_sound.play()
 	update_sprites()
+
+	ship.opened_doors.append(tilemap_coords)
 	
 func close():
 	state = "closed"
@@ -51,6 +53,7 @@ func close():
 	close_sound.play()
 	update_sprites()
 	walkway.set_collision_layer_value(collision_layer, true)
+	ship.opened_doors.erase(tilemap_coords)
 
 func _on_frame_changed():
 

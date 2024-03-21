@@ -2,8 +2,8 @@ class_name CustomObjectSpawn extends Resource
 
 # TODO
 
-var npc_preset #    [id, ItemType]
-var item_preset #   [id, name]
+var npc_preset   # [id, type, ship_slot_id]
+var item_preset  # [id, nickname, [blocked_missions], [color1, color2, color3, color4, color5], [hair_frame, flip_h]]
 
 static func create(_item_preset = null, _npc_preset = null) -> CustomObjectSpawn:
     var newResource : CustomObjectSpawn = CustomObjectSpawn.new()

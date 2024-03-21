@@ -10,7 +10,7 @@ class_name NPCSprite extends Node2D
 var skin = []
 
 # Called when the node enters the scene tree for the first time.
-func random_skin(a = _random_color(), b = _random_color(), c = _random_color(), d = _random_color(), e = _random_color()):
+func set_skin(a = _random_color(), b = _random_color(), c = _random_color(), d = _random_color(), e = _random_color()):
 	skin_node.set_modulate(a)
 	eyes_node.set_modulate(b)
 	hair_node.set_modulate(c)
@@ -20,11 +20,12 @@ func random_skin(a = _random_color(), b = _random_color(), c = _random_color(), 
 
 	skin = [a, b, c, d, e]
 
+
 func _ready():
 	var random := RandomNumberGenerator.new()
 	hair_node.frame = random.randi_range(0, 6)
 	hair_node.flip_h = random.randi_range(0, 1) == 0
-	random_skin()
+	set_skin()
 	eyes_node.stop()
 	$Timer.set_wait_time(random.randf_range(0, 2))
 	$Timer.start()

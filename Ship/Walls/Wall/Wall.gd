@@ -48,6 +48,8 @@ func damage(dmg: float):
 func destroy():
 	var _debris_object := debris_scene.instantiate()
 
+	ship.destroyed_walls.append(tilemap_coords)
+
 	_debris_object.init(ship, tilemap_coords)
 	_debris_object.position = position
 

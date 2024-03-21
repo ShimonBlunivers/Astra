@@ -1,7 +1,8 @@
 class_name QuestSaveFile extends Resource
 
-@export var npc_ID : int
 @export var id : int
+@export var npc_ID : int
+@export var target_ID : int
 @export var status : int
 
 static func save():
@@ -12,6 +13,7 @@ static func save():
 
         file.id = quest.id
         file.npc_ID = quest.npc.id
+        file.target_ID = quest.goal.target_ID
         file.status = quest.goal.status
 
         files.append(file)
@@ -19,9 +21,9 @@ static func save():
     return files
 
 func load():
-    var quest : Quest= load("res://Quests/Missions/" + str(id) + ".tres")
-    quest.init(NPC.get_npc(npc_ID))
-    print(NPC.get_npc(npc_ID).nickname)
-    quest.goal.status = status
+    var quest : Quest = load("res://Quests/Missions/" + str(id) + ".tres")
+    quest.init(NPC.get_npc(npc_ID), target_ID)
+
+    quest.force_status(status)
 
 

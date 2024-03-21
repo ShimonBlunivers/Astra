@@ -5,8 +5,9 @@ class_name Item extends Node2D
 @onready var collision_shape = $Area2D/CollisionShape2D
 @onready var itemtag = $Itemtag
 
-
 var ship : Ship = null
+
+var ship_slot_id : int
 
 var can_pickup = false
 
@@ -16,6 +17,8 @@ var type : ItemType
 
 static var items = []
 
+static var item_id_history = []
+
 static var item_scene = preload("res://Items/Item.tscn")
 
 static var types = {}
@@ -23,7 +26,7 @@ static var types = {}
 static func get_uid() -> int:
 	var _id = 0
 	while true:
-		if Item.get_item(_id) == null:
+		if Item.get_item(_id) == null && !(_id in item_id_history):
 			return _id
 		_id += 1
 	return 0
@@ -35,7 +38,7 @@ static func get_item(_id : int) -> Item:
 static func random_item() -> ItemType: # IMPLEMENT
 	return types["Chip"]
 
-static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _ship = null) -> Item:
+static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _ship = null, _ship_slot_id : int = -1) -> Item:
 	var new_item = item_scene.instantiate()
 	new_item.type = _type
 
@@ -47,12 +50,15 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 		closest_ship.items.add_child(new_item)
 		new_item.ship = closest_ship
 
+	new_item.ship_slot_id = _ship_slot_id
+	new_item.ship.used_item_slots += 1
 
 	new_item.global_position = global_coords
 
 	if _id != -1 && Item.get_item(_id) == null:
 		new_item.id = _id
 	else:
+		print(_id)
 		_id = 0
 		while true:
 			if Item.get_item(_id) == null:
@@ -61,6 +67,7 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 			_id += 1
 
 	items.append(new_item)
+	item_id_history.append(new_item.id)
 	return new_item
 
 func _ready() -> void:
@@ -94,5 +101,7 @@ func pick_up():
 	delete()
 
 func delete():
+	ship.used_item_slots -= 1
 	items.erase(self)
+	ship.pickedup_items.append(id)
 	queue_free()

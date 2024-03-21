@@ -7,7 +7,7 @@ const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 var ship : Ship = null
 
 
-func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) -> bool:
+func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _from_save := false) -> bool:
 	ship = _ship
 	
 	clear()
@@ -31,14 +31,16 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) ->
 	
 	# ship.original_object_tile_map = self
 
-	return _replace_interactive_tiles(custom_object_spawn)
+	return _replace_interactive_tiles(custom_object_spawn, _from_save)
 	
 
-func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool:
+func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_save : bool) -> bool:
 	var layer := 0
 
 	var npc_index = 0
 	var item_index = 0
+
+	var item_slot = 0
 
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
@@ -56,15 +58,14 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool
 				set_cell(layer, cellpos, -1)
 
 			"NPC":
-
 				var NPC_object = NPC_scene.instantiate()
 				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
 				
 				if custom_object_spawn != null && custom_object_spawn.npc_preset != null && npc_index < custom_object_spawn.npc_preset.size():
-					NPC_object.init(custom_object_spawn.npc_preset[npc_index][0], custom_object_spawn.npc_preset[npc_index][1])
+					NPC_object.init(custom_object_spawn.npc_preset[npc_index][0], custom_object_spawn.npc_preset[npc_index][1], custom_object_spawn.npc_preset[npc_index][2], custom_object_spawn.npc_preset[npc_index][3], custom_object_spawn.npc_preset[npc_index][4])
 					npc_index += 1
-				else:
+				elif !_from_save:
 					NPC_object.init()
 
 				NPC_object.ship = ship
@@ -80,11 +81,14 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool
 				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
 				
 				if custom_object_spawn != null && custom_object_spawn.item_preset != null && item_index < custom_object_spawn.item_preset.size():
-					Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship)
-					item_index += 1
-				else:
-					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship)
+					for i in custom_object_spawn.item_preset.size():
+						if custom_object_spawn.item_preset[i][2] == item_slot:
+							Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
+							item_index += 1
+				elif !_from_save:
+					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship, item_slot)
 
+				item_slot += 1
 				set_cell(layer, cellpos, -1)
 
 	return true
