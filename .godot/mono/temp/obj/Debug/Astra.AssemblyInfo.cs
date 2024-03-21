@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Astra")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0abc7cd176756b6c2e0ad475641029d3a91a92d6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Astra")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Astra")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

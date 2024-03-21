@@ -3,20 +3,15 @@ class_name ShipManager extends Node2D
 
 static var ship_scene = preload("res://Ship/Ship.tscn")
 
-@onready var main_station := $"Station-0"
-
 static var instance : ShipManager
 static var number_of_ships = 0
 
 func _ready() -> void:
 	instance = self
-	_load()
+	ShipManager.spawn_ship(Vector2(0, 0))
 	ShipManager.spawn_ship(Vector2(0, -2600), "small_shuttle")
 	ShipManager.spawn_ship(Vector2(0, -4000), "small_shuttle")
-
-func _load() -> void:
-	print(main_station)
-	main_station.load_ship(Vector2.ZERO, "station", null, true)
+	ShipManager.spawn_ship(Vector2(2000, -2500), "small_shuttle")
 
 static func spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> Ship:
 	var _ship = ship_scene.instantiate()

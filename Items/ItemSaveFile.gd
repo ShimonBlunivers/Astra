@@ -7,7 +7,7 @@ class_name ItemSaveFile extends Resource
 static func save():
     var files = []
 
-    for item in Item.existing_items:
+    for item in Item.items:
         var file = ItemSaveFile.new()
 
         file.id = item.id

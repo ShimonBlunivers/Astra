@@ -17,6 +17,8 @@ class_name Ship extends RigidBody2D
 # var original_wall_tile_map : TileMap
 # var original_object_tile_map : TileMap
 
+static var ships = []
+
 var id : int
 
 var polygon
@@ -72,7 +74,7 @@ var difference_in_position := Vector2.ZERO
 # 	draw_circle(center_of_mass, 25, Color.RED)
 
 func _ready() -> void:
-	ObjectList.SHIPS.append(self)
+	Ship.ships.append(self)
 
 func load_ship(_position : Vector2, _path : String, custom_object_spawn : CustomObjectSpawn, _lock_rotation : bool = false) -> void:
 	global_position = _position
@@ -92,6 +94,9 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	if !_lock_rotation:
 		var rng = RandomNumberGenerator.new()
 		rotation = rng.randf_range(0, 2 * PI)
+
+	name = path + "-" + str(id)
+
 
 func get_tile(coords : Vector2i):
 	for tile in wall_tiles.get_children():
@@ -212,5 +217,6 @@ func _on_area_area_exited(_area:Area2D) -> void:
 func delete():
 	if self == Player.main_player.parent_ship:
 		Player.main_player.reparent(World.instance)
-	ObjectList.SHIPS.erase(self)
+
+	Ship.ships.erase(self)
 	queue_free()

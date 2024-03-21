@@ -86,6 +86,7 @@ func get_off(ship):
 	passenger_on.erase(ship)
 
 func change_ship(ship):		
+	if ship == null: return
 	parent_ship = ship
 	# parent_ship.hitbox.position = (parent_ship.difference_in_position).rotated(parent_ship.global_rotation)
 	call_deferred("reparent", ship.passengers_node)
@@ -93,9 +94,9 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		# World.save_file.save_world()
+		World.save_file.save_world()
 		# add_currency(150)
-		parent_ship.delete()
+		# parent_ship.delete()
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
@@ -126,7 +127,6 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO):
 	health = max_health
 	change_ship(ObjectList.get_closest_ship(global_position))
 	global_position = pos + World.instance._center_of_universe
-	print(global_position)
 	_old_position = World.instance.get_distance_from_center(global_position - _acceleration)
 	
 
@@ -308,10 +308,8 @@ func change_view(view: int) -> void:
 			tween.parallel().tween_property(camera, "offset", camera_difference, duration).set_ease(Tween.EASE_OUT)
 			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)
 
-
 func _on_pickup_area_entered(area:Area2D) -> void:
 	area.get_parent().can_pickup = true
-
 
 func _on_pickup_area_exited(area:Area2D) -> void:
 	area.get_parent().can_pickup = false

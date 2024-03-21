@@ -38,9 +38,9 @@ func load_world():
 	
 	
 func _load(): # deferred
-	for ship in ObjectList.SHIPS:
-		print("deleted ", ship.name)
-		ship.delete()
+
+	while Ship.ships.size() != 0: Ship.ships[0].delete()
+	
 	for npc in NPC.npcs: npc.delete()
 	for quest in QuestManager.quests: quest.delete()
 

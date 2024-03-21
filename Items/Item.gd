@@ -14,7 +14,7 @@ var id : int
 
 var type : ItemType
 
-static var existing_items = []
+static var items = []
 
 static var item_scene = preload("res://Items/Item.tscn")
 
@@ -29,7 +29,7 @@ static func get_uid() -> int:
 	return 0
 
 static func get_item(_id : int) -> Item:
-	for item in existing_items: if item.id == _id: return item
+	for item in items: if item.id == _id: return item
 	return null
 
 static func random_item() -> ItemType: # IMPLEMENT
@@ -60,7 +60,7 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 				break
 			_id += 1
 
-	existing_items.append(new_item)
+	items.append(new_item)
 	return new_item
 
 func _ready() -> void:
@@ -94,5 +94,5 @@ func pick_up():
 	delete()
 
 func delete():
-	existing_items.erase(self)
+	items.erase(self)
 	queue_free()
