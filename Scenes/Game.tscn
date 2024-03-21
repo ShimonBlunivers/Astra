@@ -159,16 +159,6 @@ scale = Vector2(1.025, 1.025)
 texture = ExtResource("7_kad54")
 centered = false
 
-[node name="DeathScreen" type="Node2D" parent="UI/HUD"]
-visible = false
-modulate = Color(1, 0, 0, 0.431373)
-
-[node name="Sprite2D" type="Sprite2D" parent="UI/HUD/DeathScreen"]
-z_index = 11
-scale = Vector2(5, 720)
-texture = SubResource("GradientTexture1D_gft63")
-centered = false
-
 [node name="Inventory" type="Node2D" parent="UI/HUD"]
 position = Vector2(-500, 0)
 
@@ -278,6 +268,92 @@ theme_override_font_sizes/font_size = 14
 text = "aasdfasd"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DeathScreen" type="Node2D" parent="UI/HUD"]
+visible = false
+modulate = Color(1, 0, 0, 0.431373)
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/HUD/DeathScreen"]
+z_index = 11
+scale = Vector2(5, 720)
+texture = SubResource("GradientTexture1D_gft63")
+centered = false
+
+[node name="LoadingScreen" type="Node2D" parent="UI/HUD"]
+visible = false
+
+[node name="Background" type="Node2D" parent="UI/HUD/LoadingScreen"]
+position = Vector2(640, 360)
+
+[node name="Rect2" type="TextureRect" parent="UI/HUD/LoadingScreen/Background"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1024.0
+offset_top = -1024.0
+offset_right = 1024.0
+offset_bottom = 1024.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_7oqwe")
+
+[node name="Rect1" type="TextureRect" parent="UI/HUD/LoadingScreen/Background"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1024.0
+offset_top = -1024.0
+offset_right = 1024.0
+offset_bottom = 1024.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_mgng7")
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/HUD/LoadingScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 525.5
+offset_top = 361.255
+offset_right = 754.5
+offset_bottom = 389.255
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_xryl1")
+max_value = 1.0
+
+[node name="Label" type="Label" parent="UI/HUD/LoadingScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 525.5
+offset_top = 326.425
+offset_right = 754.5
+offset_bottom = 357.425
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_xryl1")
+theme_override_font_sizes/font_size = 20
+text = "Načítání"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UI/HUD/LoadingScreen"]
+one_shot = true
 
 [node name="GUI" type="CanvasGroup" parent="UI"]
 editor_description = "Interactive"

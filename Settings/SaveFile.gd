@@ -38,7 +38,7 @@ func load_world():
 	
 	
 func _load(): # deferred
-
+	UIManager.instance.loading_screen()
 	while Ship.ships.size() != 0: Ship.ships[0].delete()
 	while NPC.npcs.size() != 0: NPC.npcs[0].delete()
 	while Item.items.size() != 0: Item.items[0].delete()

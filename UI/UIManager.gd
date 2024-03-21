@@ -10,10 +10,17 @@ class_name UIManager extends CanvasLayer
 
 @onready var inventory = $HUD/Inventory
 
+@onready var loading_screen_node = $HUD/LoadingScreen
+@onready var loading_screen_timer : Timer = $HUD/LoadingScreen/Timer
+@onready var loading_screen_bar : ProgressBar = $HUD/LoadingScreen/ProgressBar
+@onready var loading_screen_background : Node2D = $HUD/LoadingScreen/Background
+
 static var quest_label
 static var add_currency_label
 static var remove_currency_label
 static var currency_node
+
+static var instance
 
 var inventory_open = false
 var inventory_positions = Vector2(0, -500) # open, closed
@@ -46,6 +53,7 @@ static func currency_change_effect(amount : int):
 
 	
 func _ready():
+	instance = self
 	health_label.text = str(Player.main_player.health)
 	currency_label.text = str(Player.main_player.currency)
 	quest_label = _quest_label
@@ -59,6 +67,20 @@ func _on_player_health_updated_signal() -> void:
 
 func _on_player_currency_updated_signal() -> void:
 	currency_label.text = str(Player.main_player.currency)
+
+
+func loading_screen(time : float = 1.4):
+	loading_screen_node.visible = true
+	loading_screen_node.modulate = Color.WHITE
+	loading_screen_timer.start(time)
+	await loading_screen_timer.timeout
+	var tween = create_tween()
+	tween.tween_property(loading_screen_node, "modulate", Color(1, 1, 1, 0), time / 2)
+
+	tween.connect("finished", _clear_loading_screen)
+
+func _clear_loading_screen():
+	loading_screen_node.visible = false
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("game_toggle_inventory"):
@@ -83,3 +105,13 @@ func _process(_delta):
 	floating.visible = Player.main_player.floating()
 	player_position.text = "X: " + str(round(Player.main_player.global_position.x)) + ", Y: " + str(round(Player.main_player.global_position.y))
 
+
+	if loading_screen_timer.time_left > 0:
+		var ratio = (loading_screen_timer.wait_time - loading_screen_timer.time_left) / loading_screen_timer.wait_time
+		loading_screen_bar.value = ratio
+
+		var _scale = 0.7 + ratio * 13
+		loading_screen_background.scale = Vector2(_scale, _scale)
+		loading_screen_background.rotation = ratio
+
+		
