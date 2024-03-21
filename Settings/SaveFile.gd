@@ -40,16 +40,18 @@ func load_world():
 func _load(): # deferred
 
 	while Ship.ships.size() != 0: Ship.ships[0].delete()
-	
-	for npc in NPC.npcs: npc.delete()
-	for quest in QuestManager.quests: quest.delete()
-
+	while NPC.npcs.size() != 0: NPC.npcs[0].delete()
+	while Item.items.size() != 0: Item.items[0].delete()
+	while QuestManager.quests.size() != 0: QuestManager.quests[0].delete()
+	QuestManager.active_quest = -1
 	# var tree := World.instance.get_tree().get_root()
 	# World.instance.free()
 	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
 
 	player_save_file.load() #
-	for ship in ship_save_files: ship.load() 
-	for npc in NPC_save_files: npc.load() 
-	for item in item_save_files: item.load() 
+	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 
+	# for npc in NPC_save_files: npc.load() 
+	# for item in item_save_files: item.load() 
 	for quest in quest_save_files: quest.load() 
+
+

@@ -6,6 +6,8 @@ class_name PlayerSaveFile extends Resource
 @export var suit : bool
 @export var health : int
 
+@export var active_quest : int
+
 static func save() -> PlayerSaveFile:
     var file = PlayerSaveFile.new()
 
@@ -16,8 +18,9 @@ static func save() -> PlayerSaveFile:
     file.currency = Player.main_player.currency
     file.suit = Player.main_player.suit
 
-    return file
+    file.active_quest = QuestManager.active_quest
 
+    return file
 
 func load():
     var player = Player.main_player
@@ -27,4 +30,6 @@ func load():
     player.suit = suit
     player.currency = currency
     player.currency_updated_signal.emit()
+
+    QuestManager.active_quest = active_quest
 

@@ -7,8 +7,6 @@ var difference = Vector2.ZERO
 
 var ship
 
-static var number_of_npcs = 0
-
 static var names = [
 	"Kevin",
 	"Lukáš",
@@ -100,7 +98,7 @@ func init(_id : int = -1, _nickname : String = names.pick_random()):
 	load("res://Items/Chip/Chip.tres")
 	nickname = _nickname
 	$Nametag.text = nickname
-	name = "NPC_" + nickname + "_" + str(number_of_npcs)
+	name = "NPC_" + nickname + "_" + str(npcs.size())
 
 	if _id != -1 && NPC.get_npc(_id) == null:
 		id = _id
@@ -112,11 +110,9 @@ func init(_id : int = -1, _nickname : String = names.pick_random()):
 				break
 			_id += 1
 
-	number_of_npcs += 1
 	npcs.append(self)
 	# print(nickname, " SPAWNED on: " , position)
 
-	
 
 func _ready() -> void:
 	legs_offset = legs.position

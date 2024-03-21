@@ -16,12 +16,13 @@ func init(_npc : NPC):
     number_of_quests += 1
     npc = _npc
     QuestManager.quests.append(self)
-    QuestManager.update_quest_log()
 
     goal.create(id)
 
     npc.blocked_missions.append(id)
     QuestManager.active_quest = id
+    QuestManager.update_quest_log()
+
 
 
 func finish():
@@ -29,5 +30,6 @@ func finish():
     QuestManager.quests.erase(self)
 
 func delete():
+    number_of_quests -= 1
     QuestManager.quests.erase(self)
     QuestManager.update_quest_log()

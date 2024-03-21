@@ -3,6 +3,8 @@ class_name ItemSaveFile extends Resource
 @export var position : Vector2
 @export var id : int
 @export var type : ItemType
+@export var ship_id : int
+
 
 static func save():
     var files = []
@@ -13,6 +15,7 @@ static func save():
         file.id = item.id
         file.position = item.global_position
         file.type = item.type
+        file.ship_id = item.ship.id
 
         files.append(file)
 

@@ -8,7 +8,7 @@ var active_quest_objects = {
 	Goal.Type.go_to_place : [],
 }
 
-var active_quest = 0
+var active_quest = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

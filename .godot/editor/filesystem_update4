@@ -17,3 +17,16 @@ res://Editor/Inventory/Slot.tscn
 res://Scenes/Menu.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
 res://Character/Player/PlayerSaveFile.gd
+res://Editor/EditorCamera.cs
+res://Character/NPC/NPCSaveFile.gd
+res://Ship/ShipSaveFile.gd
+res://Quests/QuestManager.gd
+res://Quests/Quest.gd
+res://Quests/QuestSaveFile.gd
+res://Conversation/DialogManager.gd
+res://Items/ItemSaveFile.gd
+res://Items/ItemType.gd
+res://Quests/CustomObjectSpawn.gd
+res://Quests/Goal.gd
+res://Ship/ObjectTileMap.gd
+res://Items/Item.gd

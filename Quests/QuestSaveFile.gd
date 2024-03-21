@@ -19,5 +19,9 @@ static func save():
     return files
 
 func load():
-    pass
+    var quest : Quest= load("res://Quests/Missions/" + str(id) + ".tres")
+    quest.init(NPC.get_npc(npc_ID))
+    print(NPC.get_npc(npc_ID).nickname)
+    quest.goal.status = status
+
 

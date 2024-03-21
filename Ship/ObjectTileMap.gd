@@ -36,6 +36,10 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn) ->
 
 func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool:
 	var layer := 0
+
+	var npc_index = 0
+	var item_index = 0
+
 	for cellpos in get_used_cells(layer):
 		var cell = get_cell_tile_data(layer, cellpos)
 
@@ -57,8 +61,9 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool
 				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
 				
-				if custom_object_spawn != null && custom_object_spawn.npc_preset != null:
-					NPC_object.init(custom_object_spawn.npc_preset[0], custom_object_spawn.npc_preset[1])
+				if custom_object_spawn != null && custom_object_spawn.npc_preset != null && npc_index < custom_object_spawn.npc_preset.size():
+					NPC_object.init(custom_object_spawn.npc_preset[npc_index][0], custom_object_spawn.npc_preset[npc_index][1])
+					npc_index += 1
 				else:
 					NPC_object.init()
 
@@ -74,8 +79,9 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn) -> bool
 				var scaling = 4 * Limits.TILE_SCALE
 				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
 				
-				if custom_object_spawn != null && custom_object_spawn.item_preset != null:
-					Item.spawn(custom_object_spawn.item_preset[1], to_global(tile_position) + offset, custom_object_spawn.item_preset[0], ship)
+				if custom_object_spawn != null && custom_object_spawn.item_preset != null && item_index < custom_object_spawn.item_preset.size():
+					Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship)
+					item_index += 1
 				else:
 					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship)
 
