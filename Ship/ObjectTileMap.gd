@@ -1,6 +1,7 @@
 extends TileMap
 
 
+const builder_scene = preload("res://Ship/Objects/Builder/Builder.tscn")
 const helm_scene = preload("res://Ship/Objects/Helm/Helm.tscn")
 const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 
@@ -57,6 +58,14 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 
 				set_cell(layer, cellpos, -1)
 
+			"builder":
+				var builder_object = builder_scene.instantiate()
+				builder_object.init(ship, cellpos)
+				builder_object.position = tile_position
+
+				ship.object_tiles.add_child(builder_object)
+
+				set_cell(layer, cellpos, -1)
 			"NPC":
 				var NPC_object = NPC_scene.instantiate()
 				NPC_object.spawn_point = tile_position

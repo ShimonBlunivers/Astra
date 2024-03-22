@@ -10,6 +10,8 @@ texture = ExtResource("1_txbxa")
 2:1/0/custom_data_0 = "NPC"
 3:1/0 = 0
 3:1/0/custom_data_0 = "item"
+3:0/0 = 0
+3:0/0/custom_data_0 = "builder"
 
 [resource]
 custom_data_layer_0/name = "type"

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dai6awjw4ywn7"]
+[gd_scene load_steps=8 format=3 uid="uid://dai6awjw4ywn7"]
 
 [ext_resource type="TileSet" uid="uid://bfuqtumyjeq0m" path="res://Ship/WallTileMap.tres" id="1_6t3py"]
 [ext_resource type="Script" path="res://Ship/Ship.gd" id="1_set35"]
 [ext_resource type="Texture2D" uid="uid://ds2tawebq6o8l" path="res://Effects/DebugTexture.png" id="2_akbyg"]
 [ext_resource type="TileSet" uid="uid://c5j4fanlmf5kc" path="res://Ship/ObjectTileMap.tres" id="2_qq4gy"]
 [ext_resource type="Script" path="res://Ship/WallTileMap.gd" id="3_cl687"]
+[ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="5_0qt56"]
 [ext_resource type="Script" path="res://Ship/ObjectTileMap.gd" id="5_rjigq"]
 
 [node name="Ship" type="RigidBody2D"]
@@ -52,6 +53,8 @@ script = ExtResource("5_rjigq")
 [node name="WallTiles" type="Node2D" parent="."]
 
 [node name="ObjectTiles" type="Node2D" parent="."]
+y_sort_enabled = true
+material = ExtResource("5_0qt56")
 
 [node name="Items" type="Node2D" parent="."]
 y_sort_enabled = true

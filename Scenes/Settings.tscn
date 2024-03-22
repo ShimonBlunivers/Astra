@@ -62,6 +62,7 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_4pudd")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_top = 70.0
 offset_right = 1280.0
 offset_bottom = 790.0

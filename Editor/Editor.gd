@@ -29,9 +29,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		var duration = 0.5
 		if inventory_open: tween.tween_property(inventory, "position", Vector2(inventory_positions.x, 0), duration).set_ease(Tween.EASE_OUT)
 		else: tween.tween_property(inventory, "position", Vector2(inventory_positions.y, 0), duration).set_ease(Tween.EASE_IN)
+	
+	if event.is_action_pressed("game_toggle_menu"):
+		_exit()
 
 
-		
+func _exit():
+	self.queue_free()
+	Player.main_player.camera.make_current()
+	get_tree().paused = false
+	
+	World.instance.canvas_modulate.visible = true
+
+
 func _ready():
 	Editor.instance = self
 	DirAccess.make_dir_absolute("user://saves/")
@@ -41,6 +51,8 @@ func _ready():
 
 	ship_editor.inventory = inventory
 	inventory.load_grid()
+	
+	camera.make_current()
 
 func _on_save_pressed() -> void:
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 

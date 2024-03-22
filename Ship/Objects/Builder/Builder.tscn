@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsmgi5uubxp1u"]
+[gd_scene load_steps=7 format=3 uid="uid://bsmgi5uubxp1u"]
 
 [ext_resource type="Texture2D" uid="uid://l2irgva513of" path="res://Ship/object_tilesheet.png" id="1_chrf0"]
 [ext_resource type="Script" path="res://Ship/Objects/Builder/Builder.gd" id="1_vtmal"]
@@ -19,12 +19,19 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhlxu"]
-size = Vector2(50, 50)
+size = Vector2(86, 86)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ne1n5"]
+size = Vector2(80, 80)
 
 [node name="Builder" type="Node2D"]
+y_sort_enabled = true
+use_parent_material = true
 script = ExtResource("1_vtmal")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_he15l")
 
 [node name="InteractArea" type="Area2D" parent="."]
@@ -33,3 +40,9 @@ collision_mask = 16
 
 [node name="AreaHitbox" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("RectangleShape2D_xhlxu")
+
+[node name="Hitbox" type="AnimatableBody2D" parent="."]
+sync_to_physics = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_ne1n5")

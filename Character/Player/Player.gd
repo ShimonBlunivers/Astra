@@ -130,8 +130,6 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 	global_position = pos - World.instance._center_of_universe
 	_old_position = World.instance.get_distance_from_center(global_position - _acceleration)
 
-	
-
 	health_updated_signal.emit()
 
 func _ready():
@@ -144,8 +142,8 @@ func _ready():
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
 	animated_sprite.play("Idle")
 	
-	# World.save_file.load_world()
-	ShipManager.new_game()
+	World.save_file.load_world()
+	# ShipManager.new_game()
 
 func kill():
 	if !alive: return

@@ -10,6 +10,8 @@
 [ext_resource type="TileSet" uid="uid://c5j4fanlmf5kc" path="res://Ship/ObjectTileMap.tres" id="5_lwkoj"]
 
 [node name="Editor" type="Node2D"]
+process_mode = 3
+z_index = 20
 script = ExtResource("1_a75tt")
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -196,9 +198,6 @@ theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Ship list:"
 horizontal_alignment = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("3_2uq8m")
-
 [node name="Ship" type="Node2D" parent="."]
 script = ExtResource("3_glsei")
 
@@ -211,7 +210,26 @@ layer_0/tile_data = PackedInt32Array(196608, 196608, 196609, 131073, 0, 0, 19660
 z_index = 10
 tile_set = ExtResource("5_lwkoj")
 format = 2
-layer_0/tile_data = PackedInt32Array(327682, 131072, 1, 327683, 196608, 1, 262146, 131072, 0)
+layer_0/tile_data = PackedInt32Array(327682, 131072, 1, 262146, 131072, 0, 262147, 196608, 0, 327683, 196608, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_2uq8m")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6400.0
+offset_top = -3600.0
+offset_right = 6400.0
+offset_bottom = 3600.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.564706, 0.564706, 0.564706, 1)
 
 [connection signal="pressed" from="HUD/Savemenu" to="." method="_on_open_savemenu_pressed"]
 [connection signal="pressed" from="HUD/Autofloor" to="." method="_on_autofloor_pressed"]

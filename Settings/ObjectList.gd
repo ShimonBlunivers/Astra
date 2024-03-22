@@ -1,5 +1,6 @@
 extends Node
 
+static var world
 
 func get_closest_ship(from_global_pos : Vector2) -> Ship:
 	var ships = Ship.ships
@@ -13,6 +14,7 @@ func get_closest_ship(from_global_pos : Vector2) -> Ship:
 func _ready() -> void:
 	load("res://Items/Chip/Chip.tres").create()
 	load("res://Items/Coin/Coin.tres").create()
+	world = World.instance
 
 func get_saveable_items():
 	var list = []
