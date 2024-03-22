@@ -136,7 +136,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.apply_central_impulse(acceleration)
 	state.apply_torque_impulse(rotation_speed)
 
-
 	# if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 	# 	var new_speed = get_linear_velocity().normalized()
 	# 	new_speed *= Limits.VELOCITY_MAX
@@ -159,7 +158,7 @@ func control():
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right")
 
-	var _rotation_power = 8000 * mass
+	var _rotation_power = 12000 * mass
 
 	if !controlled_by.alive: direction = Vector2.ZERO
 
@@ -225,7 +224,6 @@ func _on_area_area_entered(_area:Area2D) -> void:
 	# if body.is_in_group("Player"):
 		# if body.max_impact_velocity < (body.acceleration - _difference_in_position).length(): body.kill()   TODO: OPRAVIT
 
-
 func _on_area_area_exited(_area:Area2D) -> void:
 	if _area.is_in_group("PlayerInteractArea"):
 		var body = _area.get_parent()
@@ -233,8 +231,6 @@ func _on_area_area_exited(_area:Area2D) -> void:
 		if !(body in passengers): 			return
 		passengers.erase(body)
 		body.get_off(self)
-
-
 
 func delete():
 	if self == Player.main_player.parent_ship:

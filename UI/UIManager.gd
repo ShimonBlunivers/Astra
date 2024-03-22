@@ -69,9 +69,14 @@ func _on_player_currency_updated_signal() -> void:
 	currency_label.text = str(Player.main_player.currency)
 
 
-func loading_screen(time : float = 1.5):
+var _vfx_muted = false
 
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+func loading_screen(time : float = 1.5):
+	if AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
+		_vfx_muted = true
+	else:
+		_vfx_muted = false
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
 	loading_screen_node.visible = true
 	loading_screen_node.modulate = Color.WHITE
 	loading_screen_timer.start(time)
@@ -84,7 +89,7 @@ func loading_screen(time : float = 1.5):
 
 func _clear_loading_screen():
 	loading_screen_node.visible = false
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+	if !_vfx_muted: AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("game_toggle_inventory"):

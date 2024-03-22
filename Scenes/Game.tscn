@@ -301,7 +301,6 @@ texture = SubResource("GradientTexture1D_gft63")
 centered = false
 
 [node name="LoadingScreen" type="Node2D" parent="UI/HUD"]
-visible = false
 
 [node name="Background" type="Node2D" parent="UI/HUD/LoadingScreen"]
 position = Vector2(640, 360)
@@ -352,7 +351,6 @@ theme = SubResource("Theme_aneky")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_xryl1")
 max_value = 1.0
-value = 0.5
 
 [node name="Label" type="Label" parent="UI/HUD/LoadingScreen"]
 anchors_preset = 8

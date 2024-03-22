@@ -1,8 +1,10 @@
+AnimatedSprite2D
+Label
+HSlider
 TextureRect
 Node2D
 Node
 CanvasGroup
-Label
 ProgressBar
 Timer
 ColorRect
@@ -11,4 +13,3 @@ CheckButton
 Control
 Panel
 GridContainer
-GPUParticles2D

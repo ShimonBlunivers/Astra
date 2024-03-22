@@ -1,6 +1,7 @@
 class_name SaveFile extends Resource
 
 const SAVE_GAME_PATH := "user://saves/worlds/"
+const FIRST_SAVE_GAME_PATH := "res://DefaultSave/"
 
 @export var player_save_file : PlayerSaveFile
 @export var NPC_save_files = []
@@ -8,16 +9,13 @@ const SAVE_GAME_PATH := "user://saves/worlds/"
 @export var quest_save_files = []
 @export var ship_save_files = []
 
-var save_name : String = "default"
+var save_name : String = "last_save"
 
-func _init():
-	save_name = "test"
-	
-func get_save_path() -> String:
+func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
 	var extension := ".tres" if OS.is_debug_build() else ".res"
-	return SAVE_GAME_PATH + save_name + "/save_file" + extension
+	return path + "/save_file" + extension
 
-func save_world():
+func save_world(dev := false):
 
 	player_save_file = PlayerSaveFile.save() #
 	ship_save_files = ShipSaveFile.save() #
@@ -25,15 +23,23 @@ func save_world():
 	item_save_files = ItemSaveFile.save() #
 	quest_save_files = QuestSaveFile.save() #
 	
-	DirAccess.make_dir_absolute("user://saves/")
-	DirAccess.make_dir_absolute("user://saves/worlds/")
-	DirAccess.make_dir_absolute("user://saves/worlds/" + save_name + "/")
 
-	print("SAVED")
-	return ResourceSaver.save(self, get_save_path())
+	if !dev:
+		DirAccess.make_dir_absolute("user://saves/")
+		DirAccess.make_dir_absolute("user://saves/worlds/")
+		DirAccess.make_dir_absolute("user://saves/worlds/" + save_name + "/")
+		return ResourceSaver.save(self, get_save_path())
+	
+	else:
+		return ResourceSaver.save(self, get_save_path(FIRST_SAVE_GAME_PATH))
+
 
 func load_world():
-	World.save_file = ResourceLoader.load(get_save_path())
+	if FileAccess.file_exists(get_save_path()):
+		World.save_file = ResourceLoader.load(get_save_path())
+	else:
+		World.save_file = ResourceLoader.load(get_save_path(FIRST_SAVE_GAME_PATH))
+
 	World.save_file.call_deferred("_load")
 	
 	

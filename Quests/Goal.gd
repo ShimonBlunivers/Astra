@@ -40,7 +40,7 @@ func get_position() -> Vector2:
 
 func spawn_quest_ship():
 
-	var distances = Vector2(1000, 2500)
+	var distances = Vector2(10000, 50000)
 
 	var rng = RandomNumberGenerator.new()
 
@@ -59,7 +59,7 @@ func spawn_quest_ship():
 			_custom_object_spawn = CustomObjectSpawn.create(null, [[target_ID, NPC.names.pick_random(), null, null, null]])
 		Type.pick_up_item:
 			target_ID = Item.get_uid()
-			_custom_object_spawn = CustomObjectSpawn.create([[target_ID, Item.types["Chip"]]], null)
+			_custom_object_spawn = CustomObjectSpawn.create([[target_ID, Item.types["Chip"], null]])
 
 	var new_ship = ShipManager.spawn_ship(new_ship_pos, ShipManager.get_quest_ship_path(mission_id), _custom_object_spawn)
 

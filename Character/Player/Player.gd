@@ -94,7 +94,7 @@ func change_ship(ship):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
-		World.save_file.save_world()
+		World.save_file.save_world(true)
 		# add_currency(150)
 		# parent_ship.delete()
 
@@ -143,7 +143,9 @@ func _ready():
 	nickname = "Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
 	animated_sprite.play("Idle")
-	spawn()
+	
+	# World.save_file.load_world()
+	ShipManager.new_game()
 
 func kill():
 	if !alive: return

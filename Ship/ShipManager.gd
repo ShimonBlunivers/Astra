@@ -9,7 +9,7 @@ static var number_of_ships = 0
 func _ready() -> void:
 	instance = self
 
-func new_game():
+static func new_game():
 	ShipManager.spawn_ship(Vector2(0, 0))
 	ShipManager.spawn_ship(Vector2(0, -2600), "small_shuttle")
 	ShipManager.spawn_ship(Vector2(0, -4000), "small_shuttle")
