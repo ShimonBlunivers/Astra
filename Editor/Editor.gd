@@ -53,8 +53,6 @@ func _ready():
 	ship_editor.inventory = inventory
 	inventory.load_grid()
 
-	ship_editor.inventory.currency = Player.main_player.currency
-	
 	camera.make_current()
 
 func _on_save_pressed() -> void:

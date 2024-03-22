@@ -30,6 +30,9 @@ func _ready():
     remove_currency_label = $Currency/RemoveCurrencyLabel  
     currency_timer = $Currency/Timer  
     currency_value.text = str(currency)
+    
+    currency = Player.main_player.currency
+    currency_value.text = str(currency)
 
 func load_grid():
     for key in ShipEditor.tools.keys():
