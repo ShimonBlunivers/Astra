@@ -30,7 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if inventory_open: tween.tween_property(inventory, "position", Vector2(inventory_positions.x, 0), duration).set_ease(Tween.EASE_OUT)
 		else: tween.tween_property(inventory, "position", Vector2(inventory_positions.y, 0), duration).set_ease(Tween.EASE_IN)
 	
-	if event.is_action_pressed("game_toggle_menu"):
+	if event.is_action_pressed("debug_die"):
 		_exit()
 
 
@@ -39,7 +39,8 @@ func _exit():
 	Player.main_player.camera.make_current()
 	get_tree().paused = false
 	
-	World.instance.canvas_modulate.visible = true
+	World.instance.visible = true
+	World.instance.ui_node.visible = true
 
 
 func _ready():
@@ -51,6 +52,8 @@ func _ready():
 
 	ship_editor.inventory = inventory
 	inventory.load_grid()
+
+	ship_editor.inventory.currency = Player.main_player.currency
 	
 	camera.make_current()
 

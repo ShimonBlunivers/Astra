@@ -7,6 +7,7 @@ var _center_of_universe = Vector2.ZERO
 static var save_file : SaveFile
 
 @onready var canvas_modulate = $CanvasModulate
+@onready var ui_node = $UI
 
 const editor_scene = preload("res://Scenes/Editor.tscn")
 
@@ -29,7 +30,8 @@ func _draw():
 	draw_circle(-_center_of_universe , 25 , Color.LIGHT_BLUE)
 
 func open_editor():
-	canvas_modulate.visible = false
+	visible = false
+	ui_node.visible = false
 
 	var root = get_tree().root
 
@@ -37,7 +39,6 @@ func open_editor():
 	get_tree().paused = true
 
 	var editor_object = editor_scene.instantiate()
-	
 	root.add_child(editor_object)
 
 func _unhandled_input(event: InputEvent):
