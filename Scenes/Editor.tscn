@@ -40,26 +40,6 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(1180, 620)
 scale = Vector2(3, 3)
 
-[node name="ConsoleLog" type="RichTextLabel" parent="HUD"]
-anchors_preset = -1
-anchor_left = 1.0003
-anchor_top = 0.0791667
-anchor_right = 1.0003
-anchor_bottom = 0.138889
-offset_left = -397.38
-offset_top = 65.0
-offset_right = -11.3799
-offset_bottom = 269.0
-grow_horizontal = 0
-mouse_filter = 2
-bbcode_enabled = true
-scroll_active = false
-scroll_following = true
-script = ExtResource("1_xklyf")
-metadata/_edit_use_anchors_ = true
-
-[node name="ConsoleTimer" type="Timer" parent="HUD/ConsoleLog"]
-
 [node name="Inventory" parent="HUD" instance=ExtResource("4_g3mus")]
 position = Vector2(-165, 0)
 
@@ -86,10 +66,10 @@ offset_bottom = 704.0
 theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Směr: dolů"
 
-[node name="Savemenu" type="CanvasLayer" parent="."]
+[node name="SavemenuUI" type="CanvasLayer" parent="HUD"]
 visible = false
 
-[node name="Background" type="ColorRect" parent="Savemenu"]
+[node name="Background" type="ColorRect" parent="HUD/SavemenuUI"]
 modulate = Color(0.0980392, 0.0980392, 0.0980392, 0.545098)
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,7 +77,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Exit" type="Button" parent="Savemenu"]
+[node name="Exit" type="Button" parent="HUD/SavemenuUI"]
 offset_left = 1113.0
 offset_top = 15.0
 offset_right = 1268.0
@@ -107,7 +87,7 @@ theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Zpět"
 metadata/_edit_use_anchors_ = true
 
-[node name="ShipName" type="LineEdit" parent="Savemenu"]
+[node name="ShipName" type="LineEdit" parent="HUD/SavemenuUI"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -120,7 +100,7 @@ theme_override_fonts/font = ExtResource("4_0r2ym")
 placeholder_text = "Ship name"
 alignment = 1
 
-[node name="Save" type="Button" parent="Savemenu"]
+[node name="Save" type="Button" parent="HUD/SavemenuUI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -136,7 +116,7 @@ focus_mode = 0
 theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Save"
 
-[node name="Load" type="Button" parent="Savemenu"]
+[node name="Load" type="Button" parent="HUD/SavemenuUI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -153,7 +133,7 @@ theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Load
 "
 
-[node name="Control" type="Control" parent="Savemenu"]
+[node name="Control" type="Control" parent="HUD/SavemenuUI"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -167,29 +147,34 @@ offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="Savemenu/Control"]
+[node name="Background" type="ColorRect" parent="HUD/SavemenuUI/Control"]
 modulate = Color(0.0980392, 0.0980392, 0.0980392, 0.545098)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.025
-anchor_top = -0.025
-anchor_right = 1.025
-anchor_bottom = 1.025
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -6.0
+offset_right = 38.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ShipList" type="RichTextLabel" parent="Savemenu/Control"]
+[node name="ShipList" type="RichTextLabel" parent="HUD/SavemenuUI/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 31.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("4_0r2ym")
 bbcode_enabled = true
 meta_underlined = false
 
-[node name="ShipListLabel" type="Label" parent="Savemenu"]
+[node name="ShipListLabel" type="Label" parent="HUD/SavemenuUI"]
 offset_left = 566.0
 offset_top = 280.0
 offset_right = 714.0
@@ -197,6 +182,26 @@ offset_bottom = 304.0
 theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Ship list:"
 horizontal_alignment = 1
+
+[node name="ConsoleLog" type="RichTextLabel" parent="HUD"]
+anchors_preset = -1
+anchor_left = 1.0003
+anchor_top = 0.0791667
+anchor_right = 1.0003
+anchor_bottom = 0.138889
+offset_left = -397.38
+offset_top = 65.0
+offset_right = -11.3799
+offset_bottom = 269.0
+grow_horizontal = 0
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+scroll_following = true
+script = ExtResource("1_xklyf")
+metadata/_edit_use_anchors_ = true
+
+[node name="ConsoleTimer" type="Timer" parent="HUD/ConsoleLog"]
 
 [node name="Ship" type="Node2D" parent="."]
 script = ExtResource("3_glsei")
@@ -241,7 +246,7 @@ color = Color(0.564706, 0.564706, 0.564706, 1)
 [connection signal="pressed" from="HUD/Savemenu" to="." method="_on_open_savemenu_pressed"]
 [connection signal="pressed" from="HUD/Autofloor" to="." method="_on_autofloor_pressed"]
 [connection signal="toggled" from="HUD/AutofloorButton" to="." method="_on_autofloor_button_toggled"]
-[connection signal="pressed" from="Savemenu/Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="Savemenu/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="Savemenu/Load" to="." method="_on_load_pressed"]
-[connection signal="meta_clicked" from="Savemenu/Control/ShipList" to="." method="_on_ship_list_meta_clicked"]
+[connection signal="pressed" from="HUD/SavemenuUI/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="HUD/SavemenuUI/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="HUD/SavemenuUI/Load" to="." method="_on_load_pressed"]
+[connection signal="meta_clicked" from="HUD/SavemenuUI/Control/ShipList" to="." method="_on_ship_list_meta_clicked"]

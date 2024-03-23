@@ -1,3 +1,5 @@
+res://Editor/ShipEditor.gd
+res://Editor/Editor.gd
 res://Character/Player/Player.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -17,7 +19,13 @@ res://Scenes/Menu.tscn
 res://Scenes/Settings.tscn
 res://Ship/Objects/Helm/Helm.tscn
 res://Ship/Objects/Builder/Builder.tscn
-res://Editor/Editor.gd
-res://Effects/Explosion.gd
-res://Editor/ShipEditor.gd
-res://Editor/EditorCamera.gd
+res://Editor/Tools/Tool.gd
+res://Ship/ShipManager.gd
+res://Editor/Inventory/Inventory.gd
+res://Settings/Options.gd
+res://Editor/ShipValidator.gd
+res://Editor/Tools/connector.tres
+res://Settings/World.gd
+res://Settings/SaveFile.gd
+res://Character/Player/Player.gd
+res://Conversation/TextBox.gd

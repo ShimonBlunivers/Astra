@@ -3,13 +3,13 @@ class_name Editor extends Node2D
 
 @onready var console : Console = $HUD/ConsoleLog
 @onready var ship_editor : ShipEditor = $Ship
-@onready var savemenu := $Savemenu
+@onready var savemenu := $HUD/SavemenuUI
 
 @onready var camera := $Camera2D
 
-@onready var ship_name_label : LineEdit = $Savemenu/ShipName
+@onready var ship_name_label : LineEdit = $HUD/SavemenuUI/ShipName
 
-@onready var ship_list := $Savemenu/Control/ShipList
+@onready var ship_list := $HUD/SavemenuUI/Control/ShipList
 
 @onready var inventory = $HUD/Inventory
 
@@ -72,7 +72,8 @@ func _on_save_pressed() -> void:
 
 		
 func _update_ship_list():
-	ships = []
+
+	var ship_text = "[center][table=3]"
 
 	var dir = DirAccess.open("user://saves/ships")
 	if dir:
@@ -80,11 +81,19 @@ func _update_ship_list():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				ships.append(file_name)
-			file_name = dir.get_next()
+				if !(!Options.DEBUG_MODE && file_name.begins_with('_')): 
+					ship_text += "[cell=2][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
+					if !file_name.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + file_name + "/details.dat"):
+						var details = FileAccess.open("user://saves/ships/" + file_name + "/details.dat", FileAccess.READ)
+						ship_text += "[cell=1]       ->       [/cell][cell=2][right]" + str(details.get_16()) + " [img]res://UI/currency.png[/img]" + "[/right][/cell]"
+						details.close()
+					else:
+						ship_text += "[cell=1][/cell][cell=2][/cell]"
 
-	ship_list.text = ""
-	for ship in ships: ship_list.text += "[url]" + ship + "[/url]\n"
+					# ship_text += "[/url]"
+			file_name = dir.get_next()
+	ship_text += "[/table][/center]"
+	ship_list.text = ship_text
 
 
 func _on_load_pressed() -> void:

@@ -24,6 +24,8 @@ static var tools := {}
 
 static var tool : Tool = null
 
+static var current_ship_price : int = 0
+
 # TODO: ✅ Make placing tiles smoother
 
 # TODO: ✅ Create menu for tools
@@ -35,15 +37,23 @@ static var tool : Tool = null
 # TODO: Add Interactables
 
 func evide_tiles():
+	
+	for key in tools.keys():
+		tools[key].number_of_instances = 0
+		
+	current_ship_price = 0
+
 	var layer = 0
 	for coords in wall_tile_map.get_used_cells(layer):
 		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
+			current_ship_price += tools[type].price
 	for coords in object_tile_map.get_used_cells(layer):
 		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
+			current_ship_price += tools[type].price
 
 func _ready() -> void:
 	load_tools()
@@ -77,7 +87,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			use_tool(ShipEditor.get_mouse_tile(), layer)
 		elif event.button_mask == 2 && !ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile()) == "connector":
 			ShipEditor.sell_tile(wall_tile_map, ShipEditor.get_mouse_tile())
-	
 	
 	if event.is_action_pressed("editor_change_direction"):
 		ShipEditor.direction = (ShipEditor.direction + 1) % 4
@@ -146,12 +155,16 @@ static func update_preview_rotation():
 	
 func save_ship(path : String = "default_ship") -> void:
 	var layer : int = 0
+
+	evide_tiles()
+
 	DirAccess.make_dir_absolute("user://saves/")
 	DirAccess.make_dir_absolute("user://saves/ships/")
 	DirAccess.make_dir_absolute("user://saves/ships/"+path+"/")
 	
 	var walls_save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.WRITE)
 	var objects_save_file := FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.WRITE)
+	var details_save_file := FileAccess.open("user://saves/ships/" + path + "/details.dat", FileAccess.WRITE)
 	
 	for cell in wall_tile_map.get_used_cells(layer):
 		walls_save_file.store_float(cell.x)	# 0
@@ -170,18 +183,18 @@ func save_ship(path : String = "default_ship") -> void:
 		objects_save_file.store_float(object_tile_map.get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).y)	# 4
 		objects_save_file.store_16(object_tile_map.get_cell_alternative_tile(layer, Vector2i(cell.x, cell.y)))	# 5
 		# set_cell(layer, Vector2i(cell.x, cell.y), -1)
-	
+
+	details_save_file.store_16(current_ship_price)
+
 	walls_save_file.close()
 	objects_save_file.close()
+	details_save_file.close()
 	
 	console.print_out("Uložena loď s názvem: " + path)
 	
 func load_ship(path : String = "default_ship") -> bool:
 	
 	var layer : int = 0
-	for key in tools.keys():
-		tools[key].number_of_instances = 0
-
 
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		return false
