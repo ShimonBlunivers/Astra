@@ -82,7 +82,7 @@ static func _validate(tilemap : TileMap, limits : Vector4i) -> bool:
 
     var connected_tiles = []
     for cell in tilemap.get_used_cells(layer):
-        if get_tile_type(tilemap, cell) == "core": 
+        if get_tile_type(tilemap, cell) == "connector": 
             connected_tiles.append(cell)
             for point in _get_surrounding_cells(cell, limits):
                 if !point in checked_points: points_to_check.append(point)

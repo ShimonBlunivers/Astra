@@ -71,7 +71,7 @@ func _on_player_currency_updated_signal() -> void:
 
 var _vfx_muted = false
 
-func loading_screen(time : float = 1.5):
+func loading_screen(time : float = 1.6):
 	if AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
 		_vfx_muted = true
 	else:

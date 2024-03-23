@@ -2,7 +2,7 @@ class_name Editor extends Node2D
 
 
 @onready var console : Console = $HUD/ConsoleLog
-@onready var ship_editor := $Ship
+@onready var ship_editor : ShipEditor = $Ship
 @onready var savemenu := $Savemenu
 
 @onready var camera := $Camera2D
@@ -14,6 +14,7 @@ class_name Editor extends Node2D
 @onready var inventory = $HUD/Inventory
 
 @onready var direction_label = $HUD/DirectionLabel
+@onready var limit_rect = $LimitRect
 
 
 var ships = []
@@ -32,6 +33,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("debug_die"):
 		_exit()
+
+func _process(_delta):
+	limit_rect.position.x = camera.position.x - limit_rect.size.x / 2
 
 
 func _exit():

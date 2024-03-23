@@ -75,7 +75,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var layer = 0
 		if event.button_mask == 1:
 			use_tool(ShipEditor.get_mouse_tile(), layer)
-		elif event.button_mask == 2:
+		elif event.button_mask == 2 && !ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile()) == "connector":
 			ShipEditor.sell_tile(wall_tile_map, ShipEditor.get_mouse_tile())
 	
 	
@@ -93,6 +93,8 @@ func use_tool(tile : Vector2i, layer : int) -> void:
 		placing_on_something = true
 		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(layer, tile):
 			return
+
+	if ShipValidator.get_tile_type(wall_tile_map, tile) == "connector": return
 
 	ShipEditor.sell_tile(wall_tile_map, tile, false)
 
