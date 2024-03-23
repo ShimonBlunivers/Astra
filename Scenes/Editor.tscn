@@ -183,7 +183,10 @@ theme_override_fonts/font = ExtResource("4_0r2ym")
 text = "Ship list:"
 horizontal_alignment = 1
 
-[node name="ConsoleLog" type="RichTextLabel" parent="HUD"]
+[node name="Console" type="CanvasLayer" parent="HUD"]
+layer = 2
+
+[node name="ConsoleLog" type="RichTextLabel" parent="HUD/Console"]
 anchors_preset = -1
 anchor_left = 1.0003
 anchor_top = 0.0791667
@@ -201,7 +204,7 @@ scroll_following = true
 script = ExtResource("1_xklyf")
 metadata/_edit_use_anchors_ = true
 
-[node name="ConsoleTimer" type="Timer" parent="HUD/ConsoleLog"]
+[node name="ConsoleTimer" type="Timer" parent="HUD/Console/ConsoleLog"]
 
 [node name="Ship" type="Node2D" parent="."]
 script = ExtResource("3_glsei")

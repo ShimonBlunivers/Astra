@@ -47,6 +47,7 @@ var destroyed_walls := []
 var opened_doors := []
 var pickedup_items := []
 
+var spawning = true
 
 # TODO: ✅ Fix bugging when the player exits at high speed
 
@@ -105,6 +106,7 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	name = path + "-" + str(id)
 
 
+
 func get_tile(coords : Vector2i):
 	for tile in wall_tiles.get_children():
 		if (tile is ShipPart):
@@ -142,6 +144,15 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 	set_linear_velocity(new_speed)
 
 func _physics_process(_delta: float) -> void:
+	if spawning:
+		for exception in get_collision_exceptions():
+			remove_collision_exception_with(exception)
+		var collision = move_and_collide(Vector2.ZERO)
+		if collision == null: spawning = false
+		else: 
+			add_collision_exception_with(collision.get_collider())
+			move_and_collide(Vector2(collision.get_depth() * cos(collision.get_angle()) * 10,  10 * collision.get_depth() * sin(collision.get_angle())))
+
 	difference_in_position = position - _old_position
 	# print("Ship moved by: ", _difference_in_position)
 	# for passenger in passengers: 

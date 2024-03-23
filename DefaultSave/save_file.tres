@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Settings/SaveFile.gd" id="5_xupe2"]
 [ext_resource type="Script" path="res://Ship/ShipSaveFile.gd" id="6_64wbg"]
 
-[sub_resource type="Resource" id="Resource_bysvr"]
+[sub_resource type="Resource" id="Resource_ijy0r"]
 script = ExtResource("1_62xal")
 nickname = "Radek"
 position = Vector2(-120, 840)
@@ -17,7 +17,7 @@ hair = [2, true]
 blocked_missions = []
 ship_id = 0
 
-[sub_resource type="Resource" id="Resource_3itml"]
+[sub_resource type="Resource" id="Resource_spaq8"]
 script = ExtResource("1_62xal")
 nickname = "Tom"
 position = Vector2(-600, 840)
@@ -27,7 +27,7 @@ hair = [4, false]
 blocked_missions = []
 ship_id = 0
 
-[sub_resource type="Resource" id="Resource_ij576"]
+[sub_resource type="Resource" id="Resource_227lx"]
 script = ExtResource("1_62xal")
 nickname = "Jiří"
 position = Vector2(200, 440)
@@ -37,7 +37,7 @@ hair = [6, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_s5m8g"]
+[sub_resource type="Resource" id="Resource_yhusc"]
 script = ExtResource("1_62xal")
 nickname = "Jan"
 position = Vector2(200, 440)
@@ -47,7 +47,7 @@ hair = [0, true]
 blocked_missions = []
 ship_id = 2
 
-[sub_resource type="Resource" id="Resource_uwsni"]
+[sub_resource type="Resource" id="Resource_c10rp"]
 script = ExtResource("1_62xal")
 nickname = "Jiří"
 position = Vector2(200, 440)
@@ -57,86 +57,86 @@ hair = [1, true]
 blocked_missions = []
 ship_id = 3
 
-[sub_resource type="Resource" id="Resource_gupgg"]
+[sub_resource type="Resource" id="Resource_bt8dt"]
 script = ExtResource("2_ig8wp")
-position = Vector2(270.406, -666.326)
+position = Vector2(64.3352, -735.031)
 id = 0
 type = ExtResource("3_52454")
 ship_id = 0
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_r6w0f"]
+[sub_resource type="Resource" id="Resource_d2iqi"]
 script = ExtResource("2_ig8wp")
-position = Vector2(-64.7437, -2706.49)
+position = Vector2(719.836, -4309.55)
 id = 2
 type = ExtResource("3_52454")
 ship_id = 1
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_vs7c5"]
+[sub_resource type="Resource" id="Resource_7muua"]
 script = ExtResource("2_ig8wp")
-position = Vector2(873.114, -4192.05)
+position = Vector2(3005.83, -2547.55)
 id = 3
 type = ExtResource("3_52454")
 ship_id = 2
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_trsjo"]
+[sub_resource type="Resource" id="Resource_afikn"]
 script = ExtResource("2_ig8wp")
-position = Vector2(2508.91, -2524.24)
+position = Vector2(4822.24, 21419.4)
 id = 4
 type = ExtResource("3_52454")
 ship_id = 3
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_vwa75"]
+[sub_resource type="Resource" id="Resource_tdxje"]
 script = ExtResource("4_ipvwc")
-position = Vector2(472.45, -597.651)
-rotation = -2.35142
-acceleration = Vector2(0, 0)
+position = Vector2(-2001.78, -24723)
+rotation = -2.68326
+acceleration = Vector2(-5.81836, -3.06836)
 currency = 13500
 suit = true
 health = 100
 active_quest = -1
 
-[sub_resource type="Resource" id="Resource_3uye6"]
+[sub_resource type="Resource" id="Resource_tl5n7"]
 script = ExtResource("6_64wbg")
 id = 0
 path = "station"
-position = Vector2(0, 0)
-velocity = Vector2(0, 0)
-rotation = -2.35142
+position = Vector2(-2281.88, -23941.7)
+velocity = Vector2(-349.108, -184.147)
+rotation = -2.68326
 destroyed_walls = [Vector2i(-4, -1), Vector2i(-3, 3)]
 opened_doors = [Vector2i(-2, 1), Vector2i(0, 3)]
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_87gtu"]
+[sub_resource type="Resource" id="Resource_dv03g"]
 script = ExtResource("6_64wbg")
 id = 1
 path = "small_shuttle"
-position = Vector2(11.4025, -2185.43)
-velocity = Vector2(0, 0)
-rotation = -2.70771
+position = Vector2(-1957.12, -27900.8)
+velocity = Vector2(-8.10751, -790.764)
+rotation = -1.69703
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_o2uxb"]
+[sub_resource type="Resource" id="Resource_ciq5n"]
 script = ExtResource("6_64wbg")
 id = 2
 path = "small_shuttle"
-position = Vector2(817.868, -4697.94)
-velocity = Vector2(0, 0)
-rotation = 0.484639
+position = Vector2(802.354, -26997.3)
+velocity = Vector2(-38.1956, -732.651)
+rotation = 0.690093
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_j7ewy"]
+[sub_resource type="Resource" id="Resource_rra58"]
 script = ExtResource("6_64wbg")
 id = 3
 path = "small_shuttle"
-position = Vector2(2000, -2500)
+position = Vector2(1999.99, -2500)
 velocity = Vector2(0, 0)
 rotation = -1.05455
 destroyed_walls = []
@@ -145,8 +145,8 @@ pickedup_items = []
 
 [resource]
 script = ExtResource("5_xupe2")
-player_save_file = SubResource("Resource_vwa75")
-NPC_save_files = [SubResource("Resource_bysvr"), SubResource("Resource_3itml"), SubResource("Resource_ij576"), SubResource("Resource_s5m8g"), SubResource("Resource_uwsni")]
-item_save_files = [SubResource("Resource_gupgg"), SubResource("Resource_r6w0f"), SubResource("Resource_vs7c5"), SubResource("Resource_trsjo")]
+player_save_file = SubResource("Resource_tdxje")
+NPC_save_files = [SubResource("Resource_ijy0r"), SubResource("Resource_spaq8"), SubResource("Resource_227lx"), SubResource("Resource_yhusc"), SubResource("Resource_c10rp")]
+item_save_files = [SubResource("Resource_bt8dt"), SubResource("Resource_d2iqi"), SubResource("Resource_7muua"), SubResource("Resource_afikn")]
 quest_save_files = []
-ship_save_files = [SubResource("Resource_3uye6"), SubResource("Resource_87gtu"), SubResource("Resource_o2uxb"), SubResource("Resource_j7ewy")]
+ship_save_files = [SubResource("Resource_tl5n7"), SubResource("Resource_dv03g"), SubResource("Resource_ciq5n"), SubResource("Resource_rra58")]

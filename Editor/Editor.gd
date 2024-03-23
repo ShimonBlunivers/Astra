@@ -1,7 +1,7 @@
 class_name Editor extends Node2D
 
 
-@onready var console : Console = $HUD/ConsoleLog
+@onready var console : Console = $HUD/Console/ConsoleLog
 @onready var ship_editor : ShipEditor = $Ship
 @onready var savemenu := $HUD/SavemenuUI
 
@@ -11,7 +11,7 @@ class_name Editor extends Node2D
 
 @onready var ship_list := $HUD/SavemenuUI/Control/ShipList
 
-@onready var inventory = $HUD/Inventory
+@onready var inventory : Inventory = $HUD/Inventory
 
 @onready var direction_label = $HUD/DirectionLabel
 @onready var limit_rect = $LimitRect
@@ -72,9 +72,8 @@ func _on_save_pressed() -> void:
 
 		
 func _update_ship_list():
-
+	ship_editor.evide_tiles()
 	var ship_text = "[center][table=3]"
-
 	var dir = DirAccess.open("user://saves/ships")
 	if dir:
 		dir.list_dir_begin()
@@ -82,13 +81,18 @@ func _update_ship_list():
 		while file_name != "":
 			if dir.current_is_dir():
 				if !(!Options.DEBUG_MODE && file_name.begins_with('_')): 
-					ship_text += "[cell=2][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
+					ship_text += "[cell=1][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
 					if !file_name.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + file_name + "/details.dat"):
 						var details = FileAccess.open("user://saves/ships/" + file_name + "/details.dat", FileAccess.READ)
-						ship_text += "[cell=1]       ->       [/cell][cell=2][right]" + str(details.get_16()) + " [img]res://UI/currency.png[/img]" + "[/right][/cell]"
+						var price = details.get_16()
+						ship_text += "[cell=1]      ->      [/cell][cell=1][right]" 
+						if price > ship_editor.current_ship_price + inventory.currency: ship_text += "[color=red]"
+						ship_text += str(price) 
+						if price > ship_editor.current_ship_price + inventory.currency: ship_text += "[/color]"
+						ship_text += " [img]res://UI/currency.png[/img]" + "[/right][/cell]"
 						details.close()
 					else:
-						ship_text += "[cell=1][/cell][cell=2][/cell]"
+						ship_text += "[cell=1][/cell][cell=1][/cell]"
 
 					# ship_text += "[/url]"
 			file_name = dir.get_next()
@@ -98,6 +102,12 @@ func _update_ship_list():
 
 func _on_load_pressed() -> void:
 	var success
+	if !ship_name_label.text.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + ship_name_label.text + "/details.dat"):
+		var details = FileAccess.open("user://saves/ships/" + ship_name_label.text + "/details.dat", FileAccess.READ)
+		var price = details.get_16()
+		if price > ship_editor.current_ship_price + inventory.currency: 
+			console.print_out("Na tuto loď nemáš dostatek prostředků!")
+			return
 	if (ship_name_label.text == ""): success = ship_editor.load_ship()
 	else: success = ship_editor.load_ship(ship_name_label.text)
 	if !success: console.print_out("Loď s názvem '" + ship_name_label.text + "' nebyla nalezena!")
@@ -107,6 +117,7 @@ func _on_open_savemenu_pressed() -> void:
 	savemenu.visible = true
 	$HUD/Savemenu.visible = false
 	camera.locked = true
+	_update_ship_list()
 
 func _on_exit_pressed() -> void:
 	savemenu.visible = false

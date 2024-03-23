@@ -1,7 +1,7 @@
 class_name ShipEditor extends Node2D
 
 
-@onready var console : Console = $"../HUD/ConsoleLog"
+@onready var console : Console = $"../HUD/Console/ConsoleLog"
 @onready var wall_tile_map := $WallTileMap
 @onready var object_tile_map := $ObjectTileMap
 

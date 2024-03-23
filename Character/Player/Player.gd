@@ -101,8 +101,8 @@ func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
 		# Item.spawn(Item.types["Chip"], get_global_mouse_position())
-		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
-		add_currency(1500)
+		ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
+		# add_currency(1500)
 		
 		
 

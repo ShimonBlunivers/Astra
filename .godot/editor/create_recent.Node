@@ -1,3 +1,4 @@
+CanvasLayer
 ColorRect
 Node2D
 Node
@@ -11,4 +12,3 @@ Timer
 CPUParticles2D
 CheckButton
 Control
-Panel

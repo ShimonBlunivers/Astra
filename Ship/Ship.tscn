@@ -17,6 +17,8 @@ gravity_scale = 0.0
 center_of_mass_mode = 1
 can_sleep = false
 freeze_mode = 1
+max_contacts_reported = 1
+contact_monitor = true
 linear_damp_mode = 1
 angular_damp = 5.0
 script = ExtResource("1_set35")
@@ -63,7 +65,6 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
-process_callback = 0
 
 [connection signal="area_entered" from="Area" to="." method="_on_area_area_entered"]
 [connection signal="area_exited" from="Area" to="." method="_on_area_area_exited"]
