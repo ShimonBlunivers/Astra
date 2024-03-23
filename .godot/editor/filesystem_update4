@@ -26,3 +26,4 @@ res://Settings/Options.gd
 res://Ship/ObjectTileMap.gd
 res://Quests/Quest.gd
 res://Editor/Inventory/Inventory.gd
+res://Editor/Tools/Tool.gd

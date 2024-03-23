@@ -21,5 +21,6 @@ class_name Tool extends Resource
 var number_of_instances = 0
 
 func create():
+    if debug && !Options.DEBUG_MODE: return
     ShipEditor.tools[name] = self
 
