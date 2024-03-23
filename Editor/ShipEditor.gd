@@ -50,7 +50,7 @@ func evide_tiles():
 			tools[type].number_of_instances += 1
 			current_ship_price += tools[type].price
 	for coords in object_tile_map.get_used_cells(layer):
-		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
+		var type = ShipValidator.get_tile_type(object_tile_map, coords)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
 			current_ship_price += tools[type].price
@@ -77,51 +77,56 @@ func load_tools():
 					load(path + "/" + file_name).create()
 			file_name = dir.get_next()
 
-static func get_mouse_tile() -> Vector2i:
-	return instance.wall_tile_map.local_to_map(instance.to_local(instance.get_global_mouse_position()))
+static func get_mouse_tile(tilemap : TileMap) -> Vector2i:
+	return tilemap.local_to_map(instance.to_local(instance.get_global_mouse_position()))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion || event is InputEventMouseButton: 
 		var layer = 0
 		if event.button_mask == 1:
-			use_tool(ShipEditor.get_mouse_tile(), layer)
-		elif event.button_mask == 2 && !ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile()) == "connector":
-			ShipEditor.sell_tile(wall_tile_map, ShipEditor.get_mouse_tile())
+			use_tool(layer)
+		elif event.button_mask == 2 && !ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile(wall_tile_map)) == "connector":
+			if ShipValidator.get_tile_type(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map)) in tools && tools[ShipValidator.get_tile_type(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map))].object:
+				ShipEditor.sell_tile(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map))
+			else:
+				ShipEditor.sell_tile(wall_tile_map, ShipEditor.get_mouse_tile(wall_tile_map))
+
 	
 	if event.is_action_pressed("editor_change_direction"):
 		ShipEditor.direction = (ShipEditor.direction + 1) % 4
 		Editor.instance.direction_label.text = "Směr: " + directions[direction]
 		ShipEditor.update_preview_rotation()
 
-func use_tool(tile : Vector2i, layer : int) -> void:
+func use_tool(layer : int) -> void:
 	if tool == null: return
 	if !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return
-	if ShipValidator.get_tile_type(wall_tile_map, tile, layer) == tool.name: return
+	var tilemap : TileMap = object_tile_map if tool.object else wall_tile_map
+	var tile : Vector2i = ShipEditor.get_mouse_tile(tilemap)
+	if ShipValidator.get_tile_type(tilemap, tile, layer) == tool.name: return
 	var placing_on_something = false
 	if tool.placeable_on_atlas_choords != Vector2i(-1, -1):
 		placing_on_something = true
-		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(layer, tile):
+		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(layer, ShipEditor.get_mouse_tile(wall_tile_map)):
 			return
 
-	if ShipValidator.get_tile_type(wall_tile_map, tile) == "connector": return
+	if ShipValidator.get_tile_type(tilemap, tile) == "connector": return
+	ShipEditor.sell_tile(tilemap, tile, false)
 
-	ShipEditor.sell_tile(wall_tile_map, tile, false)
-
-	if !Inventory.add_currency(-tool.price):
+	if tool.price != 0 && !Inventory.add_currency(-tool.price):
 		return
 
 	tool.number_of_instances += 1
 
 	if !placing_on_something:
-		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
+		tilemap.set_cells_terrain_connect(layer, [tile], 0, -1, false)
 
 	if tool.terrain_id != -1:
-		wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, tool.terrain_id)	
+		tilemap.set_cells_terrain_connect(layer, [tile], 0, tool.terrain_id)	
 	elif tool.atlas_coords != Vector2i(-1, -1):
-		wall_tile_map.set_cell(layer, tile, 0, tool.atlas_coords, direction if tool.rotatable else 0)
+		tilemap.set_cell(layer, tile, 0, tool.atlas_coords, direction if tool.rotatable else 0)
 
 	if tool.name in ShipValidator.walls && autoflooring:
-		ShipValidator.autofill_floor(wall_tile_map)
+		ShipValidator.autofill_floor(tilemap)
 
 	# wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
 

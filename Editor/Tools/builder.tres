@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://cfwwogs14gymi"]
+
+[ext_resource type="Script" path="res://Editor/Tools/Tool.gd" id="1_vf24i"]
+[ext_resource type="Texture2D" uid="uid://l2irgva513of" path="res://Ship/object_tilesheet.png" id="2_bav8w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhj2g"]
+atlas = ExtResource("2_bav8w")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_vf24i")
+name = "builder"
+nickname = "Editor"
+texture = SubResource("AtlasTexture_nhj2g")
+price = 0
+rotatable = false
+object = true
+spawn_tile_on_remove = ""
+world_limit = -1
+placeable_on_atlas_choords = Vector2i(0, 0)
+terrain_id = -1
+atlas_coords = Vector2i(3, 0)
+debug = true

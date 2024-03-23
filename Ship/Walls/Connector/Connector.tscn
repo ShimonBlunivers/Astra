@@ -26,6 +26,7 @@ scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_yt1gf")
 
 [node name="Hitbox" type="AnimatableBody2D" parent="."]
+collision_layer = 2049
 sync_to_physics = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

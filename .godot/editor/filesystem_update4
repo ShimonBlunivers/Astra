@@ -17,4 +17,12 @@ res://Scenes/Settings.tscn
 res://Ship/Objects/Helm/Helm.tscn
 res://Ship/Objects/Builder/Builder.tscn
 res://Editor/Inventory/Inventory.tscn
-res://Ship/Ship.gd
+res://Ship/Walls/Connector/Connector.tscn
+res://Editor/ShipEditor.gd
+res://Editor/ShipValidator.gd
+res://Editor/Tools/npc.tres
+res://Editor/Tools/item.tres
+res://Settings/Options.gd
+res://Ship/ObjectTileMap.gd
+res://Quests/Quest.gd
+res://Editor/Inventory/Inventory.gd

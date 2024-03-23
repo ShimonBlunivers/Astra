@@ -7,13 +7,14 @@ texture = ExtResource("1_txbxa")
 2:0/0 = 0
 2:0/0/custom_data_0 = "helm"
 2:1/0 = 0
-2:1/0/custom_data_0 = "NPC"
+2:1/0/custom_data_0 = "npc"
 3:1/0 = 0
 3:1/0/custom_data_0 = "item"
 3:0/0 = 0
 3:0/0/custom_data_0 = "builder"
 
 [resource]
+terrain_set_0/mode = 2
 custom_data_layer_0/name = "type"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_k7owb")

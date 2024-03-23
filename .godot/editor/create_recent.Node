@@ -1,3 +1,5 @@
+CollisionShape2D
+Area2D
 CanvasLayer
 ColorRect
 Node2D
@@ -11,4 +13,3 @@ ProgressBar
 Timer
 CPUParticles2D
 CheckButton
-Control

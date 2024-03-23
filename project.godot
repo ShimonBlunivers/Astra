@@ -184,6 +184,7 @@ game_toggle_menu={
 2d_physics/layer_5="Interactables collision"
 2d_physics/layer_9="Character to Ship collision"
 2d_physics/layer_10="Ship collision"
+2d_physics/layer_12="Connector"
 
 [physics]
 
