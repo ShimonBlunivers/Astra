@@ -37,6 +37,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(_delta):
 	limit_rect.position.x = camera.position.x - limit_rect.size.x / 2
 
+func center_camera():
+	camera.position = Vector2(ShipEditor.starting_block_coords.x, 0)
+	camera.zoom = Vector2(1, 1)
+
 
 func _exit():
 	self.queue_free()
@@ -58,6 +62,8 @@ func _ready():
 	inventory.load_grid()
 
 	camera.make_current()
+
+	center_camera()
 
 func _on_save_pressed() -> void:
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
@@ -106,11 +112,14 @@ func _on_load_pressed() -> void:
 		var details = FileAccess.open("user://saves/ships/" + ship_name_label.text + "/details.dat", FileAccess.READ)
 		var price = details.get_16()
 		if price > ship_editor.current_ship_price + inventory.currency: 
-			console.print_out("Na tuto loď nemáš dostatek prostředků!")
+			console.print_out("[color=red]Na tuto loď nemáš dostatek prostředků![/color]")
 			return
 	if (ship_name_label.text == ""): success = ship_editor.load_ship()
 	else: success = ship_editor.load_ship(ship_name_label.text)
-	if !success: console.print_out("Loď s názvem '" + ship_name_label.text + "' nebyla nalezena!")
+	if !success: console.print_out("[color=red]Loď s názvem '" + ship_name_label.text + "' nebyla nalezena![/color]")
+	else: 
+		_on_exit_pressed()
+		center_camera()
 
 func _on_open_savemenu_pressed() -> void:
 	ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
@@ -136,3 +145,11 @@ func _on_autofloor_pressed():
 func _on_autofloor_button_toggled(toggled_on:bool):
 	ShipEditor.autoflooring = toggled_on
 	if toggled_on: ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
+
+
+func _on_deploy_pressed() -> void:
+	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
+		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
+		return 
+	ship_editor.save_ship("_player_ship")
+	

@@ -26,6 +26,8 @@ static var tool : Tool = null
 
 static var current_ship_price : int = 0
 
+static var starting_block_coords = Vector2.ZERO
+
 # TODO: ✅ Make placing tiles smoother
 
 # TODO: ✅ Create menu for tools
@@ -37,7 +39,7 @@ static var current_ship_price : int = 0
 # TODO: Add Interactables
 
 func evide_tiles():
-	
+	starting_block_coords = Vector2.ZERO
 	for key in tools.keys():
 		tools[key].number_of_instances = 0
 		
@@ -46,6 +48,7 @@ func evide_tiles():
 	var layer = 0
 	for coords in wall_tile_map.get_used_cells(layer):
 		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
+		if type == "connector": starting_block_coords = coords * 32 + Vector2i(16, 16)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
 			current_ship_price += tools[type].price
@@ -60,7 +63,7 @@ func _ready() -> void:
 
 	instance = self
 	tool_preview = $"../HUD/ToolPreview"
-
+	ShipEditor.change_tool("wall")
 	evide_tiles()
 
 	# ShipValidator.autofill_floor(wall_tile_map)
@@ -198,13 +201,22 @@ func save_ship(path : String = "default_ship") -> void:
 	console.print_out("Uložena loď s názvem: " + path)
 	
 func load_ship(path : String = "default_ship") -> bool:
-	
+
 	var layer : int = 0
 
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		return false
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/objects.dat"):
 		return false
+
+	Editor.instance.inventory.currency += current_ship_price
+
+	if !path.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + path + "/details.dat"):
+		var details = FileAccess.open("user://saves/ships/" + path + "/details.dat", FileAccess.READ)
+		var price = details.get_16()
+		inventory.currency -= price
+		inventory.currency_value.text = str(inventory.currency)
+
 
 	wall_tile_map.clear()
 	object_tile_map.clear()

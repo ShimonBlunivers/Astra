@@ -10,7 +10,7 @@ static var currency_timer
 
 const slot_scene := preload("res://Editor/Inventory/Slot.tscn")
 
-static var currency = 100000
+static var currency = 0
 
 static func add_currency(amount : int, visual := true) -> bool:
 	if amount == 0: return false
@@ -36,7 +36,7 @@ func _ready():
 
 func load_grid():
 	for key in ShipEditor.tools.keys():
-		if key in ShipValidator.floors || key == "connector": continue
+		if ShipEditor.tools[key].debug && !Options.DEBUG_MODE: continue
 		var new_slot = slot_scene.instantiate()
 		grid.add_child(new_slot)
 		new_slot.set_tool(ShipEditor.tools[key])
