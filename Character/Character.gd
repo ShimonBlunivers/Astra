@@ -65,12 +65,3 @@ func spawn():
 	health = max_health
 	position = spawn_point
 	health_updated_signal.emit()
-
-func _draw() -> void:
-	if (!Options.DEBUG_MODE): return
-	
-	var rect = legs.shape.get_rect()
-
-	rect.position += Vector2(legs.position.x, legs.position.y)
-
-	draw_rect(rect, Color.RED)

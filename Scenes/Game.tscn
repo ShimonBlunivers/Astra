@@ -301,6 +301,7 @@ texture = SubResource("GradientTexture1D_gft63")
 centered = false
 
 [node name="LoadingScreen" type="Node2D" parent="UI/HUD"]
+visible = false
 
 [node name="Background" type="Node2D" parent="UI/HUD/LoadingScreen"]
 position = Vector2(640, 360)

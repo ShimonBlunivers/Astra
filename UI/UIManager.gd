@@ -72,6 +72,9 @@ func _on_player_currency_updated_signal() -> void:
 var _vfx_muted = false
 
 func loading_screen(time : float = 1.6):
+	if Options.DEBUG_MODE: return
+	
+	loading_screen_node.visible = true
 	if AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
 		_vfx_muted = true
 	else:
@@ -112,7 +115,11 @@ func _on_quest_meta_clicked(meta:Variant) -> void:
 
 func _process(_delta):
 	floating.visible = Player.main_player.floating()
-	player_position.text = "X: " + str(round(Player.main_player.global_position.x)) + ", Y: " + str(round(Player.main_player.global_position.y))
+	var pos = World.instance.get_distance_from_center(Player.main_player.global_position)
+	player_position.text = ""
+	player_position.text += "PPU: X: " + str(round(pos.x)) + ", Y: " + str(round(pos.y)) + "\n" # Player Position in Universe
+	pos = World.instance._center_of_universe
+	player_position.text += "COU: X: " + str(round(pos.x)) + ", Y: " + str(round(pos.y)) + "\n" # Center Of Universe
 
 
 	if loading_screen_timer.time_left > 0:

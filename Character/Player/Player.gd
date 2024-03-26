@@ -43,6 +43,8 @@ var camera_difference = Vector2.ZERO
 
 signal currency_updated_signal
 
+static var owned_ship : Ship
+
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
 # TODO: ✅ Add floating velocity
@@ -95,14 +97,13 @@ func change_ship(ship):
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("debug_die"):
 		World.save_file.save_world(true)
-		# add_currency(150)
 		# parent_ship.delete()
 
 	if event.is_action_pressed("debug_spawn"):
 		# spawn()
 		# Item.spawn(Item.types["Chip"], get_global_mouse_position())
-		ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
-		# add_currency(1500)
+		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
+		add_currency(1500)
 		
 		
 
@@ -128,7 +129,7 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 	if _rotation != null: global_rotation = _rotation
 	change_ship(ObjectList.get_closest_ship(global_position))
 	global_position = pos - World.instance._center_of_universe
-	_old_position = World.instance.get_distance_from_center(global_position - _acceleration)
+	_old_position = World.instance.get_distance_from_center(global_position)
 
 	health_updated_signal.emit()
 
@@ -192,7 +193,6 @@ func control_ship(ship):
 
 
 func _move(_delta: float) -> void:
-
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") # Get input keys
 	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right")
 	var running := Input.get_action_strength("game_run")
@@ -238,8 +238,8 @@ func _move(_delta: float) -> void:
 	# if get_last_slide_collision():
 	# velocity = velocity.move_toward(Vector2(0, 0), 40)
 	# print("dampening now  velocity:", velocity)
-	
-	if (velocity != Vector2.ZERO): move_and_slide()
+	# print(direction)
+	move_and_slide()
 
 	# animation things down here..
 

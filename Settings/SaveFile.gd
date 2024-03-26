@@ -33,7 +33,6 @@ func save_world(dev := false):
 	else:
 		return ResourceSaver.save(self, get_save_path(FIRST_SAVE_GAME_PATH))
 
-
 func load_world():
 	if FileAccess.file_exists(get_save_path()):
 		World.save_file = ResourceLoader.load(get_save_path())
@@ -59,10 +58,12 @@ func _load(): # deferred
 	# World.instance.free()
 	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
 
+
 	World.instance._center_of_universe = Vector2.ZERO
 	World.instance.transform.origin = Vector2.ZERO
 
 	player_save_file.load() #
+
 	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 
 	# for npc in NPC_save_files: npc.load() 
 	# for item in item_save_files: item.load() 

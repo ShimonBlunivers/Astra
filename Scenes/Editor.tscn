@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://pbc17eeutgje"]
 
 [ext_resource type="Script" path="res://Editor/Editor.gd" id="1_a75tt"]
-[ext_resource type="Script" path="res://Scenes/Console.gd" id="1_xklyf"]
+[ext_resource type="Script" path="res://Editor/Console.gd" id="1_xklyf"]
 [ext_resource type="Script" path="res://Editor/ShipEditor.gd" id="3_glsei"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="4_0r2ym"]
 [ext_resource type="PackedScene" uid="uid://bcorpu3oqfn3n" path="res://Editor/Inventory/Inventory.tscn" id="4_g3mus"]
@@ -109,6 +109,7 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_0r2ym")
 placeholder_text = "Ship name"
 alignment = 1
+context_menu_enabled = false
 
 [node name="Save" type="Button" parent="HUD/SavemenuUI"]
 anchors_preset = 8
@@ -202,10 +203,10 @@ anchor_left = 1.0003
 anchor_top = 0.0791667
 anchor_right = 1.0003
 anchor_bottom = 0.138889
-offset_left = -397.38
-offset_top = 65.0
-offset_right = -11.3799
-offset_bottom = 269.0
+offset_left = -563.384
+offset_top = -40.0
+offset_right = -177.384
+offset_bottom = 164.0
 grow_horizontal = 0
 mouse_filter = 2
 bbcode_enabled = true
@@ -217,12 +218,13 @@ metadata/_edit_use_anchors_ = true
 [node name="ConsoleTimer" type="Timer" parent="HUD/Console/ConsoleLog"]
 
 [node name="Ship" type="Node2D" parent="."]
+position = Vector2(0, 320)
 script = ExtResource("3_glsei")
 
 [node name="WallTileMap" type="TileMap" parent="Ship"]
 tile_set = ExtResource("4_kyc86")
 format = 2
-layer_0/tile_data = PackedInt32Array(655360, 65536, 65538)
+layer_0/tile_data = PackedInt32Array(0, 65536, 65538)
 
 [node name="ObjectTileMap" type="TileMap" parent="Ship"]
 z_index = 10

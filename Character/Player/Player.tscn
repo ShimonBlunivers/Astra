@@ -21,8 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://cgqvi5a0xd58" path="res://Character/Player/animations/walkup/0.png" id="13_rfp43"]
 [ext_resource type="AudioStream" uid="uid://d3tvxu1m5k5e5" path="res://Character/Player/sounds/walk.ogg" id="15_c0vio"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jaj3"]
-size = Vector2(50, 100)
+[sub_resource type="CircleShape2D" id="CircleShape2D_yjh8y"]
+radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycmu8"]
 radius = 14.0
@@ -147,12 +147,11 @@ platform_floor_layers = 4278190080
 script = ExtResource("1_to8t1")
 
 [node name="Area" type="Area2D" parent="." groups=["CharacterArea", "PlayerArea"]]
-position = Vector2(0, -42.5)
 collision_layer = 16
 collision_mask = 16
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="Area"]
-shape = SubResource("RectangleShape2D_5jaj3")
+shape = SubResource("CircleShape2D_yjh8y")
 
 [node name="InteractArea" type="Area2D" parent="." groups=["CharacterInteractArea", "PlayerInteractArea"]]
 position = Vector2(0, -42.5)

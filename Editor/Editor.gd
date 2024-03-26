@@ -41,7 +41,6 @@ func center_camera():
 	camera.position = Vector2(ShipEditor.starting_block_coords.x, 0)
 	camera.zoom = Vector2(1, 1)
 
-
 func _exit():
 	self.queue_free()
 	Player.main_player.camera.make_current()
@@ -49,7 +48,7 @@ func _exit():
 	
 	World.instance.visible = true
 	World.instance.ui_node.visible = true
-
+	World.used_builder = null
 
 func _ready():
 	Editor.instance = self
@@ -133,23 +132,23 @@ func _on_exit_pressed() -> void:
 	$HUD/Savemenu.visible = true
 	camera.locked = false
 
-
 func _on_ship_list_meta_clicked(meta:Variant) -> void:
 	ship_name_label.text = meta
-
 
 func _on_autofloor_pressed():
 	ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
 
-
 func _on_autofloor_button_toggled(toggled_on:bool):
 	ShipEditor.autoflooring = toggled_on
 	if toggled_on: ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
-
 
 func _on_deploy_pressed() -> void:
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
 		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
 		return 
 	ship_editor.save_ship("_player_ship")
+
+	if World.used_builder != null:
+		ShipManager.build_ship(World.used_builder, true, "_player_ship")
+	_exit()
 	

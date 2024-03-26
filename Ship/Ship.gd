@@ -71,7 +71,6 @@ var spawning = true
 
 # TODO: Create planets/moons/asteroids
 
-
 var _old_position = position
 var difference_in_position := Vector2.ZERO
 
@@ -169,7 +168,7 @@ func control():
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right")
 
-	var _rotation_power = 200000 * mass
+	var _rotation_power = 2000 * mass
 
 	if !controlled_by.alive: direction = Vector2.ZERO
 
@@ -180,7 +179,7 @@ func control():
 	elif direction.y > 0: acceleration.y += thrust_power.w
 
 	if ((thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size()) == 0): rotation_speed = 0
-	else: rotation_speed = _rotation_power * rotation_direction + rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size())
+	else: rotation_speed = _rotation_power * rotation_direction * (thrusters[0].size() + thrusters[1].size() + thrusters[2].size() + thrusters[3].size())
 
 func update_side_trusters():
 	for thruster_list in thrusters:

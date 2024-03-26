@@ -6,6 +6,8 @@ var _center_of_universe = Vector2.ZERO
 
 static var save_file : SaveFile
 
+static var used_builder : Builder = null
+
 @onready var canvas_modulate = $CanvasModulate
 @onready var ui_node = $UI
 
@@ -29,15 +31,14 @@ func _process(_delta):
 func _draw():
 	draw_circle(-_center_of_universe , 25 , Color.LIGHT_BLUE)
 
-func open_editor():
+func open_editor(_builder : Builder = null):
+	used_builder = _builder
+	
 	visible = false
 	ui_node.visible = false
-
 	var root = get_tree().root
-
 	# root.remove_child(self)
 	get_tree().paused = true
-
 	var editor_object = editor_scene.instantiate()
 	root.add_child(editor_object)
 
