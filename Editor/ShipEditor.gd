@@ -161,7 +161,7 @@ static func update_preview_rotation():
 	else:
 		tool_preview.rotation_degrees = 0
 	
-func save_ship(path : String = "default_ship") -> void:
+func save_ship(path : String = "_default_ship") -> void:
 	var layer : int = 0
 
 	evide_tiles()
@@ -200,7 +200,7 @@ func save_ship(path : String = "default_ship") -> void:
 	
 	console.print_out("Uložena loď s názvem: " + path)
 	
-func load_ship(path : String = "default_ship") -> bool:
+func load_ship(path : String = "_default_ship") -> bool:
 
 	var layer : int = 0
 

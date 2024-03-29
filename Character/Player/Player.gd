@@ -64,6 +64,19 @@ static var owned_ship : Ship
 # TODO: Add animations
 
 
+static func find_comfortable_degrees(_angle : int) -> int:
+	return 0
+	# var comfortable_degrees = [0, 90, 180, 270, 360]
+	# _angle = ((_angle % 360) + 360) % 360
+	# var comfortable = 0
+	# var last_degree = 361
+	# for degree in comfortable_degrees:
+	# 	if abs(degree - _angle) < last_degree: 
+	# 		comfortable = degree
+	# 		last_degree = abs(degree - _angle)
+	# return comfortable
+
+var turn_tween : Tween
 
 func add_currency(amount : int):
 	currency += amount
@@ -78,13 +91,20 @@ func get_in(ship):
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 
-	var tween = create_tween()
+	if turn_tween: turn_tween.kill()
+
+	var turn_speed = abs(rotation_degrees / 150)
+
+	turn_tween = create_tween()
+
 	if (rotation_degrees > 180):
-		tween.tween_property(self, "rotation_degrees", 360, 1)
+		turn_tween.tween_property(self, "rotation_degrees", 360, turn_speed)
 	else:
-		tween.tween_property(self, "rotation", 0, 1)
+		turn_tween.tween_property(self, "rotation", 0, turn_speed)
+
 
 func get_off(ship):
+	if turn_tween: turn_tween.kill()
 	passenger_on.erase(ship)
 
 func change_ship(ship):		

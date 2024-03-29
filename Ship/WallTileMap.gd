@@ -157,6 +157,18 @@ func _replace_tiles() -> bool:
 		
 		var tile_position = map_to_local(cellpos) * Limits.TILE_SCALE
 
+		if cell == null:
+				var _connector_object = connector_scene.instantiate()
+				_connector_object.init(ship, cellpos)
+				_connector_object.position = tile_position
+
+				ship.wall_tiles.add_child(_connector_object)
+				
+				_connector_object.rotation_degrees = object_direction * 90
+
+				set_cell(layer, cellpos, -1)
+				continue
+
 		match cell.get_custom_data("type"):
 
 			"floor":

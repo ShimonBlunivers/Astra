@@ -11,7 +11,8 @@ func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1
 	super(_ship, _coords, _durability, _mass)
 
 func _interact():
-	World.instance.open_editor(self)
+	if connector.connected_to == null:
+		World.instance.open_editor(self)
 
 func _process(_delta):
 	if connector == null: connector_finder_hitbox.shape.radius += 5

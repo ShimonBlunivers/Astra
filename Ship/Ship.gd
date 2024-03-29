@@ -49,6 +49,10 @@ var pickedup_items := []
 
 var spawning = true
 
+var comfortable_rotation_degrees : float = 0
+
+var connectors = []
+
 # TODO: ✅ Fix bugging when the player exits at high speed
 
 # TODO: ✅ Fix infinity position while moving too fast
@@ -80,6 +84,12 @@ var difference_in_position := Vector2.ZERO
 # func _draw():
 # 	draw_circle(center_of_mass, 25, Color.RED)
 
+func set_angle(angle : int):
+	comfortable_rotation_degrees = angle
+	for npc in NPC.npcs:
+		if npc.ship == self:
+			npc.rotation_degrees = angle
+
 func _ready() -> void:
 	Ship.ships.append(self)
 
@@ -87,10 +97,11 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	global_position = _position
 	_old_position = _position
 	path = _path
+	name = path + "-" + str(id)
+
 	mass = 1
 	wall_tile_map.load_ship(self, _path)
 	object_tile_map.load_ship(self, _path, custom_object_spawn, _from_save)
-
 	mass -= 1
 
 	id = ShipManager.number_of_ships
@@ -102,7 +113,6 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 		var rng = RandomNumberGenerator.new()
 		rotation = rng.randf_range(0, 2 * PI)
 
-	name = path + "-" + str(id)
 
 
 
@@ -190,11 +200,11 @@ func apply_changes(_destroyed_walls = [], _opened_doors = []):
 
 	for coords in _opened_doors:
 		var tile = get_tile(coords)
-		if tile != null: tile.open()
+		if tile is Door: tile.open()
 
 	for coords in _destroyed_walls:
 		var tile = get_tile(coords)
-		if tile != null: tile.destroy()
+		if tile is Wall: tile.destroy()
 
 	# for item_id in _pickedup_items:
 	# 	var item = Item.get_item(item_id)
@@ -248,3 +258,18 @@ func delete():
 	ShipManager.number_of_ships -= 1
 	Ship.ships.erase(self)
 	queue_free()
+
+func _unhandled_input(event: InputEvent):
+	if controlled_by == null: return
+	if event.is_action_pressed("game_dock_ship"):
+		print("input")
+		var connected = false
+		for connector in connectors:
+			if connector.connected_to != null:
+				connector.connect_to(null)
+				connected = true
+				print("undocked")
+		if !connected && connectors[0].connectors_in_range.size() > 0:
+			print("dock")
+			connectors[0].connect_to(connectors[0].connectors_in_range[0])
+

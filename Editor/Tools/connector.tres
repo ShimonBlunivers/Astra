@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwwv6"]
 atlas = ExtResource("2_0il6t")
-region = Rect2(32, 64, 32, 32)
+region = Rect2(128, 32, 32, 32)
 
 [resource]
 script = ExtResource("1_bypm0")
@@ -19,5 +19,5 @@ spawn_tile_on_remove = ""
 world_limit = 1
 placeable_on_atlas_choords = Vector2i(-1, -1)
 terrain_id = -1
-atlas_coords = Vector2i(1, 2)
+atlas_coords = Vector2i(4, 1)
 debug = true

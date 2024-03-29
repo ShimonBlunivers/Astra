@@ -23,7 +23,6 @@ static func add_currency(amount : int, visual := true) -> bool:
 	return true
 
 func _ready():
-	load_grid()
 	currency_node = $Currency
 	currency_value = $Currency/Value
 	add_currency_label = $Currency/AddCurrencyLabel

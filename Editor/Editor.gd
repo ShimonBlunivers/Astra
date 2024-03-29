@@ -58,6 +58,7 @@ func _ready():
 	_update_ship_list()
 
 	ship_editor.inventory = inventory
+	
 	inventory.load_grid()
 
 	camera.make_current()
@@ -146,9 +147,21 @@ func _on_deploy_pressed() -> void:
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
 		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
 		return 
-	ship_editor.save_ship("_player_ship")
+
+	var ship_num = 0
+
+	var dir = DirAccess.open("user://saves/ships")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir() && file_name.contains("_player_ship_"): ship_num += 1
+			file_name = dir.get_next()
+
+
+	ship_editor.save_ship("_player_ship_" + str(ship_num))
 
 	if World.used_builder != null:
-		ShipManager.build_ship(World.used_builder, true, "_player_ship")
+		ShipManager.build_ship(World.used_builder, true, "_player_ship_" + str(ship_num))
 	_exit()
 	

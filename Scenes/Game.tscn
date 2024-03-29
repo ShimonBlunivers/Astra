@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=23 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Ship/ShipManager.gd" id="2_0gdpv"]
@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
 [ext_resource type="Texture2D" uid="uid://bb7iejyou2vsu" path="res://UI/currency.png" id="13_6sc61"]
 [ext_resource type="FontFile" uid="uid://dbekrgkvpg3lc" path="res://Fonts/SpaceMono-Bold.ttf" id="13_q4h4p"]
+[ext_resource type="AudioStream" uid="uid://6lghegxsirr2" path="res://Music/OST.mp3" id="14_n5bns"]
 [ext_resource type="Texture2D" uid="uid://bx6p6lawg4mtv" path="res://Quests/arrow.png" id="14_nrt3x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1a0uh"]
@@ -380,6 +381,11 @@ one_shot = true
 [node name="GUI" type="CanvasGroup" parent="UI"]
 editor_description = "Interactive"
 visible = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_n5bns")
+autoplay = true
+bus = &"Music"
 
 [connection signal="currency_updated_signal" from="Player" to="UI" method="_on_player_currency_updated_signal"]
 [connection signal="meta_clicked" from="UI/HUD/Inventory/QuestLog/RichTextLabel" to="UI" method="_on_quest_meta_clicked"]
