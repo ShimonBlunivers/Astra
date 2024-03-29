@@ -20,8 +20,9 @@ func init(_npc : NPC, _target_ID : int = -1):
     if _target_ID != -1: goal.target_ID = _target_ID
 
     goal.create(id)
-
-    npc.blocked_missions.append(id)
+    
+    npc.active_quest = id
+    NPC.blocked_missions.append(id)
     QuestManager.active_quest = id
     QuestManager.update_quest_log()
 

@@ -70,17 +70,17 @@ static var npcs = []
 
 var interactable = false
 
-var blocked_missions = []
+static var blocked_missions = []
 
 var active_quest = -1 # RANDOMLY GENERATE QUEST
 
 var id : int
 
+var mission_conversation := false
+
 # TODO: ✅ Add dialog
 
 # TODO: ✅ Add missions
-
-var dialogs = Dialogs.new()
 
 static func get_uid() -> int:
 	var _id = 0
@@ -102,7 +102,7 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_mis
 	nickname = _nickname
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(npcs.size())
-
+	
 	if _blocked_missions != null: blocked_missions = _blocked_missions
 	skin = _skin
 	hair = _hair
@@ -119,6 +119,10 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_mis
 
 	npcs.append(self)
 
+	var random := RandomNumberGenerator.new()
+	var mission = random.randi_range(0, 5)
+	# if mission == 0: 
+	mission_conversation = true
 	# print(nickname, " SPAWNED on: " , position)
 
 
@@ -143,16 +147,16 @@ func _on_interaction_area_area_entered(area:Area2D) -> void:
 		interactable = true
 		var dialog_position = Vector2(0, -105)
 		if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
-			dialog_manager.start_dialog(dialog_position, dialogs.conversations["mission_finished"])
+			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"])
 			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
-		elif self == NPC.get_npc(1):
-			active_quest = 0;
-			if !active_quest in blocked_missions:
-				dialog_manager.start_dialog(dialog_position, dialogs.conversations["mission"][active_quest])
+		elif mission_conversation:
+			if Dialogs.random_mission_id(blocked_missions) < 0: mission_conversation = false
+			else:
+				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][Dialogs.random_mission_id(blocked_missions)])
 		else:
-			dialogs.conversations["greeting"].shuffle()
-			dialog_manager.start_dialog(dialog_position, dialogs.conversations["greeting"])
+			Dialogs.conversations["greeting"].shuffle()
+			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["greeting"])
 		QuestManager.update_quest_log()
 
 func _on_interaction_area_area_exited(area:Area2D):

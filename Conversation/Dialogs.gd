@@ -1,6 +1,6 @@
 class_name Dialogs
 
-var conversations = {
+static var conversations = {
 	"greeting": [
 		"Ahoj!",
 		"Zdravíčko!",
@@ -17,8 +17,6 @@ var conversations = {
 		"Viděl jsi něco neobvyklýho?",
 		"Co si myslíš o vesmírné politice?",
 		"Co je podle tebe nejlepší část vesmíru?",
-		# "Tvoje máma.",
-		# "Smrdis.",
 	],
 
 	"mission" : [
@@ -32,11 +30,20 @@ var conversations = {
 	],
 
 	"mission_finished" : [
-		"dyck",
+		"dyck"
 	],
 }
 
-func random_phrase(dialog_type: String) -> String:
+static func random_phrase(dialog_type: String) -> String:
 	if (!conversations.has(dialog_type)): return ""
 	var random := RandomNumberGenerator.new()
 	return conversations[dialog_type][random.randi_range(0, conversations[dialog_type].size() - 1)]
+
+static func random_mission_id(blocked_missions := []) -> int:
+	if conversations["mission"].size() == blocked_missions.size(): return -1
+	while 1:
+		var random := RandomNumberGenerator.new()
+		var id = random.randi_range(0, conversations["mission"].size() - 1)
+		if !id in blocked_missions:
+			return id
+	return -2

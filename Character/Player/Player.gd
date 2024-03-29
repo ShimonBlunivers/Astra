@@ -198,8 +198,15 @@ func _in_physics(delta: float) -> void:
 
 	$Pickup.position = (- acceleration).rotated(-global_rotation)
 	
+	if floating() && !AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+	elif !floating() && AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+
 	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 	 
+
+
 func control_ship(ship):
 	if ship != null:
 		ship_controlled = ship

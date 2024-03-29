@@ -24,3 +24,9 @@ res://Sound/Sound.gd
 res://Settings/World.gd
 res://Sound/bus_layout.tres
 res://Quests/Goal.gd
+res://Quests/Quest.gd
+res://Quests/QuestManager.gd
+res://Quests/CustomObjectSpawn.gd
+res://Conversation/DialogManager.gd
+res://Conversation/Dialogs.gd
+res://Character/NPC/NPC.gd
