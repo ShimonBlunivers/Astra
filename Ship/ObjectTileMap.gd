@@ -88,7 +88,6 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 				var random := RandomNumberGenerator.new()
 				var scaling = 4 * Limits.TILE_SCALE
 				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
-				
 				if custom_object_spawn != null && custom_object_spawn.item_preset != null && item_index < custom_object_spawn.item_preset.size():
 					var _in = item_index
 					for i in custom_object_spawn.item_preset.size():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5j5hom1cj2vl"]
+[gd_scene load_steps=12 format=3 uid="uid://c5j5hom1cj2vl"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_jp1hi"]
 [ext_resource type="FontFile" uid="uid://dbekrgkvpg3lc" path="res://Fonts/SpaceMono-Bold.ttf" id="2_ese6g"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="3_j5d5y"]
 [ext_resource type="Theme" uid="uid://bdiaebe5x6sb5" path="res://UI/MenuTheme.tres" id="4_buhup"]
 [ext_resource type="Texture2D" uid="uid://c7lipckb5604e" path="res://UI/title.png" id="7_ecqpl"]
+[ext_resource type="AudioStream" uid="uid://6lghegxsirr2" path="res://Sound/Music/OST.mp3" id="8_k53lv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6xyd5"]
 shader = ExtResource("2_sn0i0")
@@ -106,6 +107,11 @@ offset_right = 257.5
 offset_bottom = 256.0
 grow_horizontal = 2
 texture = ExtResource("7_ecqpl")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_k53lv")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

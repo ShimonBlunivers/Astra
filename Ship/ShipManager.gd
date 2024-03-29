@@ -10,17 +10,17 @@ func _ready() -> void:
 	instance = self
 
 static func new_game():
-	ShipManager.spawn_ship(Vector2(0, 0))
+	ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true)
 	ShipManager.spawn_ship(Vector2(0, -2600), "_small_shuttle")
 	ShipManager.spawn_ship(Vector2(0, -4000), "_small_shuttle")
 	Player.main_player.spawn()
 	# ShipManager.spawn_ship(Vector2(2000, -2500), "_small_shuttle")
 
-static func spawn_ship(_position : Vector2, path : String = "_station", custom_object_spawn : CustomObjectSpawn = null, _from_save := false) -> Ship:
+static func spawn_ship(_position : Vector2, path : String = "_station", custom_object_spawn : CustomObjectSpawn = null, _from_save := false, lock_rotation := false) -> Ship:
 	var _ship = ship_scene.instantiate()
 	_ship.name = "Ship-" + str(_ship.id)
 	instance.add_child(_ship)
-	_ship.load_ship(_position, path, custom_object_spawn, false, _from_save)
+	_ship.load_ship(_position, path, custom_object_spawn, lock_rotation, _from_save)
 	return _ship
 
 static func build_ship(_builder : Builder, for_player : bool, path : String = "_station") -> Ship:

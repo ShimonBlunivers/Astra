@@ -1,3 +1,4 @@
+res://Character/Player/Player.gd
 res://Character/Player/Player.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -17,4 +18,9 @@ res://Ship/Objects/Builder/Builder.tscn
 res://Editor/Inventory/Inventory.tscn
 res://Scenes/Editor.tscn
 res://Ship/Walls/Connector/Connector.tscn
-res://Ship/Ship.gd
+res://Ship/Ship.tscn
+res://Ship/Walls/Connector/Connector.gd
+res://Sound/Sound.gd
+res://Settings/World.gd
+res://Sound/bus_layout.tres
+res://Quests/Goal.gd

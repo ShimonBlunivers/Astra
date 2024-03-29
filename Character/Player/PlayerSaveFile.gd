@@ -6,6 +6,7 @@ class_name PlayerSaveFile extends Resource
 @export var currency : int
 @export var suit : bool
 @export var health : int
+@export var owned_ship_id : int
 
 @export var active_quest : int
 
@@ -20,6 +21,8 @@ static func save() -> PlayerSaveFile:
 	file.currency = Player.main_player.currency
 	file.suit = Player.main_player.suit
 
+	file.owned_ship_id = Player.main_player.owned_ship.id
+
 	file.active_quest = QuestManager.active_quest
 
 	return file
@@ -33,6 +36,8 @@ func load():
 	player.suit = suit
 	player.currency = currency
 	player.currency_updated_signal.emit()
+
+	player.owned_ship = Ship.get_ship(owned_ship_id)
 
 	QuestManager.active_quest = active_quest
 

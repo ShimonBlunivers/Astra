@@ -58,7 +58,7 @@ func spawn_quest_ship():
 			target_ID = NPC.get_uid()
 			_custom_object_spawn = CustomObjectSpawn.create(null, [[target_ID, NPC.names.pick_random(), null, null, null]])
 		Type.pick_up_item:
-			target_ID = Item.get_uid()
+			target_ID = Item.get_uid()							# [id, 		type, 			ship_slot_id]
 			_custom_object_spawn = CustomObjectSpawn.create([[target_ID, Item.types["Chip"], null]])
 
 	var new_ship = ShipManager.spawn_ship(new_ship_pos, ShipManager.get_quest_ship_path(mission_id), _custom_object_spawn)

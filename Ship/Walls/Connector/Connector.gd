@@ -46,7 +46,6 @@ func _on_connector_area_area_entered(area:Area2D) -> void:
 		var body = area.get_parent()
 		if body is Connector:
 			connectors_in_range.append(body)
-			print("connector touching")
 
 
 func _on_connector_area_area_exited(area:Area2D) -> void:

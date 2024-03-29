@@ -91,21 +91,24 @@ func get_in(ship):
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 
+	rotate_to_ship()
+
+func rotate_to_ship():
 	if turn_tween: turn_tween.kill()
-
 	var turn_speed = abs(rotation_degrees / 150)
-
 	turn_tween = create_tween()
 
-	if (rotation_degrees > 180):
+	if rotation_degrees > 180:
 		turn_tween.tween_property(self, "rotation_degrees", 360, turn_speed)
 	else:
 		turn_tween.tween_property(self, "rotation", 0, turn_speed)
 
 
+
 func get_off(ship):
 	if turn_tween: turn_tween.kill()
 	passenger_on.erase(ship)
+
 
 func change_ship(ship):		
 	if ship == null: return
@@ -153,6 +156,7 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 
 	health_updated_signal.emit()
 
+
 func _ready():
 	super()
 	main_player = self
@@ -163,8 +167,8 @@ func _ready():
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
 	animated_sprite.play("Idle")
 	
-	World.save_file.load_world()
-	# ShipManager.new_game()
+	# World.save_file.load_world()
+	ShipManager.new_game()
 
 func kill():
 	if !alive: return

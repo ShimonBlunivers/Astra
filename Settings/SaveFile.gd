@@ -62,9 +62,10 @@ func _load(): # deferred
 	World.instance._center_of_universe = Vector2.ZERO
 	World.instance.transform.origin = Vector2.ZERO
 
-	player_save_file.load() #
 
 	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 
+	
+	player_save_file.load() #
 	# for npc in NPC_save_files: npc.load() 
 	# for item in item_save_files: item.load() 
 	for quest in quest_save_files: quest.load() 

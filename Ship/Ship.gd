@@ -84,6 +84,11 @@ var difference_in_position := Vector2.ZERO
 # func _draw():
 # 	draw_circle(center_of_mass, 25, Color.RED)
 
+static func get_ship(_id : int) -> Ship:
+	for ship in ships:
+		if ship.id == _id: return ship
+	return null
+
 func set_angle(angle : int):
 	comfortable_rotation_degrees = angle
 	for npc in NPC.npcs:
@@ -253,8 +258,9 @@ func _on_area_area_exited(_area:Area2D) -> void:
 		body.get_off(self)
 
 func delete():
-	if self == Player.main_player.parent_ship:
-		Player.main_player.reparent(World.instance)
+	hitbox.disabled = true
+	for connector in connectors: connector.connect_to(null)
+	if self == Player.main_player.parent_ship: Player.main_player.reparent(World.instance)
 	ShipManager.number_of_ships -= 1
 	Ship.ships.erase(self)
 	queue_free()

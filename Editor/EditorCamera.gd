@@ -7,8 +7,7 @@ const ZOOM_SPEED : float = 0.1
 const MAX_ZOOM : float = 10
 const MIN_ZOOM : float = 0.2
 
-const BOTTOM_LIMIT : float = 350
-
+const BOTTOM_LIMIT = 350
 
 var locked := false
 
@@ -22,7 +21,7 @@ func _physics_process(delta):
 		velocity.x = direction.x * (SPEED + RUN_SPEED_MODIFIER * running) * (1 / zoom.x)
 		velocity.y = direction.y * (SPEED + RUN_SPEED_MODIFIER * running) * (1 / zoom.y)
 
-		if position.y + (float)(velocity.y * delta) > BOTTOM_LIMIT: velocity.y = 0
+		if position.y + (float)(velocity.y * delta) > BOTTOM_LIMIT && !Options.DEBUG_MODE: velocity.y = 0
 
 		position += Vector2((float)(velocity.x * delta), (float)(velocity.y * delta))
 

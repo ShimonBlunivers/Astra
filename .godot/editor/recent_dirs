@@ -1,3 +1,4 @@
+res://Sound
 res://Ship
 res://Editor/Tools
 res://UI
@@ -19,4 +20,3 @@ res://Conversation
 D:/Programming/Godot/MovieFolder
 res://Ship/Walls/Floor
 res://Character/Player
-res://Lighting
