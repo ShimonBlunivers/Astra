@@ -2,8 +2,10 @@ class_name NPC extends Character
 
 var difference = Vector2.ZERO
 
-@onready var dialog_manager = $DialogManager
-@onready var sprites = $Sprite
+@onready var dialog_manager := $DialogManager
+@onready var sprites := $Sprite
+@onready var timer := $Timer
+
 
 var ship : Ship
 
@@ -73,10 +75,9 @@ var interactable = false
 static var blocked_missions = []
 
 var active_quest = -1 # RANDOMLY GENERATE QUEST
+var selected_quest = -1 # IS TALKING ABOUT QUEST?
 
 var id : int
-
-var mission_conversation := false
 
 # TODO: ✅ Add dialog
 
@@ -119,12 +120,20 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_mis
 
 	npcs.append(self)
 
+
+
+func reload_missions():
 	var random := RandomNumberGenerator.new()
-	var mission = random.randi_range(0, 5)
-	# if mission == 0: 
-	mission_conversation = true
+	if Dialogs.random_mission_id(blocked_missions):
+		selected_quest = -1
+		
+	else:
+		# var mission = random.randi_range(0, 5)
+		# if mission == 0: 
+			selected_quest = Dialogs.random_mission_id(blocked_missions)
 	# print(nickname, " SPAWNED on: " , position)
 
+	timer.start(300 + 60 * random.randi_range(0, 10))
 
 func _ready() -> void:
 	legs_offset = legs.position
@@ -137,6 +146,7 @@ func _ready() -> void:
 		sprites.hair_node.flip_h = hair[1]
 
 	skin = sprites.skin
+	reload_missions()
 
 func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)
@@ -150,10 +160,10 @@ func _on_interaction_area_area_entered(area:Area2D) -> void:
 			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"])
 			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
-		elif mission_conversation:
-			if Dialogs.random_mission_id(blocked_missions) < 0: mission_conversation = false
+		elif selected_quest >= 0 && !selected_quest in blocked_missions:
+			if Dialogs.random_mission_id(blocked_missions) < 0: selected_quest = -1
 			else:
-				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][Dialogs.random_mission_id(blocked_missions)])
+				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
 		else:
 			Dialogs.conversations["greeting"].shuffle()
 			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["greeting"])
@@ -177,3 +187,6 @@ func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> v
 func delete():
 	npcs.erase(self)
 	queue_free()
+
+func _on_timer_timeout() -> void:
+	reload_missions()

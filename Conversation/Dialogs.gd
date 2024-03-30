@@ -22,15 +22,23 @@ static var conversations = {
 	"mission" : [
 		[
 		"Ahoj, něco bych potřeboval přinést..",
-		# "Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
-		# "Přinesl bys mi ho?",
+		"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
+		"Přinesl bys mi ho?",
 		0,
 		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
+		],		
+		[
+		"Ahoj!",
+		"Vypadáš jako cestovatel.. něco bych potřeboval..",
+		"Ztratil jsem čip, na kterém jsem měl rodinné fotky několika mých generací.",
+		"Nezodpovědné, že? .. Každopádně, mohl bys mi ho přinést? Odměna tě nemine!",
+		1,
+		"Děkuji ti!",
 		],
 	],
 
 	"mission_finished" : [
-		"dyck"
+		"Děkuji!"
 	],
 }
 

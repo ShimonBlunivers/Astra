@@ -7,11 +7,12 @@
 script = ExtResource("1_3wx8i")
 type = 2
 target_ID = -1
+item_type = "Chip"
 
 [resource]
 script = ExtResource("2_nbdt4")
 id = 0
 title = "Povidlový čaj"
-description = "Přines mi prosím recept na čaj. pls"
+description = "Přines mi prosím recept na čaj."
 reward = 1000
 goal = SubResource("Resource_o3qrs")

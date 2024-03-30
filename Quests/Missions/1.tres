@@ -3,15 +3,16 @@
 [ext_resource type="Script" path="res://Quests/Goal.gd" id="1_hxqqa"]
 [ext_resource type="Script" path="res://Quests/Quest.gd" id="2_ewkbp"]
 
-[sub_resource type="Resource" id="Resource_w2mku"]
+[sub_resource type="Resource" id="Resource_7346g"]
 script = ExtResource("1_hxqqa")
-type = 1
+type = 2
 target_ID = -1
+item_type = "Chip"
 
 [resource]
 script = ExtResource("2_ewkbp")
-id = 0
-title = "Promluvit si"
-description = "Je lonely, promluv si s ní."
-reward = 2000
-goal = SubResource("Resource_w2mku")
+id = 1
+title = "Rodinné fotky"
+description = "Přines mi prosím čip s rodinnými fotkami."
+reward = 3000
+goal = SubResource("Resource_7346g")

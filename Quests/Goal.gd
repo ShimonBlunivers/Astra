@@ -8,6 +8,8 @@ enum Type {
 
 @export var type : Type
 @export var target_ID : int
+## Doesn't matter if the type isn't "pick_up_item".
+@export var item_type : String = "Chip"
 
 var mission_id : int
 
@@ -37,7 +39,6 @@ func update_quest_objects():
 func get_position() -> Vector2:
 	return target.global_position
 
-
 func spawn_quest_ship():
 
 	var distances = Vector2(10000, 50000)
@@ -59,7 +60,7 @@ func spawn_quest_ship():
 			_custom_object_spawn = CustomObjectSpawn.create(null, [[target_ID, NPC.names.pick_random(), null, null, null]])
 		Type.pick_up_item:
 			target_ID = Item.get_uid()							# [id, 		type, 			ship_slot_id]
-			_custom_object_spawn = CustomObjectSpawn.create([[target_ID, Item.types["Chip"], null]])
+			_custom_object_spawn = CustomObjectSpawn.create([[target_ID, Item.types[item_type], null]])
 
 	var new_ship = ShipManager.spawn_ship(new_ship_pos, ShipManager.get_quest_ship_path(mission_id), _custom_object_spawn)
 

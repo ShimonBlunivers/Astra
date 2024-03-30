@@ -8,6 +8,8 @@ static var save_file : SaveFile
 
 static var used_builder : Builder = null
 
+static var difficulty_multiplier : float = 1
+
 @onready var canvas_modulate = $CanvasModulate
 @onready var ui_node = $UI
 

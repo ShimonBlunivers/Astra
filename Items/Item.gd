@@ -36,7 +36,7 @@ static func get_item(_id : int) -> Item:
 	return null
 
 static func random_item() -> ItemType: # IMPLEMENT
-	return types["Chip"]
+	return types[types.keys().pick_random()]
 
 static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _ship = null, _ship_slot_id : int = -1) -> Item:
 	var new_item = item_scene.instantiate()
