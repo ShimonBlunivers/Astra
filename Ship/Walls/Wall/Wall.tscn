@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbtvg28idrapq"]
+[gd_scene load_steps=12 format=3 uid="uid://dbtvg28idrapq"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Wall/Wall.gd" id="1_d763y"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="1_p63wu"]
 [ext_resource type="Texture2D" uid="uid://dql1xnhfuwip2" path="res://Ship/Destroyable/crack0.png" id="3_1faau"]
 [ext_resource type="Texture2D" uid="uid://cr3gytjseicgi" path="res://Ship/Destroyable/crack1.png" id="4_k37me"]
 [ext_resource type="Texture2D" uid="uid://coxtmt07numrx" path="res://Ship/Destroyable/crack2.png" id="5_11g0f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65bpr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t106e"]
 atlas = ExtResource("1_p63wu")
@@ -42,6 +44,7 @@ polygon = PackedVector2Array(-40, -40, -40, 40, 40, 40, 40, -40)
 script = ExtResource("1_d763y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_65bpr")
 position = Vector2(1.90735e-06, 0)
 scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_t106e")

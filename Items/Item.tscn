@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b48f1gdguotxg"]
+[gd_scene load_steps=6 format=3 uid="uid://b48f1gdguotxg"]
 
 [ext_resource type="Script" path="res://Items/Item.gd" id="1_ayom3"]
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="2_qgjtl"]
 [ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="3_l0kl1"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="4_3uhcy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iykoa"]
 
@@ -24,7 +25,6 @@ texture_scale = 14.0
 z_index = 10
 y_sort_enabled = true
 material = ExtResource("3_l0kl1")
-rotation = 1.57079
 scale = Vector2(3, 3)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -38,19 +38,24 @@ shape = SubResource("RectangleShape2D_iykoa")
 visible = false
 z_index = 20
 material = ExtResource("3_l0kl1")
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -17.5
-offset_top = -35.0
+offset_top = -11.5
 offset_right = 17.5
-offset_bottom = -12.0
+offset_bottom = 11.5
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_3uhcy")
+text = "asd"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

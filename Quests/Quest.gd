@@ -21,14 +21,17 @@ func init(_npc : NPC, _target_ID : int = -1):
 
     goal.create(id)
     
-    npc.active_quest = id
     NPC.blocked_missions.append(id)
+    npc.selected_quest = -1
+    npc.active_quest = id
     QuestManager.active_quest = id
     QuestManager.update_quest_log()
 
 
 func finish():
+    npc.active_quest = -1
     Player.main_player.add_currency(reward)
+    QuestManager.active_quest = -1
     QuestManager.quests.erase(self)
 
 func delete():

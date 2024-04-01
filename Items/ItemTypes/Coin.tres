@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://biyxqxh1rtjb2"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_ixr8h"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_4yv8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_084mh"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khq00"]
+atlas = ExtResource("2_4yv8k")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_ixr8h")
+texture = SubResource("AtlasTexture_khq00")
+name = "Coin"
+nickname = "Mince"
+shape = SubResource("RectangleShape2D_084mh")

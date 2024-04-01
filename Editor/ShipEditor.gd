@@ -48,7 +48,7 @@ func evide_tiles():
 	var layer = 0
 	for coords in wall_tile_map.get_used_cells(layer):
 		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
-		if type == "connector": starting_block_coords = coords * 32 + Vector2i(16, 16)
+		if type == "connector": starting_block_coords = Vector2(coords) * 32 + Vector2(16, 16) + global_position
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
 			current_ship_price += tools[type].price

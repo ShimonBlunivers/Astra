@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4jm0tchr5nx6"
-path="res://.godot/imported/Chip.png-37686f654a1c12996ca53f61a68d3470.ctex"
+uid="uid://bxwi07442cx01"
+path="res://.godot/imported/BlueNoise.png-e311087440d729e309f8c1644dc7bf26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Chip/Chip.png"
-dest_files=["res://.godot/imported/Chip.png-37686f654a1c12996ca53f61a68d3470.ctex"]
+source_file="res://Lighting/BlueNoise.png"
+dest_files=["res://.godot/imported/BlueNoise.png-e311087440d729e309f8c1644dc7bf26.ctex"]
 
 [params]
 

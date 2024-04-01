@@ -9,12 +9,28 @@ static var number_of_ships = 0
 func _ready() -> void:
 	instance = self
 
-static func new_game():
+static func randomly_generate_ships():
 	ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true)
-	ShipManager.spawn_ship(Vector2(0, -2600), "_small_shuttle")
-	ShipManager.spawn_ship(Vector2(0, -4000), "_small_shuttle")
+
+	var ship_percentage = 10
+
+	var random = RandomNumberGenerator.new()
+
+	var ship_counter = 10
+
+	for x in range(-5, 6):
+		for y in range(-5, 6):
+			if x == 0 && y == 0: continue
+			if random.randi_range(0, ship_percentage) == 0:
+				if ship_counter <= 0: break
+				ship_counter -= 1
+				ShipManager.spawn_ship(Vector2(x * 200000, y * 200000), random_ship())
+
 	Player.main_player.spawn()
 	# ShipManager.spawn_ship(Vector2(2000, -2500), "_small_shuttle")
+
+static func random_ship() -> String:
+	return "_small_shuttle"
 
 static func spawn_ship(_position : Vector2, path : String = "_station", custom_object_spawn : CustomObjectSpawn = null, _from_save := false, lock_rotation := false) -> Ship:
 	var _ship = ship_scene.instantiate()

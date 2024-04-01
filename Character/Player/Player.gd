@@ -168,7 +168,9 @@ func _ready():
 	animated_sprite.play("Idle")
 	
 	# World.save_file.load_world()
-	ShipManager.new_game()
+	World.instance.new_world()
+
+
 
 func kill():
 	if !alive: return
@@ -204,7 +206,7 @@ func _in_physics(delta: float) -> void:
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
 
 	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
-	 
+
 
 
 func control_ship(ship):

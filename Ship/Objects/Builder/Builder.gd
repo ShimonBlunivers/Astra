@@ -18,10 +18,10 @@ func _process(_delta):
 	if connector == null: connector_finder_hitbox.shape.radius += 5
 
 func get_spawn_position() -> Vector2:
-	return connector.global_position + Vector2(80, 240).rotated(deg_to_rad(connector.global_rotation_degrees - 90)) + ship.difference_in_position
+	return connector.global_position + Vector2(80, -80).rotated(deg_to_rad(connector.global_rotation_degrees)) + ship.difference_in_position
 
 func get_ship_rotation() -> float:
-	return deg_to_rad(connector.global_rotation_degrees + 90)
+	return deg_to_rad(connector.global_rotation_degrees)
 
 func _on_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("PlayerArea"):

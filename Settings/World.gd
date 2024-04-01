@@ -20,6 +20,10 @@ func _ready():
 	DisplayServer.window_set_max_size(Vector2i(3840, 2160))
 	save_file = SaveFile.new()
 
+func new_world():
+	UIManager.instance.loading_screen()
+	ShipManager.randomly_generate_ships()
+
 func shift_origin(by:Vector2):
 	transform.origin += by
 	_center_of_universe += by

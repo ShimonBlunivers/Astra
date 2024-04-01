@@ -3,7 +3,7 @@ class_name Item extends Node2D
 @onready var area = $Area2D
 @onready var sprite = $Sprite2D
 @onready var collision_shape = $Area2D/CollisionShape2D
-@onready var itemtag = $Itemtag
+@onready var itemtag : Label = $Itemtag
 
 var ship : Ship = null
 
@@ -30,6 +30,16 @@ static func get_uid() -> int:
 			return _id
 		_id += 1
 	return 0
+static func load_items():
+	var path = "res://Items/ItemTypes"
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if ".tres" in file_name:
+				load(path + "/" + file_name).create()
+			file_name = dir.get_next()
 
 static func get_item(_id : int) -> Item:
 	for item in items: if item.id == _id: return item
@@ -72,6 +82,11 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 func _ready() -> void:
 	sprite.texture = type.texture
 	collision_shape.shape = type.shape
+
+	sprite.scale =  Vector2(collision_shape.shape.get_size().x / sprite.texture.get_size().x, collision_shape.shape.get_size().x / sprite.texture.get_size().x)
+	
+	itemtag.position.y -= (collision_shape.shape.get_size().y / 2) + 12
+
 	itemtag.text = type.nickname
 
 func _physics_process(_delta: float) -> void:
@@ -83,7 +98,6 @@ func _on_area_2d_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -
 
 func _on_area_2d_mouse_entered() -> void:
 	$Itemtag.visible = true
-
 
 func _on_area_2d_mouse_exited() -> void:
 	$Itemtag.visible = false

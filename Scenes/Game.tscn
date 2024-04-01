@@ -383,6 +383,7 @@ editor_description = "Interactive"
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("14_n5bns")
 autoplay = true
 bus = &"Music"

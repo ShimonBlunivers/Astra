@@ -1,15 +1,13 @@
+res://Items
 res://Sound
 res://Ship
 res://Editor/Tools
 res://UI
 res://Scenes
 res://Editor
-res://Items/Coin
-res://Items/Chip
 <<<<<<< Updated upstream
 res://Quests/Missions
 =======
-res://Items
 res://Quests/Missions
 >>>>>>> Stashed changes
 res://Settings

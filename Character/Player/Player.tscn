@@ -184,7 +184,7 @@ offset = Vector2(0, -8.5)
 [node name="Vision" type="Node2D" parent="."]
 
 [node name="Light" type="PointLight2D" parent="Vision"]
-color = Color(0.988235, 1, 1, 1)
+color = Color(0.784314, 0.784314, 0.784314, 1)
 energy = 0.5
 shadow_enabled = true
 shadow_filter = 1

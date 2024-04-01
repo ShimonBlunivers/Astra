@@ -92,12 +92,14 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 					var _in = item_index
 					for i in custom_object_spawn.item_preset.size():
 						if custom_object_spawn.item_preset[i][2] == item_slot:
-							Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
+							var _new_item = Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
+							if !_from_save: _new_item.itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
 							item_index += 1
 					if _in == item_index:
 						for i in custom_object_spawn.item_preset.size():
 							if custom_object_spawn.item_preset[i][2] == null:
-								Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
+								var _new_item = Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
+								if !_from_save: _new_item.itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
 								item_index += 1
 				elif !_from_save:
 					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship, item_slot)

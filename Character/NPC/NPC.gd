@@ -42,8 +42,8 @@ static var names = [
 	"Radek",
 	"Lukas",
 	"Dominik",
-	"Jakob",
-	"Rudolf",
+	"Jakub",
+	"Ruolf",
 	"Lukáš",
 	"Emanuel",
 	"Štěpán",
@@ -74,9 +74,28 @@ var interactable = false
 
 static var blocked_missions = []
 
-var active_quest = -1 # RANDOMLY GENERATE QUEST
-var selected_quest = -1 # IS TALKING ABOUT QUEST?
+static var default_outline_color = Color.BLACK
+static var active_quest_outline_color = Color.DARK_GOLDENROD
+static var selected_quest_outline_color = Color.MEDIUM_PURPLE
 
+var active_quest = -1 : # RANDOMLY GENERATE QUEST
+	set (value):
+		if value == -1:
+			$Nametag.add_theme_color_override("font_outline_color", default_outline_color)
+		else:
+			for npc in NPC.npcs: if npc.selected_quest in NPC.blocked_missions: npc.reload_missions()
+			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
+		active_quest = value
+
+
+var selected_quest = -1 : # IS TALKING ABOUT QUEST?
+	set (value):
+		if value == -1:
+			$Nametag.add_theme_color_override("font_outline_color", default_outline_color)
+		else:
+			$Nametag.add_theme_color_override("font_outline_color", selected_quest_outline_color)
+		selected_quest = value 
+ 
 var id : int
 
 # TODO: ✅ Add dialog
@@ -99,7 +118,6 @@ var skin = null
 var hair = null
 
 func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_missions = null, _skin = null, _hair = null):
-	load("res://Items/Chip/Chip.tres")
 	nickname = _nickname
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(npcs.size())
@@ -120,19 +138,16 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_mis
 
 	npcs.append(self)
 
-
-
 func reload_missions():
+	if active_quest != -1: return
 	var random := RandomNumberGenerator.new()
-	if Dialogs.random_mission_id(blocked_missions):
+	if Dialogs.random_mission_id(blocked_missions) < 0:
 		selected_quest = -1
-		
 	else:
-		# var mission = random.randi_range(0, 5)
-		# if mission == 0: 
+		var mission = random.randi_range(0, 0)
+		if mission == 0: 
 			selected_quest = Dialogs.random_mission_id(blocked_missions)
 	# print(nickname, " SPAWNED on: " , position)
-
 	timer.start(300 + 60 * random.randi_range(0, 10))
 
 func _ready() -> void:
@@ -159,7 +174,6 @@ func _on_interaction_area_area_entered(area:Area2D) -> void:
 		if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
 			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"])
 			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
-
 		elif selected_quest >= 0 && !selected_quest in blocked_missions:
 			if Dialogs.random_mission_id(blocked_missions) < 0: selected_quest = -1
 			else:

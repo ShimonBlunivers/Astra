@@ -35,10 +35,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_exit()
 
 func _process(_delta):
-	limit_rect.position.x = camera.position.x - limit_rect.size.x / 2
+	limit_rect.position.y = camera.position.y - limit_rect.size.y / 2
 
 func center_camera():
-	camera.position = Vector2(ShipEditor.starting_block_coords.x, 0)
+	camera.position = Vector2(ShipEditor.starting_block_coords.x, ShipEditor.starting_block_coords.y)
 	camera.zoom = Vector2(1, 1)
 
 func _exit():
@@ -55,7 +55,7 @@ func _ready():
 	DirAccess.make_dir_absolute("user://saves/")
 	DirAccess.make_dir_absolute("user://saves/ships")
 
-	if Options.DEBUG_MODE: limit_rect.visible = false
+	# if Options.DEBUG_MODE: limit_rect.visible = false
 
 	_update_ship_list()
 

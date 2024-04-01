@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://b30svg212qtjt"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_k2i60"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_1lcgf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83mgl"]
+size = Vector2(48, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n6wy"]
+atlas = ExtResource("2_1lcgf")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_k2i60")
+texture = SubResource("AtlasTexture_0n6wy")
+name = "Chip"
+nickname = "Čip"
+shape = SubResource("RectangleShape2D_83mgl")

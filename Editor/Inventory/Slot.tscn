@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://r3uluksqy3pq"]
+[gd_scene load_steps=6 format=3 uid="uid://r3uluksqy3pq"]
 
 [ext_resource type="Script" path="res://Editor/Inventory/Slot.gd" id="1_bpxub"]
-[ext_resource type="Texture2D" uid="uid://c0hfr52hqwyek" path="res://Items/Coin/Coin.png" id="2_2numf"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_sxdx4"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="3_62q8m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oq55t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_py3t2"]
+atlas = ExtResource("2_sxdx4")
+region = Rect2(0, 0, 16, 16)
 
 [node name="Slot" type="Control"]
 layout_mode = 3
@@ -26,7 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_2numf")
+texture = SubResource("AtlasTexture_py3t2")
 
 [node name="Nickname" type="Label" parent="."]
 layout_mode = 0

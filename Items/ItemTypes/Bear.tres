@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://c66eoy41auvt2"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_fyq64"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_m350r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5karm"]
+size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd26p"]
+atlas = ExtResource("2_m350r")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_fyq64")
+texture = SubResource("AtlasTexture_bd26p")
+name = "Bear"
+nickname = "Medvídek"
+shape = SubResource("RectangleShape2D_5karm")

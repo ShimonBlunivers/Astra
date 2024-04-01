@@ -12,8 +12,8 @@ func get_closest_ship(from_global_pos : Vector2) -> Ship:
 	return closest
 
 func _ready() -> void:
-	load("res://Items/Chip/Chip.tres").create()
-	load("res://Items/Coin/Coin.tres").create()
+
+	Item.load_items()
 	world = World.instance
 
 func get_saveable_items():

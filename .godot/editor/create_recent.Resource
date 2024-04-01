@@ -1,5 +1,4 @@
+ItemType
 Tool
 Quest
-ItemType
-ItemType
 Quest
