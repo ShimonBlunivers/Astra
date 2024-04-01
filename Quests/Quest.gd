@@ -29,7 +29,7 @@ func init(_npc : NPC, _target_ID : int = -1):
 
 
 func finish():
-    npc.active_quest = -1
+    npc.quest_finished()
     Player.main_player.add_currency(reward)
     QuestManager.active_quest = -1
     QuestManager.quests.erase(self)

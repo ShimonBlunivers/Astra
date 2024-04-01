@@ -302,8 +302,6 @@ texture_region_size = Vector2i(32, 32)
 12: [0, 1],
 "type": 0
 }
-2:2/0 = 0
-2:2/0/custom_data_0 = "core"
 3:2/next_alternative_id = 4
 3:2/0 = 0
 3:2/0/terrain_set = 0
@@ -384,6 +382,8 @@ texture_region_size = Vector2i(32, 32)
 4:1/3/terrains_peering_bit/right_side = 0
 4:1/3/terrains_peering_bit/left_side = 0
 4:1/3/custom_data_0 = "connector"
+4:2/0 = 0
+4:2/0/custom_data_0 = "core"
 
 [resource]
 tile_size = Vector2i(32, 32)

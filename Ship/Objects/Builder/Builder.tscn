@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsmgi5uubxp1u"]
+[gd_scene load_steps=9 format=3 uid="uid://bsmgi5uubxp1u"]
 
 [ext_resource type="Texture2D" uid="uid://l2irgva513of" path="res://Ship/object_tilesheet.png" id="1_chrf0"]
 [ext_resource type="Script" path="res://Ship/Objects/Builder/Builder.gd" id="1_vtmal"]
+[ext_resource type="AudioStream" uid="uid://nfs44tqevhoj" path="res://Ship/Objects/Builder/deploy.mp3" id="3_7jxf2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ki37s"]
 atlas = ExtResource("1_chrf0")
@@ -56,6 +57,12 @@ collision_mask = 2048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectorFinder"]
 shape = SubResource("CircleShape2D_p2ax6")
+
+[node name="DeploySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7jxf2")
+volume_db = 2.0
+bus = &"SFX"
+area_mask = 0
 
 [connection signal="area_entered" from="InteractArea" to="." method="_on_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_area_area_exited"]

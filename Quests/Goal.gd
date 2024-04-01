@@ -37,6 +37,7 @@ func update_quest_objects():
 	QuestManager.active_quest_objects[type].append(target)
 
 func get_position() -> Vector2:
+	if target == null: return Vector2.ZERO
 	return target.global_position
 
 func spawn_quest_ship():

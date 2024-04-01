@@ -103,6 +103,7 @@ func _on_area_2d_mouse_exited() -> void:
 	$Itemtag.visible = false
 
 func pick_up():
+	$PickedUpSound.play()
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", Player.main_player.global_position - Player.main_player.acceleration, (global_position - Player.main_player.global_position).length() / 1200).set_ease(Tween.EASE_OUT)
 
@@ -111,10 +112,15 @@ func pick_up():
 	if self in QuestManager.active_quest_objects[Goal.Type.pick_up_item]:
 		QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
-	delete()
+	visible = false
+
 
 func delete():
 	ship.used_item_slots -= 1
 	items.erase(self)
 	ship.pickedup_items.append(id)
 	queue_free()
+
+
+func _on_picked_up_sound_finished() -> void:
+	delete()

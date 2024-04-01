@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://qo508d4kbv3i"]
+[gd_scene load_steps=10 format=3 uid="uid://qo508d4kbv3i"]
 
 [ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_d6b1x"]
 [ext_resource type="PackedScene" uid="uid://bkv0eyk6hhdw5" path="res://Character/NPC/NPCSprite.tscn" id="2_hqmdl"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="5_aggmp"]
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="5_lae3u"]
 [ext_resource type="Script" path="res://Conversation/DialogManager.gd" id="6_bx6ve"]
+[ext_resource type="AudioStream" uid="uid://d0eaaosonhloe" path="res://Quests/quest_finished.mp3" id="6_fpgho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j6yp"]
 size = Vector2(50, 100)
@@ -85,6 +86,11 @@ autowrap_mode = 2
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 300.0
+
+[node name="FinishedQuest" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_fpgho")
+bus = &"SFX"
+area_mask = 0
 
 [connection signal="input_event" from="Area" to="." method="_on_area_input_event"]
 [connection signal="mouse_entered" from="Area" to="." method="_on_area_mouse_entered"]

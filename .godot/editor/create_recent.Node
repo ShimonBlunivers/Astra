@@ -1,7 +1,8 @@
+AnimatedSprite2D
+AudioStreamPlayer2D
 ColorRect
 Timer
 Node2D
-AnimatedSprite2D
 Sprite2D
 AudioStreamPlayer
 PinJoint2D
@@ -11,4 +12,3 @@ CanvasLayer
 Node
 Label
 HSlider
-TextureRect

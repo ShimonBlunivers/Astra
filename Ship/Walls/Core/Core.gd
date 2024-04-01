@@ -1,7 +1,7 @@
 class_name Core extends ShipPart
 
 
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var sprite : AnimatedSprite2D = $Sprite2D
 
 var layer : int = 0
 

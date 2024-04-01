@@ -7,12 +7,15 @@ var controlled : bool = false
 var connector : Connector
 
 func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1):
-	_coords = Vector2i(_coords.x / 4, _coords.y / 4)                                   # MAYBE DOESNT WORK!!
+	_coords = Vector2i(_coords.x / 4, _coords.y / 4)
 	super(_ship, _coords, _durability, _mass)
 
 func _interact():
 	if connector.connected_to == null:
 		World.instance.open_editor(self)
+		
+func play_sound():
+	$DeploySound.play()
 
 func _process(_delta):
 	if connector == null: connector_finder_hitbox.shape.radius += 5
@@ -32,7 +35,6 @@ func _on_area_area_exited(area: Area2D) -> void:
 	if area.is_in_group("PlayerArea"):
 		player_in_range.hovering_controllables.erase(self)
 		player_in_range = null
-
 
 func _on_connector_finder_body_entered(body:Node2D) -> void:
 	if connector == null:

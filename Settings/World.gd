@@ -32,9 +32,11 @@ func get_distance_from_center(pos : Vector2) -> Vector2:
 	return pos - _center_of_universe
 
 func _process(_delta):
+	if !Options.DEBUG_MODE: return
 	queue_redraw()
 
 func _draw():
+	if !Options.DEBUG_MODE: return
 	draw_circle(-_center_of_universe , 25 , Color.LIGHT_BLUE)
 
 func open_editor(_builder : Builder = null):

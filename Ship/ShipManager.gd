@@ -43,6 +43,7 @@ static func build_ship(_builder : Builder, for_player : bool, path : String = "_
 	var _ship : Ship = ship_scene.instantiate()
 	_ship.name = "Ship-" + str(_ship.id)
 	instance.add_child(_ship)
+	_builder.play_sound()
 	_ship.load_ship(_builder.get_spawn_position(), path, null, true, true)
 	_ship.linear_velocity = _builder.ship.linear_velocity
 	_ship.rotation = _builder.get_ship_rotation()

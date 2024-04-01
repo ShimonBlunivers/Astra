@@ -7,6 +7,7 @@ class_name Thruster extends ShipPart
 @onready var right_sidejet_particles : GPUParticles2D = $RightSideJetParticles
 
 @onready var jet_sound : AudioStreamPlayer2D = $Sounds/Jet
+@onready var sidejet_sound : AudioStreamPlayer2D = $Sounds/SideJet
 
 var layer : int = 0
 
@@ -17,7 +18,6 @@ var direction : int
 var running : bool = false
 
 var blocked_sides = [false, false] # LEFT RIGHT
-
 
 func init(_ship, _coords : Vector2i, _durability : float = 150, _mass : float = 5, _direction = 0, _power = 1000):
 	super(_ship, _coords, _durability, _mass)
@@ -33,8 +33,17 @@ func set_status(status : bool):
 	jet_sound.playing = status
 
 func side_thrusters(dir : float):
-	if !blocked_sides[0]: left_sidejet_particles.emitting = dir < 0
-	if !blocked_sides[1]: right_sidejet_particles.emitting = dir > 0
+	var emitting = false
+	if !blocked_sides[0]: 
+		left_sidejet_particles.emitting = dir < 0
+		if dir < 0:
+			emitting = true
+	if !blocked_sides[1]: 
+		right_sidejet_particles.emitting = dir > 0
+		if dir > 0:
+			emitting = true
+	if sidejet_sound.playing != emitting:
+		sidejet_sound.playing = emitting
 
 func get_blocked_sides():
 	var _blocked_sides = [false, false, false, false] # LEFT UP RIGHT DOWN

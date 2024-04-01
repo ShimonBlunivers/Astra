@@ -83,7 +83,12 @@ var active_quest = -1 : # RANDOMLY GENERATE QUEST
 		if value == -1:
 			$Nametag.add_theme_color_override("font_outline_color", default_outline_color)
 		else:
-			for npc in NPC.npcs: if npc.selected_quest in NPC.blocked_missions: npc.reload_missions()
+			# print(NPC.blocked_missions)
+			for npc in NPC.npcs: 
+				# print(npc.selected_quest)
+				if npc.selected_quest in NPC.blocked_missions: 
+					npc.reload_missions()
+					# print(npc.nickname)
 			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
 		active_quest = value
 
@@ -138,6 +143,10 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_mis
 
 	npcs.append(self)
 
+func quest_finished():
+	active_quest = -1
+	$FinishedQuest.play()
+
 func reload_missions():
 	if active_quest != -1: return
 	var random := RandomNumberGenerator.new()
@@ -166,21 +175,24 @@ func _ready() -> void:
 func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)
 
-
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
 		interactable = true
 		var dialog_position = Vector2(0, -105)
+		if Dialogs.random_mission_id(blocked_missions) < 0: selected_quest = -1
 		if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
-			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"])
-			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
-		elif selected_quest >= 0 && !selected_quest in blocked_missions:
-			if Dialogs.random_mission_id(blocked_missions) < 0: selected_quest = -1
+			if QuestManager.get_quest(self).id in Dialogs.conversations["mission_finished"].keys():
+				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][QuestManager.get_quest(self).id])
 			else:
-				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
+				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][-1])
+
+			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
+
+		elif selected_quest >= 0 && !selected_quest in blocked_missions:
+			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
 		else:
-			Dialogs.conversations["greeting"].shuffle()
-			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["greeting"])
+			# Dialogs.conversations["greeting"].shuffle()
+			dialog_manager.start_dialog(dialog_position, [Dialogs.conversations["greeting"].pick_random()])
 		QuestManager.update_quest_log()
 
 func _on_interaction_area_area_exited(area:Area2D):

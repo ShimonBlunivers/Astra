@@ -66,11 +66,12 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 				ship.object_tiles.add_child(builder_object)
 
 				set_cell(layer, cellpos, -1)
+				
 			"npc":
 				var NPC_object = NPC_scene.instantiate()
 				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
-				
+
 				if custom_object_spawn != null && custom_object_spawn.npc_preset != null && npc_index < custom_object_spawn.npc_preset.size():
 					NPC_object.init(custom_object_spawn.npc_preset[npc_index][0], custom_object_spawn.npc_preset[npc_index][1], custom_object_spawn.npc_preset[npc_index][2], custom_object_spawn.npc_preset[npc_index][3], custom_object_spawn.npc_preset[npc_index][4])
 					npc_index += 1

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b48f1gdguotxg"]
+[gd_scene load_steps=7 format=3 uid="uid://b48f1gdguotxg"]
 
 [ext_resource type="Script" path="res://Items/Item.gd" id="1_ayom3"]
 [ext_resource type="Texture2D" uid="uid://dd6ut7tl0o22u" path="res://Lighting/light.png" id="2_qgjtl"]
 [ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="3_l0kl1"]
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="4_3uhcy"]
+[ext_resource type="AudioStream" uid="uid://bxlk6suliahhw" path="res://Items/picked_up.wav" id="5_x1pal"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iykoa"]
 
@@ -57,6 +58,13 @@ text = "asd"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PickedUpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_x1pal")
+volume_db = -8.0
+bus = &"SFX"
+area_mask = 0
+
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="finished" from="PickedUpSound" to="." method="_on_picked_up_sound_finished"]

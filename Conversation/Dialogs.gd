@@ -18,7 +18,7 @@ static var conversations = {
 		"Co si myslíš o vesmírné politice?",
 		"Co je podle tebe nejlepší část vesmíru?",
 	],
-
+	## The mission ID needs to correspond with the index in list
 	"mission" : [
 		[
 		"Ahoj, něco bych potřeboval přinést..",
@@ -37,16 +37,16 @@ static var conversations = {
 		"Děkuji ti!",
 		],
 
-		[
-		"Nazdárek!",
-		"Potřebuji tvou pomoc. Naše stanice zachytila signál z neznámého zdroje..",
-		"Mohl bys prosím zjistit kdo, nebo co, vysílá tento signál?",
-		"Pokud potkáš někoho poblíž, prověř ho, ať už je to mimozemšťan, průzkumník nebo dokonce ztracená družice.",
-		"Jakmile najdeš zdroj signálu, vrať se. Samozřejmě ti nezapomenu dát nějakou tu odměnu!",
-		2,
-		"Budu očekávat tvůj návrat!",
-		], 
-
+		# [
+		# "Nazdárek!",
+		# "Potřebuji tvou pomoc. Naše stanice zachytila signál z neznámého zdroje..",
+		# "Mohl bys prosím zjistit kdo, nebo co, vysílá tento signál?",
+		# "Pokud potkáš někoho poblíž, prověř ho, ať už je to mimozemšťan, průzkumník nebo dokonce ztracená družice.",
+		# "Jakmile najdeš zdroj signálu, vrať se. Samozřejmě ti nezapomenu dát nějakou tu odměnu!",
+		# 2,
+		# "Budu očekávat tvůj návrat!",
+		# ], 
+		
 		# [
 
 		# ],
@@ -59,10 +59,14 @@ static var conversations = {
 
 		# ],
 	],
-
-	"mission_finished" : [
-		"Děkuji!"
-	],
+	# "mission_finished" : [
+	# 	"Děkuji!",
+	# ]
+	"mission_finished" : {
+		-1 : [
+			"Děkuji!",
+			],
+	},
 }
 
 static func random_phrase(dialog_type: String) -> String:

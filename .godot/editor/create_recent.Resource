@@ -1,4 +1,3 @@
+Quest
 ItemType
 Tool
-Quest
-Quest
