@@ -43,7 +43,7 @@ static var names = [
 	"Lukas",
 	"Dominik",
 	"Jakub",
-	"Ruolf",
+	"Rudolf",
 	"Lukáš",
 	"Emanuel",
 	"Štěpán",

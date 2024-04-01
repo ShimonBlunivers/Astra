@@ -71,18 +71,16 @@ metadata/_edit_vertical_guides_ = []
 position = Vector2(640, 360)
 
 [node name="QuestArrow" type="Node2D" parent="Player"]
-y_sort_enabled = true
 position = Vector2(-640, -360)
 
 [node name="Arrow" type="AnimatedSprite2D" parent="Player/QuestArrow"]
 modulate = Color(1, 1, 1, 0.74902)
-z_index = 9
+z_index = 30
 z_as_relative = false
-y_sort_enabled = true
 position = Vector2(640, 359)
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_1a0uh")
-offset = Vector2(26, 0)
+offset = Vector2(45, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 ignore_rotation = false
