@@ -37,15 +37,15 @@ static var conversations = {
 		"Děkuji ti!",
 		],
 
-		# [
-		# "Nazdárek!",
-		# "Potřebuji tvou pomoc. Naše stanice zachytila signál z neznámého zdroje..",
-		# "Mohl bys prosím zjistit kdo, nebo co, vysílá tento signál?",
-		# "Pokud potkáš někoho poblíž, prověř ho, ať už je to mimozemšťan, průzkumník nebo dokonce ztracená družice.",
-		# "Jakmile najdeš zdroj signálu, vrať se. Samozřejmě ti nezapomenu dát nějakou tu odměnu!",
-		# 2,
-		# "Budu očekávat tvůj návrat!",
-		# ], 
+		[
+		"Nazdárek!",
+		"Potřebuji tvou pomoc. Naše stanice zachytila signál z neznámého zdroje..",
+		"Mohl bys prosím zjistit kdo, nebo co, vysílá tento signál?",
+		"Pokud potkáš někoho poblíž, prověř ho, ať už je to mimozemšťan, průzkumník nebo dokonce ztracená družice.",
+		"Jakmile najdeš zdroj signálu, vrať se. Samozřejmě ti nezapomenu dát nějakou tu odměnu!",
+		2,
+		"Budu očekávat tvůj návrat!",
+		], 
 		
 		# [
 

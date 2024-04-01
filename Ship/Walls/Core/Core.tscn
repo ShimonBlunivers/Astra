@@ -62,6 +62,7 @@ shape = SubResource("RectangleShape2D_yeoku")
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_3sfkc")
+volume_db = -2.0
 autoplay = true
 max_distance = 800.0
 attenuation = 2.0
