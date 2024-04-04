@@ -90,14 +90,13 @@ func floating():
 	return passenger_on.size() == 0
 
 func get_in(ship):
-
-	print(acceleration, " ; ", ship.difference_in_position)
-
 	dim_acceleration_for_frames = 5
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 	rotate_to_ship()
-
+	print(acceleration, " ; ", ship.difference_in_position)
+	if max_impact_velocity < (acceleration - ship.difference_in_position).length():
+		kill()
 func rotate_to_ship():
 	if turn_tween: turn_tween.kill()
 	var turn_speed = abs(rotation_degrees / 150)
@@ -186,6 +185,8 @@ func kill():
 	health_updated_signal.emit()
 	died_signal.emit()
 
+	$RespawnTimer.start()
+
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
@@ -210,20 +211,20 @@ func _in_physics(delta: float) -> void:
 
 	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 
-	# if floating():
-	# 	_regen_timer = 0
-	# 	_damage_timer += delta * 2
-	# 	if _damage_timer >= 1:
-	# 		_damage_timer = 0
-	# 		damage(5)
+	if floating():
+		_regen_timer = 0
+		_damage_timer += delta * 2
+		if _damage_timer >= 1:
+			_damage_timer = 0
+			damage(5)
 
-	# else:
-	# 	_damage_timer = 0
-	# 	if health != max_health:
-	# 		_regen_timer += delta * 3
-	# 		if _regen_timer >= 1:
-	# 			damage(-1)
-	# 			_regen_timer = 0
+	else:
+		_damage_timer = 0
+		if health != max_health:
+			_regen_timer += delta * 3
+			if _regen_timer >= 1:
+				damage(-1)
+				_regen_timer = 0
 
 
 
@@ -376,3 +377,7 @@ func deleting_ship(_ship : Ship):
 
 func _on_health_updated_signal() -> void:
 	UIManager.instance.player_health_updated_signal()
+
+
+func _on_respawn_timer_timeout() -> void:
+	World.save_file.load_world()

@@ -3,3 +3,13 @@ res://Character/Player/Player.gd
 res://Conversation/DialogManager.gd
 res://Character/NPC/NPC.gd
 res://Editor/Inventory/Inventory.gd
+res://Scenes/Game.tscn
+res://Ship/WallTileMap.tres
+res://Ship/ObjectTileMap.tres
+res://Character/Player/Player.tscn
+res://Character/Character.gd
+res://Settings/World.gd
+res://Settings/SaveFile.gd
+res://Ship/Ship.gd
+res://Items/Item.gd
+res://Items/ItemType.gd

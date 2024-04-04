@@ -78,12 +78,6 @@ var connectors = []
 var _old_position = position
 var difference_in_position := Vector2.ZERO
 
-# func _process(_delta):
-# 	queue_redraw()
-
-# func _draw():
-# 	draw_circle(center_of_mass, 25, Color.RED)
-
 static func get_ship(_id : int) -> Ship:
 	for ship in ships:
 		if ship.id == _id: return ship
@@ -119,8 +113,6 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 		rotation = rng.randf_range(0, 2 * PI)
 
 
-
-
 func get_tile(coords : Vector2i):
 	for tile in wall_tiles.get_children():
 		if (tile is ShipPart):
@@ -129,6 +121,7 @@ func get_tile(coords : Vector2i):
 	return null
 
 func get_closest_point(point1 : Vector2) -> Vector2:
+	if polygon == null: return global_position
 	var closest = polygon[0].rotated(global_rotation) + global_position
 	for point2 in polygon:
 		point2 = point2.rotated(global_rotation) + global_position
@@ -268,14 +261,11 @@ func delete():
 func _unhandled_input(event: InputEvent):
 	if controlled_by == null: return
 	if event.is_action_pressed("game_dock_ship"):
-		print("input")
 		var connected = false
 		for connector in connectors:
 			if connector.connected_to != null:
 				connector.connect_to(null)
 				connected = true
-				print("undocked")
 		if !connected && connectors[0].connectors_in_range.size() > 0:
-			print("dock")
 			connectors[0].connect_to(connectors[0].connectors_in_range[0])
 
