@@ -215,5 +215,6 @@ bus = &"SFX"
 
 [node name="Effects" type="Node2D" parent="."]
 
+[connection signal="health_updated_signal" from="." to="." method="_on_health_updated_signal"]
 [connection signal="area_entered" from="Pickup" to="." method="_on_pickup_area_entered"]
 [connection signal="area_exited" from="Pickup" to="." method="_on_pickup_area_exited"]

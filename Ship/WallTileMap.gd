@@ -116,10 +116,16 @@ func load_ship(_ship, path : String) -> bool:
 	clear()
 	
 	var layer : int = 0
+
+	var save_file : FileAccess
 	
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
-		return false
-	var save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.READ)
+		if not FileAccess.file_exists("res://DefaultSave/ships/" + path + "/walls.dat"):
+			return false
+		else:
+			save_file = FileAccess.open("res://DefaultSave/ships/" + path + "/walls.dat", FileAccess.READ)
+	else:
+		save_file = FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.READ)
 	
 	var contents := []
 	

@@ -12,8 +12,9 @@ const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 var save_name : String = "last_save"
 
 func initialize_files():
-	if !DirAccess.dir_exists_absolute("user://saves"):
-		DirAccess.copy_absolute("res://DefaultSave", "user://saves")
+	DirAccess.make_dir_recursive_absolute("user://saves/ships")
+	DirAccess.make_dir_recursive_absolute("user://saves/worlds")
+
 
 func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
 	var extension := ".tres" if OS.is_debug_build() else ".res"

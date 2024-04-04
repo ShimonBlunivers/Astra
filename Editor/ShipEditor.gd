@@ -166,13 +166,16 @@ func save_ship(path : String = "_default_ship") -> void:
 
 	evide_tiles()
 
-	DirAccess.make_dir_absolute("user://saves/")
-	DirAccess.make_dir_absolute("user://saves/ships/")
-	DirAccess.make_dir_absolute("user://saves/ships/"+path+"/")
+	var location : String
+
+	if path.begins_with("_"): location = "res://DefaultSave/ships/"
+	else: location = "user://saves/ships/"
+
+	DirAccess.make_dir_recursive_absolute(location + path + "/")
 	
-	var walls_save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.WRITE)
-	var objects_save_file := FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.WRITE)
-	var details_save_file := FileAccess.open("user://saves/ships/" + path + "/details.dat", FileAccess.WRITE)
+	var walls_save_file := FileAccess.open(location + path + "/walls.dat", FileAccess.WRITE)
+	var objects_save_file := FileAccess.open(location + path + "/objects.dat", FileAccess.WRITE)
+	var details_save_file := FileAccess.open(location + path + "/details.dat", FileAccess.WRITE)
 	
 	for cell in wall_tile_map.get_used_cells(layer):
 		walls_save_file.store_float(cell.x)	# 0
@@ -202,17 +205,22 @@ func save_ship(path : String = "_default_ship") -> void:
 	
 func load_ship(path : String = "_default_ship") -> bool:
 
+	var location : String
+
+	if path.begins_with("_"): location = "res://DefaultSave/ships/"
+	else: location = "user://saves/ships/"
+
 	var layer : int = 0
 
-	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
+	if not FileAccess.file_exists(location + path + "/walls.dat"):
 		return false
-	if not FileAccess.file_exists("user://saves/ships/" + path + "/objects.dat"):
+	if not FileAccess.file_exists(location + path + "/objects.dat"):
 		return false
 
 	Editor.instance.inventory.currency += current_ship_price
 
-	if !path.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + path + "/details.dat"):
-		var details = FileAccess.open("user://saves/ships/" + path + "/details.dat", FileAccess.READ)
+	if !path.begins_with('_') && FileAccess.file_exists(location + path + "/details.dat"):
+		var details = FileAccess.open(location + path + "/details.dat", FileAccess.READ)
 		var price = details.get_16()
 		inventory.currency -= price
 		inventory.currency_value.text = str(inventory.currency)
@@ -221,8 +229,8 @@ func load_ship(path : String = "_default_ship") -> bool:
 	wall_tile_map.clear()
 	object_tile_map.clear()
 	
-	var walls_save_file := FileAccess.open("user://saves/ships/" + path + "/walls.dat", FileAccess.READ)
-	var objects_save_file := FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.READ)
+	var walls_save_file := FileAccess.open(location + path + "/walls.dat", FileAccess.READ)
+	var objects_save_file := FileAccess.open(location + path + "/objects.dat", FileAccess.READ)
 	
 	var contents := []
 	

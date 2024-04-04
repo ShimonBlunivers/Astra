@@ -24,8 +24,8 @@ func start_dialog(position: Vector2, lines):
 	is_dialog_active = true
 
 func _show_text_box():
+	if dialog_lines == null: return
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
-		
 		load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
 		advance()
 		return
@@ -62,4 +62,3 @@ func end_dialog():
 	is_dialog_active = false
 	current_line_index = 0
 	return
-		

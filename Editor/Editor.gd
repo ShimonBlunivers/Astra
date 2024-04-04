@@ -92,7 +92,7 @@ func _update_ship_list():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				if !(!Options.DEBUG_MODE && file_name.begins_with('_')): 
+				if !(!Options.DEBUG_MODE && file_name.begins_with('_') && file_name.begins_with('%')): 
 					ship_text += "[cell=1][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
 					if !file_name.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + file_name + "/details.dat"):
 						var details = FileAccess.open("user://saves/ships/" + file_name + "/details.dat", FileAccess.READ)
@@ -105,9 +105,31 @@ func _update_ship_list():
 						details.close()
 					else:
 						ship_text += "[cell=1][/cell][cell=1][/cell]"
-
 					# ship_text += "[/url]"
 			file_name = dir.get_next()
+	
+	if Options.DEBUG_MODE:
+		dir = DirAccess.open("res://DefaultSave/ships")
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					ship_text += "[cell=1][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
+					if !file_name.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + file_name + "/details.dat"):
+						var details = FileAccess.open("user://saves/ships/" + file_name + "/details.dat", FileAccess.READ)
+						var price = details.get_16()
+						ship_text += "[cell=1]      ->      [/cell][cell=1][right]" 
+						if price > ship_editor.current_ship_price + inventory.currency: ship_text += "[color=red]"
+						ship_text += str(price) 
+						if price > ship_editor.current_ship_price + inventory.currency: ship_text += "[/color]"
+						ship_text += " [img]res://UI/currency.png[/img]" + "[/right][/cell]"
+						details.close()
+					else:
+						ship_text += "[cell=1][/cell][cell=1][/cell]"
+				file_name = dir.get_next()
+
+	
 	ship_text += "[/table][/center]"
 	ship_list.text = ship_text
 
@@ -161,13 +183,12 @@ func _on_deploy_pressed() -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if dir.current_is_dir() && file_name.contains("_player_ship_"): ship_num += 1
+			if dir.current_is_dir() && file_name.contains("%player_ship_"): ship_num += 1
 			file_name = dir.get_next()
 
-
-	ship_editor.save_ship("_player_ship_" + str(ship_num))
+	ship_editor.save_ship("%player_ship_" + str(ship_num))
 
 	if World.used_builder != null:
-		ShipManager.build_ship(World.used_builder, true, "_player_ship_" + str(ship_num))
+		ShipManager.build_ship(World.used_builder, true, "%player_ship_" + str(ship_num))
 	_exit()
 	

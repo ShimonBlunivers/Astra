@@ -43,6 +43,9 @@ var camera_difference = Vector2.ZERO
 
 signal currency_updated_signal
 
+var _damage_timer : float = 0
+var _regen_timer : float = 0
+
 static var owned_ship : Ship
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
@@ -87,10 +90,12 @@ func floating():
 	return passenger_on.size() == 0
 
 func get_in(ship):
+
+	print(acceleration, " ; ", ship.difference_in_position)
+
 	dim_acceleration_for_frames = 5
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
-
 	rotate_to_ship()
 
 func rotate_to_ship():
@@ -128,8 +133,6 @@ func _unhandled_input(event: InputEvent):
 		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
 		add_currency(1500)
 		
-		
-
 	if alive:
 		if event.is_action_pressed("game_control"):
 			for controllable in hovering_controllables:
@@ -207,6 +210,21 @@ func _in_physics(delta: float) -> void:
 
 	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 
+	# if floating():
+	# 	_regen_timer = 0
+	# 	_damage_timer += delta * 2
+	# 	if _damage_timer >= 1:
+	# 		_damage_timer = 0
+	# 		damage(5)
+
+	# else:
+	# 	_damage_timer = 0
+	# 	if health != max_health:
+	# 		_regen_timer += delta * 3
+	# 		if _regen_timer >= 1:
+	# 			damage(-1)
+	# 			_regen_timer = 0
+
 
 
 func control_ship(ship):
@@ -232,7 +250,9 @@ func _move(_delta: float) -> void:
 
 	var _sound_pitch_range := [0.9, 1.1] # Sound variation
 	
-	if !alive: direction = Vector2.ZERO # Death check
+	if !alive: 
+		direction = Vector2.ZERO # Death check
+		rotation_direction = 0
 	
 	acceleration = World.instance.get_distance_from_center(global_position) - _old_position # Acceleration get by the difference of the position
 	_old_position = World.instance.get_distance_from_center(global_position)
@@ -352,3 +372,7 @@ func _on_pickup_area_exited(area:Area2D) -> void:
 func deleting_ship(_ship : Ship):
 	if _ship == parent_ship:
 		call_deferred("reparent", World.instance)
+
+
+func _on_health_updated_signal() -> void:
+	UIManager.instance.player_health_updated_signal()

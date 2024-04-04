@@ -9,6 +9,12 @@ var difference = Vector2.ZERO
 
 var ship : Ship
 
+var role : Role
+
+enum Role {
+	
+}
+
 static var names = [
 	"Kevin",
 	"Lukáš",

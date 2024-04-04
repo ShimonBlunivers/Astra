@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://bunf6050t5br"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_nolve"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_ck8t0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0sh7l"]
+size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8a85"]
+atlas = ExtResource("2_ck8t0")
+region = Rect2(80, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_nolve")
+texture = SubResource("AtlasTexture_i8a85")
+name = "Kl94"
+nickname = "KL94"
+shape = SubResource("RectangleShape2D_0sh7l")

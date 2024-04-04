@@ -1,3 +1,5 @@
 res://Sound/bus_layout.tres
-res://Scenes/Game.tscn
-res://Settings/SaveFile.gd
+res://Character/Player/Player.gd
+res://Conversation/DialogManager.gd
+res://Character/NPC/NPC.gd
+res://Editor/Inventory/Inventory.gd

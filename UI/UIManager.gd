@@ -61,10 +61,10 @@ func _ready():
 	add_currency_label = $HUD/Currency/AddCurrencyLabel
 	remove_currency_label = $HUD/Currency/RemoveCurrencyLabel
 
-func _on_player_health_updated_signal() -> void:
+func player_health_updated_signal() -> void:
 	health_label.text = str(Player.main_player.health)
 	death_screen.visible = !Player.main_player.alive 
-
+	
 func _on_player_currency_updated_signal() -> void:
 	currency_label.text = str(Player.main_player.currency)
 

@@ -19,53 +19,55 @@ static var conversations = {
 		"Co je podle tebe nejlepší část vesmíru?",
 	],
 	## The mission ID needs to correspond with the index in list
-	"mission" : [
-		[
-		"Ahoj, něco bych potřeboval přinést..",
-		"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
-		"Přinesl bys mi ho?",
-		0,
-		"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
+	"mission" : {
+		0 : [
+			"Ahoj, něco bych potřeboval přinést..",
+			"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
+			"Přinesl bys mi ho?",
+			0,
+			"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
 		],
-
-		[
-		"Ahoj!",
-		"Vypadáš jako cestovatel.. něco bych potřeboval..",
-		"Ztratil jsem čip, na kterém jsem měl rodinné fotky několika mých generací.",
-		"Nezodpovědné, že? .. Každopádně, mohl bys mi ho přinést? Odměna tě nemine!",
-		1,
-		"Děkuji ti!",
+		1 : [
+			"Ahoj!",
+			"Vypadáš jako cestovatel.. něco bych potřeboval..",
+			"Ztratil jsem čip, na kterém jsem měl rodinné fotky několika mých generací.",
+			"Nezodpovědné, že? .. Každopádně, mohl bys mi ho přinést? Odměna tě nemine!",
+			1,
+			"Děkuji ti!",
 		],
-
-		[
-		"Nazdárek!",
-		"Potřebuji tvou pomoc. Naše stanice zachytila signál z neznámého zdroje..",
-		"Mohl bys prosím zjistit kdo, nebo co, vysílá tento signál?",
-		"Pokud potkáš někoho poblíž, prověř ho, ať už je to mimozemšťan, průzkumník nebo dokonce ztracená družice.",
-		"Jakmile najdeš zdroj signálu, vrať se. Samozřejmě ti nezapomenu dát nějakou tu odměnu!",
-		2,
-		"Budu očekávat tvůj návrat!",
+		2 : [
+			"Nazdárek!",
+			"Potřebuji tvou pomoc. Naše stanice zachytila signál z neznámého zdroje..",
+			"Mohl bys prosím zjistit kdo, nebo co, vysílá tento signál?",
+			"Pokud potkáš někoho poblíž, prověř ho, ať už je to mimozemšťan, průzkumník nebo dokonce ztracená družice.",
+			"Jakmile najdeš zdroj signálu, vrať se. Samozřejmě ti nezapomenu dát nějakou tu odměnu!",
+			2,
+			"Budu očekávat tvůj návrat!",
 		], 
+		3 : [
+			"Zdar, potřebuju s něčím pomoct..",
+			"Vidím, že máš odvahu pomoci cizí posádce v nouzi.",
+			"Situace není moc dobrá. Motory jsou mimo provoz a životně důležité systémy jsou vážně rozbity.",
+			"Potřebuju KL94 velikosti 10, náhradní díly by mohly být v naší sesterské lodi, ale musím tě varovat, desítka se často ztrácí.",
+			"Budeš potřebovat opatrné ruce. Až to budeš mít tak se vrať!",
+			3,
+		]
+
+		# [
+
+		# ],
 		
 		# [
 
 		# ],
-
-		# [
-
-		# ],
-		
-		# [
-
-		# ],
-	],
-	# "mission_finished" : [
-	# 	"Děkuji!",
-	# ]
+	},
+	
 	"mission_finished" : {
 		-1 : [
 			"Děkuji!",
 			],
+		3 : ["..."]
+
 	},
 }
 
