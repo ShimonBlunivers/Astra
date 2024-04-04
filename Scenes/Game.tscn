@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=21 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Ship/ShipManager.gd" id="2_0gdpv"]
@@ -35,12 +35,6 @@ shader_parameter/speed_divider = 500000.0
 shader = ExtResource("3_htlho")
 shader_parameter/background_position = null
 shader_parameter/speed_divider = 100000.0
-
-[sub_resource type="Gradient" id="Gradient_khipi"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gft63"]
-gradient = SubResource("Gradient_khipi")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7voj"]
 bg_color = Color(0.396078, 0.231373, 0.435294, 0.615686)
@@ -293,11 +287,11 @@ vertical_alignment = 1
 visible = false
 modulate = Color(1, 0, 0, 0.431373)
 
-[node name="Sprite2D" type="Sprite2D" parent="UI/HUD/DeathScreen"]
+[node name="Sprite2D" type="ColorRect" parent="UI/HUD/DeathScreen"]
 z_index = 11
-scale = Vector2(5, 720)
-texture = SubResource("GradientTexture1D_gft63")
-centered = false
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.52549, 0.52549, 0.52549, 1)
 
 [node name="LoadingScreen" type="Node2D" parent="UI/HUD"]
 visible = false

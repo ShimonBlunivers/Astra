@@ -63,7 +63,7 @@ var connectors = []
 
 # TODO: ✅ Add Thrusters
 
-# TODO: Add Ship Connector
+# TODO: ✅ Add Ship Connector
 
 # TODO: Make Area2Ds for each room
 

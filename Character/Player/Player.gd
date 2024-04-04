@@ -62,7 +62,7 @@ static var owned_ship : Ship
 
 # TODO: ✅ Change sounds according to walking terrain
 
-# TODO: Add load/save
+# TODO: ✅ Add load/save
 
 # TODO: Add animations
 
@@ -107,12 +107,9 @@ func rotate_to_ship():
 	else:
 		turn_tween.tween_property(self, "rotation", 0, turn_speed)
 
-
-
 func get_off(ship):
 	if turn_tween: turn_tween.kill()
 	passenger_on.erase(ship)
-
 
 func change_ship(ship):		
 	if ship == null: return
@@ -171,7 +168,6 @@ func _ready():
 	
 	# World.save_file.load_world()
 	World.instance.new_world()
-
 
 
 func kill():
