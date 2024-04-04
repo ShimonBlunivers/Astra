@@ -4,6 +4,7 @@ class_name NPCSaveFile extends Resource
 @export var nickname : String
 @export var position : Vector2
 @export var id : int
+@export var role : NPC.Role
 @export var skin = []
 @export var hair = []
 @export var blocked_missions = []
@@ -17,6 +18,7 @@ static func save():
         file.nickname = npc.nickname
         file.position = npc.position
         file.id = npc.id
+        file.role = npc.role
         file.skin = npc.sprites.skin
         file.hair = [npc.sprites.hair_node.frame, npc.sprites.hair_node.flip_h]
         file.blocked_missions = npc.blocked_missions
