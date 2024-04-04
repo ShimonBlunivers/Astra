@@ -15,10 +15,14 @@ static var difficulty_multiplier : float = 1
 
 const editor_scene = preload("res://Scenes/Editor.tscn")
 
+
 func _ready():
 	World.instance = self
 	DisplayServer.window_set_max_size(Vector2i(3840, 2160))
+
+
 	save_file = SaveFile.new()
+	save_file.initialize_files()
 
 func new_world():
 	UIManager.instance.loading_screen()

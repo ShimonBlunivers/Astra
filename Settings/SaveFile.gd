@@ -1,7 +1,7 @@
 class_name SaveFile extends Resource
 
 const SAVE_GAME_PATH := "user://saves/worlds/"
-const FIRST_SAVE_GAME_PATH := "res://DefaultSave/"
+const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 
 @export var player_save_file : PlayerSaveFile
 @export var NPC_save_files = []
@@ -10,6 +10,10 @@ const FIRST_SAVE_GAME_PATH := "res://DefaultSave/"
 @export var ship_save_files = []
 
 var save_name : String = "last_save"
+
+func initialize_files():
+	if !DirAccess.dir_exists_absolute("user://saves"):
+		DirAccess.copy_absolute("res://DefaultSave", "user://saves")
 
 func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
 	var extension := ".tres" if OS.is_debug_build() else ".res"
@@ -25,9 +29,7 @@ func save_world(dev := false):
 	
 
 	if !dev:
-		DirAccess.make_dir_absolute("user://saves/")
-		DirAccess.make_dir_absolute("user://saves/worlds/")
-		DirAccess.make_dir_absolute("user://saves/worlds/" + save_name + "/")
+		DirAccess.make_dir_recursive_absolute("user://saves/worlds/" + save_name + "/")
 		return ResourceSaver.save(self, get_save_path())
 	
 	else:

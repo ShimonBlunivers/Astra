@@ -52,8 +52,6 @@ func _exit():
 
 func _ready():
 	Editor.instance = self
-	DirAccess.make_dir_absolute("user://saves/")
-	DirAccess.make_dir_absolute("user://saves/ships")
 
 	# if Options.DEBUG_MODE: limit_rect.visible = false
 
@@ -62,10 +60,16 @@ func _ready():
 	ship_editor.inventory = inventory
 	
 	inventory.load_grid()
+	
+	if Player.main_player.owned_ship == null:
+		ship_editor.load_ship("_start_ship")
+	else:
+		ship_editor.load_ship(Player.main_player.owned_ship.path)
 
 	camera.make_current()
 
 	center_camera()
+	
 
 func _on_save_pressed() -> void:
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 

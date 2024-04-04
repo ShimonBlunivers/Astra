@@ -1,3 +1,0 @@
-Quest
-ItemType
-Tool
