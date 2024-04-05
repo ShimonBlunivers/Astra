@@ -14,5 +14,6 @@ script = ExtResource("2_nbdt4")
 id = 0
 title = "Povidlový čaj"
 description = "Přines mi prosím recept na čaj."
+role = 0
 reward = 1000
 goal = SubResource("Resource_o3qrs")

@@ -1,6 +1,6 @@
 class_name CustomObjectSpawn extends Resource
 
-## [id, nickname, [blocked_missions], [color1, color2, color3, color4, color5], [hair_frame, flip_h]]
+## [id, nickname, role, [blocked_missions], [color1, color2, color3, color4, color5], [hair_frame, flip_h]]
 var npc_preset   
 ## [id, type, ship_slot_id]
 var item_preset  

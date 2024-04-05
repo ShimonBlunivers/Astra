@@ -14,5 +14,6 @@ script = ExtResource("1_opbhw")
 id = 3
 title = "KL94"
 description = "Přines tento nástroj a pomoz stanici."
+role = 0
 reward = 1
 goal = SubResource("Resource_dhrot")

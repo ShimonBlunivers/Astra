@@ -9,10 +9,10 @@ var difference = Vector2.ZERO
 
 var ship : Ship
 
-var role : Role
+var roles = []
 
-enum Role {
-	
+enum Roles {
+	CIVILIAN,
 }
 
 static var names = [
@@ -128,11 +128,11 @@ static func get_npc(_id: int) -> NPC:
 var skin = null
 var hair = null
 
-func init(_id : int = -1, _nickname : String = names.pick_random(), _blocked_missions = null, _skin = null, _hair = null):
+func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [Roles.CIVILIAN], _blocked_missions = null, _skin = null, _hair = null):
 	nickname = _nickname
 	$Nametag.text = nickname
 	name = "NPC_" + nickname + "_" + str(npcs.size())
-	
+	roles = _roles
 	if _blocked_missions != null: blocked_missions = _blocked_missions
 	skin = _skin
 	hair = _hair
@@ -156,12 +156,12 @@ func quest_finished():
 func reload_missions():
 	if active_quest != -1: return
 	var random := RandomNumberGenerator.new()
-	if Dialogs.random_mission_id(blocked_missions) < 0:
+	if Dialogs.random_mission_id(roles) < 0:
 		selected_quest = -1
 	else:
 		var mission = random.randi_range(0, 0)
 		if mission == 0: 
-			selected_quest = Dialogs.random_mission_id(blocked_missions)
+			selected_quest = Dialogs.random_mission_id(roles)
 	# print(nickname, " SPAWNED on: " , position)
 	timer.start(300 + 60 * random.randi_range(0, 10))
 
@@ -181,25 +181,13 @@ func _ready() -> void:
 func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)
 
+# var _started_mission := false
+ 
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
 		interactable = true
-		var dialog_position = Vector2(0, -105)
-		if Dialogs.random_mission_id(blocked_missions) < 0: selected_quest = -1
-		if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
-			if QuestManager.get_quest(self).id in Dialogs.conversations["mission_finished"].keys():
-				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][QuestManager.get_quest(self).id])
-			else:
-				dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][-1])
+		print(roles)
 
-			QuestManager.finished_quest_objective(QuestManager.get_quest(self))
-
-		elif selected_quest >= 0 && !selected_quest in blocked_missions:
-			dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
-		else:
-			# Dialogs.conversations["greeting"].shuffle()
-			dialog_manager.start_dialog(dialog_position, [Dialogs.conversations["greeting"].pick_random()])
-		QuestManager.update_quest_log()
 
 func _on_interaction_area_area_exited(area:Area2D):
 	if area.is_in_group("PlayerInteractArea"):
@@ -214,7 +202,26 @@ func _on_area_mouse_exited() -> void:
 
 func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:
-		dialog_manager.advance()
+		if interactable:
+			if dialog_manager.is_dialog_active:
+				dialog_manager.advance()
+			else:
+				var dialog_position = Vector2(0, -105)
+				if Dialogs.random_mission_id(roles) < 0: selected_quest = -1
+				if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
+					if QuestManager.get_quest(self).id in Dialogs.conversations["mission_finished"].keys():
+						dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][QuestManager.get_quest(self).id])
+					else:
+						dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][-1])
+
+					QuestManager.finished_quest_objective(QuestManager.get_quest(self))
+
+				elif selected_quest >= 0 && !selected_quest in blocked_missions:
+					dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
+				else:
+					# Dialogs.conversations["greeting"].shuffle()
+					dialog_manager.start_dialog(dialog_position, [Dialogs.conversations["greeting"].pick_random()])
+				QuestManager.update_quest_log()
 
 func delete():
 	npcs.erase(self)

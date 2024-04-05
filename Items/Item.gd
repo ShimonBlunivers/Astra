@@ -52,6 +52,7 @@ static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _sh
 	var new_item = item_scene.instantiate()
 	new_item.type = _type
 
+
 	if _ship != null:
 		new_item.ship = _ship
 		new_item.ship.items.add_child(new_item)
@@ -88,6 +89,11 @@ func _ready() -> void:
 	itemtag.position.y -= (collision_shape.shape.get_size().y / 2) + 12
 
 	itemtag.text = type.nickname
+
+	var random = RandomNumberGenerator.new()
+	var tilt = random.randf_range(-20, 20)
+	sprite.rotation_degrees = tilt
+	area.rotation_degrees = tilt
 
 func _physics_process(_delta: float) -> void:
 	area.position = (- ship.difference_in_position).rotated(-global_rotation)

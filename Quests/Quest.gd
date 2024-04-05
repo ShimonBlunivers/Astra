@@ -7,9 +7,16 @@ var active := false
 @export var title : String
 @export_multiline var description : String
 
+@export var role : NPC.Roles
+
 @export var reward : int
 @export var goal : Goal
 var npc : NPC
+
+static var missions = {}
+
+func create():
+    missions[id] = self
 
 
 func init(_npc : NPC, _target_ID : int = -1):
@@ -33,6 +40,7 @@ func finish():
     Player.main_player.add_currency(reward)
     QuestManager.active_quest = -1
     QuestManager.quests.erase(self)
+    World.difficulty_multiplier += 0.2
 
 func delete():
     number_of_quests -= 1

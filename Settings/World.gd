@@ -8,7 +8,7 @@ static var save_file : SaveFile
 
 static var used_builder : Builder = null
 
-static var difficulty_multiplier : float = 1
+static var difficulty_multiplier : float = 0
 
 @onready var canvas_modulate = $CanvasModulate
 @onready var ui_node = $UI
@@ -16,13 +16,27 @@ static var difficulty_multiplier : float = 1
 const editor_scene = preload("res://Scenes/Editor.tscn")
 
 
+func load_missions():
+	var path = "res://Quests/Missions"
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				if ".tres" in file_name:
+					load(path + "/" + file_name).create()
+			file_name = dir.get_next()
+
 func _ready():
 	World.instance = self
 	DisplayServer.window_set_max_size(Vector2i(3840, 2160))
 
+	load_missions()
 
 	save_file = SaveFile.new()
 	save_file.initialize_files()
+	
 
 func new_world():
 	UIManager.instance.loading_screen()

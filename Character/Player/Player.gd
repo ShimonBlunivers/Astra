@@ -94,7 +94,7 @@ func get_in(ship):
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
 	rotate_to_ship()
-	print(acceleration, " ; ", ship.difference_in_position)
+	# print(acceleration, " ; ", ship.difference_in_position)
 	if max_impact_velocity < (acceleration - ship.difference_in_position).length():
 		kill()
 func rotate_to_ship():

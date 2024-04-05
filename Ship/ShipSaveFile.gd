@@ -35,7 +35,7 @@ func load(_npcs = [], _items = []):
 	var _npc_preset = []
 
 	for item in _items: if id == item.ship_id: _item_preset.append([item.id, item.type, item.ship_slot_id])
-	for npc in _npcs: if id == npc.ship_id: _npc_preset.append([npc.id, npc.nickname, npc.blocked_missions, npc.skin, npc.hair])
+	for npc in _npcs: if id == npc.ship_id: _npc_preset.append([npc.id, npc.nickname, npc.roles, npc.blocked_missions, npc.skin, npc.hair])
 
 	var custom_object_spawn = CustomObjectSpawn.create(_item_preset, _npc_preset)
 
@@ -43,7 +43,5 @@ func load(_npcs = [], _items = []):
 	ship.rotation = rotation
 	ship.linear_velocity = velocity
 	ship.apply_changes(destroyed_walls, opened_doors)
-
-
 
 	# spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> void:

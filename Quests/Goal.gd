@@ -42,7 +42,7 @@ func get_position() -> Vector2:
 
 func spawn_quest_ship():
 
-	var distances = Vector2(1000, 5000) #Vector2(10000, 50000)
+	var distances = Vector2(1000 + 1000 * World.difficulty_multiplier, 5000 + 1000 * World.difficulty_multiplier) #Vector2(10000, 50000)
 
 	var rng = RandomNumberGenerator.new()
 

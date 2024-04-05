@@ -14,5 +14,6 @@ script = ExtResource("2_ewkbp")
 id = 1
 title = "Rodinné fotky"
 description = "Přines mi prosím čip s rodinnými fotkami."
+role = 0
 reward = 3000
 goal = SubResource("Resource_7346g")

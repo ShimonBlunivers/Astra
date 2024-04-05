@@ -64,9 +64,11 @@ static var conversations = {
 	
 	"mission_finished" : {
 		-1 : [
-			"Děkuji!",
+				"Děkuji!",
 			],
-		3 : ["..."]
+		3 : [
+				"...",
+			]
 
 	},
 }
@@ -76,11 +78,18 @@ static func random_phrase(dialog_type: String) -> String:
 	var random := RandomNumberGenerator.new()
 	return conversations[dialog_type][random.randi_range(0, conversations[dialog_type].size() - 1)]
 
-static func random_mission_id(blocked_missions := []) -> int:
-	if conversations["mission"].size() == blocked_missions.size(): return -1
+static func random_mission_id(roles := []) -> int:
+	var usable_missions = []
+
+	for key in Quest.missions.keys().size():
+		if Quest.missions[key].role in roles:
+			usable_missions.append(Quest.missions[key])
+
+	if usable_missions.size() == NPC.blocked_missions.size(): return -1
+
 	while 1:
 		var random := RandomNumberGenerator.new()
-		var id = random.randi_range(0, conversations["mission"].size() - 1)
-		if !id in blocked_missions:
+		var id = random.randi_range(0, usable_missions.size() - 1)
+		if !id in NPC.blocked_missions:
 			return id
 	return -2

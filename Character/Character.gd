@@ -22,7 +22,7 @@ var spawn_point : Vector2 = Vector2.ZERO
 
 var nickname = ""
 
-var max_impact_velocity : float = 25
+var max_impact_velocity : float = 40
 
 signal _animation_time_offset
 

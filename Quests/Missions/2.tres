@@ -14,5 +14,6 @@ script = ExtResource("1_64x7q")
 id = 2
 title = "Neznámý signál"
 description = "Prověř zdroj signálu."
+role = 0
 reward = 1000
 goal = SubResource("Resource_1a4uf")
