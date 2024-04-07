@@ -70,5 +70,6 @@ func open_editor(_builder : Builder = null):
 	root.add_child(editor_object)
 
 func _unhandled_input(event: InputEvent):
-	if event.is_action_pressed("game_toggle_menu"):
-		open_editor()
+	if Options.DEBUG_MODE:
+		if event.is_action_pressed("game_toggle_menu"):
+			open_editor()

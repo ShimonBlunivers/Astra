@@ -76,6 +76,7 @@ func _on_player_currency_updated_signal() -> void:
 
 
 var _vfx_muted = false
+static var loading_mute = false
 
 func loading_screen(time : float = 1.6):
 	if Options.DEBUG_MODE: return
@@ -84,7 +85,7 @@ func loading_screen(time : float = 1.6):
 		_vfx_muted = true
 	else:
 		_vfx_muted = false
-		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+		loading_mute = true
 	loading_screen_node.visible = true
 	loading_screen_node.modulate = Color.WHITE
 	loading_screen_timer.start(time)
@@ -100,7 +101,8 @@ func loading_screen(time : float = 1.6):
 func _clear_loading_screen():
 	
 	loading_screen_node.visible = false
-	if !_vfx_muted: AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+	if !_vfx_muted: 
+		loading_mute = false
 
 func saving_screen(time : float = 1.6):
 	# if Options.DEBUG_MODE: return
@@ -137,8 +139,14 @@ func _on_quest_meta_clicked(meta:Variant) -> void:
 # DEBUG
 
 func _process(_delta):
+	if loading_mute != AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), loading_mute)
 	
-	print(AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")))
+	if !loading_mute && Player.main_player.floating() != AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
+		
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), Player.main_player.floating())
+	
+
 	if Options.DEBUG_MODE:
 		floating.visible = Player.main_player.floating()
 		var pos = World.instance.get_distance_from_center(Player.main_player.global_position)

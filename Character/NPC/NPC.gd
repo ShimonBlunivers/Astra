@@ -161,7 +161,7 @@ func reload_missions():
 	if Dialogs.random_mission_id(roles) < 0:
 		selected_quest = -1
 	else:
-		var mission = random.randi_range(0, 0)
+		var mission = random.randi_range(0, 4)
 		if mission == 0: 
 			selected_quest = Dialogs.random_mission_id(roles)
 	# print(nickname, " SPAWNED on: " , position)
@@ -188,8 +188,6 @@ func _in_physics(_delta):
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
 		interactable = true
-		print(roles)
-
 
 func _on_interaction_area_area_exited(area:Area2D):
 	if area.is_in_group("PlayerInteractArea"):
@@ -205,7 +203,6 @@ func _on_area_mouse_exited() -> void:
 func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:
 		if interactable:
-			print(Quest.missions)
 			if dialog_manager.is_dialog_active:
 				dialog_manager.advance()
 			else:
