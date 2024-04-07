@@ -26,9 +26,13 @@ func start_dialog(position: Vector2, lines):
 func _show_text_box():
 	if dialog_lines == null: return
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
-		load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
-		advance()
-		return
+		if dialog_lines[current_line_index] in Quest.missions.keys():
+			load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
+			advance()
+			return
+		else:
+			dialog_lines = ["jk."]
+			current_line_index = 0
 
 	text_box = text_box_scene.instantiate()
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)

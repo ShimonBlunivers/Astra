@@ -31,7 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if inventory_open: tween.tween_property(inventory, "position", Vector2(inventory_positions.x, 0), duration).set_ease(Tween.EASE_OUT)
 		else: tween.tween_property(inventory, "position", Vector2(inventory_positions.y, 0), duration).set_ease(Tween.EASE_IN)
 	
-	if event.is_action_pressed("debug_die"):
+	if event.is_action_pressed("game_toggle_menu"):
 		_exit()
 
 func _process(_delta):

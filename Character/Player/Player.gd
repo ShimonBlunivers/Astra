@@ -119,15 +119,16 @@ func change_ship(ship):
 	# parent_ship.make_invulnerable()
 
 func _unhandled_input(event: InputEvent):
-	if event.is_action_pressed("debug_die"):
-		World.save_file.save_world(true)
-		# parent_ship.delete()
+	if Options.DEBUG_MODE:
+		if event.is_action_pressed("debug_die"):
+			World.save_file.save_world(true)
+			# parent_ship.delete()
 
-	if event.is_action_pressed("debug_spawn"):
-		# spawn()
-		# Item.spawn(Item.types["Chip"], get_global_mouse_position())
-		# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
-		add_currency(1500)
+		if event.is_action_pressed("debug_spawn"):
+			# spawn()
+			# Item.spawn(Item.types["Chip"], get_global_mouse_position())
+			# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
+			add_currency(1500)
 		
 	if alive:
 		if event.is_action_pressed("game_control"):
@@ -165,9 +166,9 @@ func _ready():
 	nickname = "Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
 	animated_sprite.play("Idle")
-	
+	currency = 1000
 	# World.save_file.load_world()
-	World.instance.new_world()
+	World.save_file.load_world()
 
 
 func kill():
@@ -207,20 +208,21 @@ func _in_physics(delta: float) -> void:
 
 	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 
-	if floating():
-		_regen_timer = 0
-		_damage_timer += delta * 2
-		if _damage_timer >= 1:
-			_damage_timer = 0
-			damage(5)
+	if alive:
+		if floating():
+			_regen_timer = 0
+			_damage_timer += delta * 2
+			if _damage_timer >= 1:
+				_damage_timer = 0
+				damage(5)
 
-	else:
-		_damage_timer = 0
-		if health != max_health:
-			_regen_timer += delta * 3
-			if _regen_timer >= 1:
-				damage(-1)
-				_regen_timer = 0
+		else:
+			_damage_timer = 0
+			if health != max_health:
+				_regen_timer += delta * 3
+				if _regen_timer >= 1:
+					damage(-1)
+					_regen_timer = 0
 
 
 

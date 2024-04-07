@@ -27,6 +27,7 @@ func load_missions():
 				if ".tres" in file_name:
 					load(path + "/" + file_name).create()
 			file_name = dir.get_next()
+	
 
 func _ready():
 	World.instance = self

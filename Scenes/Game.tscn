@@ -288,7 +288,6 @@ visible = false
 modulate = Color(1, 0, 0, 0.431373)
 
 [node name="Sprite2D" type="ColorRect" parent="UI/HUD/DeathScreen"]
-z_index = 11
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.52549, 0.52549, 0.52549, 1)
@@ -369,6 +368,24 @@ vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="UI/HUD/LoadingScreen"]
 one_shot = true
+
+[node name="SavingScreen" type="Node2D" parent="UI/HUD"]
+visible = false
+
+[node name="Sprite2D" type="ColorRect" parent="UI/HUD/SavingScreen"]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.364706, 0.364706, 0.364706, 0.443137)
+
+[node name="Label" type="Label" parent="UI/HUD/SavingScreen"]
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_fonts/font = ExtResource("7_xryl1")
+theme_override_font_sizes/font_size = 64
+text = "Ukládání hry.."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GUI" type="CanvasGroup" parent="UI"]
 editor_description = "Interactive"

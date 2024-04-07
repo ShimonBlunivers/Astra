@@ -24,7 +24,7 @@ static var conversations = {
 			"Ahoj, něco bych potřeboval přinést..",
 			"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
 			"Přinesl bys mi ho?",
-			0,
+			10,
 			"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
 		],
 		1 : [
@@ -51,25 +51,40 @@ static var conversations = {
 			"Potřebuju KL94 velikosti 10, náhradní díly by mohly být v naší sesterské lodi, ale musím tě varovat, desítka se často ztrácí.",
 			"Budeš potřebovat opatrné ruce. Až to budeš mít tak se vrať!",
 			3,
-		]
+		],
 
-		# [
-
-		# ],
+		4 : [
+            "Zdar.",
+            "Jsem ve velkým průšvihu, ukradli mi kódovanej disk s ultra-utajenejma datama.",
+			"Ten disk patří bohatýmu důstojníkovi, kterej mě pověřil, abych ho našel.",
+			"Pomohl bys mi?",
+        	"Najdi mýho bráchu. On ti řekne, jak pokračovat, ale nikdo se o tom nesmí dozvědět.",
+			"Jestli se o tom dozví špatní lidi, je s náma konec.",
+			"A ohledně odměny? Máme dost energetickejch jednotek, abychom tě pořádně odměnili.",
+			"Co ty na to?",
+      		4,
+			"Díky moc!",
+		],
 		
-		# [
-
+		# id : [
+		#	"text",
 		# ],
 	},
 	
 	"mission_finished" : {
 		-1 : [
-				"Děkuji!",
-			],
-		3 : [
-				"...",
-			]
+			"Děkuji!",
+		],
+		4 : [
+			"Ahoj. Ty budeš ten který nám má pomoct s nalezení disku. Brácha mi o tobě říkal. Doufám že se nebojíš, nebude to lehké.",
+			4001,
+		],
 
+		4001 : [
+			"Díky moc!",
+			"Ani nevíš, co pro nás tohle znamená.",
+			"Jsme ti navždy zavázáni.",
+		]
 	},
 }
 
@@ -81,9 +96,10 @@ static func random_phrase(dialog_type: String) -> String:
 static func random_mission_id(roles := []) -> int:
 	var usable_missions = []
 
-	for key in Quest.missions.keys().size():
+	for key in Quest.missions.keys():
 		if Quest.missions[key].role in roles:
-			usable_missions.append(Quest.missions[key])
+			if (Quest.missions[key].times_activated < Quest.missions[key].world_limit || Quest.missions[key].world_limit < 0):
+				usable_missions.append(Quest.missions[key])
 
 	if usable_missions.size() == NPC.blocked_missions.size(): return -1
 

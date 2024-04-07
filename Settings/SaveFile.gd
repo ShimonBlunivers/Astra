@@ -4,6 +4,7 @@ const SAVE_GAME_PATH := "user://saves/worlds/"
 const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 
 @export var player_save_file : PlayerSaveFile
+@export var quest_status_file = {}
 @export var NPC_save_files = []
 @export var item_save_files = []
 @export var quest_save_files = []
@@ -21,12 +22,14 @@ func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
 	return path + "/save_file" + extension
 
 func save_world(dev := false):
+	UIManager.instance.saving_screen()
 
-	player_save_file = PlayerSaveFile.save() #
-	ship_save_files = ShipSaveFile.save() #
-	NPC_save_files = NPCSaveFile.save() #
-	item_save_files = ItemSaveFile.save() #
-	quest_save_files = QuestSaveFile.save() #
+	player_save_file = PlayerSaveFile.save()
+	ship_save_files = ShipSaveFile.save()
+	NPC_save_files = NPCSaveFile.save()
+	item_save_files = ItemSaveFile.save()
+	quest_save_files = QuestSaveFile.save()
+	quest_status_file = Quest.missions
 	
 
 	if !dev:
@@ -72,5 +75,9 @@ func _load(): # deferred
 	# for npc in NPC_save_files: npc.load() 
 	# for item in item_save_files: item.load() 
 	for quest in quest_save_files: quest.load() 
+
+	for key in Quest.missions.keys() + quest_status_file.keys():
+		if key in quest_status_file.keys(): Quest.missions[key] = quest_status_file[key]
+
 
 

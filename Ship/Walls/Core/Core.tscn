@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://h0pj3kalpf7g"]
+[gd_scene load_steps=12 format=3 uid="uid://h0pj3kalpf7g"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Core/Core.gd" id="1_e3f1m"]
 [ext_resource type="Material" uid="uid://uq84s01yuksa" path="res://Ship/HideInShadowMaterial.tres" id="1_h01wu"]
@@ -44,6 +44,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeoku"]
 size = Vector2(160, 160)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4llso"]
+size = Vector2(200, 200)
+
 [node name="Core" type="Node2D"]
 material = ExtResource("1_h01wu")
 script = ExtResource("1_e3f1m")
@@ -68,3 +71,14 @@ max_distance = 800.0
 attenuation = 2.0
 bus = &"SFX"
 area_mask = 0
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_4llso")
+debug_color = Color(0.854902, 0.317647, 0.494118, 0.419608)
+
+[connection signal="area_entered" from="InteractArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="InteractArea" to="." method="_on_area_2d_area_exited"]

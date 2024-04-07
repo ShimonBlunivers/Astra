@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs6l8823h3hl5"]
+
+[ext_resource type="Script" path="res://UI/ButtonIndicator.gd" id="1_l1y7c"]
+[ext_resource type="Texture2D" uid="uid://dupqnxljxfcol" path="res://UI/indicator.png" id="1_tim4s"]
+[ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="2_4j1e3"]
+
+[node name="ButtonIndicator" type="Node2D"]
+z_index = 20
+z_as_relative = false
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_l1y7c")
+
+[node name="Background" type="NinePatchRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_tim4s")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Button" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_4j1e3")
+theme_override_font_sizes/font_size = 26
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1

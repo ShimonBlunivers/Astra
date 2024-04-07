@@ -58,7 +58,7 @@ func spawn_quest_ship():
 			pass
 		Type.talk_to_npc:
 			target_ID = NPC.get_uid()
-			_custom_object_spawn = CustomObjectSpawn.create(null, [[target_ID, NPC.names.pick_random(), null, null, null]])
+			_custom_object_spawn = CustomObjectSpawn.create(null, [[target_ID, NPC.names.pick_random(), [NPC.Roles.CIVILIAN], null, null, null]])
 		Type.pick_up_item:
 			target_ID = Item.get_uid()							# [id, 		type, 			ship_slot_id]
 			_custom_object_spawn = CustomObjectSpawn.create([[target_ID, Item.types[item_type], null]])

@@ -15,6 +15,8 @@ class_name UIManager extends CanvasLayer
 @onready var loading_screen_bar : ProgressBar = $HUD/LoadingScreen/ProgressBar
 @onready var loading_screen_background : Node2D = $HUD/LoadingScreen/Background
 
+@onready var saving_screen_node = $HUD/SavingScreen
+
 static var quest_label
 static var add_currency_label
 static var remove_currency_label
@@ -61,6 +63,10 @@ func _ready():
 	add_currency_label = $HUD/Currency/AddCurrencyLabel
 	remove_currency_label = $HUD/Currency/RemoveCurrencyLabel
 
+	
+	floating.visible = Options.DEBUG_MODE
+	player_position.visible = Options.DEBUG_MODE
+
 func player_health_updated_signal() -> void:
 	health_label.text = str(Player.main_player.health)
 	death_screen.visible = !Player.main_player.alive 
@@ -73,7 +79,6 @@ var _vfx_muted = false
 
 func loading_screen(time : float = 1.6):
 	if Options.DEBUG_MODE: return
-	
 	loading_screen_node.visible = true
 	if AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
 		_vfx_muted = true
@@ -83,7 +88,9 @@ func loading_screen(time : float = 1.6):
 	loading_screen_node.visible = true
 	loading_screen_node.modulate = Color.WHITE
 	loading_screen_timer.start(time)
+
 	await loading_screen_timer.timeout
+	
 	var tween = create_tween()
 	tween.tween_property(loading_screen_node, "modulate", Color(1, 1, 1, 0), time / 2)
 
@@ -91,8 +98,24 @@ func loading_screen(time : float = 1.6):
 	tween.connect("finished", _clear_loading_screen)
 
 func _clear_loading_screen():
+	
 	loading_screen_node.visible = false
 	if !_vfx_muted: AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+
+func saving_screen(time : float = 1.6):
+	# if Options.DEBUG_MODE: return
+	
+	saving_screen_node.visible = true
+	saving_screen_node.modulate = Color.WHITE
+	var tween = create_tween()
+	tween.tween_property(saving_screen_node, "modulate", Color.WHITE, time / 2)
+	tween.tween_property(saving_screen_node, "modulate", Color(1, 1, 1, 0), time / 2)
+
+
+	tween.connect("finished", _clear_saving_screen)
+
+func _clear_saving_screen():
+	saving_screen_node.visible = false
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("game_toggle_inventory"):
@@ -114,12 +137,15 @@ func _on_quest_meta_clicked(meta:Variant) -> void:
 # DEBUG
 
 func _process(_delta):
-	floating.visible = Player.main_player.floating()
-	var pos = World.instance.get_distance_from_center(Player.main_player.global_position)
-	player_position.text = ""
-	player_position.text += "PPU: X: " + str(round(pos.x)) + ", Y: " + str(round(pos.y)) + "\n" # Player Position in Universe
-	pos = World.instance._center_of_universe
-	player_position.text += "COU: X: " + str(round(pos.x)) + ", Y: " + str(round(pos.y)) + "\n" # Center Of Universe
+	
+	print(AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")))
+	if Options.DEBUG_MODE:
+		floating.visible = Player.main_player.floating()
+		var pos = World.instance.get_distance_from_center(Player.main_player.global_position)
+		player_position.text = ""
+		player_position.text += "PPU: X: " + str(round(pos.x)) + ", Y: " + str(round(pos.y)) + "\n" # Player Position in Universe
+		pos = World.instance._center_of_universe
+		player_position.text += "COU: X: " + str(round(pos.x)) + ", Y: " + str(round(pos.y)) + "\n" # Center Of Universe
 
 
 	if loading_screen_timer.time_left > 0:

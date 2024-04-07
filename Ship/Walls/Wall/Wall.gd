@@ -22,7 +22,8 @@ func set_texture(texture) -> void:
 	sprite.texture = texture
 
 func _on_button_pressed():
-	damage(25)
+	if Options.DEBUG_MODE:
+		damage(25)
 
 func damage(dmg: float):
 

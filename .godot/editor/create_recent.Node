@@ -1,2 +1,7 @@
+Label
+Node2D
+NinePatchRect
 ColorRect
+CollisionShape2D
+Area2D
 Timer

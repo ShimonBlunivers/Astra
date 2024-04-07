@@ -13,6 +13,8 @@ var roles = []
 
 enum Roles {
 	CIVILIAN,
+	NONE,
+	TRUSTED,
 }
 
 static var names = [
@@ -203,6 +205,7 @@ func _on_area_mouse_exited() -> void:
 func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:
 		if interactable:
+			print(Quest.missions)
 			if dialog_manager.is_dialog_active:
 				dialog_manager.advance()
 			else:
