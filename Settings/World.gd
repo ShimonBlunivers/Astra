@@ -43,6 +43,24 @@ func _ready():
 
 func new_world():
 	UIManager.instance.loading_screen()
+	while Ship.ships.size() != 0: Ship.ships[0].delete()
+	while NPC.npcs.size() != 0: NPC.npcs[0].delete()
+	while Item.items.size() != 0: Item.items[0].delete()
+	while QuestManager.quests.size() != 0: QuestManager.quests[0].delete()
+	QuestManager.active_quest = -1
+	QuestManager.active_quest_objects = {
+		Goal.Type.pick_up_item : [],
+		Goal.Type.talk_to_npc : [],
+		Goal.Type.go_to_place : [],
+	}
+	# var tree := World.instance.get_tree().get_root()
+	# World.instance.free()
+	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
+
+
+	World.instance._center_of_universe = Vector2.ZERO
+	World.instance.transform.origin = Vector2.ZERO
+
 	ShipManager.randomly_generate_ships()
 
 func shift_origin(by:Vector2):

@@ -76,6 +76,27 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_1a0uh")
 offset = Vector2(45, 0)
 
+[node name="Distance" type="Label" parent="Player/QuestArrow/Arrow"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -28.0
+offset_right = 43.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("7_xryl1")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 ignore_rotation = false
 limit_left = -1000000000
@@ -293,6 +314,7 @@ offset_bottom = 720.0
 color = Color(0.52549, 0.52549, 0.52549, 1)
 
 [node name="LoadingScreen" type="Node2D" parent="UI/HUD"]
+visible = false
 
 [node name="Background" type="Node2D" parent="UI/HUD/LoadingScreen"]
 position = Vector2(640, 360)

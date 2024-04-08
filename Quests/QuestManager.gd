@@ -18,10 +18,18 @@ func _ready():
 func _process(_delta):
 	if Player.main_player == null: return
 	Player.main_player.quest_arrow.visible = quests.size() > 0 && active_quest >= 0
+	Player.main_player.quest_arrow_distance_label.visible = quests.size() > 0 && active_quest >= 0
 	if quests.size() > 0 && active_quest >= 0:
 		var distance = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).length()
 		var minimal_range = 150
 		var maximal_range = 250
+
+		if distance < 9999 && distance > maximal_range:
+			Player.main_player.quest_arrow_distance_label.rotation = -Player.main_player.quest_arrow.rotation
+			Player.main_player.quest_arrow_distance_label.text = str(round(distance))
+		else:
+			Player.main_player.quest_arrow_distance_label.text = ""
+
 
 		if distance < minimal_range:
 			Player.main_player.quest_arrow.visible = false

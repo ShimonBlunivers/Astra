@@ -28,10 +28,10 @@ static func randomly_generate_ships():
 				ShipManager.spawn_ship(Vector2(x * 200000, y * 200000), random_ship())
 
 	Player.main_player.spawn()
-	# ShipManager.spawn_ship(Vector2(2000, -2500), "_small_shuttle")
 
 static func random_ship() -> String:
-	return "_small_shuttle_0"
+	var random := RandomNumberGenerator.new()
+	return "_small_shuttle_" + str(random.randi_range(0, 4))
 
 static func get_quest_ship_path(_mission_id : int) -> String:
 	return random_ship()

@@ -7,6 +7,8 @@ class_name Player extends Character
 @onready var vision : PointLight2D = $Vision/Light
 
 @onready var quest_arrow : AnimatedSprite2D = $QuestArrow/Arrow
+@onready var quest_arrow_distance_label : Label = $QuestArrow/Arrow/Distance
+
 @onready var interact_area = $InteractArea
 
 @onready var respawn_timer = $RespawnTimer
@@ -137,11 +139,13 @@ func _unhandled_input(event: InputEvent):
 		if event.is_action_pressed("game_control"):
 			for controllable in hovering_controllables:
 				controllable.interact()
+				return
 			for controllable in controllables_in_use:
 				if controllable in hovering_controllables: continue
 				controllable.player_in_range = self
 				controllable.interact()
 				controllable.player_in_range = null
+				return
 
 func teleport(pos : Vector2):
 	global_position = pos
