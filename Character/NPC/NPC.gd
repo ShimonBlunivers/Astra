@@ -157,14 +157,13 @@ func quest_finished():
 
 func reload_missions():
 	if active_quest != -1: return
-	var random := RandomNumberGenerator.new()
-	if Dialogs.random_mission_id(roles) < 0:
+	var mission = Dialogs.random_mission_id(roles, true)
+	if mission < 0:
 		selected_quest = -1
 	else:
-		var mission = random.randi_range(0, 4)
-		if mission == 0: 
-			selected_quest = Dialogs.random_mission_id(roles)
+		selected_quest = mission
 	# print(nickname, " SPAWNED on: " , position)
+	var random := RandomNumberGenerator.new()
 	timer.start(300 + 60 * random.randi_range(0, 10))
 
 func _ready() -> void:

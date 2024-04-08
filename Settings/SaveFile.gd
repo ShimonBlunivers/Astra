@@ -10,16 +10,15 @@ const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 @export var quest_save_files = []
 @export var ship_save_files = []
 
-var save_name : String = "last_save"
+static var save_name : String = "last_save"
 
 func initialize_files():
 	DirAccess.make_dir_recursive_absolute("user://saves/ships")
 	DirAccess.make_dir_recursive_absolute("user://saves/worlds")
 
 
-func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
-	var extension := ".tres" if OS.is_debug_build() else ".res"
-	return path + "/save_file" + extension
+static func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
+	return path + "/save_file.tres"
 
 func save_world(dev := false):
 	UIManager.instance.saving_screen()
@@ -34,19 +33,20 @@ func save_world(dev := false):
 
 	if !dev:
 		DirAccess.make_dir_recursive_absolute("user://saves/worlds/" + save_name + "/")
-		return ResourceSaver.save(self, get_save_path())
-	
+		return ResourceSaver.save(self, SaveFile.get_save_path())
 	else:
-		return ResourceSaver.save(self, get_save_path(FIRST_SAVE_GAME_PATH))
+		return ResourceSaver.save(self, SaveFile.get_save_path(FIRST_SAVE_GAME_PATH))
 
 func load_world():
-	if FileAccess.file_exists(get_save_path()):
-		World.save_file = ResourceLoader.load(get_save_path())
-	else:
-		World.save_file = ResourceLoader.load(get_save_path(FIRST_SAVE_GAME_PATH))
-
-	World.save_file.call_deferred("_load")
+	if FileAccess.file_exists(SaveFile.get_save_path()):
+		World.save_file = ResourceLoader.load(SaveFile.get_save_path())
+		World.save_file.call_deferred("_load")
 	
+	else:
+		World.instance.new_world()
+		# World.save_file = ResourceLoader.load(get_save_path(FIRST_SAVE_GAME_PATH))
+		# World.save_file.call_deferred("_load")
+
 	
 func _load(): # deferred
 	UIManager.instance.loading_screen()

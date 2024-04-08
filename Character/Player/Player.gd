@@ -9,6 +9,8 @@ class_name Player extends Character
 @onready var quest_arrow : AnimatedSprite2D = $QuestArrow/Arrow
 @onready var interact_area = $InteractArea
 
+@onready var respawn_timer = $RespawnTimer
+
 static var main_player : Player
 
 var currency : float = 0
@@ -97,6 +99,7 @@ func get_in(ship):
 	# print(acceleration, " ; ", ship.difference_in_position)
 	if max_impact_velocity < (acceleration - ship.difference_in_position).length():
 		kill()
+
 func rotate_to_ship():
 	if turn_tween: turn_tween.kill()
 	var turn_speed = abs(rotation_degrees / 150)
@@ -156,7 +159,6 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 
 	health_updated_signal.emit()
 
-
 func _ready():
 	super()
 	main_player = self
@@ -166,14 +168,13 @@ func _ready():
 	nickname = "Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
 	animated_sprite.play("Idle")
-	currency = 1000
 	
 
 	World.save_file.load_world()
 
 
 func kill():
-	if !alive: return
+	if !alive || !spawned: return
 	health = 0
 	alive = false
 
@@ -182,9 +183,7 @@ func kill():
 	animated_sprite.play("Death")
 	health_updated_signal.emit()
 	died_signal.emit()
-
-	$RespawnTimer.start()
-
+	respawn_timer.start()
 
 func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)

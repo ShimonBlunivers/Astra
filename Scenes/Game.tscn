@@ -29,12 +29,12 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3yehe"]
 shader = ExtResource("3_htlho")
 shader_parameter/background_position = null
-shader_parameter/speed_divider = 500000.0
+shader_parameter/speed_divider = 1e+06
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_upn82"]
 shader = ExtResource("3_htlho")
 shader_parameter/background_position = null
-shader_parameter/speed_divider = 100000.0
+shader_parameter/speed_divider = 500000.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7voj"]
 bg_color = Color(0.396078, 0.231373, 0.435294, 0.615686)
@@ -90,7 +90,7 @@ drag_bottom_margin = 0.0
 
 [node name="Background" type="CanvasGroup" parent="Player"]
 texture_repeat = 2
-scale = Vector2(6, 6)
+scale = Vector2(7, 7)
 script = ExtResource("2_mups5")
 
 [node name="Further" type="Sprite2D" parent="Player/Background"]
@@ -293,7 +293,6 @@ offset_bottom = 720.0
 color = Color(0.52549, 0.52549, 0.52549, 1)
 
 [node name="LoadingScreen" type="Node2D" parent="UI/HUD"]
-visible = false
 
 [node name="Background" type="Node2D" parent="UI/HUD/LoadingScreen"]
 position = Vector2(640, 360)

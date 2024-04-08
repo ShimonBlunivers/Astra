@@ -40,14 +40,17 @@ func update_sprites():
 func open():
 	if locked:
 		return
+	is_operating = true
 	state = "open"
 	open_sound.pitch_scale = randf_range(0.9, 1.1)
 	open_sound.play()
 	update_sprites()
-
 	ship.opened_doors.append(tilemap_coords)
+
+	$AutocloseTimer.start()
 	
 func close():
+	is_operating = true
 	state = "closed"
 	close_sound.pitch_scale = randf_range(0.9, 1.1)
 	close_sound.play()
@@ -118,10 +121,8 @@ func _interact():
 	if state == "open":
 		if obstructed:
 			return
-		is_operating = true
 		close()
 	else:
-		is_operating = true
 		open()
 
 var obstructers = []
@@ -141,3 +142,12 @@ func _on_area_2d_area_exited(area:Area2D) -> void:
 func _on_mouse_hitbox_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):
 	if event is InputEventMouseButton && event.button_mask == 1 && Player.main_player.alive:
 		interact()
+
+
+func _on_autoclose_timer_timeout() -> void:
+	if state == "open":
+		if !obstructed:
+			close()
+		else:
+			$AutocloseTimer.start()
+

@@ -6,9 +6,11 @@ const helm_scene = preload("res://Ship/Objects/Helm/Helm.tscn")
 const NPC_scene = preload("res://Character/NPC/NPC.tscn")
 
 var ship : Ship = null
-
+	 
 
 func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _from_save := false) -> bool:
+
+
 	ship = _ship
 	
 	clear()
@@ -21,7 +23,7 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _f
 			return false
 		else:
 			save_file = FileAccess.open("res://DefaultSave/ships/" + path + "/objects.dat", FileAccess.READ)
-
+			
 	else:
 		save_file = FileAccess.open("user://saves/ships/" + path + "/objects.dat", FileAccess.READ)
 	

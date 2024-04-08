@@ -257,7 +257,7 @@ bus = &"SFX"
 
 [node name="RespawnTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [connection signal="health_updated_signal" from="." to="." method="_on_health_updated_signal"]

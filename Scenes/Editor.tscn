@@ -239,7 +239,6 @@ tile_set = ExtResource("5_lwkoj")
 format = 2
 
 [node name="LimitRect" type="ColorRect" parent="."]
-visible = false
 offset_left = -6392.0
 offset_top = -3600.0
 offset_right = 8.0

@@ -84,6 +84,12 @@ theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
 text = "Hrát"
 
+[node name="NewGame" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_buhup")
+theme_override_fonts/font = ExtResource("2_ese6g")
+text = "Nová hra"
+
 [node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_buhup")
@@ -114,5 +120,6 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

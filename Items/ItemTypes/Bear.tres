@@ -15,4 +15,6 @@ script = ExtResource("1_fyq64")
 texture = SubResource("AtlasTexture_bd26p")
 name = "Bear"
 nickname = "Medvídek"
+rarity = 1.0
+free_spawn = true
 shape = SubResource("RectangleShape2D_5karm")

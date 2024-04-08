@@ -24,6 +24,8 @@ func load_missions():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
+				if '.tres.remap' in file_name: # <---- NEW
+					file_name = file_name.trim_suffix('.remap') # <---- NEW
 				if ".tres" in file_name:
 					load(path + "/" + file_name).create()
 			file_name = dir.get_next()

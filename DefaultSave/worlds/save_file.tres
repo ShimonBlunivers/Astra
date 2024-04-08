@@ -1,208 +1,248 @@
-[gd_resource type="Resource" script_class="SaveFile" load_steps=38 format=3]
+[gd_resource type="Resource" script_class="SaveFile" load_steps=46 format=3 uid="uid://lmk43m4exond"]
 
-[ext_resource type="Script" path="res://Character/NPC/NPCSaveFile.gd" id="1_0cull"]
-[ext_resource type="Script" path="res://Items/ItemSaveFile.gd" id="2_3kv0r"]
-[ext_resource type="Resource" path="res://Items/ItemTypes/Radio.tres" id="3_po5dm"]
-[ext_resource type="Resource" path="res://Items/ItemTypes/Bear.tres" id="4_vxdsl"]
-[ext_resource type="Resource" path="res://Items/ItemTypes/Chip.tres" id="5_4m7ol"]
-[ext_resource type="Script" path="res://Character/Player/PlayerSaveFile.gd" id="6_bsul0"]
-[ext_resource type="Resource" path="res://Quests/Missions/0.tres" id="7_otmrn"]
-[ext_resource type="Resource" path="res://Quests/Missions/1.tres" id="8_exh36"]
-[ext_resource type="Resource" path="res://Quests/Missions/2.tres" id="9_hvcrv"]
-[ext_resource type="Resource" path="res://Quests/Missions/3.tres" id="10_pmlb5"]
-[ext_resource type="Resource" path="res://Quests/Missions/4.tres" id="11_ryt0j"]
-[ext_resource type="Resource" path="res://Quests/Missions/4001.tres" id="12_fnb4d"]
-[ext_resource type="Script" path="res://Settings/SaveFile.gd" id="13_6nbw3"]
-[ext_resource type="Script" path="res://Ship/ShipSaveFile.gd" id="14_ab8s5"]
+[ext_resource type="Script" path="res://Character/NPC/NPCSaveFile.gd" id="1_hp434"]
+[ext_resource type="Script" path="res://Items/ItemSaveFile.gd" id="2_oyb44"]
+[ext_resource type="Resource" uid="uid://bunf6050t5br" path="res://Items/ItemTypes/Kl94.tres" id="3_bw2ay"]
+[ext_resource type="Resource" uid="uid://uwjh5j66jnlf" path="res://Items/ItemTypes/Disk.tres" id="4_eubtp"]
+[ext_resource type="Resource" uid="uid://c5eywo8mqwmwn" path="res://Items/ItemTypes/Radio.tres" id="5_ify2y"]
+[ext_resource type="Resource" uid="uid://b30svg212qtjt" path="res://Items/ItemTypes/Chip.tres" id="6_ax3dr"]
+[ext_resource type="Resource" uid="uid://biyxqxh1rtjb2" path="res://Items/ItemTypes/Coin.tres" id="7_oh2c6"]
+[ext_resource type="Script" path="res://Character/Player/PlayerSaveFile.gd" id="8_2yxw0"]
+[ext_resource type="Resource" uid="uid://cgir0uknycunp" path="res://Quests/Missions/0.tres" id="9_qujs6"]
+[ext_resource type="Resource" uid="uid://dxdxun0s663n7" path="res://Quests/Missions/1.tres" id="10_l3hkx"]
+[ext_resource type="Resource" uid="uid://cdj8x30wjgrfi" path="res://Quests/Missions/2.tres" id="11_dkxjn"]
+[ext_resource type="Resource" uid="uid://bgcr4mx6iy0bq" path="res://Quests/Missions/3.tres" id="12_v3tke"]
+[ext_resource type="Resource" uid="uid://ditfpl184yfg2" path="res://Quests/Missions/4.tres" id="13_gensa"]
+[ext_resource type="Resource" uid="uid://b3tjplgnlxoeh" path="res://Quests/Missions/4001.tres" id="14_o2ktr"]
+[ext_resource type="Script" path="res://Settings/SaveFile.gd" id="15_lsbd6"]
+[ext_resource type="Script" path="res://Ship/ShipSaveFile.gd" id="16_6nae7"]
 
-[sub_resource type="Resource" id="Resource_lgint"]
-script = ExtResource("1_0cull")
-nickname = "Pavel"
+[sub_resource type="Resource" id="Resource_kcj42"]
+script = ExtResource("1_hp434")
+nickname = "Martin"
 position = Vector2(680, 1560)
 id = 0
 roles = [0]
-skin = [Color(-1.33125, -0.029423, 1.13394, 1), Color(1.0474, 0.055736, -0.472594, 1), Color(0.375228, 0.318994, 0.693077, 1), Color(0.253793, 0.994294, 0.881853, 1), Color(-0.481024, -0.72866, 0.0431443, 1)]
-hair = [1, false]
+skin = [Color(1.89656, 0.324642, 0.202741, 1), Color(-1.6655, -0.426115, -0.521352, 1), Color(0.161133, -0.862166, 0.809755, 1), Color(-1.13467, -1.51384, -0.412534, 1), Color(0.686384, -0.890741, -0.650535, 1)]
+hair = [4, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_thebw"]
-script = ExtResource("1_0cull")
-nickname = "Radek"
+[sub_resource type="Resource" id="Resource_2dkk1"]
+script = ExtResource("1_hp434")
+nickname = "Adam"
 position = Vector2(1320, 1560)
 id = 1
 roles = [0]
-skin = [Color(0.0157565, 0.240041, 0.0275243, 1), Color(0.680032, -1.18234, 1.36536, 1), Color(0.0100154, 0.245251, -0.245416, 1), Color(-0.80628, 0.674697, 0.886425, 1), Color(-0.412222, -1.21638, -0.195646, 1)]
-hair = [2, true]
+skin = [Color(0.22334, -0.127507, -0.924474, 1), Color(-0.457135, -0.764991, -0.0028345, 1), Color(0.669819, 0.333587, 0.120612, 1), Color(-0.671869, 0.42645, 0.622885, 1), Color(0.798339, 0.265497, 0.621562, 1)]
+hair = [2, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_8laev"]
-script = ExtResource("1_0cull")
-nickname = "Rudolf"
+[sub_resource type="Resource" id="Resource_vf4iv"]
+script = ExtResource("1_hp434")
+nickname = "Štěpán"
 position = Vector2(1960, 1560)
 id = 2
 roles = [0]
-skin = [Color(-0.516697, 0.16555, 0.114154, 1), Color(-1.31166, -0.376249, -0.338565, 1), Color(-0.574914, -1.17025, 0.890574, 1), Color(1.02526, -0.515271, -0.780149, 1), Color(-1.11717, -0.0226173, -0.167839, 1)]
-hair = [4, true]
-blocked_missions = []
-ship_id = 1
-
-[sub_resource type="Resource" id="Resource_o2gph"]
-script = ExtResource("1_0cull")
-nickname = "Jakub"
-position = Vector2(2600, 1560)
-id = 3
-roles = [0]
-skin = [Color(-0.189804, -1.13918, -0.659243, 1), Color(0.0563657, -0.904448, -0.938971, 1), Color(-0.633693, 0.885003, -0.120121, 1), Color(-0.0737603, -0.0960794, -0.975794, 1), Color(0.0729687, 0.190387, -1.03004, 1)]
+skin = [Color(0.0829762, -0.180014, 1.01369, 1), Color(-0.303604, -0.647677, 0.982967, 1), Color(0.512697, 0.275755, -0.199979, 1), Color(-0.46576, 0.381683, -0.522422, 1), Color(0.270732, 0.388938, -0.67147, 1)]
 hair = [6, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_t5tec"]
-script = ExtResource("1_0cull")
-nickname = "Jakub"
-position = Vector2(3240, 1560)
-id = 4
+[sub_resource type="Resource" id="Resource_msl7x"]
+script = ExtResource("1_hp434")
+nickname = "Jiří"
+position = Vector2(2600, 1560)
+id = 3
 roles = [0]
-skin = [Color(-0.335805, 1.06831, 0.15208, 1), Color(-0.133475, -0.883329, -0.929299, 1), Color(1.97157, 0.131829, 0.445973, 1), Color(-1.42093, 0.734561, 0.0482821, 1), Color(0.916308, -0.414054, -1.66787, 1)]
-hair = [3, true]
+skin = [Color(-0.30148, 0.533075, -0.252353, 1), Color(0.433669, 0.0742536, 0.31866, 1), Color(-0.650819, 0.258665, 0.292161, 1), Color(0.548952, 0.292736, -0.0463573, 1), Color(0.101591, -0.119778, 0.443492, 1)]
+hair = [6, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_2lirn"]
-script = ExtResource("1_0cull")
-nickname = "Karel"
-position = Vector2(3880, 1560)
-id = 5
+[sub_resource type="Resource" id="Resource_42845"]
+script = ExtResource("1_hp434")
+nickname = "Dominik"
+position = Vector2(3240, 1560)
+id = 4
 roles = [0]
-skin = [Color(0.276811, -0.499348, 1.07413, 1), Color(-0.553478, -0.728869, 0.308142, 1), Color(-0.205037, -0.0800053, -0.802384, 1), Color(-0.605108, -1.67317, -0.0521533, 1), Color(-0.605108, -1.67317, -0.0521533, 1)]
+skin = [Color(0.986135, 0.686843, -0.0905167, 1), Color(1.12027, 0.18352, 0.965401, 1), Color(0.768493, -0.680358, 0.36589, 1), Color(0.394176, -0.890684, -1.15076, 1), Color(-0.873563, 0.0699223, -0.990463, 1)]
 hair = [0, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_da1w6"]
-script = ExtResource("1_0cull")
-nickname = "Tom"
+[sub_resource type="Resource" id="Resource_ttqmv"]
+script = ExtResource("1_hp434")
+nickname = "Robert"
+position = Vector2(3880, 1560)
+id = 5
+roles = [0]
+skin = [Color(0.766915, 0.0803784, 1.14324, 1), Color(1.51113, -0.160083, -1.23197, 1), Color(0.340076, -0.0560797, 0.0628053, 1), Color(-0.589264, -0.447357, 0.242928, 1), Color(-1.47821, 0.187673, 0.912749, 1)]
+hair = [6, true]
+blocked_missions = []
+ship_id = 1
+
+[sub_resource type="Resource" id="Resource_0crak"]
+script = ExtResource("1_hp434")
+nickname = "Vojtěch"
 position = Vector2(-680, 280)
 id = 6
 roles = [0]
-skin = [Color(-0.0632377, 0.405002, 0.396884, 1), Color(-0.047047, 0.839628, -1.16004, 1), Color(-1.51359, -0.481704, -0.147767, 1), Color(0.4839, -0.523039, 0.200174, 1), Color(0.525682, -0.0152364, 1.0876, 1)]
-hair = [2, true]
+skin = [Color(-0.324657, -1.36618, 0.18958, 1), Color(0.370827, -0.467885, -1.54224, 1), Color(-0.889088, 0.78474, -1.46782, 1), Color(-0.76533, -0.633994, -0.630946, 1), Color(-0.76533, -0.633994, -0.630946, 1)]
+hair = [2, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_jofpb"]
-script = ExtResource("1_0cull")
-nickname = "Josef"
+[sub_resource type="Resource" id="Resource_nl45c"]
+script = ExtResource("1_hp434")
+nickname = "Jakub"
 position = Vector2(-600, 1560)
 id = 7
 roles = [0]
-skin = [Color(-0.451777, -0.403272, -0.269063, 1), Color(0.10636, -1.39899, 0.496194, 1), Color(0.214534, -0.623328, 1.25333, 1), Color(0.728861, 1.34046, -0.351998, 1), Color(-1.02854, 1.58025, 0.583903, 1)]
-hair = [1, true]
+skin = [Color(0.808876, 0.176379, -0.492531, 1), Color(0.451847, 0.670359, 0.493255, 1), Color(1.70101, 1.04442, -0.490259, 1), Color(1.1016, -1.01188, 0.330137, 1), Color(-0.345517, -0.0705101, -0.324983, 1)]
+hair = [2, false]
 blocked_missions = []
 ship_id = 1
 
-[sub_resource type="Resource" id="Resource_8y7fk"]
-script = ExtResource("1_0cull")
-nickname = "Vojtěch"
+[sub_resource type="Resource" id="Resource_k1hlx"]
+script = ExtResource("1_hp434")
+nickname = "Denis"
 position = Vector2(120, -440)
 id = 8
 roles = [0]
-skin = [Color(-1.81512, 0.860005, 0.278263, 1), Color(-0.454798, -0.907353, -2.20535, 1), Color(-0.145446, -1.77217, -0.796267, 1), Color(-0.618825, -0.150135, 0.582943, 1), Color(-0.362699, 0.140168, -0.406092, 1)]
-hair = [4, false]
+skin = [Color(-0.886854, 1.45667, 1.03886, 1), Color(-1.29991, -1.35698, 0.949417, 1), Color(0.607459, -0.983819, -0.196565, 1), Color(-1.04805, -0.895479, -0.0314507, 1), Color(-0.407659, -0.800853, 0.495229, 1)]
+hair = [1, false]
 blocked_missions = []
 ship_id = 2
 
-[sub_resource type="Resource" id="Resource_mbtfx"]
-script = ExtResource("1_0cull")
-nickname = "Eduard"
+[sub_resource type="Resource" id="Resource_sbw8p"]
+script = ExtResource("1_hp434")
+nickname = "Patrik"
 position = Vector2(120, -440)
 id = 9
 roles = [0]
-skin = [Color(1.21307, 0.117935, -0.347044, 1), Color(-0.325428, -0.307328, 0.244413, 1), Color(0.177945, -0.243706, 0.194354, 1), Color(-0.575948, 0.171041, 1.13864, 1), Color(-1.43229, 0.227391, -1.04696, 1)]
-hair = [5, true]
+skin = [Color(-1.80714, -1.00108, -0.185031, 1), Color(-1.20162, 0.88368, 0.0694377, 1), Color(-1.20162, 0.88368, 0.0694377, 1), Color(-0.286501, -0.813106, 1.27988, 1), Color(0.903914, 0.83407, 0.226256, 1)]
+hair = [1, false]
 blocked_missions = []
 ship_id = 3
 
-[sub_resource type="Resource" id="Resource_tf7gi"]
-script = ExtResource("1_0cull")
-nickname = "Emanuel"
+[sub_resource type="Resource" id="Resource_qy4th"]
+script = ExtResource("1_hp434")
+nickname = "Tom"
 position = Vector2(120, -440)
 id = 10
 roles = [0]
-skin = [Color(0.886692, 0.550842, -1.36354, 1), Color(1.01753, -0.16577, -0.20024, 1), Color(0.661335, -0.34155, 0.407537, 1), Color(0.202466, -0.31878, -0.277164, 1), Color(-0.316029, 0.477914, 0.275301, 1)]
-hair = [6, false]
+skin = [Color(-0.149733, 0.449737, 0.719736, 1), Color(0.376355, 0.0640714, -0.536059, 1), Color(0.560245, -0.441886, 0.741529, 1), Color(-0.405882, -0.248419, -1.29833, 1), Color(-0.405882, -0.248419, -1.29833, 1)]
+hair = [3, true]
 blocked_missions = []
 ship_id = 4
 
-[sub_resource type="Resource" id="Resource_u2hq3"]
-script = ExtResource("1_0cull")
-nickname = "Igor"
+[sub_resource type="Resource" id="Resource_bvte8"]
+script = ExtResource("1_hp434")
+nickname = "Filip"
 position = Vector2(120, -440)
 id = 11
 roles = [0]
-skin = [Color(-1.03615, -0.910308, -0.0514587, 1), Color(0.998336, -0.824909, -1.68635, 1), Color(1.17566, 0.0137204, -0.227263, 1), Color(0.977551, 0.00473122, 0.0219753, 1), Color(-0.219009, 0.281454, 0.18803, 1)]
-hair = [2, false]
+skin = [Color(-0.749847, 0.981927, 0.378931, 1), Color(-0.802794, -0.318128, 0.433024, 1), Color(0.0392093, 0.52758, 0.106584, 1), Color(1.18203, -0.161772, 0.127591, 1), Color(-1.19087, 0.568286, -1.37175, 1)]
+hair = [2, true]
 blocked_missions = []
 ship_id = 5
 
-[sub_resource type="Resource" id="Resource_x5gik"]
-script = ExtResource("2_3kv0r")
-position = Vector2(-399419, -399567)
+[sub_resource type="Resource" id="Resource_mx1cb"]
+script = ExtResource("1_hp434")
+nickname = "Petr"
+position = Vector2(120, -440)
+id = 12
+roles = [0]
+skin = [Color(0.554635, -1.08166, -1.21967, 1), Color(-0.59584, 0.842197, 0.403695, 1), Color(0.378247, 0.505989, 0.884322, 1), Color(0.600142, 0.54946, 0.887864, 1), Color(0.107365, -0.504803, 0.630924, 1)]
+hair = [4, false]
+blocked_missions = []
+ship_id = 6
+
+[sub_resource type="Resource" id="Resource_mtwpl"]
+script = ExtResource("1_hp434")
+nickname = "Jaroslav"
+position = Vector2(120, -440)
+id = 13
+roles = [0]
+skin = [Color(-0.241234, 0.287033, -0.0796892, 1), Color(-0.760979, 0.190948, -0.11934, 1), Color(0.50545, -0.169297, -0.117492, 1), Color(-0.435187, 0.110464, -0.902195, 1), Color(-0.0860501, 0.945106, -1.45793, 1)]
+hair = [1, true]
+blocked_missions = []
+ship_id = 7
+
+[sub_resource type="Resource" id="Resource_hvja2"]
+script = ExtResource("2_oyb44")
+position = Vector2(-799355, 599706)
 id = 0
-type = ExtResource("3_po5dm")
+type = ExtResource("3_bw2ay")
 ship_id = 2
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_mqb5d"]
-script = ExtResource("2_3kv0r")
-position = Vector2(-399758, 1.00068e+06)
+[sub_resource type="Resource" id="Resource_a73as"]
+script = ExtResource("2_oyb44")
+position = Vector2(-399317, -200112)
 id = 1
-type = ExtResource("4_vxdsl")
+type = ExtResource("4_eubtp")
 ship_id = 3
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_ypfr1"]
-script = ExtResource("2_3kv0r")
-position = Vector2(799579, -799438)
+[sub_resource type="Resource" id="Resource_k0oh2"]
+script = ExtResource("2_oyb44")
+position = Vector2(-469.037, -200541)
 id = 2
-type = ExtResource("5_4m7ol")
+type = ExtResource("3_bw2ay")
 ship_id = 4
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_7sn80"]
-script = ExtResource("2_3kv0r")
-position = Vector2(800676, -600208)
+[sub_resource type="Resource" id="Resource_sfwjk"]
+script = ExtResource("2_oyb44")
+position = Vector2(200178, 703.475)
 id = 3
-type = ExtResource("3_po5dm")
+type = ExtResource("5_ify2y")
 ship_id = 5
 ship_slot_id = 0
 
-[sub_resource type="Resource" id="Resource_a18mp"]
-script = ExtResource("6_bsul0")
-position = Vector2(79.3294, 884.924)
+[sub_resource type="Resource" id="Resource_yn7wt"]
+script = ExtResource("2_oyb44")
+position = Vector2(200388, 399420)
+id = 4
+type = ExtResource("6_ax3dr")
+ship_id = 6
+ship_slot_id = 0
+
+[sub_resource type="Resource" id="Resource_eb66q"]
+script = ExtResource("2_oyb44")
+position = Vector2(599417, -999603)
+id = 5
+type = ExtResource("7_oh2c6")
+ship_id = 7
+ship_slot_id = 0
+
+[sub_resource type="Resource" id="Resource_8lpco"]
+script = ExtResource("8_2yxw0")
+position = Vector2(60.8088, 880.809)
 rotation = 0.0
 acceleration = Vector2(0, 0)
-currency = 1000
+currency = 0
 suit = true
 health = 100
 owned_ship_id = 0
 active_quest = -1
 
-[sub_resource type="Resource" id="Resource_tstu1"]
-script = ExtResource("14_ab8s5")
+[sub_resource type="Resource" id="Resource_m2f63"]
+script = ExtResource("16_6nae7")
 id = 0
 path = "_start_ship"
 position = Vector2(0, -1000)
 velocity = Vector2(0, 0)
-rotation = -0.103708
+rotation = -0.368604
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_0y4lp"]
-script = ExtResource("14_ab8s5")
+[sub_resource type="Resource" id="Resource_sjeoa"]
+script = ExtResource("16_6nae7")
 id = 1
 path = "_station"
 position = Vector2(0, 0)
@@ -212,62 +252,84 @@ destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_7d6f2"]
-script = ExtResource("14_ab8s5")
+[sub_resource type="Resource" id="Resource_d4qya"]
+script = ExtResource("16_6nae7")
 id = 2
 path = "_small_shuttle"
-position = Vector2(-400000, -400000)
+position = Vector2(-800000, 600000)
 velocity = Vector2(0, 0)
-rotation = 1.90909
+rotation = 0.839761
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_plh1c"]
-script = ExtResource("14_ab8s5")
+[sub_resource type="Resource" id="Resource_qkr1l"]
+script = ExtResource("16_6nae7")
 id = 3
 path = "_small_shuttle"
-position = Vector2(-400000, 1e+06)
+position = Vector2(-400000, -200000)
 velocity = Vector2(0, 0)
-rotation = 2.50391
+rotation = 1.12787
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_rhuqr"]
-script = ExtResource("14_ab8s5")
+[sub_resource type="Resource" id="Resource_tnckd"]
+script = ExtResource("16_6nae7")
 id = 4
 path = "_small_shuttle"
-position = Vector2(800000, -800000)
+position = Vector2(0, -200000)
 velocity = Vector2(0, 0)
-rotation = -2.80789
+rotation = -0.975526
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
-[sub_resource type="Resource" id="Resource_gruff"]
-script = ExtResource("14_ab8s5")
+[sub_resource type="Resource" id="Resource_35oe5"]
+script = ExtResource("16_6nae7")
 id = 5
 path = "_small_shuttle"
-position = Vector2(800000, -600000)
+position = Vector2(200000, 0)
 velocity = Vector2(0, 0)
-rotation = 1.0014
+rotation = 2.61136
+destroyed_walls = []
+opened_doors = []
+pickedup_items = []
+
+[sub_resource type="Resource" id="Resource_oomad"]
+script = ExtResource("16_6nae7")
+id = 6
+path = "_small_shuttle"
+position = Vector2(200000, 400000)
+velocity = Vector2(0, 0)
+rotation = 0.28036
+destroyed_walls = []
+opened_doors = []
+pickedup_items = []
+
+[sub_resource type="Resource" id="Resource_g5ove"]
+script = ExtResource("16_6nae7")
+id = 7
+path = "_small_shuttle"
+position = Vector2(600000, -1e+06)
+velocity = Vector2(0, 0)
+rotation = -2.48302
 destroyed_walls = []
 opened_doors = []
 pickedup_items = []
 
 [resource]
-script = ExtResource("13_6nbw3")
-player_save_file = SubResource("Resource_a18mp")
+script = ExtResource("15_lsbd6")
+player_save_file = SubResource("Resource_8lpco")
 quest_status_file = {
-0: ExtResource("7_otmrn"),
-1: ExtResource("8_exh36"),
-2: ExtResource("9_hvcrv"),
-3: ExtResource("10_pmlb5"),
-4: ExtResource("11_ryt0j"),
-4001: ExtResource("12_fnb4d")
+0: ExtResource("9_qujs6"),
+1: ExtResource("10_l3hkx"),
+2: ExtResource("11_dkxjn"),
+3: ExtResource("12_v3tke"),
+4: ExtResource("13_gensa"),
+4001: ExtResource("14_o2ktr")
 }
-NPC_save_files = [SubResource("Resource_lgint"), SubResource("Resource_thebw"), SubResource("Resource_8laev"), SubResource("Resource_o2gph"), SubResource("Resource_t5tec"), SubResource("Resource_2lirn"), SubResource("Resource_da1w6"), SubResource("Resource_jofpb"), SubResource("Resource_8y7fk"), SubResource("Resource_mbtfx"), SubResource("Resource_tf7gi"), SubResource("Resource_u2hq3")]
-item_save_files = [SubResource("Resource_x5gik"), SubResource("Resource_mqb5d"), SubResource("Resource_ypfr1"), SubResource("Resource_7sn80")]
+NPC_save_files = [SubResource("Resource_kcj42"), SubResource("Resource_2dkk1"), SubResource("Resource_vf4iv"), SubResource("Resource_msl7x"), SubResource("Resource_42845"), SubResource("Resource_ttqmv"), SubResource("Resource_0crak"), SubResource("Resource_nl45c"), SubResource("Resource_k1hlx"), SubResource("Resource_sbw8p"), SubResource("Resource_qy4th"), SubResource("Resource_bvte8"), SubResource("Resource_mx1cb"), SubResource("Resource_mtwpl")]
+item_save_files = [SubResource("Resource_hvja2"), SubResource("Resource_a73as"), SubResource("Resource_k0oh2"), SubResource("Resource_sfwjk"), SubResource("Resource_yn7wt"), SubResource("Resource_eb66q")]
 quest_save_files = []
-ship_save_files = [SubResource("Resource_tstu1"), SubResource("Resource_0y4lp"), SubResource("Resource_7d6f2"), SubResource("Resource_plh1c"), SubResource("Resource_rhuqr"), SubResource("Resource_gruff")]
+ship_save_files = [SubResource("Resource_m2f63"), SubResource("Resource_sjeoa"), SubResource("Resource_d4qya"), SubResource("Resource_qkr1l"), SubResource("Resource_tnckd"), SubResource("Resource_35oe5"), SubResource("Resource_oomad"), SubResource("Resource_g5ove")]

@@ -3,6 +3,7 @@ class_name ShipSaveFile extends Resource
 @export var id : int
 @export var path : String
 @export var position : Vector2
+@export var old_position : Vector2
 @export var velocity : Vector2
 @export var rotation : float
 
@@ -18,6 +19,7 @@ static func save():
 		file.id = ship.id
 		file.path = ship.path
 		file.position = World.instance.get_distance_from_center(ship.global_position)
+		file.old_position = ship._old_position
 		file.velocity = ship.linear_velocity
 		file.rotation = ship.rotation
 
@@ -40,8 +42,10 @@ func load(_npcs = [], _items = []):
 	var custom_object_spawn = CustomObjectSpawn.create(_item_preset, _npc_preset)
 
 	var ship = ShipManager.spawn_ship(position, path, custom_object_spawn, true)
+	ship.id = id
 	ship.rotation = rotation
 	ship.linear_velocity = velocity
 	ship.apply_changes(destroyed_walls, opened_doors)
+	ship._old_position = old_position
 
 	# spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> void:

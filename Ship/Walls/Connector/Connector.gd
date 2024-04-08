@@ -19,6 +19,7 @@ func _ready() -> void:
 	pin_joint1.node_a = ship.get_path()
 	pin_joint2.node_a = ship.get_path()
 
+
 func connect_to(to : Connector):
 	if connected_to != null:
 		connected_to.pin_joint1.node_b = ""

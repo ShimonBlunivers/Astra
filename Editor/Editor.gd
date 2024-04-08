@@ -53,8 +53,8 @@ func _exit():
 func _ready():
 	Editor.instance = self
 
-	# if Options.DEBUG_MODE: limit_rect.visible = false
-
+	limit_rect.visible = !Options.DEBUG_MODE
+	
 	_update_ship_list()
 
 	ship_editor.inventory = inventory
@@ -69,6 +69,7 @@ func _ready():
 	camera.make_current()
 
 	center_camera()
+
 	
 
 func _on_save_pressed() -> void:

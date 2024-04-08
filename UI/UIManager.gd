@@ -63,7 +63,7 @@ func _ready():
 	add_currency_label = $HUD/Currency/AddCurrencyLabel
 	remove_currency_label = $HUD/Currency/RemoveCurrencyLabel
 
-	
+	loading_screen_node.visible = !Options.DEBUG_MODE
 	floating.visible = Options.DEBUG_MODE
 	player_position.visible = Options.DEBUG_MODE
 

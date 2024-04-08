@@ -1,0 +1,13 @@
+Fullscreen - F11 / Alt+Enter
+
+Move - WSAD
+Run - Shift
+Rotate in space - QE
+Use - F
+Open quest menu - M
+Open doors / Talk to NPC - Left Click
+
+Open inventory in editor - TAB
+Rotate objects in editor - R
+Exit editor - ESC
+

@@ -15,4 +15,6 @@ script = ExtResource("1_nolve")
 texture = SubResource("AtlasTexture_i8a85")
 name = "Kl94"
 nickname = "KL94"
+rarity = 1.0
+free_spawn = true
 shape = SubResource("RectangleShape2D_0sh7l")

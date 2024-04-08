@@ -221,6 +221,11 @@ max_distance = 4000.0
 attenuation = 4.0
 bus = &"SFX"
 
+[node name="AutocloseTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
 [connection signal="input_event" from="Hitbox/Area/MouseHitbox" to="." method="_on_mouse_hitbox_input_event"]
 [connection signal="area_entered" from="Hitbox/Area/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Hitbox/Area/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="AutocloseTimer" to="." method="_on_autoclose_timer_timeout"]

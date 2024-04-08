@@ -53,6 +53,8 @@ var comfortable_rotation_degrees : float = 0
 
 var connectors = []
 
+var from_save = false
+
 # TODO: ✅ Fix bugging when the player exits at high speed
 
 # TODO: ✅ Fix infinity position while moving too fast
@@ -99,6 +101,8 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	name = path + "-" + str(id)
 
 	mass = 1
+
+	from_save = _from_save
 	wall_tile_map.load_ship(self, _path)
 	object_tile_map.load_ship(self, _path, custom_object_spawn, _from_save)
 	mass -= 1
@@ -111,7 +115,6 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	if !_lock_rotation:
 		var rng = RandomNumberGenerator.new()
 		rotation = rng.randf_range(0, 2 * PI)
-
 
 func get_tile(coords : Vector2i):
 	for tile in wall_tiles.get_children():
@@ -151,7 +154,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 	set_linear_velocity(new_speed)
 
 func _physics_process(_delta: float) -> void:
-	if spawning:
+	if spawning && !from_save:
 		for exception in get_collision_exceptions():
 			remove_collision_exception_with(exception)
 		var collision = move_and_collide(Vector2.ZERO)
