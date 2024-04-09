@@ -18,13 +18,13 @@ static var conversations = {
 		"Co si myslíš o vesmírné politice?",
 		"Co je podle tebe nejlepší část vesmíru?",
 	],
-	## The mission ID needs to correspond with the index in list
-	"mission" : {
-		0 : [
+
+	"mission" : { # Kategorie misí
+		0 : [ # Index mise a její obsah
 			"Ahoj, něco bych potřeboval přinést..",
 			"Někde mi vypadnul čip, na kterým jsem měl recept na povidlový čaj..",
 			"Přinesl bys mi ho?",
-			0,
+			0, # Index mise, která se má spustit
 			"Děkuji! Už se těším až si budu moct opět uvařit svůj čaj.",
 		],
 		1 : [
