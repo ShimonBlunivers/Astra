@@ -39,6 +39,7 @@ shapes/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://UI/cursor.png"
 
 [dotnet]
 

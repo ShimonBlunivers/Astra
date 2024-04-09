@@ -20,7 +20,6 @@ var status : int
 var finish_status : int
 
 func create(_mission_id : int):
-	print("create ", _mission_id)
 	status = 0
 	if target_ID < 0:
 		spawn_quest_ship()

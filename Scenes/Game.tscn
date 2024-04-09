@@ -106,6 +106,8 @@ region_rect = Rect2(0, 0, 2048, 2048)
 [node name="Ships" type="Node2D" parent="."]
 script = ExtResource("2_0gdpv")
 
+[node name="FloatingObjects" type="Node2D" parent="."]
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 light_mask = 0
 visibility_layer = 0

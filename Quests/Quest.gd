@@ -43,9 +43,6 @@ func init(_npc : NPC, _target_ID : int = -1):
     QuestManager.active_quest = id
     QuestManager.update_quest_log()
 
-    print("---------")
-
-
 func finish():
     npc.quest_finished()
     Player.main_player.add_currency(reward)
@@ -55,6 +52,7 @@ func finish():
 
 func delete():
     if world_limit > 0: missions[id].times_activated -= 1
+    npc.selected_quest = -1
     number_of_quests -= 1
     QuestManager.quests.erase(self)
     QuestManager.update_quest_log()

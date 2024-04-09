@@ -16,7 +16,6 @@ func initialize_files():
 	DirAccess.make_dir_recursive_absolute("user://saves/ships")
 	DirAccess.make_dir_recursive_absolute("user://saves/worlds")
 
-
 static func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
 	return path + "/save_file.tres"
 
@@ -30,7 +29,6 @@ func save_world(dev := false):
 	quest_save_files = QuestSaveFile.save()
 	quest_status_file = Quest.missions
 	
-
 	if !dev:
 		DirAccess.make_dir_recursive_absolute("user://saves/worlds/" + save_name + "/")
 		return ResourceSaver.save(self, SaveFile.get_save_path())
@@ -64,10 +62,8 @@ func _load(): # deferred
 	# World.instance.free()
 	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
 
-
 	World.instance._center_of_universe = Vector2.ZERO
 	World.instance.transform.origin = Vector2.ZERO
-
 
 	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 
 	

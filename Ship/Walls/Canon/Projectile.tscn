@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt84xexnt8auw"]
+
+[ext_resource type="Script" path="res://Ship/Walls/Canon/Projectile.gd" id="1_3u0je"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_2ppb1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm7t3"]
+size = Vector2(14.4046, 16.4494)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_haprn"]
+atlas = ExtResource("2_2ppb1")
+region = Rect2(0, 240, 16, 16)
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_3u0je")
+SPEED = 1000
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.19209e-07)
+scale = Vector2(1.11076, 0.486341)
+shape = SubResource("RectangleShape2D_wm7t3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_haprn")

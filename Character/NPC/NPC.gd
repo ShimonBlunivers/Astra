@@ -98,7 +98,6 @@ var active_quest = -1 : # RANDOMLY GENERATE QUEST
 					print(npc.nickname)
 					npc.reload_missions()
 					# print(npc.nickname)
-			print("value ", value)
 			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
 		active_quest = value
 
