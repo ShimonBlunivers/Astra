@@ -27,7 +27,6 @@ func _show_text_box():
 	if dialog_lines == null: return
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
 		if dialog_lines[current_line_index] in Quest.missions.keys():
-			
 			load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
 			advance()
 			return
@@ -47,7 +46,7 @@ func _on_text_box_finished_displaying():
 	can_advance_line = true
 
 func advance():
-	if is_dialog_active && can_advance_line:
+	if is_dialog_active:
 		text_box.queue_free()
 
 		current_line_index += 1

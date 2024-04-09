@@ -16,7 +16,6 @@ class_name Editor extends Node2D
 @onready var direction_label = $HUD/DirectionLabel
 @onready var limit_rect = $LimitRect
 
-
 var ships = []
 
 static var instance
@@ -62,9 +61,9 @@ func _ready():
 	inventory.load_grid()
 	
 	if Player.main_player.owned_ship == null:
-		ship_editor.load_ship("_start_ship")
+		ship_editor.load_ship("_start_ship", false)
 	else:
-		ship_editor.load_ship(Player.main_player.owned_ship.path)
+		ship_editor.load_ship(Player.main_player.owned_ship.path, false)
 
 	camera.make_current()
 

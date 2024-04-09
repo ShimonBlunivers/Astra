@@ -43,6 +43,8 @@ func init(_npc : NPC, _target_ID : int = -1):
     QuestManager.active_quest = id
     QuestManager.update_quest_log()
 
+    print("---------")
+
 
 func finish():
     npc.quest_finished()
@@ -52,16 +54,13 @@ func finish():
     World.difficulty_multiplier += 0.2
 
 func delete():
+    if world_limit > 0: missions[id].times_activated -= 1
     number_of_quests -= 1
     QuestManager.quests.erase(self)
     QuestManager.update_quest_log()
 
 func progress():
     goal.status += 1
-    update_goal()
-
-func force_status(status : int):
-    goal.status = status
     update_goal()
 
 func update_goal():

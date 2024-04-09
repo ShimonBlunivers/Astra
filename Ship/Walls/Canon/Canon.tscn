@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqhqp0ybxwwd8"]
+
+[ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="1_mcjv8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3ihj"]
+atlas = ExtResource("1_mcjv8")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1p5f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3ihj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="Canon" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3.96405, 3.80506)
+sprite_frames = SubResource("SpriteFrames_y1p5f")

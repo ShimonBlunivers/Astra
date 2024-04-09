@@ -260,7 +260,11 @@ process_callback = 0
 wait_time = 2.0
 one_shot = true
 
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="health_updated_signal" from="." to="." method="_on_health_updated_signal"]
 [connection signal="area_entered" from="Pickup" to="." method="_on_pickup_area_entered"]
 [connection signal="area_exited" from="Pickup" to="." method="_on_pickup_area_exited"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

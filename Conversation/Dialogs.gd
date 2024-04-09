@@ -100,11 +100,9 @@ static func random_mission_id(roles := [], can_return_empty_quest := false) -> i
 	for key in Quest.missions.keys():
 		if Quest.missions[key].role in roles:
 			if (Quest.missions[key].times_activated < Quest.missions[key].world_limit || Quest.missions[key].world_limit < 0):
-				usable_missions.append(Quest.missions[key])
+				if !Quest.missions[key].id in NPC.blocked_missions:
+					usable_missions.append(Quest.missions[key])
 
-	if usable_missions.size() == NPC.blocked_missions.size(): return -2
-	while 1:
-		var id = usable_missions.pick_random().id
-		if !id in NPC.blocked_missions:
-			return id
-	return -3
+	if usable_missions.size() == 0: return -2
+
+	return usable_missions.pick_random().id

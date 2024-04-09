@@ -94,9 +94,11 @@ var active_quest = -1 : # RANDOMLY GENERATE QUEST
 			# print(NPC.blocked_missions)
 			for npc in NPC.npcs: 
 				# print(npc.selected_quest)
-				if npc.selected_quest in NPC.blocked_missions: 
+				if npc.selected_quest == value && npc != self: 
+					print(npc.nickname)
 					npc.reload_missions()
 					# print(npc.nickname)
+			print("value ", value)
 			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
 		active_quest = value
 
@@ -104,7 +106,7 @@ var active_quest = -1 : # RANDOMLY GENERATE QUEST
 var selected_quest = -1 : # IS TALKING ABOUT QUEST?
 	set (value):
 		if value == -1:
-			$Nametag.add_theme_color_override("font_outline_color", default_outline_color)
+			if active_quest == -1: $Nametag.add_theme_color_override("font_outline_color", default_outline_color)
 		else:
 			$Nametag.add_theme_color_override("font_outline_color", selected_quest_outline_color)
 		selected_quest = value 

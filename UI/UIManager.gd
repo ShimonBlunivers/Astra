@@ -15,6 +15,9 @@ class_name UIManager extends CanvasLayer
 @onready var loading_screen_bar : ProgressBar = $HUD/LoadingScreen/ProgressBar
 @onready var loading_screen_background : Node2D = $HUD/LoadingScreen/Background
 
+@onready var quest_arrow : AnimatedSprite2D = $HUD/QuestArrow/Arrow
+@onready var quest_arrow_distance_label : Label = $HUD/QuestArrow/Arrow/Distance
+
 @onready var saving_screen_node = $HUD/SavingScreen
 
 static var quest_label
@@ -128,8 +131,10 @@ func _unhandled_input(event: InputEvent):
 		else: tween.tween_property(inventory, "position", Vector2(inventory_positions.y, 0), duration).set_ease(Tween.EASE_IN)
 
 func _on_quest_meta_clicked(meta:Variant) -> void:
-		
-	if QuestManager.active_quest == int(meta):
+	if "cancel" in meta: 
+		QuestManager.get_quest_by_id(int(meta)).delete()
+		QuestManager.active_quest = -1
+	elif QuestManager.active_quest == int(meta):
 		QuestManager.active_quest = -1
 	else:
 		QuestManager.active_quest = int(meta)

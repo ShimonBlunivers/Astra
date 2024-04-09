@@ -205,7 +205,7 @@ func save_ship(path : String = "_default_ship") -> void:
 	
 	console.print_out("Uložena loď s názvem: " + path)
 	
-func load_ship(path : String = "_default_ship") -> bool:
+func load_ship(path : String = "_default_ship", charge := true) -> bool:
 
 	var location : String
 
@@ -224,7 +224,7 @@ func load_ship(path : String = "_default_ship") -> bool:
 	if !path.begins_with('_') && FileAccess.file_exists(location + path + "/details.dat"):
 		var details = FileAccess.open(location + path + "/details.dat", FileAccess.READ)
 		var price = details.get_16()
-		inventory.currency -= price
+		if charge: inventory.currency -= price
 		inventory.currency_value.text = str(inventory.currency)
 
 

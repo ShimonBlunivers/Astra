@@ -6,9 +6,6 @@ class_name Player extends Character
 @onready var camera : Camera2D = $Camera2D
 @onready var vision : PointLight2D = $Vision/Light
 
-@onready var quest_arrow : AnimatedSprite2D = $QuestArrow/Arrow
-@onready var quest_arrow_distance_label : Label = $QuestArrow/Arrow/Distance
-
 @onready var interact_area = $InteractArea
 
 @onready var respawn_timer = $RespawnTimer
@@ -51,6 +48,8 @@ var _damage_timer : float = 0
 var _regen_timer : float = 0
 
 static var owned_ship : Ship
+
+var invincible := false
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -161,6 +160,8 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 	global_position = pos - World.instance._center_of_universe
 	_old_position = World.instance.get_distance_from_center(global_position)
 
+	invincible = true
+	$InvincibilityTimer.start()
 	health_updated_signal.emit()
 
 func _ready():
@@ -178,7 +179,7 @@ func _ready():
 
 
 func kill():
-	if !alive || !spawned: return
+	if !alive || !spawned || invincible: return
 	health = 0
 	alive = false
 
@@ -379,3 +380,7 @@ func _on_health_updated_signal() -> void:
 
 func _on_respawn_timer_timeout() -> void:
 	World.save_file.load_world()
+
+
+func _on_invincibility_timer_timeout() -> void:
+	invincible = false
