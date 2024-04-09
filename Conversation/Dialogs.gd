@@ -72,14 +72,14 @@ static var conversations = {
 	},
 	
 	"mission_finished" : {
-		-1 : [
+		-1 : [ # Výchozí odpověď
 			"Děkuji!",
 		],
-		4 : [
-			"Ahoj. Ty budeš ten který nám má pomoct s nalezení disku. Brácha mi o tobě říkal. Doufám že se nebojíš, nebude to lehké.",
-			4001,
+		4 : [ # Index mise, na kterou má odpovídat
+			"Ahoj. Ty budeš ten který nám má pomoct s nalezení disku.
+			Brácha mi o tobě říkal. Doufám že se nebojíš, nebude to lehké.",
+			4001, # Index navazující mise, která se má spustit
 		],
-
 		4001 : [
 			"Díky moc!",
 			"Ani nevíš, co pro nás tohle znamená.",
