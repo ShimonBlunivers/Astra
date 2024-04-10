@@ -1,6 +1,6 @@
 extends Node
 
-@export var DEBUG_MODE : bool = false
+@export var DEVELOPMENT_MODE : bool = false
 @export var FULLSCREEN : bool = false
 
 

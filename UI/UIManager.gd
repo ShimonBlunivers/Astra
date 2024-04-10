@@ -66,9 +66,9 @@ func _ready():
 	add_currency_label = $HUD/Currency/AddCurrencyLabel
 	remove_currency_label = $HUD/Currency/RemoveCurrencyLabel
 
-	loading_screen_node.visible = !Options.DEBUG_MODE
-	floating.visible = Options.DEBUG_MODE
-	player_position.visible = Options.DEBUG_MODE
+	loading_screen_node.visible = !Options.DEVELOPMENT_MODE
+	floating.visible = Options.DEVELOPMENT_MODE
+	player_position.visible = Options.DEVELOPMENT_MODE
 
 func player_health_updated_signal() -> void:
 	health_label.text = str(Player.main_player.health)
@@ -82,7 +82,7 @@ var _vfx_muted = false
 static var loading_mute = false
 
 func loading_screen(time : float = 1.6):
-	if Options.DEBUG_MODE: return
+	if Options.DEVELOPMENT_MODE: return
 	loading_screen_node.visible = true
 	if AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
 		_vfx_muted = true
@@ -152,7 +152,7 @@ func _process(_delta):
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), Player.main_player.floating())
 	
 
-	if Options.DEBUG_MODE:
+	if Options.DEVELOPMENT_MODE:
 		floating.visible = Player.main_player.floating()
 		var pos = World.instance.get_distance_from_center(Player.main_player.global_position)
 		player_position.text = ""

@@ -21,7 +21,7 @@ func _physics_process(delta):
 		velocity.x = direction.x * (SPEED + RUN_SPEED_MODIFIER * running) * (1 / zoom.x)
 		velocity.y = direction.y * (SPEED + RUN_SPEED_MODIFIER * running) * (1 / zoom.y)
 
-		if position.x + (float)(velocity.x * delta) < LEFT_LIMIT && !Options.DEBUG_MODE: velocity.x = 0
+		if position.x + (float)(velocity.x * delta) < LEFT_LIMIT && !Options.DEVELOPMENT_MODE: velocity.x = 0
 
 		position += Vector2((float)(velocity.x * delta), (float)(velocity.y * delta))
 

@@ -71,11 +71,11 @@ func get_distance_from_center(pos : Vector2) -> Vector2:
 	return pos - _center_of_universe
 
 func _process(_delta):
-	if !Options.DEBUG_MODE: return
+	if !Options.DEVELOPMENT_MODE: return
 	queue_redraw()
 
 func _draw():
-	if !Options.DEBUG_MODE: return
+	if !Options.DEVELOPMENT_MODE: return
 	draw_circle(-_center_of_universe , 25 , Color.LIGHT_BLUE)
 
 func open_editor(_builder : Builder = null):
@@ -90,6 +90,6 @@ func open_editor(_builder : Builder = null):
 	root.add_child(editor_object)
 
 func _unhandled_input(event: InputEvent):
-	if Options.DEBUG_MODE:
+	if Options.DEVELOPMENT_MODE:
 		if event.is_action_pressed("game_toggle_menu"):
 			open_editor()

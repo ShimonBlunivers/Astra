@@ -90,7 +90,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var layer = 0
 		if event.button_mask == 1:
 			use_tool(layer)
-		elif event.button_mask == 2 && (!ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile(wall_tile_map)) == "connector" || Options.DEBUG_MODE):
+		elif event.button_mask == 2 && (!ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile(wall_tile_map)) == "connector" || Options.DEVELOPMENT_MODE):
 			if ShipValidator.get_tile_type(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map)) in tools && tools[ShipValidator.get_tile_type(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map))].object:
 				ShipEditor.sell_tile(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map))
 			else:
@@ -104,7 +104,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func use_tool(layer : int) -> void:
 	if tool == null: return
-	if !Options.DEBUG_MODE && !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return
+	if !Options.DEVELOPMENT_MODE && !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return
 	var tilemap : TileMap = object_tile_map if tool.object else wall_tile_map
 	var tile : Vector2i = ShipEditor.get_mouse_tile(tilemap)
 	if ShipValidator.get_tile_type(tilemap, tile, layer) == tool.name: return
@@ -117,7 +117,7 @@ func use_tool(layer : int) -> void:
 	if ShipValidator.get_tile_type(tilemap, tile) == "connector": return
 	ShipEditor.sell_tile(tilemap, tile, false)
 
-	if tool.price != 0 && !Inventory.add_currency(-tool.price) && !Options.DEBUG_MODE:
+	if tool.price != 0 && !Inventory.add_currency(-tool.price) && !Options.DEVELOPMENT_MODE:
 		return
 
 	tool.number_of_instances += 1

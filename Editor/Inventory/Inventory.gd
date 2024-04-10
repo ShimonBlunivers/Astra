@@ -35,7 +35,7 @@ func _ready():
 
 func load_grid():
 	for key in ShipEditor.tools.keys():
-		if ShipEditor.tools[key].debug && !Options.DEBUG_MODE: continue
+		if ShipEditor.tools[key].debug && !Options.DEVELOPMENT_MODE: continue
 		var new_slot = slot_scene.instantiate()
 		grid.add_child(new_slot)
 		new_slot.set_tool(ShipEditor.tools[key])

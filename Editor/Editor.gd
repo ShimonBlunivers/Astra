@@ -52,7 +52,7 @@ func _exit():
 func _ready():
 	Editor.instance = self
 
-	limit_rect.visible = !Options.DEBUG_MODE
+	limit_rect.visible = !Options.DEVELOPMENT_MODE
 	
 	_update_ship_list()
 
@@ -92,7 +92,7 @@ func _update_ship_list():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				if !(!Options.DEBUG_MODE && file_name.begins_with('_') && file_name.begins_with('%')): 
+				if !(!Options.DEVELOPMENT_MODE && file_name.begins_with('_') && file_name.begins_with('%')): 
 					ship_text += "[cell=1][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
 					if !file_name.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + file_name + "/details.dat"):
 						var details = FileAccess.open("user://saves/ships/" + file_name + "/details.dat", FileAccess.READ)
@@ -108,7 +108,7 @@ func _update_ship_list():
 					# ship_text += "[/url]"
 			file_name = dir.get_next()
 	
-	if Options.DEBUG_MODE:
+	if Options.DEVELOPMENT_MODE:
 		dir = DirAccess.open("res://DefaultSave/ships")
 		if dir:
 			dir.list_dir_begin()

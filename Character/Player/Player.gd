@@ -123,7 +123,7 @@ func change_ship(ship):
 	# parent_ship.make_invulnerable()
 
 func _unhandled_input(event: InputEvent):
-	if Options.DEBUG_MODE:
+	if Options.DEVELOPMENT_MODE:
 		if event.is_action_pressed("debug_die"):
 			World.save_file.save_world(true)
 			# parent_ship.delete()
