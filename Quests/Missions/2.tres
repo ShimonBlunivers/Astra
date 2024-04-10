@@ -8,6 +8,7 @@ script = ExtResource("1_w6mo5")
 type = 2
 target_ID = -1
 item_type = "Radio"
+difficulty_multiplier = 1
 
 [resource]
 script = ExtResource("1_64x7q")

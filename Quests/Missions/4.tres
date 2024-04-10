@@ -8,6 +8,7 @@ script = ExtResource("1_bv67p")
 type = 1
 target_ID = -1
 item_type = ""
+difficulty_multiplier = 1
 
 [resource]
 script = ExtResource("1_at2id")

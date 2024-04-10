@@ -1,6 +1,6 @@
 extends Node
 
-@export var DEVELOPMENT_MODE : bool = false
+@export var DEVELOPMENT_MODE : bool = false if !OS.has_feature("editor") else true
 @export var FULLSCREEN : bool = false
 
 

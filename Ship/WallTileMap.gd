@@ -235,14 +235,11 @@ func _replace_tiles() -> bool:
 				var _thruster_object = thruster_scene.instantiate()
 				_thruster_object.init(ship, cellpos, 150, 5, object_direction)
 				_thruster_object.position = tile_position
-
-				ship.thrust_power[object_direction] += _thruster_object.power
-
+	
 				ship.wall_tiles.add_child(_thruster_object)
 
 				_thruster_object.rotation_degrees = object_direction * 90
 				
-
 				set_cell(layer, cellpos, -1)
 			
 			"connector":

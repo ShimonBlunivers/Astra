@@ -17,14 +17,20 @@ var direction : int
 
 var running : bool = false
 
+var blocked := false
+
 var blocked_sides = [false, false] # LEFT RIGHT
+
+## Required empty space in tiles to function
+var _required_space = 4
+
 
 func init(_ship, _coords : Vector2i, _durability : float = 150, _mass : float = 5, _direction = 0, _power = 1000):
 	super(_ship, _coords, _durability, _mass)
 	direction = _direction
 	power = _power
-	ship.thrusters[direction].append(self)
 
+	ship.thrusters[direction].append(self)
 	call_deferred("get_blocked_sides")
 
 func set_status(status : bool):
@@ -61,4 +67,29 @@ func get_blocked_sides():
 		blocked_sides = [_blocked_sides[2], _blocked_sides[0]]
 	elif direction == 3:
 		blocked_sides = [_blocked_sides[3], _blocked_sides[1]]
+
+	var blocked_cells = []
+
+	if direction == 0:
+		for x in range(1, 1 + _required_space):
+			blocked_cells.append(Vector2i(x, 0))
+	elif direction == 1:
+		for y in range(1, 1 + _required_space):
+			blocked_cells.append(Vector2i(0, y))
+	elif direction == 2:
+		for x in range(-_required_space, 0):
+			blocked_cells.append(Vector2i(x, 0))
+	elif direction == 3:
+		for y in range(-_required_space, 0):
+			blocked_cells.append(Vector2i(0, y))
+
+	for cell in blocked_cells:
+		if ship.get_tile(tilemap_coords + cell) != null:
+			blocked = true
+
+	if !blocked:
+		ship.thrust_power[direction] += power
+
+	set_status(false)
+	
 		

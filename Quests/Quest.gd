@@ -44,6 +44,7 @@ func init(_npc : NPC, _target_ID : int = -1):
     QuestManager.update_quest_log()
 
 func finish():
+    NPC.blocked_missions.erase(id)
     npc.quest_finished()
     Player.main_player.add_currency(reward)
     QuestManager.active_quest = -1
@@ -51,6 +52,7 @@ func finish():
     World.difficulty_multiplier += 0.2
 
 func delete():
+    NPC.blocked_missions.erase(id)
     if world_limit > 0: missions[id].times_activated -= 1
     npc.selected_quest = -1
     number_of_quests -= 1

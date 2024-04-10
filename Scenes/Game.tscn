@@ -426,3 +426,4 @@ bus = &"Music"
 
 [connection signal="currency_updated_signal" from="Player" to="UI" method="_on_player_currency_updated_signal"]
 [connection signal="meta_clicked" from="UI/HUD/Inventory/QuestLog/RichTextLabel" to="UI" method="_on_quest_meta_clicked"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

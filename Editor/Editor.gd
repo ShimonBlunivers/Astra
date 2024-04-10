@@ -139,7 +139,7 @@ func _on_load_pressed() -> void:
 	if !ship_name_label.text.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + ship_name_label.text + "/details.dat"):
 		var details = FileAccess.open("user://saves/ships/" + ship_name_label.text + "/details.dat", FileAccess.READ)
 		var price = details.get_16()
-		if price > ship_editor.current_ship_price + inventory.currency: 
+		if price > ship_editor.current_ship_price + inventory.currency && !Options.DEVELOPMENT_MODE: 
 			console.print_out("[color=red]Na tuto loď nemáš dostatek prostředků![/color]")
 			return
 	if (ship_name_label.text == ""): success = ship_editor.load_ship()
@@ -172,23 +172,65 @@ func _on_autofloor_button_toggled(toggled_on:bool):
 	if toggled_on: ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
 
 func _on_deploy_pressed() -> void:
+	ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
 		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
 		return 
 
-	var ship_num = 0
+	var path = "user://saves/ships"
+	var dir = DirAccess.open(path)
 
-	var dir = DirAccess.open("user://saves/ships")
+	var ship_names = []
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if dir.current_is_dir() && file_name.contains("%player_ship_"): ship_num += 1
+			if dir.current_is_dir(): 
+				ship_names.append(file_name)
 			file_name = dir.get_next()
 
-	ship_editor.save_ship("%player_ship_" + str(ship_num))
+	var saved_file_name = ""
+
+	var ship_num = 0
+	while saved_file_name == "":
+		if "%player_ship_" + str(ship_num) in ship_names: ship_num += 1
+		else: saved_file_name = "%player_ship_" + str(ship_num)
+		
+
+	ship_editor.save_ship(saved_file_name)
+	dir = DirAccess.open("user://saves/ships")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name != saved_file_name:
+				if compare_files(path + "/" + file_name + "/walls.dat", path + "/" + saved_file_name + "/walls.dat"): 
+					if compare_files(path + "/" + file_name + "/objects.dat", path + "/" + saved_file_name + "/objects.dat"):
+						delete_directory(path + "/" + file_name)
+						
+			file_name = dir.get_next()
 
 	if World.used_builder != null:
 		ShipManager.build_ship(World.used_builder, true, "%player_ship_" + str(ship_num))
 	_exit()
-	
+
+## Returns true if the files are the same
+func compare_files(path1 : String, path2 : String) -> bool:
+	var content1 = FileAccess.get_file_as_bytes(path1)
+	var content2 = FileAccess.get_file_as_bytes(path2)
+	return content1 == content2
+
+func delete_directory(path: String) -> bool:
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				if !delete_directory(path + "/" + file_name): return false
+			else:
+				dir.remove(path + "/" + file_name)
+			file_name = dir.get_next()
+		dir.remove(path)
+		return true
+	else: return false

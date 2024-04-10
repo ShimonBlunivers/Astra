@@ -90,12 +90,12 @@ var active_quest = -1 : # RANDOMLY GENERATE QUEST
 	set (value):
 		if value == -1:
 			$Nametag.add_theme_color_override("font_outline_color", default_outline_color)
+			reload_missions()
 		else:
 			# print(NPC.blocked_missions)
 			for npc in NPC.npcs: 
 				# print(npc.selected_quest)
 				if npc.selected_quest == value && npc != self: 
-					print(npc.nickname)
 					npc.reload_missions()
 					# print(npc.nickname)
 			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
@@ -165,7 +165,7 @@ func reload_missions():
 		selected_quest = mission
 	# print(nickname, " SPAWNED on: " , position)
 	var random := RandomNumberGenerator.new()
-	timer.start(300 + 60 * random.randi_range(0, 10))
+	timer.start(120 + 60 * random.randi_range(0, 8))
 
 func _ready() -> void:
 	legs_offset = legs.position
@@ -195,7 +195,7 @@ func _on_interaction_area_area_exited(area:Area2D):
 		dialog_manager.end_dialog()
 
 func _on_area_mouse_entered() -> void:
-	$Nametag.visible = true
+	if interactable: $Nametag.visible = true
 
 func _on_area_mouse_exited() -> void:
 	$Nametag.visible = false

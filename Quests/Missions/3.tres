@@ -8,6 +8,7 @@ script = ExtResource("1_dnwp2")
 type = 2
 target_ID = -1
 item_type = "Kl94"
+difficulty_multiplier = 1
 
 [resource]
 script = ExtResource("1_opbhw")

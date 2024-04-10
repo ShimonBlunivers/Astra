@@ -11,6 +11,7 @@ atlas = ExtResource("2_2ppb1")
 region = Rect2(0, 240, 16, 16)
 
 [node name="Projectile" type="CharacterBody2D"]
+scale = Vector2(4, 4)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_3u0je")
@@ -23,3 +24,14 @@ shape = SubResource("RectangleShape2D_wm7t3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_haprn")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1.19209e-07)
+scale = Vector2(1.11076, 0.486341)
+shape = SubResource("RectangleShape2D_wm7t3")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

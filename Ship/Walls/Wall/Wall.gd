@@ -54,7 +54,7 @@ func destroy():
 	_debris_object.init(ship, tilemap_coords)
 	_debris_object.position = position
 
-	get_parent().add_child(_debris_object)
+	get_parent().add_child.call_deferred(_debris_object)
 	var _pos = ship.wall_tile_map.local_to_map(position)
 	ship.wall_tile_map.set_cells_terrain_connect(layer, [_pos] , 0, -1, false)
 

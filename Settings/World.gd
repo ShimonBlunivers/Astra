@@ -53,6 +53,10 @@ func new_world():
 		Goal.Type.talk_to_npc : [],
 		Goal.Type.go_to_place : [],
 	}
+	
+	Player.main_player.health = Player.main_player.max_health
+	Player.main_player.currency = 0
+	Player.main_player.currency_updated_signal.emit()
 	# var tree := World.instance.get_tree().get_root()
 	# World.instance.free()
 	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
@@ -93,3 +97,7 @@ func _unhandled_input(event: InputEvent):
 	if Options.DEVELOPMENT_MODE:
 		if event.is_action_pressed("game_toggle_menu"):
 			open_editor()
+
+
+func _on_audio_stream_player_finished() -> void:
+	$AudioStreamPlayer.play()

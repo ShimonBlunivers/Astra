@@ -11,6 +11,7 @@ func _ready() -> void:
 
 static func randomly_generate_ships():
 	Player.main_player.owned_ship = ShipManager.spawn_ship(Vector2(0, -10000), "_start_ship")
+	
 	ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true).freeze = true
 
 	var ship_percentage = 25

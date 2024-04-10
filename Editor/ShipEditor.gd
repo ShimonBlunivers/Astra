@@ -68,6 +68,13 @@ func _ready() -> void:
 
 	# ShipValidator.autofill_floor(wall_tile_map)
 
+	update_preview.call_deferred()
+	
+func update_preview():
+	Editor.instance.direction_label.text = "Směr: " + directions[direction]
+	ShipEditor.update_preview_rotation()
+
+
 func load_tools():
 	var path = "res://Editor/Tools"
 	var dir = DirAccess.open(path)
@@ -99,9 +106,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("editor_change_direction"):
 		ShipEditor.direction = (ShipEditor.direction + 1) % 4
-		Editor.instance.direction_label.text = "Směr: " + directions[direction]
-		ShipEditor.update_preview_rotation()
-
+		update_preview()
 func use_tool(layer : int) -> void:
 	if tool == null: return
 	if !Options.DEVELOPMENT_MODE && !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return

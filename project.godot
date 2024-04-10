@@ -192,6 +192,7 @@ game_dock_ship={
 2d_physics/layer_9="Character to Ship collision"
 2d_physics/layer_10="Ship collision"
 2d_physics/layer_12="Connector finder"
+2d_physics/layer_16="Projectiles"
 
 [physics]
 

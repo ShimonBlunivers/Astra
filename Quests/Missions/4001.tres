@@ -8,6 +8,7 @@ script = ExtResource("1_ekbqv")
 type = 2
 target_ID = -1
 item_type = "Disk"
+difficulty_multiplier = 1
 
 [resource]
 script = ExtResource("1_y1w3f")

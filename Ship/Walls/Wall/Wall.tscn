@@ -54,7 +54,9 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_w35h2")
 animation = &"crack"
 
-[node name="Hitbox" type="AnimatableBody2D" parent="."]
+[node name="Hitbox" type="AnimatableBody2D" parent="." groups=["Wall"]]
+collision_layer = 32769
+collision_mask = 32769
 sync_to_physics = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
