@@ -5,6 +5,8 @@ class_name Character extends CharacterBody2D
 
 @onready var legs = $LegHitbox
 
+@export var godmode = false
+
 const SPEED = 400.0
 const RUN_SPEED_MODIFIER = 100.0
 const TURN_SPEED = 1.0
@@ -45,6 +47,7 @@ func set_health(amount : float):
 	damage(0)
 
 func damage(amount : float):
+	if godmode: return
 	health = max(health - amount, 0)
 	if health == 0: kill()
 	else: health_updated_signal.emit()

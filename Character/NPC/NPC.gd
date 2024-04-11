@@ -86,6 +86,8 @@ static var default_outline_color = Color.BLACK
 static var active_quest_outline_color = Color.DARK_GOLDENROD
 static var selected_quest_outline_color = Color.MEDIUM_PURPLE
 
+var hovering = false
+
 var active_quest = -1 : # RANDOMLY GENERATE QUEST
 	set (value):
 		if value == -1:
@@ -195,10 +197,12 @@ func _on_interaction_area_area_exited(area:Area2D):
 		dialog_manager.end_dialog()
 
 func _on_area_mouse_entered() -> void:
-	if interactable: $Nametag.visible = true
-
+	hovering = true
 func _on_area_mouse_exited() -> void:
-	$Nametag.visible = false
+	hovering = false
+
+func _process(_delta):
+	$Nametag.visible = hovering && interactable
 
 func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:
 	if event is InputEventMouseButton && event.button_mask == 1:

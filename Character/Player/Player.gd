@@ -179,7 +179,7 @@ func _ready():
 
 
 func kill():
-	if !alive || !spawned || invincible: return
+	if !alive || !spawned || invincible || godmode: return
 	health = 0
 	alive = false
 

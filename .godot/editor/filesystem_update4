@@ -1,4 +1,4 @@
-res://Sound/bus_layout.tres
+res://Editor/ShipEditor.gd
 res://Scenes/Game.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -18,15 +18,10 @@ res://Ship/Walls/Connector/Connector.tscn
 res://Ship/Walls/Canon/Projectile.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
-res://Editor/Editor.gd
 res://Character/NPC/NPC.gd
-res://Quests/Quest.gd
 res://Conversation/Dialogs.gd
-res://Quests/Missions/1.tres
-res://Quests/Missions/2.tres
-res://Quests/Missions/3.tres
-res://Quests/Missions/0.tres
-res://Quests/Missions/4001.tres
-res://Quests/Missions/4.tres
-res://Ship/Ship.gd
+res://Character/Player/Player.gd
+res://Character/Character.gd
+res://Ship/ShipPartScript.gd
 res://Settings/World.gd
+res://Ship/Ship.gd

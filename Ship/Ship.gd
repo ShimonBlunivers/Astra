@@ -144,9 +144,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	update_side_trusters()
 
 	acceleration = acceleration.rotated(global_rotation)
-	
-	state.apply_central_impulse(acceleration)
-	state.apply_torque_impulse(rotation_speed)
+	if acceleration != Vector2.ZERO: state.apply_central_impulse(acceleration)
+	if rotation_speed != 0: state.apply_torque_impulse(rotation_speed)
 
 	# if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 	# 	var new_speed = get_linear_velocity().normalized()

@@ -33,6 +33,7 @@ QuestManager="*res://Quests/QuestManager.gd"
 gdscript/warnings/integer_division=0
 canvas_items/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
 shapes/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
+gdscript/run_on_separate_thread=true
 
 [display]
 
@@ -196,6 +197,8 @@ game_dock_ship={
 
 [physics]
 
+2d/run_on_separate_thread=true
+common/physics_ticks_per_second=40
 3d/default_gravity=0.0
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
