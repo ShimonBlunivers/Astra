@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqhqp0ybxwwd8"]
+[gd_scene load_steps=6 format=3 uid="uid://cqhqp0ybxwwd8"]
 
 [ext_resource type="Script" path="res://Ship/Walls/Canon/Canon.gd" id="1_bdwcy"]
 [ext_resource type="Texture2D" uid="uid://dobw14md45sbd" path="res://Ship/wall_tilesheet.png" id="2_n21g2"]
@@ -18,9 +18,18 @@ animations = [{
 "speed": 0.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dtsi"]
+size = Vector2(128, 128)
+
 [node name="Canon" type="Node2D"]
 script = ExtResource("1_bdwcy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(3.96405, 3.80506)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_y1p5f")
+
+[node name="Hitbox" type="AnimatableBody2D" parent="."]
+sync_to_physics = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_2dtsi")

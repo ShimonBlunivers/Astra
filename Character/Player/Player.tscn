@@ -204,7 +204,7 @@ shape = SubResource("CircleShape2D_ycmu8")
 
 [node name="Pickup" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 4
+collision_mask = 260
 
 [node name="Range" type="CollisionShape2D" parent="Pickup"]
 shape = SubResource("CircleShape2D_eo3g1")

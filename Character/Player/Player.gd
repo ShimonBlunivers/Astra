@@ -51,6 +51,9 @@ static var owned_ship : Ship
 
 var invincible := false
 
+var _close_ships = []
+
+
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
 # TODO: ✅ Add floating velocity
@@ -194,8 +197,8 @@ func _in_physics(delta: float) -> void:
 	# print("Player position: ", position)
 	if passenger_on.size() == 1 && passenger_on[0] != parent_ship:
 		change_ship(passenger_on[0])
-	elif floating():
-		var closest_ship = ObjectList.get_closest_ship(global_position)
+	elif floating() && !_close_ships.is_empty():
+		var closest_ship = ObjectList.get_closest_ship(global_position, _close_ships)
 		if closest_ship != parent_ship:
 			change_ship(closest_ship)
 
@@ -225,8 +228,6 @@ func _in_physics(delta: float) -> void:
 					damage(-1)
 					_regen_timer = 0
 
-
-
 func control_ship(ship):
 	if ship != null:
 		ship_controlled = ship
@@ -241,7 +242,6 @@ func control_ship(ship):
 		change_view(1)
 		if ship_controlled != null: ship_controlled.stop_controlling()
 		ship_controlled = null
-
 
 func _move(_delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") # Get input keys
@@ -266,7 +266,6 @@ func _move(_delta: float) -> void:
 
 	velocity = (direction * (SPEED + RUN_SPEED_MODIFIER * running)).rotated(global_rotation) # velocity // the _fix_position is help variable made to remove bug
 
-
 	if parent_ship != null:
 		if floating(): 	# If outside of the ship
 			rotate(deg_to_rad(TURN_SPEED * rotation_direction))
@@ -287,7 +286,6 @@ func _move(_delta: float) -> void:
 	if dim_acceleration_for_frames > 0:
 		dim_acceleration_for_frames -= 1
 
-
 	# if get_last_slide_collision():
 	# velocity = velocity.move_toward(Vector2(0, 0), 40)
 	# print("dampening now  velocity:", velocity)
@@ -298,7 +296,6 @@ func _move(_delta: float) -> void:
 
 	# elif _fix_position == position && passenger_on[0].linear_velocity != Vector2.ZERO:
 	# 	position += acceleration
-
 
 	if !floating() && direction.x < 0:
 		if !walk_sound.playing && !floating(): 
@@ -342,9 +339,7 @@ func _move(_delta: float) -> void:
 			animated_sprite.flip_h = false
 			animated_sprite.play("Idle")
 			
-
 var collisionpos = Vector2.ZERO
-
 
 func change_view(view: int) -> void:
 	var tween = create_tween()
@@ -364,15 +359,20 @@ func change_view(view: int) -> void:
 			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)
 
 func _on_pickup_area_entered(area:Area2D) -> void:
-	area.get_parent().can_pickup = true
+	if area.is_in_group("ShipArea"):
+		_close_ships.append(area.get_parent())
+	elif !area.is_in_group("CharacterInteractArea"):
+		area.get_parent().can_pickup = true
 
 func _on_pickup_area_exited(area:Area2D) -> void:
-	area.get_parent().can_pickup = false
+	if area.is_in_group("ShipArea"):
+		_close_ships.erase(area.get_parent())
+	elif !area.is_in_group("CharacterInteractArea"):
+		area.get_parent().can_pickup = false
 
 func deleting_ship(_ship : Ship):
 	if _ship == parent_ship:
 		call_deferred("reparent", World.instance)
-
 
 func _on_health_updated_signal() -> void:
 	UIManager.instance.player_health_updated_signal()
@@ -380,7 +380,6 @@ func _on_health_updated_signal() -> void:
 
 func _on_respawn_timer_timeout() -> void:
 	World.save_file.load_world()
-
 
 func _on_invincibility_timer_timeout() -> void:
 	invincible = false

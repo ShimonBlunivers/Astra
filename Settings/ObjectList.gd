@@ -2,8 +2,7 @@ extends Node
 
 static var world
 
-func get_closest_ship(from_global_pos : Vector2) -> Ship:
-	var ships = Ship.ships
+func get_closest_ship(from_global_pos : Vector2, ships = Ship.ships) -> Ship:
 	if ships.size() == 0: return null
 	var closest = ships[0]
 	for ship in ships:
@@ -12,7 +11,6 @@ func get_closest_ship(from_global_pos : Vector2) -> Ship:
 	return closest
 
 func _ready() -> void:
-
 	Item.load_items()
 	world = World.instance
 

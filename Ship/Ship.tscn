@@ -25,7 +25,7 @@ script = ExtResource("1_set35")
 [node name="Hitbox" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 1, 0, 1, -1, 0, -1)
 
-[node name="Area" type="Area2D" parent="."]
+[node name="Area" type="Area2D" parent="." groups=["ShipArea"]]
 collision_layer = 256
 collision_mask = 256
 linear_damp = 0.0
