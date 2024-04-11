@@ -24,3 +24,5 @@ res://Ship/Ship.gd
 res://Character/Character.gd
 res://Character/Player/PlayerSaveFile.gd
 res://Settings/ObjectList.gd
+res://Backgrounds/Background.gd
+res://Settings/Options.gd

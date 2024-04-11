@@ -19,7 +19,6 @@ var _sprite_dir := 69
 var ship_controlled = null
 
 var normal_zoom : float = 1
-var ship_zoom : float = 0.2
 
 var normal_vision : float = 4
 var driving_vision : float = 0.4
@@ -347,6 +346,10 @@ func change_view(view: int) -> void:
 	var ship_center : Vector2 = ship_rect.size / 2 + ship_rect.position
 	camera_difference = ship_center - position
 	var duration = 1
+
+	var ship_size = (max(ship_rect.size.x, ship_rect.size.y) + 666)* 1.5
+	var cam_size = camera.get_viewport().size.y
+	var ship_zoom = 1 / (ship_size / cam_size)
 	match view:
 		0: 
 			tween.parallel().tween_property(camera, "zoom", Vector2(ship_zoom, ship_zoom), duration).set_ease(Tween.EASE_OUT)

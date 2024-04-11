@@ -68,7 +68,7 @@ func new_world():
 	ShipManager.randomly_generate_ships()
 
 func shift_origin(by:Vector2):
-	transform.origin += by
+	global_position += by
 	_center_of_universe += by
 
 func get_distance_from_center(pos : Vector2) -> Vector2:
