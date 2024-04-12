@@ -93,10 +93,10 @@ func open_editor(_builder : Builder = null):
 	var editor_object = editor_scene.instantiate()
 	root.add_child(editor_object)
 
-func _unhandled_input(event: InputEvent):
-	if Options.DEVELOPMENT_MODE:
-		if event.is_action_pressed("game_toggle_menu"):
-			open_editor()
+# func _unhandled_input(event: InputEvent):
+# 	if Options.DEVELOPMENT_MODE:
+# 		if event.is_action_pressed("game_toggle_menu"):
+# 			open_editor()
 
 
 func _on_audio_stream_player_finished() -> void:

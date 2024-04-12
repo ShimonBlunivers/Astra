@@ -1,9 +1,9 @@
+Timer
+Sprite2D
+ColorRect
 Area2D
 Node2D
-Sprite2D
 CollisionShape2D
 CharacterBody2D
-Timer
 Label
 NinePatchRect
-ColorRect

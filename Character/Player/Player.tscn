@@ -185,6 +185,7 @@ motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4278190080
 script = ExtResource("1_to8t1")
+godmode = null
 
 [node name="Area" type="Area2D" parent="." groups=["CharacterArea", "PlayerArea"]]
 collision_layer = 16
@@ -262,9 +263,15 @@ one_shot = true
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 0.25
+one_shot = true
+
+[node name="LockRotationTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="health_updated_signal" from="." to="." method="_on_health_updated_signal"]
 [connection signal="area_entered" from="Pickup" to="." method="_on_pickup_area_entered"]
 [connection signal="area_exited" from="Pickup" to="." method="_on_pickup_area_exited"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="LockRotationTimer" to="." method="_on_lock_rotation_timer_timeout"]

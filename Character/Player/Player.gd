@@ -12,7 +12,10 @@ class_name Player extends Character
 
 static var main_player : Player
 
-var currency : float = 0
+var currency : float :
+	set(value):
+		currency = value
+		currency_updated_signal.emit()
 
 var _sprite_dir := 69
 
@@ -52,6 +55,8 @@ var invincible := false
 
 var _close_ships = []
 
+var _locked_rotating = false
+
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 
@@ -69,7 +74,7 @@ var _close_ships = []
 
 # TODO: ✅ Add load/save
 
-# TODO: Add animations
+# TODO: ✅ Add animations
 
 
 static func find_comfortable_degrees(_angle : int) -> int:
@@ -89,7 +94,6 @@ var turn_tween : Tween
 func add_currency(amount : int):
 	currency += amount
 	UIManager.currency_change_effect(amount)
-	currency_updated_signal.emit()
 
 func floating():
 	return passenger_on.size() == 0
@@ -98,13 +102,15 @@ func get_in(ship):
 	dim_acceleration_for_frames = 5
 	if (ship in passenger_on): return
 	passenger_on.append(ship)
-	rotate_to_ship()
+	if passenger_on.size() == 1: rotate_to_ship()
 	# print(acceleration, " ; ", ship.difference_in_position)
 	if max_impact_velocity < (acceleration - ship.difference_in_position).length():
 		kill()
 
 func rotate_to_ship():
+	if _locked_rotating: return
 	if turn_tween: turn_tween.kill()
+
 	var turn_speed = abs(rotation_degrees / 150)
 	turn_tween = create_tween()
 
@@ -122,7 +128,14 @@ func change_ship(ship):
 	parent_ship = ship
 	# parent_ship.hitbox.position = (parent_ship.difference_in_position).rotated(parent_ship.global_rotation)
 	call_deferred("reparent", ship.passengers_node)
+	if !floating(): 
+		_change_ship_rotate.call_deferred()
 	# parent_ship.make_invulnerable()
+
+func _change_ship_rotate():
+	rotate_to_ship()
+	_locked_rotating = true
+	$LockRotationTimer.start()
 
 func _unhandled_input(event: InputEvent):
 	if Options.DEVELOPMENT_MODE:
@@ -159,6 +172,7 @@ func spawn(pos := spawn_point, _acceleration := Vector2.ZERO, _rotation = null):
 	health = max_health
 	if _rotation != null: global_rotation = _rotation
 	change_ship(ObjectList.get_closest_ship(global_position))
+	_locked_rotating = false
 	global_position = pos - World.instance._center_of_universe
 	_old_position = World.instance.get_distance_from_center(global_position)
 
@@ -347,7 +361,7 @@ func change_view(view: int) -> void:
 	camera_difference = ship_center - position
 	var duration = 1
 
-	var ship_size = (max(ship_rect.size.x, ship_rect.size.y) + 666)* 1.5
+	var ship_size = (max(ship_rect.size.x, ship_rect.size.y) + 2000) * 1.666
 	var cam_size = camera.get_viewport().size.y
 	var ship_zoom = 1 / (ship_size / cam_size)
 	match view:
@@ -386,3 +400,7 @@ func _on_respawn_timer_timeout() -> void:
 
 func _on_invincibility_timer_timeout() -> void:
 	invincible = false
+
+
+func _on_lock_rotation_timer_timeout() -> void:
+	_locked_rotating = false

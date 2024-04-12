@@ -64,7 +64,6 @@ func _ready() -> void:
 	instance = self
 	tool_preview = $"../HUD/ToolPreview"
 	ShipEditor.change_tool("wall")
-	evide_tiles()
 
 	# ShipValidator.autofill_floor(wall_tile_map)
 
@@ -226,11 +225,10 @@ func load_ship(path : String = "_default_ship", charge := true) -> bool:
 
 	Editor.instance.inventory.currency += current_ship_price
 
-	if !path.begins_with('_') && FileAccess.file_exists(location + path + "/details.dat"):
-		var details = FileAccess.open(location + path + "/details.dat", FileAccess.READ)
-		var price = details.get_16()
-		if charge: inventory.currency -= price
-		inventory.currency_value.text = str(inventory.currency)
+	# if !path.begins_with('_') && FileAccess.file_exists(location + path + "/details.dat"):
+	# 	var details = FileAccess.open(location + path + "/details.dat", FileAccess.READ)
+	# 	var price = details.get_16()
+		
 
 
 	wall_tile_map.clear()
@@ -259,6 +257,10 @@ func load_ship(path : String = "_default_ship", charge := true) -> bool:
 	objects_save_file.close()
 
 	evide_tiles()
+
+	if charge: 
+		inventory.currency -= current_ship_price
+	inventory.currency_value.text = str(inventory.currency)
 	
 	console.print_out("Načtena loď s názvem: " + path)
 	return true

@@ -212,6 +212,7 @@ func _on_deploy_pressed() -> void:
 
 	if World.used_builder != null:
 		ShipManager.build_ship(World.used_builder, true, "%player_ship_" + str(ship_num))
+		Player.main_player.currency = ship_editor.inventory.currency
 	_exit()
 
 ## Returns true if the files are the same
