@@ -19,6 +19,7 @@ can_sleep = false
 max_contacts_reported = 1
 contact_monitor = true
 linear_damp_mode = 1
+linear_damp = 0.123
 angular_damp = 5.0
 script = ExtResource("1_set35")
 

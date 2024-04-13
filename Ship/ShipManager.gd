@@ -5,14 +5,16 @@ static var ship_scene = preload("res://Ship/Ship.tscn")
 
 static var instance : ShipManager
 static var number_of_ships = 0
+static var main_station : Ship
 
 func _ready() -> void:
 	instance = self
 
 static func randomly_generate_ships():
 	Player.main_player.owned_ship = ShipManager.spawn_ship(Vector2(0, -10000), "_start_ship")
-	
-	ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true).freeze = true
+	Player.main_player.owned_ship.linear_damp = 0
+	main_station = ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true)
+	main_station.freeze = true
 
 	var ship_percentage = 25
 
@@ -57,6 +59,7 @@ static func build_ship(_builder : Builder, for_player : bool, path : String = "_
 			Player.main_player.deleting_ship(Player.owned_ship)
 			Player.owned_ship.delete()
 		Player.owned_ship = _ship
+		Player.owned_ship.linear_damp = 0
 	_ship.connectors[0].connect_to(_builder.connector)
 	return _ship
 

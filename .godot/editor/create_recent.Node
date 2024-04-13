@@ -1,3 +1,5 @@
+RichTextLabel
+Label
 Timer
 Sprite2D
 ColorRect
@@ -5,5 +7,4 @@ Area2D
 Node2D
 CollisionShape2D
 CharacterBody2D
-Label
 NinePatchRect

@@ -17,10 +17,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Player.main_player == null: return
-	UIManager.instance.quest_arrow.visible = quests.size() > 0 && active_quest >= 0
-	UIManager.instance.quest_arrow_distance_label.visible = quests.size() > 0 && active_quest >= 0
-	if quests.size() > 0 && active_quest >= 0:
-		var distance = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).length()
+	UIManager.instance.quest_arrow.visible = quests.size() > 0 && active_quest >= 0 || active_quest == -2
+	UIManager.instance.quest_arrow_distance_label.visible = quests.size() > 0 && active_quest >= 0 || active_quest == -2
+	if quests.size() > 0 && active_quest >= 0 || active_quest == -2:
+		var distance
+		if active_quest == -2: distance = (ShipManager.main_station.global_position - Player.main_player.global_position).length()
+		else: distance = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).length()
 		var minimal_range = 150
 		var maximal_range = 250
 
@@ -38,8 +40,8 @@ func _process(_delta):
 			UIManager.instance.quest_arrow.visible = true
 			var normalized_distance = clamp((distance - minimal_range) / (maximal_range - minimal_range), 0, 0.75)
 			UIManager.instance.quest_arrow.modulate.a = normalized_distance
-			
-		UIManager.instance.quest_arrow.rotation = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).angle() - Player.main_player.global_rotation
+		if active_quest == -2: UIManager.instance.quest_arrow.rotation = (ShipManager.main_station.global_position - Player.main_player.global_position).angle() - Player.main_player.global_rotation
+		else: UIManager.instance.quest_arrow.rotation = (get_quest_by_id(active_quest).goal.get_position() - Player.main_player.global_position).angle() - Player.main_player.global_rotation
 		
 func update_quest_log():
 	var string_to_add = ""
@@ -52,6 +54,12 @@ func update_quest_log():
 			string_to_add += "[/u]   [url=cancel" + str(quest.id) + "](X)[/url]"
 			string_to_add += "\n" + quest.description
 	UIManager.quest_label.text = string_to_add
+
+	string_to_add = "[center][b]"
+	if active_quest == -2: string_to_add += "[u]"
+	string_to_add += "[url=-2]Hlavní stanice"
+	UIManager.main_station_label.text = string_to_add
+
 		
 
 func finished_quest_objective(quest: Quest):

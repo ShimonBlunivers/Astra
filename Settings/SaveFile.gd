@@ -4,6 +4,7 @@ const SAVE_GAME_PATH := "user://saves/worlds/"
 const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 
 @export var player_save_file : PlayerSaveFile
+@export var main_station_id : int
 @export var quest_status_file = {}
 @export var NPC_save_files = []
 @export var item_save_files = []
@@ -23,6 +24,7 @@ func save_world(dev := false):
 	UIManager.instance.saving_screen()
 
 	player_save_file = PlayerSaveFile.save()
+	main_station_id = ShipManager.main_station.id
 	ship_save_files = ShipSaveFile.save()
 	NPC_save_files = NPCSaveFile.save()
 	item_save_files = ItemSaveFile.save()
@@ -66,8 +68,12 @@ func _load(): # deferred
 	World.instance.transform.origin = Vector2.ZERO
 
 	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 
-	
-	player_save_file.load() #
+	ShipManager.main_station = Ship.get_ship(main_station_id)
+	ShipManager.main_station.freeze = true
+
+	player_save_file.load()
+	Player.main_player.owned_ship.linear_damp = 0
+
 	# for npc in NPC_save_files: npc.load() 
 	# for item in item_save_files: item.load() 
 	for quest in quest_save_files: quest.load() 

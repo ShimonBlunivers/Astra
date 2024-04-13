@@ -7,6 +7,7 @@ class_name UIManager extends CanvasLayer
 @onready var death_screen = $HUD/DeathScreen
 
 @onready var _quest_label = $HUD/Inventory/QuestLog/RichTextLabel	
+@onready var _main_station_label = $HUD/Inventory/MainStationLabel	
 
 @onready var inventory = $HUD/Inventory
 
@@ -21,6 +22,7 @@ class_name UIManager extends CanvasLayer
 @onready var saving_screen_node = $HUD/SavingScreen
 
 static var quest_label
+static var main_station_label
 static var add_currency_label
 static var remove_currency_label
 static var currency_node
@@ -62,6 +64,7 @@ func _ready():
 	health_label.text = str(Player.main_player.health)
 	currency_label.text = str(Player.main_player.currency)
 	quest_label = _quest_label
+	main_station_label = _main_station_label
 	currency_node = $HUD/Currency
 	add_currency_label = $HUD/Currency/AddCurrencyLabel
 	remove_currency_label = $HUD/Currency/RemoveCurrencyLabel
