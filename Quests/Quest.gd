@@ -34,7 +34,7 @@ func init(_npc : NPC, _target_ID : int = -1):
     if _target_ID != -1: goal.target_ID = _target_ID
 
     goal.create(id)
-    
+
     if !add_role_on_accept in npc.roles: npc.roles.append(add_role_on_accept)
 
     NPC.blocked_missions.append(id)

@@ -1,7 +1,3 @@
-res://Sound/bus_layout.tres
-res://Character/Player/Player.gd
-res://UI/UIManager.gd
-res://Quests/QuestManager.gd
 res://Scenes/Game.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
@@ -21,5 +17,3 @@ res://Ship/Walls/Connector/Connector.tscn
 res://Ship/Walls/Canon/Projectile.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Thruster/Thruster.tscn
-res://Ship/ShipManager.gd
-res://Settings/SaveFile.gd

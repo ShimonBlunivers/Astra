@@ -92,7 +92,7 @@ func _update_ship_list():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				if !(!Options.DEVELOPMENT_MODE && file_name.begins_with('_') && file_name.begins_with('%')): 
+				if !(!Options.DEVELOPMENT_MODE && file_name.begins_with('_') || !Options.DEVELOPMENT_MODE && file_name.begins_with('%')): 
 					ship_text += "[cell=1][left][url=" + file_name + "]" + file_name + "[/url][/left][/cell]"
 					if !file_name.begins_with('_') && FileAccess.file_exists("user://saves/ships/" + file_name + "/details.dat"):
 						var details = FileAccess.open("user://saves/ships/" + file_name + "/details.dat", FileAccess.READ)
@@ -177,61 +177,48 @@ func _on_deploy_pressed() -> void:
 		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
 		return 
 
-	var path = "user://saves/ships"
-	var dir = DirAccess.open(path)
+	ship_editor.save_ship("%player_ship_new")
+	# var path = "user://saves/ships"
+	# var dir = DirAccess.open(path)
 
-	var ship_names = []
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir(): 
-				ship_names.append(file_name)
-			file_name = dir.get_next()
+	# var ship_names = []
+	# if dir:
+	# 	dir.list_dir_begin()
+	# 	var file_name = dir.get_next()
+	# 	while file_name != "":
+	# 		if dir.current_is_dir(): 
+	# 			ship_names.append(file_name)
+	# 		file_name = dir.get_next()
 
-	var saved_file_name = ""
+	# var saved_file_name = ""
 
-	var ship_num = 0
-	while saved_file_name == "":
-		if "%player_ship_" + str(ship_num) in ship_names: ship_num += 1
-		else: saved_file_name = "%player_ship_" + str(ship_num)
+	# var ship_num = 0
+	# while saved_file_name == "":
+	# 	if "%player_ship_" + str(ship_num) in ship_names: ship_num += 1
+	# 	else: saved_file_name = "%player_ship_" + str(ship_num)
 		
 
-	ship_editor.save_ship(saved_file_name)
-	dir = DirAccess.open("user://saves/ships")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name != saved_file_name:
-				if compare_files(path + "/" + file_name + "/walls.dat", path + "/" + saved_file_name + "/walls.dat"): 
-					if compare_files(path + "/" + file_name + "/objects.dat", path + "/" + saved_file_name + "/objects.dat"):
-						delete_directory(path + "/" + file_name)
+	# 
+	# dir = DirAccess.open("user://saves/ships")
+	# if dir:
+	# 	dir.list_dir_begin()
+	# 	var file_name = dir.get_next()
+	# 	while file_name != "":
+	# 		if file_name != saved_file_name:
+	# 			if compare_files(path + "/" + file_name + "/walls.dat", path + "/" + saved_file_name + "/walls.dat"): 
+	# 				if compare_files(path + "/" + file_name + "/objects.dat", path + "/" + saved_file_name + "/objects.dat"):
+	# 					delete_directory(path + "/" + file_name)
 						
-			file_name = dir.get_next()
+	# 		file_name = dir.get_next()
 
 	if World.used_builder != null:
-		ShipManager.build_ship(World.used_builder, true, "%player_ship_" + str(ship_num))
+		ShipManager.build_ship(World.used_builder, true, "%player_ship_new")
 		Player.main_player.currency = ship_editor.inventory.currency
 	_exit()
 
-## Returns true if the files are the same
-func compare_files(path1 : String, path2 : String) -> bool:
-	var content1 = FileAccess.get_file_as_bytes(path1)
-	var content2 = FileAccess.get_file_as_bytes(path2)
-	return content1 == content2
+# ## Returns true if the files are the same
+# func compare_files(path1 : String, path2 : String) -> bool:
+# 	var content1 = FileAccess.get_file_as_bytes(path1)
+# 	var content2 = FileAccess.get_file_as_bytes(path2)
+# 	return content1 == content2
 
-func delete_directory(path: String) -> bool:
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				if !delete_directory(path + "/" + file_name): return false
-			else:
-				dir.remove(path + "/" + file_name)
-			file_name = dir.get_next()
-		dir.remove(path)
-		return true
-	else: return false

@@ -10,6 +10,10 @@ func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1
 	_coords = Vector2i(_coords.x / 4, _coords.y / 4)
 	super(_ship, _coords, _durability, _mass)
 
+func _ready():
+	connector_finder_hitbox.shape.radius = 1
+	connector = null
+
 func _interact():
 	if connector.connected_to == null:
 		World.instance.open_editor(self)
@@ -17,8 +21,8 @@ func _interact():
 func play_sound():
 	$DeploySound.play()
 
-func _process(_delta):
-	if connector == null: connector_finder_hitbox.shape.radius += 5
+func _process(_delta: float) -> void:
+	if connector == null: connector_finder_hitbox.shape.radius += 1
 
 func get_spawn_position() -> Vector2:
 	return connector.global_position + Vector2(80, -80).rotated(deg_to_rad(connector.global_rotation_degrees)) + ship.difference_in_position

@@ -81,7 +81,7 @@ scale_curve = SubResource("CurveTexture_wx57o")
 color_ramp = SubResource("GradientTexture1D_t71rq")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_glnne"]
-polygon = PackedVector2Array(-16, -8, -16, 8, 8, 8, 8, -8)
+polygon = PackedVector2Array(-16, -8, -16, 8, -16, 16, -15.8, 16, -15.8, 8, 8, 8, 8, -8, -15.8, -8, -15.8, -16, -16, -16)
 
 [node name="Thruster" type="Node2D"]
 script = ExtResource("1_tutll")

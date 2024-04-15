@@ -20,7 +20,6 @@ var status : int
 var finish_status : int
 
 func create(_mission_id : int):
-	status = 0
 	if target_ID < 0:
 		spawn_quest_ship()
 	match type:
@@ -32,12 +31,15 @@ func create(_mission_id : int):
 		Type.pick_up_item:
 			target = Item.get_item(target_ID)
 			finish_status = 2
+	
+	status = 0
 	update_quest_objects()
 
 func update_quest_objects():
 	QuestManager.active_quest_objects[type].append(target)
 
 func load():
+	
 	match type:
 		Type.go_to_place:
 			finish_status = 1

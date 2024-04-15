@@ -95,7 +95,7 @@ static func random_phrase(dialog_type: String) -> String:
 
 static func random_mission_id(roles := [], can_return_empty_quest := false) -> int:
 	var random := RandomNumberGenerator.new()
-	if can_return_empty_quest && random.randi_range(0, 4) == 0: return -1
+	if can_return_empty_quest && random.randi_range(0, 3) == 0: return -1
 	var usable_missions = []
 	for key in Quest.missions.keys():
 		if Quest.missions[key].role in roles:

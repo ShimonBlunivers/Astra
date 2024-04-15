@@ -185,7 +185,6 @@ motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4278190080
 script = ExtResource("1_to8t1")
-godmode = null
 
 [node name="Area" type="Area2D" parent="." groups=["CharacterArea", "PlayerArea"]]
 collision_layer = 16

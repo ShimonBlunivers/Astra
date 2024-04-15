@@ -31,6 +31,10 @@ func save_world(dev := false):
 	quest_save_files = QuestSaveFile.save()
 	quest_status_file = Quest.missions
 	
+	if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_new"):
+		if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_old"): delete_directory("user://saves/ships/%player_ship_old")
+		DirAccess.rename_absolute("user://saves/ships/%player_ship_new", "user://saves/ships/%player_ship_old")
+
 	if !dev:
 		DirAccess.make_dir_recursive_absolute("user://saves/worlds/" + save_name + "/")
 		return ResourceSaver.save(self, SaveFile.get_save_path())
@@ -83,3 +87,17 @@ func _load(): # deferred
 
 
 
+func delete_directory(path: String) -> bool:
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				if !delete_directory(path + "/" + file_name): return false
+			else:
+				dir.remove(path + "/" + file_name)
+			file_name = dir.get_next()
+		dir.remove(path)
+		return true
+	else: return false

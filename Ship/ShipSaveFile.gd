@@ -17,7 +17,8 @@ static func save():
 	for ship in Ship.ships:
 		var file = ShipSaveFile.new()
 		file.id = ship.id
-		file.path = ship.path
+
+		file.path = ship.path if ship.path != "%player_ship_new" else "%player_ship_old"
 		file.position = World.instance.get_distance_from_center(ship.global_position)
 		file.old_position = ship._old_position
 		file.velocity = ship.linear_velocity

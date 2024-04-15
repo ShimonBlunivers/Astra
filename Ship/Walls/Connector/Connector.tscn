@@ -65,6 +65,8 @@ shape = SubResource("RectangleShape2D_krrr5")
 position = Vector2(80, -80)
 bias = 0.9
 disable_collision = false
+softness = 1.0
+angular_limit_enabled = true
 
 [node name="PinJoint2D2" type="PinJoint2D" parent="."]
 position = Vector2(80, 80)

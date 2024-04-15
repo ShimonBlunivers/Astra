@@ -148,7 +148,15 @@ func _unhandled_input(event: InputEvent):
 			# Item.spawn(Item.types["Chip"], get_global_mouse_position())
 			# ShipManager.spawn_ship(get_global_mouse_position(), "small_shuttle")
 			add_currency(1500)
-		
+	
+
+	
+	if event.is_action_pressed("development_mode"):
+		Options.DEVELOPMENT_MODE = !Options.DEVELOPMENT_MODE
+		UIManager.instance.loading_screen_node.visible = !Options.DEVELOPMENT_MODE
+		UIManager.instance.floating.visible = Options.DEVELOPMENT_MODE
+		UIManager.instance.player_position.visible = Options.DEVELOPMENT_MODE
+
 	if alive:
 		if event.is_action_pressed("game_control"):
 			for controllable in hovering_controllables:
@@ -184,7 +192,7 @@ func _ready():
 	super()
 	main_player = self
 
-	spawn_point = Vector2(0, 800)
+	spawn_point = Vector2(7777, -69)
 	
 	nickname = "Samuel"
 	await get_tree().process_frame # WAIT FOR THE WORLD TO LOAD AND THE POSITION TO UPDATE // WAIT FOR NEXT FRAME
