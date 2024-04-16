@@ -61,4 +61,3 @@ static func build_ship(_builder : Builder, for_player : bool, path : String = "_
 		Player.owned_ship.linear_damp = 0
 	_ship.connectors[0].connect_to(_builder.connector)
 	return _ship
-

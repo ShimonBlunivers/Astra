@@ -10,6 +10,8 @@ class_name Player extends Character
 
 @onready var respawn_timer = $RespawnTimer
 
+@onready var pickup = $Pickup
+
 static var main_player : Player
 
 var currency : float :
@@ -52,8 +54,6 @@ var _regen_timer : float = 0
 static var owned_ship : Ship
 
 var invincible := false
-
-var _close_ships = []
 
 var _locked_rotating = false
 
@@ -215,25 +215,7 @@ func kill():
 	died_signal.emit()
 	respawn_timer.start()
 
-func _in_physics(delta: float) -> void:
-	# print("Player position: ", position)
-	if passenger_on.size() == 1 && passenger_on[0] != parent_ship:
-		change_ship(passenger_on[0])
-	elif floating() && !_close_ships.is_empty():
-		var closest_ship = ObjectList.get_closest_ship(global_position, _close_ships)
-		if closest_ship != parent_ship:
-			change_ship(closest_ship)
-
-	if ship_controlled == null: 
-		_move(delta)
-	else:
-		camera.offset = camera_difference.rotated(global_rotation)
-
-	$Pickup.position = (- acceleration).rotated(-global_rotation)
-	
-
-	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
-
+func _process(delta):
 	if alive:
 		if floating():
 			_regen_timer = 0
@@ -249,6 +231,22 @@ func _in_physics(delta: float) -> void:
 				if _regen_timer >= 1:
 					damage(-1)
 					_regen_timer = 0
+
+	pickup.position = (- acceleration).rotated(-global_rotation)
+	
+
+func _in_physics(delta: float) -> void:
+	# print("Player position: ", position)
+	if passenger_on.size() == 1 && passenger_on[0] != parent_ship:
+		change_ship(passenger_on[0])
+
+	if ship_controlled == null: 
+		_move(delta)
+	else:
+		camera.offset = camera_difference.rotated(global_rotation)
+
+
+	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 
 func control_ship(ship):
 	if ship != null:
@@ -385,15 +383,11 @@ func change_view(view: int) -> void:
 			tween.parallel().tween_property(vision, "texture_scale", normal_vision, duration).set_ease(Tween.EASE_OUT)
 
 func _on_pickup_area_entered(area:Area2D) -> void:
-	if area.is_in_group("ShipArea"):
-		_close_ships.append(area.get_parent())
-	elif !area.is_in_group("CharacterInteractArea"):
+	if !area.is_in_group("CharacterInteractArea"):
 		area.get_parent().can_pickup = true
 
 func _on_pickup_area_exited(area:Area2D) -> void:
-	if area.is_in_group("ShipArea"):
-		_close_ships.erase(area.get_parent())
-	elif !area.is_in_group("CharacterInteractArea"):
+	if !area.is_in_group("CharacterInteractArea"):
 		area.get_parent().can_pickup = false
 
 func deleting_ship(_ship : Ship):

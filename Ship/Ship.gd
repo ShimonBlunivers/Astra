@@ -154,6 +154,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 	new_speed *= Limits.VELOCITY_MAX
 	# 	set_linear_velocity(new_speed)
 
+
 func _physics_process(_delta: float) -> void:
 	if spawning && !from_save:
 		for exception in get_collision_exceptions():

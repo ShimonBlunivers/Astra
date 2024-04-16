@@ -32,10 +32,6 @@ func _ready() -> void:
 	legs_offset = legs.position
 
 
-func _process(_delta: float) -> void:
-	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return
-	queue_redraw()
-
 func _physics_process(delta: float) -> void:
 	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return
 	_in_physics(delta)
