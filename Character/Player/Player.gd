@@ -57,6 +57,7 @@ var _close_ships = []
 
 var _locked_rotating = false
 
+var update_range = 10000
 
 # TODO: ✅ Make player controling zoom out so it's in the center of ship and is scalable with the ship size
 

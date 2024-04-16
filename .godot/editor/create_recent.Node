@@ -1,5 +1,8 @@
-RichTextLabel
+MarginContainer
 Label
+VBoxContainer
+Control
+RichTextLabel
 Timer
 Sprite2D
 ColorRect

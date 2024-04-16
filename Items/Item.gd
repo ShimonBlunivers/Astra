@@ -98,6 +98,7 @@ func _ready() -> void:
 	area.rotation_degrees = tilt
 
 func _physics_process(_delta: float) -> void:
+	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return
 	area.position = (- ship.difference_in_position).rotated(-global_rotation)
 
 func _on_area_2d_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> void:

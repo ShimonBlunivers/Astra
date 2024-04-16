@@ -9,7 +9,6 @@ func _ready():
 	soundtrack_slider.value = (AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")) + 30) / 36 * 100
 
 func save():
-
 	var _value = -30 + 36 * sound_slider.value / 100
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), _value)
 
