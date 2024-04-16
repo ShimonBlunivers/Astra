@@ -65,9 +65,9 @@ texture = ExtResource("3_j5d5y")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_top = 70.0
+offset_top = 120.0
 offset_right = 1280.0
-offset_bottom = 790.0
+offset_bottom = 840.0
 theme = SubResource("Theme_y0au3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -96,6 +96,13 @@ theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
 text = "Nastavení"
 
+[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_buhup")
+theme_override_fonts/font = ExtResource("2_ese6g")
+text = "Credits
+"
+
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_buhup")
@@ -122,4 +129,5 @@ bus = &"Music"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -134,6 +134,7 @@ func get_closest_point(point1 : Vector2) -> Vector2:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return
 	acceleration = Vector2.ZERO
 	rotation_speed = 0
 
@@ -143,9 +144,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	update_thrusters()
 	update_side_trusters()
 
-	acceleration = acceleration.rotated(global_rotation)
-	if acceleration != Vector2.ZERO: state.apply_central_impulse(acceleration)
-	if rotation_speed != 0: state.apply_torque_impulse(rotation_speed)
+	if controlled_by != null: 
+		acceleration = acceleration.rotated(global_rotation)
+		if acceleration != Vector2.ZERO: state.apply_central_impulse(acceleration)
+		if rotation_speed != 0: state.apply_torque_impulse(rotation_speed)
 
 	# if abs(get_linear_velocity().x) > Limits.VELOCITY_MAX or abs(get_linear_velocity().y) > Limits.VELOCITY_MAX:
 	# 	var new_speed = get_linear_velocity().normalized()
