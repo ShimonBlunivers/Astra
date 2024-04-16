@@ -16,21 +16,20 @@ static func randomly_generate_ships():
 	main_station = ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true)
 	main_station.freeze = true
 
-	var ship_percentage = 25
+	# var ship_percentage = 25
 
-	var random = RandomNumberGenerator.new()
+	# var random = RandomNumberGenerator.new()
 
-	var ship_counter = 4
+	# var ship_counter = 4
 
-	for x in range(-5, 6):
-		for y in range(-5, 6):
-			if x == 0 && y == 0: continue
-			if random.randi_range(0, ship_percentage) == 0:
-				if ship_counter <= 0: break
-				ship_counter -= 1
-				ShipManager.spawn_ship(Vector2(x * 200000, y * 200000), random_ship())
+	# for x in range(-5, 6):
+	# 	for y in range(-5, 6):
+	# 		if x == 0 && y == 0: continue
+	# 		if random.randi_range(0, ship_percentage) == 0:
+	# 			if ship_counter <= 0: break
+	# 			ship_counter -= 1
+	# 			ShipManager.spawn_ship(Vector2(x * 200000, y * 200000), random_ship())
 
-	Player.main_player.spawn()
 
 static func random_ship() -> String:
 	var random := RandomNumberGenerator.new()

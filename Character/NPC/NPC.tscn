@@ -70,12 +70,11 @@ texture_scale = 14.0
 script = ExtResource("6_bx6ve")
 
 [node name="Nametag" type="Label" parent="."]
-visible = false
 z_index = 10
-offset_left = -20.0
+offset_left = -305.0
 offset_top = -116.0
-offset_right = 20.0
-offset_bottom = -93.0
+offset_right = 305.0
+offset_bottom = -92.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("5_aggmp")

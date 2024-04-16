@@ -15,6 +15,7 @@ enum Roles {
 	CIVILIAN,
 	NONE,
 	TRUSTED,
+	CAPTAIN,
 }
 
 static var names = [
@@ -134,9 +135,6 @@ var skin = null
 var hair = null
 
 func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [Roles.CIVILIAN], _blocked_missions = null, _skin = null, _hair = null):
-	nickname = _nickname
-	$Nametag.text = nickname
-	name = "NPC_" + nickname + "_" + str(npcs.size())
 	roles = _roles
 	if _blocked_missions != null: blocked_missions = _blocked_missions
 	skin = _skin
@@ -151,6 +149,12 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [R
 				id = _id
 				break
 			_id += 1
+	if id == 0: 
+		_nickname = "Kapitán " + _nickname
+		roles.append(Roles.CAPTAIN)
+	nickname = _nickname
+	$Nametag.text = nickname
+	name = "NPC_" + nickname + "_" + str(npcs.size())
 
 	npcs.append(self)
 

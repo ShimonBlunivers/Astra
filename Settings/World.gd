@@ -40,8 +40,7 @@ func _ready():
 	save_file = SaveFile.new()
 	save_file.initialize_files()
 	
-
-func new_world():
+static func reset_values():
 	UIManager.instance.loading_screen()
 	while Ship.ships.size() != 0: Ship.ships[0].delete()
 	while NPC.npcs.size() != 0: NPC.npcs[0].delete()
@@ -54,18 +53,29 @@ func new_world():
 		Goal.Type.go_to_place : [],
 	}
 	
+	Item.items = []
+	Item.item_id_history = []
+	NPC.npcs = []
+	QuestManager.quests = []
+
+
 	Player.main_player.health = Player.main_player.max_health
 	Player.main_player.currency = 0
 	Player.main_player.currency_updated_signal.emit()
-	# var tree := World.instance.get_tree().get_root()
-	# World.instance.free()
-	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
-
 
 	World.instance._center_of_universe = Vector2.ZERO
 	World.instance.transform.origin = Vector2.ZERO
 
+func new_world():
+
+	# var tree := World.instance.get_tree().get_root()
+	# World.instance.free()
+	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
+
+	World.reset_values()
 	ShipManager.randomly_generate_ships()
+	
+	Player.main_player.spawn()
 
 func shift_origin(by:Vector2):
 	global_position += by

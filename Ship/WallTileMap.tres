@@ -306,9 +306,6 @@ texture_region_size = Vector2i(32, 32)
 3:2/0 = 0
 3:2/0/terrain_set = 0
 3:2/0/terrain = 2
-3:2/0/terrains_peering_bit/bottom_side = 2
-3:2/0/terrains_peering_bit/left_side = 0
-3:2/0/terrains_peering_bit/top_side = 2
 3:2/0/custom_data_0 = "thruster"
 3:2/0/metadata/_better_terrain = {
 8: [0],
@@ -318,9 +315,6 @@ texture_region_size = Vector2i(32, 32)
 3:2/1/transpose = true
 3:2/1/terrain_set = 0
 3:2/1/terrain = 2
-3:2/1/terrains_peering_bit/right_side = 2
-3:2/1/terrains_peering_bit/left_side = 2
-3:2/1/terrains_peering_bit/top_side = 0
 3:2/1/custom_data_0 = "thruster"
 3:2/1/metadata/_better_terrain = {
 12: [0],
@@ -330,9 +324,6 @@ texture_region_size = Vector2i(32, 32)
 3:2/2/flip_h = true
 3:2/2/terrain_set = 0
 3:2/2/terrain = 2
-3:2/2/terrains_peering_bit/right_side = 0
-3:2/2/terrains_peering_bit/bottom_side = 2
-3:2/2/terrains_peering_bit/top_side = 2
 3:2/2/custom_data_0 = "thruster"
 3:2/2/metadata/_better_terrain = {
 0: [0],
@@ -343,9 +334,6 @@ texture_region_size = Vector2i(32, 32)
 3:2/3/transpose = true
 3:2/3/terrain_set = 0
 3:2/3/terrain = 2
-3:2/3/terrains_peering_bit/right_side = 2
-3:2/3/terrains_peering_bit/bottom_side = 0
-3:2/3/terrains_peering_bit/left_side = 2
 3:2/3/custom_data_0 = "thruster"
 3:2/3/metadata/_better_terrain = {
 4: [0],
