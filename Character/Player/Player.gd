@@ -371,6 +371,7 @@ func change_view(view: int) -> void:
 	var ship_size = (max(ship_rect.size.x, ship_rect.size.y) + 2000) * 1.666
 	var cam_size = camera.get_viewport().size.y
 	var ship_zoom = 1 / (ship_size / cam_size)
+	
 	match view:
 		0: 
 			tween.parallel().tween_property(camera, "zoom", Vector2(ship_zoom, ship_zoom), duration).set_ease(Tween.EASE_OUT)
