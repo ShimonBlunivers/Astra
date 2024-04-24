@@ -19,6 +19,7 @@ shader_parameter/speed_divider = 10.0
 Button/font_sizes/font_size = 32
 
 [node name="Settings" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

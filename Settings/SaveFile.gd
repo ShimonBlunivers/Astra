@@ -30,8 +30,6 @@ func save_world(dev := false):
 	item_save_files = ItemSaveFile.save()
 	quest_save_files = QuestSaveFile.save()
 	quest_status_file = Quest.missions
-	
-	print()
 
 	if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_new"):
 		if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_old"): delete_directory("user://saves/ships/%player_ship_old")

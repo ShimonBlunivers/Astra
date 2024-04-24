@@ -14,6 +14,7 @@ static var difficulty_multiplier : float = 0
 @onready var ui_node = $UI
 
 const editor_scene = preload("res://Scenes/Editor.tscn")
+const menu_scene = preload("res://Scenes/Menu.tscn")
 
 
 func load_missions():
@@ -34,7 +35,7 @@ func load_missions():
 func _ready():
 	World.instance = self
 	DisplayServer.window_set_max_size(Vector2i(3840, 2160))
-
+	ObjectList.started_game = true
 	load_missions()
 
 	save_file = SaveFile.new()
@@ -72,10 +73,17 @@ func new_world():
 	# World.instance.free()
 	# tree.add_child(load("res://Scenes/Game.tscn").instantiate())
 
+	save_file = SaveFile.new()
+	save_file.initialize_files()
+	
 	World.reset_values()
 	ShipManager.randomly_generate_ships()
 	
 	Player.main_player.spawn()
+
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("game_toggle_menu"):
+		open_menu()
 
 func shift_origin(by:Vector2):
 	global_position += by
@@ -108,6 +116,20 @@ func open_editor(_builder : Builder = null):
 # 	if Options.DEVELOPMENT_MODE:
 # 		if event.is_action_pressed("game_toggle_menu"):
 # 			open_editor()
+
+
+func open_menu():
+
+	visible = false
+	ui_node.visible = false
+	var root = get_tree().root
+	# root.remove_child(self)
+	get_tree().paused = true
+	var menu_object = menu_scene.instantiate()
+	root.call_deferred("add_child", menu_object)
+
+
+
 
 func _on_audio_stream_player_finished() -> void:
 	$AudioStreamPlayer.play()

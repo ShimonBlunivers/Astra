@@ -17,6 +17,7 @@ shader = ExtResource("1_n7784")
 shader_parameter/speed_divider = 10.0
 
 [node name="Credits" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_esd3n")

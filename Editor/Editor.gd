@@ -43,7 +43,7 @@ func center_camera():
 func _exit():
 	self.queue_free()
 	Player.main_player.camera.make_current()
-	get_tree().paused = false
+	get_tree().set_deferred("paused", false)
 	
 	World.instance.visible = true
 	World.instance.ui_node.visible = true

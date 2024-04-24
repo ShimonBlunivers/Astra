@@ -21,6 +21,7 @@ shader_parameter/speed_divider = 10.0
 Button/font_sizes/font_size = 32
 
 [node name="Menu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,6 +126,9 @@ texture = ExtResource("7_ecqpl")
 stream = ExtResource("8_k53lv")
 autoplay = true
 bus = &"Music"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
