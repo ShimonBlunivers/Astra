@@ -14,7 +14,7 @@ var button_indicator_visible = false
 func init(_ship, _coords : Vector2i, _durability : float = 10, _mass : float = 1):
 	super(_ship, _coords, _durability, _mass)
 	button_indicator = scene_button_indicator.instantiate()
-	add_child(button_indicator)
+	call_deferred("add_child", button_indicator)
 	button_indicator.init(self)
 	button_indicator.visible = button_indicator_visible
 

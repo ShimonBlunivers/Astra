@@ -82,7 +82,8 @@ func shift_origin(by:Vector2):
 	_center_of_universe += by
 
 func get_distance_from_center(pos : Vector2) -> Vector2:
-	return pos - _center_of_universe
+	return pos
+	# return pos - _center_of_universe
 
 func _process(_delta):
 	if !Options.DEVELOPMENT_MODE: return
@@ -101,13 +102,12 @@ func open_editor(_builder : Builder = null):
 	# root.remove_child(self)
 	get_tree().paused = true
 	var editor_object = editor_scene.instantiate()
-	root.add_child(editor_object)
+	root.call_deferred("add_child", editor_object)
 
 # func _unhandled_input(event: InputEvent):
 # 	if Options.DEVELOPMENT_MODE:
 # 		if event.is_action_pressed("game_toggle_menu"):
 # 			open_editor()
-
 
 func _on_audio_stream_player_finished() -> void:
 	$AudioStreamPlayer.play()

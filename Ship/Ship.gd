@@ -132,6 +132,8 @@ func get_closest_point(point1 : Vector2) -> Vector2:
 			closest = point2
 	return closest
 
+func set_connector(connector_index : int, connector : Connector) -> void:
+	connectors[connector_index].connect_to(connector)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return

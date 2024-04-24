@@ -22,24 +22,15 @@ var finish_status : int
 func create(_mission_id : int):
 	if target_ID < 0:
 		spawn_quest_ship()
-	match type:
-		Type.go_to_place:
-			finish_status = 1
-		Type.talk_to_npc:
-			target = NPC.get_npc(target_ID)
-			finish_status = 1
-		Type.pick_up_item:
-			target = Item.get_item(target_ID)
-			finish_status = 2
-	
+	call_deferred("update_target")
+
 	status = 0
-	update_quest_objects()
 
 func update_quest_objects():
 	QuestManager.active_quest_objects[type].append(target)
 
-func load():
-	
+
+func update_target():
 	match type:
 		Type.go_to_place:
 			finish_status = 1
@@ -49,7 +40,11 @@ func load():
 		Type.pick_up_item:
 			target = Item.get_item(target_ID)
 			finish_status = 2
+	
 	update_quest_objects()
+
+func load():
+	call_deferred("update_target")
 
 func get_position() -> Vector2:
 	if target == null: return Vector2.ZERO

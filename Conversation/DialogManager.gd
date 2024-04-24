@@ -27,11 +27,11 @@ func _show_text_box():
 	if dialog_lines == null: return
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
 		if dialog_lines[current_line_index] in Quest.missions.keys():
-			load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").init(parent)
+			load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").call_deferred("init", parent)
 			advance()
 			return
 		else:
-			dialog_lines = ["jk."]
+			dialog_lines = [":D"]
 			current_line_index = 0
 
 	text_box = text_box_scene.instantiate()

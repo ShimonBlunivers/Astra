@@ -149,7 +149,7 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [R
 				id = _id
 				break
 			_id += 1
-	if id == 0: 
+	if id == 0 && _skin == null: 
 		_nickname = "Kapitán " + _nickname
 		roles.append(Roles.CAPTAIN)
 	nickname = _nickname

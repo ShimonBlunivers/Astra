@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://dohictcbd6lfa"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_jbldh"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_k8aqp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mnuj"]
+size = Vector2(12, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifigh"]
+atlas = ExtResource("2_k8aqp")
+region = Rect2(96, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_jbldh")
+texture = SubResource("AtlasTexture_ifigh")
+name = "Vape"
+nickname = "Elektronická cigareta"
+rarity = 1.0
+free_spawn = true
+shape = SubResource("RectangleShape2D_2mnuj")

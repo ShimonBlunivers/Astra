@@ -9,8 +9,6 @@ var ship : Ship = null
 	 
 
 func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _from_save := false) -> bool:
-
-
 	ship = _ship
 	
 	clear()

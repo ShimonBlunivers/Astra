@@ -65,6 +65,18 @@ static var conversations = {
       		4,
 			"Díky moc!",
 		],
+		5 : [
+            "Ahoj.",
+            "Ztratil jsem svoji elektrickou cigaretu.",
+			"Víc dní to bez ní nedám.",
+			"Byl bys tak ochotnej a přinesl bys mi ji?",
+      		5,
+			"Díkec!",
+		],
+
+
+
+
 		
 		# id : [
 		#	"text",
@@ -76,7 +88,7 @@ static var conversations = {
 			"Děkuji!",
 		],
 		4 : [ # Index mise, na kterou má odpovídat
-			"Ahoj. Ty budeš ten který nám má pomoct s nalezení disku.
+			"Ahoj. Ty budeš ten, který nám má pomoct s nalezením disku.
 			Brácha mi o tobě říkal. Doufám že se nebojíš, nebude to lehké.",
 			4001, # Index navazující mise, která se má spustit
 		],
@@ -84,7 +96,21 @@ static var conversations = {
 			"Díky moc!",
 			"Ani nevíš, co pro nás tohle znamená.",
 			"Jsme ti navždy zavázáni.",
+		],
+		5 : [
+			"Jsi můj zachránce!",
+			". . .",
+			"Ty tu ještě jseš?",
+			"No.. ztratil jsem ještě něco..",
+			"Přinesl bys mi ještě žvýkačky, co jsem zapomněl na lodi vedle?",
+			5001,
+			"Díkec znovu!",
+		],
+		5001 : [ 
+			"Ty jsi je fakt našel!",
+			"Dík zas! Jsi můj dvojnásobný zachránce.",
 		]
+
 	},
 }
 

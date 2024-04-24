@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_ck8t0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0sh7l"]
-size = Vector2(32, 32)
+size = Vector2(21, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i8a85"]
 atlas = ExtResource("2_ck8t0")
@@ -16,5 +16,5 @@ texture = SubResource("AtlasTexture_i8a85")
 name = "Kl94"
 nickname = "KL94"
 rarity = 1.0
-free_spawn = true
+free_spawn = false
 shape = SubResource("RectangleShape2D_0sh7l")

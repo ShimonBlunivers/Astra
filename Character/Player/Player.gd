@@ -246,7 +246,7 @@ func _in_physics(delta: float) -> void:
 		camera.offset = camera_difference.rotated(global_rotation)
 
 
-	if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
+	# if parent_ship != null: World.instance.shift_origin(-parent_ship.global_transform.origin) # Moving the world origin to remove flickering bugs
 
 func control_ship(ship):
 	if ship != null:
