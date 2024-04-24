@@ -36,7 +36,7 @@ func save_world(dev := false):
 	if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_new"):
 		if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_old"): delete_directory("user://saves/ships/%player_ship_old")
 		DirAccess.rename_absolute("user://saves/ships/%player_ship_new", "user://saves/ships/%player_ship_old")
-		Player.main_player.owned_ship.path = "%player_ship_old"
+		if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_old"): Player.main_player.owned_ship.path = "%player_ship_old"
 	if !dev:
 		DirAccess.make_dir_recursive_absolute("user://saves/worlds/" + save_name + "/")
 		return ResourceSaver.save(self, SaveFile.get_save_path())
