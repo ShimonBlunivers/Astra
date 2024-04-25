@@ -183,7 +183,7 @@ func control():
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var rotation_direction := Input.get_axis("game_turn_left","game_turn_right")
 
-	var _rotation_power = 4444 * mass
+	var _rotation_power = 4000 * mass
 
 	if !controlled_by.alive: direction = Vector2.ZERO
 
