@@ -66,9 +66,9 @@ texture = ExtResource("3_j5d5y")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_top = 120.0
+offset_top = 119.0
 offset_right = 1280.0
-offset_bottom = 840.0
+offset_bottom = 839.0
 theme = SubResource("Theme_y0au3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -123,8 +123,8 @@ grow_horizontal = 2
 texture = ExtResource("7_ecqpl")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("8_k53lv")
-autoplay = true
 bus = &"Music"
 
 [node name="Camera2D" type="Camera2D" parent="."]

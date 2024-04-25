@@ -15,6 +15,7 @@ script = ExtResource("1_vw661")
 texture = SubResource("AtlasTexture_ee4re")
 name = "Radio"
 nickname = "Vysílačka"
+worth = 0
 rarity = 1.0
 free_spawn = true
 shape = SubResource("RectangleShape2D_5karm")

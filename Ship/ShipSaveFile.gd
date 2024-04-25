@@ -46,7 +46,7 @@ func load(_npcs = [], _items = []):
 	ship.id = id
 	ship.rotation = rotation
 	ship.linear_velocity = velocity
-	ship.apply_changes(destroyed_walls, opened_doors)
+	ship.call_deferred("apply_changes", destroyed_walls, opened_doors)
 	ship._old_position = old_position
 
 	# spawn_ship(_position : Vector2, path : String = "station", custom_object_spawn : CustomObjectSpawn = null) -> void:

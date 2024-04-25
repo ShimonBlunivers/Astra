@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmny70it2yxs8"]
+[gd_scene load_steps=11 format=3 uid="uid://dmny70it2yxs8"]
 
 [ext_resource type="Shader" path="res://UI/BackgroundMenuScroll.gdshader" id="1_fctkd"]
 [ext_resource type="Script" path="res://Settings.gd" id="1_m04q4"]
+[ext_resource type="AudioStream" uid="uid://dwejrw3lqdlww" path="res://Ship/Walls/Debris/Sounds/break.mp3" id="2_81qps"]
 [ext_resource type="Texture2D" uid="uid://dkwpkswggbn7r" path="res://Backgrounds/further_bodies.png" id="2_v7f8u"]
 [ext_resource type="Texture2D" uid="uid://dhvixcsrhu5oc" path="res://Backgrounds/closer_bodies.png" id="3_4pudd"]
 [ext_resource type="Theme" uid="uid://bdiaebe5x6sb5" path="res://UI/MenuTheme.tres" id="4_ww78m"]
@@ -27,6 +28,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m04q4")
+
+[node name="SFXTestSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_81qps")
+bus = &"SFX"
 
 [node name="FurtherBackground" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_64qqf")
@@ -133,4 +139,6 @@ text = "Nastavení"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="drag_ended" from="MarginContainer/VBoxContainer/SoundSlider" to="." method="_on_sound_slider_drag_ended"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SoundtrackSlider" to="." method="_on_soundtrack_slider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

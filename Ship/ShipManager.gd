@@ -56,11 +56,11 @@ static func build_ship(_builder : Builder, for_player : bool, path : String = "_
 	_ship.set_deferred("rotation", _builder.get_ship_rotation())
 
 	if for_player: 
-		if Player.owned_ship != null: 
-			Player.main_player.deleting_ship(Player.owned_ship)
-			Player.owned_ship.delete()
-		Player.owned_ship = _ship
-		Player.owned_ship.set_deferred("linear_damp", 0)
+		if Player.main_player.owned_ship != null: 
+			Player.main_player.deleting_ship(Player.main_player.owned_ship)
+			Player.main_player.owned_ship.delete()
+		Player.main_player.owned_ship = _ship
+		Player.main_player.owned_ship.set_deferred("linear_damp", 0)
 	_ship.call_deferred("set_connector", 0, _builder.connector)
 	
 	return _ship

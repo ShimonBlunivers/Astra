@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3 uid="uid://bomupilslkwgi"]
+
+[ext_resource type="Script" path="res://Quests/Quest.gd" id="1_altdo"]
+[ext_resource type="Script" path="res://Quests/Goal.gd" id="1_ncc4t"]
+
+[sub_resource type="Resource" id="Resource_al30g"]
+script = ExtResource("1_ncc4t")
+type = 2
+target_ID = -1
+item_type = "Bonbons"
+difficulty_multiplier = 1
+
+[resource]
+script = ExtResource("1_altdo")
+id = 6
+title = "Bonbóny"
+description = "Přines balíček bonbónů."
+reward = 650
+goal = SubResource("Resource_al30g")
+world_limit = 1
+role = 4
+add_role_on_accept = 0

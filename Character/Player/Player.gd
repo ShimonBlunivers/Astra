@@ -51,7 +51,11 @@ signal currency_updated_signal
 var _damage_timer : float = 0
 var _regen_timer : float = 0
 
-static var owned_ship : Ship
+var owned_ship : Ship :
+	set(value):
+		if value != null:
+			value.linear_damp = 0
+		owned_ship = value
 
 var invincible := false
 
@@ -119,6 +123,7 @@ func rotate_to_ship():
 		turn_tween.tween_property(self, "rotation_degrees", 360, turn_speed)
 	else:
 		turn_tween.tween_property(self, "rotation", 0, turn_speed)
+
 
 func get_off(ship):
 	if turn_tween: turn_tween.kill()

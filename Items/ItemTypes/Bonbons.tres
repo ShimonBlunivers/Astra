@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://be4lxp43n6leu"]
+
+[ext_resource type="Script" path="res://Items/ItemType.gd" id="1_2ie6f"]
+[ext_resource type="Texture2D" uid="uid://6nbohnntbvf8" path="res://Items/items_tilesheet.png" id="2_qiah6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4itk"]
+size = Vector2(42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuqmx"]
+atlas = ExtResource("2_qiah6")
+region = Rect2(128, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_2ie6f")
+texture = SubResource("AtlasTexture_wuqmx")
+name = "Bonbons"
+nickname = "Bonbóny"
+worth = 0
+rarity = 1.0
+free_spawn = true
+shape = SubResource("RectangleShape2D_p4itk")

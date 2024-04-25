@@ -15,6 +15,7 @@ script = ExtResource("1_ixr8h")
 texture = SubResource("AtlasTexture_khq00")
 name = "Coin"
 nickname = "Mince"
+worth = 100
 rarity = 1.0
 free_spawn = true
 shape = SubResource("RectangleShape2D_084mh")

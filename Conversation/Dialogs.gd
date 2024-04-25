@@ -4,14 +4,21 @@ static var conversations = {
 	"greeting": [
 		"Ahoj!",
 		"Zdravíčko!",
-		"Jak se máš?",
+		"Zdar!",
+		"Ahoy!",
+		"Nazdar!",
+		"Zdravím!",
+		"Čauves.",
+		"Ahojda.",
 		"Ahojky!",
+		"Pěkný den přeji.",
+		"Jak se máš?",
+		"Jak to jde?",
 		"Vítej zpátky!",
 		"Nazdar, kosmonaute!",
 		"Saluton, spaciano!",
 		"Přeji příjemný pobyt!",
 		"Co potřebuješ?",
-		"Jak to jde?",
 		"Můžu ti nějak pomoct?",
 		"Viděl jsi něco podezřelého?",
 		"Viděl jsi něco neobvyklýho?",
@@ -54,33 +61,45 @@ static var conversations = {
 		],
 
 		4 : [
-            "Zdar.",
-            "Jsem ve velkým průšvihu, ukradli mi kódovanej disk s ultra-utajenejma datama.",
+			"Zdar.",
+			"Jsem ve velkým průšvihu, ukradli mi kódovanej disk s ultra-utajenejma datama.",
 			"Ten disk patří bohatýmu důstojníkovi, kterej mě pověřil, abych ho našel.",
 			"Pomohl bys mi?",
-        	"Najdi mýho bráchu. On ti řekne, jak pokračovat, ale nikdo se o tom nesmí dozvědět.",
+			"Najdi mýho bráchu. On ti řekne, jak pokračovat, ale nikdo se o tom nesmí dozvědět.",
 			"Jestli se o tom dozví špatní lidi, je s náma konec.",
 			"A ohledně odměny? Máme dost energetickejch jednotek, abychom tě pořádně odměnili.",
 			"Co ty na to?",
-      		4,
+			4,
 			"Díky moc!",
 		],
 		5 : [
-            "Ahoj.",
-            "Ztratil jsem svoji elektrickou cigaretu.",
+			"Ahoj.",
+			"Ztratil jsem svoji elektrickou cigaretu.",
 			"Víc dní to bez ní nedám.",
 			"Byl bys tak ochotnej a přinesl bys mi ji?",
-      		5,
+			5,
+			"Díkec.",
+		],
+		6 : [
+			"Ahoj zachránče! To jsem já!",
+			"Nikdy ti nezapomenu, co jsi pro mě udělal..",
+			"Zase jsem něco ztratil..",
+			"Tentokrát jsem ztratil balíček bonbónů, zachránil bys mě zase?",
+			6,
 			"Díkec!",
 		],
-
-
-
-
-		
+		7 : [
+			"Ahoj, potřebuji tvou pomoc!",
+			"Naše navigační systémy byly narušeny magnetickou bouří a nemůžeme určit naši polohu.",
+			"Mohl bys najít náhradní kompas nebo zařízení schopné nám pomoct zorientovat se?",
+			"Je to naléhavé. Bez toho jsme ve vesmíru jako slepí.",
+			7,
+			"Vrať se s ním co nejdříve, čeká tě tu odměna!",
+		],
 		# id : [
 		#	"text",
 		# ],
+
 	},
 	
 	"mission_finished" : {
@@ -94,7 +113,7 @@ static var conversations = {
 		],
 		4001 : [
 			"Díky moc!",
-			"Ani nevíš, co pro nás tohle znamená.",
+			"Ani nevíš, co pro násBo tohle znamená.",
 			"Jsme ti navždy zavázáni.",
 		],
 		5 : [
@@ -109,6 +128,10 @@ static var conversations = {
 		5001 : [ 
 			"Ty jsi je fakt našel!",
 			"Dík zas! Jsi můj dvojnásobný zachránce.",
+		],
+		6 : [
+			"Super!",
+			"Věděl jsem, že se na tebe mohu spolehnout!",
 		]
 
 	},

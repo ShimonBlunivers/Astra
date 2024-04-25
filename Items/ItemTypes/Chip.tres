@@ -15,6 +15,7 @@ script = ExtResource("1_k2i60")
 texture = SubResource("AtlasTexture_0n6wy")
 name = "Chip"
 nickname = "Čip"
+worth = 0
 rarity = 1.0
 free_spawn = true
 shape = SubResource("RectangleShape2D_83mgl")

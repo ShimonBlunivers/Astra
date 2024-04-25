@@ -16,6 +16,7 @@ enum Roles {
 	NONE,
 	TRUSTED,
 	CAPTAIN,
+	ADDICTED,
 }
 
 static var names = [
