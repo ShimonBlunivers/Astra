@@ -76,7 +76,6 @@ func _load(): # deferred
 	#print_debug(Quest.missions)
 	
 	
-
 func delete_directory(path: String) -> bool:
 	var dir = DirAccess.open(path)
 	if dir:

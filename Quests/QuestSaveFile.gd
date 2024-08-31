@@ -44,7 +44,7 @@ func load():
 	print("NPC ID: " + str(npc_ID))
 	print("Goal Target ID: " + str(goal.target_ID))
 	print_debug("----------------------------")
-	
-	
+
+
 
 

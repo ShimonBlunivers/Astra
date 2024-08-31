@@ -55,6 +55,7 @@ func delete():
 	NPC.blocked_missions.erase(id)
 	if world_limit > 0: missions[id].times_activated -= 1
 	npc.selected_quest = -1
+	npc.active_quest = -1
 	number_of_quests -= 1
 	QuestManager.quests.erase(self)
 	QuestManager.update_quest_log()

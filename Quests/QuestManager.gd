@@ -10,7 +10,6 @@ static var active_quest_objects = {
 
 var active_quest = -1
 
-
 func _process(_delta):
 	if UIManager.instance:
 		UIManager.instance.quest_arrow.visible = quests.size() > 0 && active_quest >= 0 || active_quest == -2

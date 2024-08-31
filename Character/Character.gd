@@ -7,8 +7,8 @@ class_name Character extends CharacterBody2D
 
 @export var godmode = false
 
-const SPEED = 400.0
-const RUN_SPEED_MODIFIER = 100.0
+const SPEED = 500.0
+const RUN_SPEED_MODIFIER = 0.0
 const TURN_SPEED = 1.0
 
 var legs_offset = Vector2.ZERO

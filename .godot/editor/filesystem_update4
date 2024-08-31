@@ -1,4 +1,5 @@
-res://Ship/Ship.tscn
+res://Sound/bus_layout.tres
+res://Scenes/Game.tscn
 res://Ship/WallTileMap.tres
 res://Ship/ObjectTileMap.tres
 res://UI/BackgroundMenuScroll.gdshader
@@ -6,13 +7,11 @@ res://UI/MenuTheme.tres
 res://Backgrounds/BackgroundShader.gdshader
 res://UI/crt.gdshader
 res://Effects/GameShader.gdshader
-res://Quests/Goal.gd
-res://Ship/ShipManager.gd
-res://Scenes/Game.tscn
 res://Character/Player/Player.tscn
 res://Ship/Walls/Core/Core.tscn
 res://Ship/Objects/Builder/Builder.tscn
 res://Scenes/Editor.tscn
+res://Ship/Ship.tscn
 res://Ship/Walls/Wall/Wall.tscn
 res://Ship/Walls/Door/Door.tscn
 res://Ship/Walls/Connector/Connector.tscn
@@ -20,5 +19,8 @@ res://Scenes/Menu.tscn
 res://Scenes/Credits.tscn
 res://Scenes/Settings.tscn
 res://Character/NPC/NPC.tscn
+res://Settings/SaveFile.gd
+res://Quests/Quest.gd
 res://Quests/QuestManager.gd
-res://Character/Player/Player.gd
+res://Quests/QuestSaveFile.gd
+res://Quests/Goal.gd

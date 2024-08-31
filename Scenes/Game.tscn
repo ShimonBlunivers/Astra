@@ -459,6 +459,7 @@ mouse_filter = 2
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("14_n5bns")
+autoplay = true
 bus = &"Music"
 
 [connection signal="currency_updated_signal" from="Player" to="UI" method="_on_player_currency_updated_signal"]
