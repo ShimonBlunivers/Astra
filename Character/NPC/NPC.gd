@@ -144,18 +144,17 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [R
 	if _id != -1 && NPC.get_npc(_id) == null:
 		id = _id
 	else:
-		_id = 0
-		while true:
-			if NPC.get_npc(_id) == null:
-				id = _id
-				break
-			_id += 1
+		id = NPC.get_uid()
+		
 	if id == 0 && _skin == null: 
 		_nickname = "Kapitán " + _nickname
 		roles.append(Roles.CAPTAIN)
 	nickname = _nickname
+	
+	if OS.is_debug_build(): nickname += " " + str(id)
+	
 	$Nametag.text = nickname
-	name = "NPC_" + nickname + "_" + str(npcs.size())
+	name = "NPC_" + nickname + "_" + str(id)
 
 	npcs.append(self)
 

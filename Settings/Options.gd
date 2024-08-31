@@ -5,9 +5,9 @@ extends Node
 
 
 func _unhandled_input(event: InputEvent):
-    if event.is_action_pressed("toggle_fullscreen"):
-        FULLSCREEN = !FULLSCREEN
-        if FULLSCREEN:
-            DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-        else:
-            DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	if event.is_action_pressed("toggle_fullscreen"):
+		FULLSCREEN = !FULLSCREEN
+		if FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

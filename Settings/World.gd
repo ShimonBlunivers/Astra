@@ -30,7 +30,7 @@ func load_missions():
 				if ".tres" in file_name:
 					load(path + "/" + file_name).create()
 			file_name = dir.get_next()
-	
+
 
 func _ready():
 	World.instance = self
@@ -66,6 +66,7 @@ static func reset_values():
 
 	World.instance._center_of_universe = Vector2.ZERO
 	World.instance.transform.origin = Vector2.ZERO
+	
 
 func new_world():
 
@@ -119,9 +120,8 @@ func open_editor(_builder : Builder = null):
 
 
 func open_menu():
-
-	visible = false
-	ui_node.visible = false
+	#visible = false
+	#ui_node.visible = false
 	var root = get_tree().root
 	# root.remove_child(self)
 	get_tree().paused = true

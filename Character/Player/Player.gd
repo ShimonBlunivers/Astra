@@ -81,9 +81,8 @@ var update_range = 10000
 
 # TODO: ✅ Add animations
 
-
-static func find_comfortable_degrees(_angle : int) -> int:
-	return 0
+#
+#static func find_comfortable_degrees(_angle : int) -> int:
 	# var comfortable_degrees = [0, 90, 180, 270, 360]
 	# _angle = ((_angle % 360) + 360) % 360
 	# var comfortable = 0
@@ -122,7 +121,7 @@ func rotate_to_ship():
 	if rotation_degrees > 180:
 		turn_tween.tween_property(self, "rotation_degrees", 360, turn_speed)
 	else:
-		turn_tween.tween_property(self, "rotation", 0, turn_speed)
+		turn_tween.tween_property(self, "rotation_degrees", 0, turn_speed)
 
 
 func get_off(ship):
@@ -374,7 +373,7 @@ func change_view(view: int) -> void:
 	var duration = 1
 
 	var ship_size = (max(ship_rect.size.x, ship_rect.size.y) + 2000) * 1.666
-	var cam_size = camera.get_viewport().size.y
+	var cam_size = get_viewport_rect().size.y * 1.25
 	var ship_zoom = 1 / (ship_size / cam_size)
 	
 	match view:

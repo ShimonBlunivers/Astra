@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dl36ukldy48vp"]
+[gd_scene load_steps=23 format=3 uid="uid://dl36ukldy48vp"]
 
 [ext_resource type="Script" path="res://Settings/World.gd" id="1_4hqkb"]
 [ext_resource type="Script" path="res://Ship/ShipManager.gd" id="2_0gdpv"]
@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://bsei5thn81xxs" path="res://Fonts/SpaceMono-Regular.ttf" id="7_xryl1"]
 [ext_resource type="Texture2D" uid="uid://bb7iejyou2vsu" path="res://UI/currency.png" id="13_6sc61"]
 [ext_resource type="FontFile" uid="uid://dbekrgkvpg3lc" path="res://Fonts/SpaceMono-Bold.ttf" id="13_q4h4p"]
+[ext_resource type="Shader" path="res://UI/crt.gdshader" id="14_6itm1"]
 [ext_resource type="AudioStream" uid="uid://6lghegxsirr2" path="res://Sound/Music/OST.mp3" id="14_n5bns"]
 [ext_resource type="Texture2D" uid="uid://bx6p6lawg4mtv" path="res://Quests/arrow.png" id="14_nrt3x"]
 
@@ -57,6 +58,15 @@ ProgressBar/fonts/font = ExtResource("7_xryl1")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_k7voj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_7hx8a")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nqry4"]
+shader = ExtResource("14_6itm1")
+shader_parameter/crt_brightness = 1.0
+shader_parameter/crt_ghost = 1.0
+shader_parameter/crt_grid = 0.123
+shader_parameter/crt_white_noise = 0.2
+shader_parameter/crt_curve = 0.042
+shader_parameter/vignette_strength = 0.25
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_4hqkb")
 metadata/_edit_vertical_guides_ = []
@@ -86,6 +96,7 @@ z_index = -10
 z_as_relative = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_3yehe")
+position = Vector2(40, 2)
 texture = ExtResource("4_7oqwe")
 region_enabled = true
 region_rect = Rect2(0, 0, 2048, 2048)
@@ -226,7 +237,7 @@ vertical_alignment = 1
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/Inventory/QuestLog"]
 offset_left = -45.0
 offset_top = 4.5
-offset_right = 191.0
+offset_right = 195.0
 offset_bottom = 244.5
 mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("7_xryl1")
@@ -438,10 +449,16 @@ vertical_alignment = 1
 editor_description = "Interactive"
 visible = false
 
+[node name="Crt" type="ColorRect" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_nqry4")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("14_n5bns")
-autoplay = true
 bus = &"Music"
 
 [connection signal="currency_updated_signal" from="Player" to="UI" method="_on_player_currency_updated_signal"]

@@ -16,15 +16,14 @@ shader_parameter/speed_divider = 10.7
 shader = ExtResource("1_n7784")
 shader_parameter/speed_divider = 10.0
 
-[node name="Credits" type="Control"]
+[node name="Credits" type="CanvasLayer"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 0
+layer = 4
 script = ExtResource("1_esd3n")
 
 [node name="FurtherBackground" type="TextureRect" parent="."]
+light_mask = 0
 material = SubResource("ShaderMaterial_ieuf6")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -40,8 +39,8 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_gagu1")
 
 [node name="CloserBackground" type="TextureRect" parent="."]
+light_mask = 0
 material = SubResource("ShaderMaterial_ygll2")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -57,13 +56,14 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_s7oer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
+light_mask = 0
 offset_left = -700.0
 offset_right = 580.0
 offset_bottom = 720.0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
@@ -71,6 +71,7 @@ text = "Programování a grafika"
 horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
@@ -78,6 +79,7 @@ text = "Zvuk a testování"
 horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
@@ -85,6 +87,7 @@ text = "Testování"
 horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
@@ -92,6 +95,7 @@ text = "Testování"
 horizontal_alignment = 2
 
 [node name="Label4" type="Label" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
@@ -99,44 +103,49 @@ text = "Testování a oprava chyb"
 horizontal_alignment = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
-layout_mode = 2
+light_mask = 0
 offset_left = 700.0
 offset_right = 1980.0
 offset_bottom = 720.0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer2"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
 text = "Šimon Zelinka"
 
 [node name="Label2" type="Label" parent="VBoxContainer2"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
 text = "Ondřej Němec"
 
 [node name="Label5" type="Label" parent="VBoxContainer2"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
 text = "Denisa Duongová"
 
 [node name="Label3" type="Label" parent="VBoxContainer2"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
 text = "Ondřej Buchlovský"
 
 [node name="Label4" type="Label" parent="VBoxContainer2"]
+light_mask = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_7bk5k")
 theme_override_font_sizes/font_size = 24
 text = "Scriptless Week"
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 2
+light_mask = 0
 offset_top = 104.0
 offset_right = 1280.0
 offset_bottom = 182.0
@@ -148,11 +157,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
+light_mask = 0
 offset_right = 1280.0
 offset_bottom = 1280.0
 
 [node name="Back" type="Button" parent="MarginContainer"]
+light_mask = 0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

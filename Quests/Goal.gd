@@ -8,8 +8,10 @@ enum Type {
 
 @export var type : Type
 @export var target_ID : int
-## Doesn't matter if the type isn't "pick_up_item".
+
+## Is significant only if the type is "pick_up_item".
 @export var item_type : String = "Chip"
+
 @export var difficulty_multiplier : int = 1
 
 var mission_id : int
@@ -22,25 +24,31 @@ var finish_status : int
 func create(_mission_id : int):
 	if target_ID < 0:
 		spawn_quest_ship()
+	call_deferred("update_status")
 	call_deferred("update_target")
-
 	status = 0
 
 func update_quest_objects():
 	QuestManager.active_quest_objects[type].append(target)
 
 
-func update_target():
+func update_status():
 	match type:
 		Type.go_to_place:
 			finish_status = 1
 		Type.talk_to_npc:
-			target = NPC.get_npc(target_ID)
 			finish_status = 1
 		Type.pick_up_item:
-			target = Item.get_item(target_ID)
 			finish_status = 2
-	
+	update_quest_objects()
+
+func update_target():
+	match type:
+		Type.talk_to_npc:
+			target = NPC.get_npc(target_ID)
+		Type.pick_up_item:
+			target = Item.get_item(target_ID)
+			target.itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
 	update_quest_objects()
 
 func load():

@@ -21,6 +21,9 @@ static func get_save_path(path := SAVE_GAME_PATH + save_name) -> String:
 	return path + "/save_file.tres"
 
 func save_world(dev := false):
+	
+	print_debug("Saving...")
+	
 	UIManager.instance.saving_screen()
 
 	player_save_file = PlayerSaveFile.save()
@@ -45,7 +48,6 @@ func load_world():
 	if FileAccess.file_exists(SaveFile.get_save_path()):
 		World.save_file = ResourceLoader.load(SaveFile.get_save_path())
 		World.save_file.call_deferred("_load")
-	
 	else:
 		World.instance.new_world()
 		# World.save_file = ResourceLoader.load(get_save_path(FIRST_SAVE_GAME_PATH))
@@ -54,7 +56,9 @@ func load_world():
 	
 func _load(): # deferred
 	World.reset_values()
-
+	
+	print_debug("Loading...")
+	
 	for ship in ship_save_files: ship.load(NPC_save_files, item_save_files) 
 	ShipManager.main_station = Ship.get_ship(main_station_id)
 	ShipManager.main_station.freeze = true
@@ -64,12 +68,14 @@ func _load(): # deferred
 
 	# for npc in NPC_save_files: npc.load() 
 	# for item in item_save_files: item.load() 
-	for quest in quest_save_files: quest.load() 
+	for quest : QuestSaveFile in quest_save_files: quest.load() 
 
 	for key in Quest.missions.keys() + quest_status_file.keys():
 		if key in quest_status_file.keys(): Quest.missions[key] = quest_status_file[key]
-
-
+	
+	#print_debug(Quest.missions)
+	
+	
 
 func delete_directory(path: String) -> bool:
 	var dir = DirAccess.open(path)

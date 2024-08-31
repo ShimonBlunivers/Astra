@@ -31,7 +31,7 @@ func _show_text_box():
 			advance()
 			return
 		else:
-			dialog_lines = [":D"]
+			dialog_lines = ["..."]
 			current_line_index = 0
 
 	text_box = text_box_scene.instantiate()

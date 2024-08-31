@@ -20,19 +20,19 @@ shader_parameter/speed_divider = 10.0
 [sub_resource type="Theme" id="Theme_y0au3"]
 Button/font_sizes/font_size = 32
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="CanvasLayer"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layer = 3
 script = ExtResource("1_jp1hi")
 
+[node name="Gray" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.392157)
+
 [node name="FurtherBackground" type="TextureRect" parent="."]
+light_mask = 0
 material = SubResource("ShaderMaterial_6xyd5")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -48,8 +48,8 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_vln5c")
 
 [node name="CloserBackground" type="TextureRect" parent="."]
+light_mask = 0
 material = SubResource("ShaderMaterial_obinj")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -65,13 +65,14 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_j5d5y")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
+light_mask = 0
 offset_top = 119.0
 offset_right = 1280.0
 offset_bottom = 839.0
 theme = SubResource("Theme_y0au3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -80,24 +81,28 @@ theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
 text = "Hrát"
 
 [node name="NewGame" type="Button" parent="MarginContainer/VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
 text = "Nová hra"
 
 [node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
 text = "Nastavení"
 
 [node name="Credits" type="Button" parent="MarginContainer/VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
@@ -105,13 +110,14 @@ text = "Credits
 "
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme = ExtResource("4_buhup")
 theme_override_fonts/font = ExtResource("2_ese6g")
 text = "Odejít"
 
 [node name="Title" type="TextureRect" parent="."]
-layout_mode = 1
+light_mask = 0
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -126,9 +132,6 @@ texture = ExtResource("7_ecqpl")
 process_mode = 3
 stream = ExtResource("8_k53lv")
 bus = &"Music"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, 360)
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]

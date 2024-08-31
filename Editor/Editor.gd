@@ -43,7 +43,9 @@ func center_camera():
 func _exit():
 	self.queue_free()
 	Player.main_player.camera.make_current()
-	get_tree().set_deferred("paused", false)
+	
+	get_tree().paused = false
+	#get_tree().set_deferred("paused", false)
 	
 	World.instance.visible = true
 	World.instance.ui_node.visible = true
@@ -173,11 +175,16 @@ func _on_autofloor_button_toggled(toggled_on:bool):
 
 func _on_deploy_pressed() -> void:
 	ShipValidator.autofill_floor(ShipEditor.instance.wall_tile_map)
+	
+	
 	if !ShipValidator.check_validity(ship_editor.wall_tile_map): 
 		ship_editor.console.print_out("[color=red]Loď nesplňuje podmínky pro uložení![/color]\nZkontrolujte, zda máte v lodi jádro.\nTaké zkontrolujte zda jsou všechny bloky spojeny.")
 		return 
 
 	ship_editor.save_ship("%player_ship_new")
+	
+	
+	
 	# var path = "user://saves/ships"
 	# var dir = DirAccess.open(path)
 
@@ -214,6 +221,7 @@ func _on_deploy_pressed() -> void:
 	if World.used_builder != null:
 		ShipManager.build_ship(World.used_builder, true, "%player_ship_new")
 		Player.main_player.currency = ship_editor.inventory.currency
+		
 	_exit()
 
 # ## Returns true if the files are the same

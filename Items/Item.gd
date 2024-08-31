@@ -30,6 +30,7 @@ static func get_uid() -> int:
 			return _id
 		_id += 1
 	return 0
+	
 static func load_items():
 	var path = "res://Items/ItemTypes"
 	var dir = DirAccess.open(path)
@@ -47,7 +48,7 @@ static func get_item(_id : int) -> Item:
 	for item in items: if item.id == _id: return item
 	return null
 
-static func random_item() -> ItemType: # IMPLEMENT
+static func random_item() -> ItemType:
 	return types[types.keys().pick_random()]
 
 static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _ship = null, _ship_slot_id : int = -1) -> Item:

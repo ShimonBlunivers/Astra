@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @onready var sound_slider = $MarginContainer/VBoxContainer/SoundSlider
 @onready var soundtrack_slider = $MarginContainer/VBoxContainer/SoundtrackSlider
