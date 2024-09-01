@@ -22,10 +22,19 @@ var status : int
 var finish_status : int
 
 func create(_mission_id : int):
+	print("$$$$$$$$$$$$$$")
+	print("Goal type: " +  str(Type.keys()[type]))
+	print("Goal target ID: " +  str(target_ID))
+	
 	if target_ID < 0:
 		spawn_quest_ship()
-	call_deferred("update_status")
-	call_deferred("update_target")
+		call_deferred("update_status")
+		call_deferred("update_target")
+		
+	else:
+		update_status()
+		update_target()
+		
 	status = 0
 
 func update_quest_objects():
@@ -33,6 +42,8 @@ func update_quest_objects():
 
 
 func update_status():
+	print("Updating status ")
+	print_debug("Goal type: " +  str(Type.keys()[type]))
 	match type:
 		Type.go_to_place:
 			finish_status = 1
@@ -43,6 +54,8 @@ func update_status():
 	update_quest_objects()
 
 func update_target():
+	print("Updating target ")
+	print_debug("Goal type: " +  str(Type.keys()[type]))
 	match type:
 		Type.talk_to_npc:
 			target = NPC.get_npc(target_ID)
@@ -59,6 +72,7 @@ func get_position() -> Vector2:
 	return target.global_position
 
 func spawn_quest_ship():
+	print("Spawning quest ship!")
 
 	var distances = Vector2(50000 + 10000 * World.difficulty_multiplier * difficulty_multiplier, 200000 + 10000 * World.difficulty_multiplier * (difficulty_multiplier + 1)) #Vector2(10000, 50000)
 

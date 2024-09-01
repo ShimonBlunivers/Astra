@@ -135,9 +135,8 @@ static func get_npc(_id: int) -> NPC:
 var skin = null
 var hair = null
 
-func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [Roles.CIVILIAN], _blocked_missions = null, _skin = null, _hair = null):
+func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [Roles.CIVILIAN], _skin = null, _hair = null):
 	roles = _roles
-	if _blocked_missions != null: blocked_missions = _blocked_missions
 	skin = _skin
 	hair = _hair
 	
@@ -163,13 +162,23 @@ func quest_finished():
 	$FinishedQuest.play()
 
 func reload_missions():
+	#print("---------------")
+	#print("NPC: " + nickname)
 	if active_quest != -1: return
+	
+	#print("Roles: " + str(roles))
+	#print("Blocked missions: " + str(blocked_missions))
+	
+	
 	var mission = Dialogs.random_mission_id(roles, true)
+	
+	#print("Mission: " + str(mission))
+	
 	if mission < 0:
 		selected_quest = -1
 	else:
 		selected_quest = mission
-	# print(nickname, " SPAWNED on: " , position)
+		
 	var random := RandomNumberGenerator.new()
 	timer.start(120 + 60 * random.randi_range(0, 8))
 

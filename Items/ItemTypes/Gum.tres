@@ -15,6 +15,7 @@ script = ExtResource("1_vig6w")
 texture = SubResource("AtlasTexture_of60d")
 name = "Gum"
 nickname = "Žvýkačka"
+worth = 0
 rarity = 1.0
 free_spawn = true
 shape = SubResource("RectangleShape2D_cwu47")

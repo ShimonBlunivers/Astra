@@ -15,6 +15,7 @@ script = ExtResource("1_wwmus")
 texture = SubResource("AtlasTexture_ifpv2")
 name = "Disk"
 nickname = "Disk"
+worth = 0
 rarity = 1.0
 free_spawn = true
 shape = SubResource("RectangleShape2D_dle0x")

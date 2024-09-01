@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Quests/Quest.gd" id="1_8cs0n"]
 [ext_resource type="Script" path="res://Quests/Goal.gd" id="1_ytwer"]
 
-[sub_resource type="Resource" id="Resource_w8vgg"]
+[sub_resource type="Resource" id="Resource_rqi3f"]
 script = ExtResource("1_ytwer")
 type = 2
 target_ID = -1
 item_type = "Compass"
-difficulty_multiplier = 1
+difficulty_multiplier = null
 
 [resource]
 script = ExtResource("1_8cs0n")
@@ -16,7 +16,7 @@ id = 7
 title = "Navigační zařízení"
 description = "Přines navigační zařízení."
 reward = 1100
-goal = SubResource("Resource_w8vgg")
+goal = SubResource("Resource_rqi3f")
 world_limit = -1
 role = 0
 add_role_on_accept = 0

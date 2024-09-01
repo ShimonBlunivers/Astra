@@ -43,6 +43,7 @@ func load():
 	print("Quest: " + str(id) + " loaded")
 	print("NPC ID: " + str(npc_ID))
 	print("Goal Target ID: " + str(goal.target_ID))
+	print("Goal Target Type: " + str(goal.Type.keys()[goal.type]))
 	print_debug("----------------------------")
 
 

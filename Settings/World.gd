@@ -57,8 +57,10 @@ static func reset_values():
 	Item.items = []
 	Item.item_id_history = []
 	NPC.npcs = []
+	NPC.blocked_missions = []
 	QuestManager.quests = []
 
+	Quest.number_of_quests = 0
 
 	Player.main_player.health = Player.main_player.max_health
 	Player.main_player.currency = 0

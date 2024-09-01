@@ -92,7 +92,7 @@ static var conversations = {
 			"Ahoj, potřebuji tvou pomoc!",
 			"Naše navigační systémy byly narušeny magnetickou bouří a nemůžeme určit naši polohu.",
 			"Mohl bys najít náhradní kompas nebo zařízení schopné nám pomoct zorientovat se?",
-			"Je to naléhavé. Bez toho jsme ve vesmíru jako slepí.",
+			"Je to naléhavé. Bez něj jsme ve vesmíru jako slepí.",
 			7,
 			"Vrať se s ním co nejdříve, čeká tě tu odměna!",
 		],
@@ -146,12 +146,18 @@ static func random_mission_id(roles := [], can_return_empty_quest := false) -> i
 	var random := RandomNumberGenerator.new()
 	if can_return_empty_quest && random.randi_range(0, 3) == 0: return -1
 	var usable_missions = []
+	
+	#print("....................")
 	for key in Quest.missions.keys():
 		if Quest.missions[key].role in roles:
+			#print("Mission: " + str(key))
 			if (Quest.missions[key].times_activated < Quest.missions[key].world_limit || Quest.missions[key].world_limit < 0):
 				if !Quest.missions[key].id in NPC.blocked_missions:
 					usable_missions.append(Quest.missions[key])
 
+	#print("Usable missions:")
+	#print(usable_missions)
+	
 	if usable_missions.size() == 0: return -2
-
+	
 	return usable_missions.pick_random().id

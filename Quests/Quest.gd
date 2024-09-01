@@ -26,13 +26,18 @@ func create():
 	missions[id] = self
 
 func init(_npc : NPC, _target_ID : int = -1):
+	
+	print("#############")
+	print("Quest title: " + title)
+	print("Target ID: " + str(_target_ID))
+	
 	number_of_quests += 1
 	if world_limit > 0: missions[id].times_activated += 1
 	npc = _npc
 	QuestManager.quests.append(self)
 
 	if _target_ID != -1: goal.target_ID = _target_ID
-	
+
 	goal.create(id)
 
 	if !add_role_on_accept in npc.roles: npc.roles.append(add_role_on_accept)
@@ -47,6 +52,7 @@ func finish():
 	NPC.blocked_missions.erase(id)
 	npc.quest_finished()
 	Player.main_player.add_currency(reward)
+	QuestManager.active_quest_objects[goal.type].erase(goal.target)
 	QuestManager.active_quest = -1
 	QuestManager.quests.erase(self)
 	World.difficulty_multiplier += 0.2
@@ -58,9 +64,12 @@ func delete():
 	npc.active_quest = -1
 	number_of_quests -= 1
 	QuestManager.quests.erase(self)
+	QuestManager.active_quest_objects[goal.type].erase(goal.target)
 	QuestManager.update_quest_log()
 
 func progress():
+	print("!!!!!!!!!!!!!!!!!!!!!!!")
+	print_debug("Progressing quest: " + title)
 	goal.status += 1
 	update_goal()
 

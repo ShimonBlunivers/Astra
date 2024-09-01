@@ -38,7 +38,7 @@ func load(_npcs = [], _items = []):
 	var _npc_preset = []
 
 	for item in _items: if id == item.ship_id: _item_preset.append([item.id, item.type, item.ship_slot_id])
-	for npc in _npcs: if id == npc.ship_id: _npc_preset.append([npc.id, npc.nickname, npc.roles, npc.blocked_missions, npc.skin, npc.hair])
+	for npc in _npcs: if id == npc.ship_id: _npc_preset.append([npc.id, npc.nickname, npc.roles, npc.skin, npc.hair])
 
 	var custom_object_spawn = CustomObjectSpawn.create(_item_preset, _npc_preset)
 

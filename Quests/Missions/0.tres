@@ -20,4 +20,3 @@ goal = SubResource("Resource_o3qrs")
 world_limit = -1
 role = 0
 add_role_on_accept = 0
-followup_mission = false
