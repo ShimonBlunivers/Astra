@@ -1,4 +1,5 @@
-class_name Quest extends Resource
+class_name Quest
+extends Resource
 
 static var number_of_quests = 0
 
@@ -27,14 +28,14 @@ func create():
 
 func init(_npc : NPC, _target_ID : int = -1):
 	
-	print("#############")
-	print("Quest title: " + title)
-	print("Target ID: " + str(_target_ID))
+	# print("#############")
+	# print("Quest title: " + title)
+	# print("Target ID: " + str(_target_ID))
 	
 	number_of_quests += 1
 	if world_limit > 0: missions[id].times_activated += 1
 	npc = _npc
-	QuestManager.quests.append(self)
+	QuestManager.active_quests.append(self)
 
 	if _target_ID != -1: goal.target_ID = _target_ID
 
@@ -45,16 +46,16 @@ func init(_npc : NPC, _target_ID : int = -1):
 	NPC.blocked_missions.append(id)
 	npc.selected_quest = -1
 	npc.active_quest = id
-	QuestManager.active_quest = id
+	QuestManager.active_quest_id = id
 	QuestManager.update_quest_log()
 
 func finish():
 	NPC.blocked_missions.erase(id)
 	npc.quest_finished()
 	Player.main_player.add_currency(reward)
-	QuestManager.active_quest_objects[goal.type].erase(goal.target)
-	QuestManager.active_quest = -1
-	QuestManager.quests.erase(self)
+	QuestManager.active_objectives[goal.type].erase(goal.target)
+	QuestManager.active_quest_id = -1
+	QuestManager.active_quests.erase(self)
 	World.difficulty_multiplier += 0.2
 
 func delete():
@@ -63,18 +64,18 @@ func delete():
 	npc.selected_quest = -1
 	npc.active_quest = -1
 	number_of_quests -= 1
-	QuestManager.quests.erase(self)
-	QuestManager.active_quest_objects[goal.type].erase(goal.target)
+	QuestManager.active_quests.erase(self)
+	QuestManager.active_objectives[goal.type].erase(goal.target)
 	QuestManager.update_quest_log()
 
 func progress():
-	print("!!!!!!!!!!!!!!!!!!!!!!!")
-	print_debug("Progressing quest: " + title)
+	# print("!!!!!!!!!!!!!!!!!!!!!!!")
+	# print_debug("Progressing quest: " + title)
 	goal.status += 1
 	update_goal()
 
 func update_goal():
-	QuestManager.active_quest_objects[goal.type].erase(goal.target)
+	QuestManager.active_objectives[goal.type].erase(goal.target)
 	match goal.type:
 		Goal.Type.pick_up_item: 
 			goal.type = Goal.Type.talk_to_npc
@@ -83,3 +84,4 @@ func update_goal():
 			goal.update_quest_objects()
 
 	if goal.status >= goal.finish_status: finish()
+

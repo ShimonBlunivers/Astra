@@ -109,6 +109,7 @@ func _update_ship_list():
 						ship_text += "[cell=1][/cell][cell=1][/cell]"
 					# ship_text += "[/url]"
 			file_name = dir.get_next()
+		dir.list_dir_end()
 	
 	if Options.DEVELOPMENT_MODE:
 		dir = DirAccess.open("res://DefaultSave/ships")
@@ -130,7 +131,7 @@ func _update_ship_list():
 					else:
 						ship_text += "[cell=1][/cell][cell=1][/cell]"
 				file_name = dir.get_next()
-
+			dir.list_dir_end()
 	
 	ship_text += "[/table][/center]"
 	ship_list.text = ship_text

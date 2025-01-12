@@ -161,19 +161,15 @@ func quest_finished():
 	active_quest = -1
 	$FinishedQuest.play()
 
-func reload_missions():
-	#print("---------------")
-	#print("NPC: " + nickname)
-	if active_quest != -1: return
+## Updates [member selected_quest] with a new mission. [br]
+## [forced]: the mission will be updated even if the NPC is currently talking about a quest. [br]
+func reload_missions(forced := false):
+	if !forced && active_quest != -1: return
 	
-	#print("Roles: " + str(roles))
-	#print("Blocked missions: " + str(blocked_missions))
-	
-	
+	dialog_manager.end_dialog() # So the dialog won't be interrupted by the new one.
+
 	var mission = Dialogs.random_mission_id(roles, true)
-	
-	#print("Mission: " + str(mission))
-	
+
 	if mission < 0:
 		selected_quest = -1
 	else:
@@ -197,8 +193,6 @@ func _ready() -> void:
 
 func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)
-
-# var _started_mission := false
  
 func _on_interaction_area_area_entered(area:Area2D) -> void:
 	if area.is_in_group("PlayerInteractArea"):
@@ -224,8 +218,7 @@ func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> v
 				dialog_manager.advance()
 			else:
 				var dialog_position = Vector2(0, -105)
-				if Dialogs.random_mission_id(roles) < 0: selected_quest = -1
-				if self in QuestManager.active_quest_objects[Goal.Type.talk_to_npc]:
+				if self in QuestManager.active_objectives[Goal.Type.talk_to_npc]:
 					if QuestManager.get_quest(self).id in Dialogs.conversations["mission_finished"].keys():
 						dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission_finished"][QuestManager.get_quest(self).id])
 					else:
@@ -233,13 +226,14 @@ func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> v
 
 					QuestManager.finished_quest_objective(QuestManager.get_quest(self))
 
-				elif selected_quest >= 0 && !selected_quest in blocked_missions:
-					dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
-				else:
-					# Dialogs.conversations["greeting"].shuffle()
+				elif selected_quest >= 0:
+					if (selected_quest in blocked_missions):
+						print_debug("Warning: Mission " + str(selected_quest) + " is blocked.")
+					else:
+						dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
+				elif selected_quest == -1:
 					dialog_manager.start_dialog(dialog_position, [Dialogs.conversations["greeting"].pick_random()])
-				QuestManager.update_quest_log()
-
+				
 func delete():
 	npcs.erase(self)
 	queue_free()

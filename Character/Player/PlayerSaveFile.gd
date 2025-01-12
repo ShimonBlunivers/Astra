@@ -23,7 +23,7 @@ static func save() -> PlayerSaveFile:
 
 	file.owned_ship_id = Player.main_player.owned_ship.id
 
-	file.active_quest = QuestManager.active_quest
+	file.active_quest = QuestManager.active_quest_id
 
 	return file
 
@@ -39,5 +39,5 @@ func load():
 
 	player.owned_ship = Ship.get_ship(owned_ship_id)
 
-	QuestManager.active_quest = active_quest
+	QuestManager.active_quest_id = active_quest
 

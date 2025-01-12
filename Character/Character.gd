@@ -26,8 +26,6 @@ var nickname = ""
 
 var max_impact_velocity : float = 40
 
-signal _animation_time_offset
-
 func _ready() -> void:
 	legs_offset = legs.position
 

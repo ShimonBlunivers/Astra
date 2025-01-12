@@ -217,7 +217,7 @@ light_mask = 2
 y_sort_enabled = true
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_x6u5k")
-animation = &"WalkDown"
+animation = &"Idle"
 autoplay = "Idle"
 offset = Vector2(0, -8.5)
 

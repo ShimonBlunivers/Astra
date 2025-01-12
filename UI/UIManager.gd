@@ -136,11 +136,11 @@ func _unhandled_input(event: InputEvent):
 func _on_quest_meta_clicked(meta:Variant) -> void:
 	if "cancel" in meta: 
 		QuestManager.get_quest_by_id(int(meta)).delete()
-		QuestManager.active_quest = -1
-	elif QuestManager.active_quest == int(meta):
-		QuestManager.active_quest = -1
+		QuestManager.active_quest_id = -1
+	elif QuestManager.active_quest_id == int(meta):
+		QuestManager.active_quest_id = -1
 	else:
-		QuestManager.active_quest = int(meta)
+		QuestManager.active_quest_id = int(meta)
 		
 	QuestManager.update_quest_log()
 

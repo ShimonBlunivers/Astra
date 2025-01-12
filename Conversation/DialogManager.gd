@@ -14,8 +14,12 @@ var can_advance_line = false
 
 signal dialog_finished()
 
+## [param position]: the offset of the text box from the parent node. [br]
+## [param lines]: the lines of the dialog. [br]
 func start_dialog(position: Vector2, lines):
-	if is_dialog_active: return
+	if is_dialog_active: 
+		print_debug("Warning: Dialog is already active.")
+		return
 
 	dialog_lines = lines
 	text_box_position = position
@@ -24,15 +28,22 @@ func start_dialog(position: Vector2, lines):
 	is_dialog_active = true
 
 func _show_text_box():
-	if dialog_lines == null: return
+	if dialog_lines == null: 
+		print_debug("Warning: Attempted to show text box with dialog_lines = null.")
+		return
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
 		if dialog_lines[current_line_index] in Quest.missions.keys():
+
+			
 			load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").call_deferred("init", parent)
+
+
 			advance()
 			return
 		else:
 			dialog_lines = [" . . . "]
 			current_line_index = 0
+			print_debug("Warning: Mission ID not found in Quest.missions.")
 
 	text_box = text_box_scene.instantiate()
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
@@ -45,6 +56,7 @@ func _show_text_box():
 func _on_text_box_finished_displaying():
 	can_advance_line = true
 
+## Advances the dialog to the next line. [br]
 func advance():
 	if is_dialog_active:
 		text_box.queue_free()
@@ -58,6 +70,8 @@ func advance():
 			return
 		
 		_show_text_box()
+	else:
+		print_debug("Warning: Attempted to advance dialog when dialog is not active.")
 
 func end_dialog():
 	if !is_dialog_active: return
@@ -65,4 +79,3 @@ func end_dialog():
 	dialog_finished.emit()
 	is_dialog_active = false
 	current_line_index = 0
-	return

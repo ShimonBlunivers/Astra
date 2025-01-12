@@ -9,7 +9,7 @@ class_name QuestSaveFile extends Resource
 static func save():
 	var files = []
 
-	for quest in QuestManager.quests:
+	for quest in QuestManager.active_quests:
 		var file = QuestSaveFile.new()
 
 		file.id = quest.id

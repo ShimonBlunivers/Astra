@@ -9,4 +9,3 @@ void fragment() {
 	vec2 uv = UV + background_position / speed_divider;
 	COLOR = texture(TEXTURE, uv);
 }
-

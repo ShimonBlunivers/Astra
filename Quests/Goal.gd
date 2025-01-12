@@ -1,4 +1,5 @@
-class_name Goal extends Resource
+class_name Goal
+extends Resource
 
 enum Type {
 	go_to_place,
@@ -38,8 +39,7 @@ func create(_mission_id : int):
 	status = 0
 
 func update_quest_objects():
-	QuestManager.active_quest_objects[type].append(target)
-
+	QuestManager.active_objectives[type].append(target)
 
 func update_status():
 	print("Updating status ")
@@ -68,7 +68,9 @@ func load():
 	call_deferred("update_target")
 
 func get_position() -> Vector2:
-	if target == null: return Vector2.ZERO
+	if target == null: 
+		print_debug("Warning: Target is null")
+		return Vector2.ZERO
 	return target.global_position
 
 func spawn_quest_ship():

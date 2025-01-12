@@ -137,14 +137,22 @@ static var conversations = {
 	},
 }
 
+## [param dialog_type]: key from [member conversations]. [br]
+## [return]: random phrase from the given dialog type. [br]
 static func random_phrase(dialog_type: String) -> String:
 	if (!conversations.has(dialog_type)): return ""
 	var random := RandomNumberGenerator.new()
 	return conversations[dialog_type][random.randi_range(0, conversations[dialog_type].size() - 1)]
 
+
+## [param roles]: array of [member NPC.Roles] that the mission should have. [br]
+## [param can_return_empty_quest]: whether the function can return -1 randomly. [br]
+## [return]: random mission ID that is not blocked in [member NPC.blocked_missions]. [br]
+## Returns -2 if no mission is available. [br]
 static func random_mission_id(roles := [], can_return_empty_quest := false) -> int:
 	var random := RandomNumberGenerator.new()
 	if can_return_empty_quest && random.randi_range(0, 3) == 0: return -1
+
 	var usable_missions = []
 	
 	#print("....................")
@@ -154,10 +162,9 @@ static func random_mission_id(roles := [], can_return_empty_quest := false) -> i
 			if (Quest.missions[key].times_activated < Quest.missions[key].world_limit || Quest.missions[key].world_limit < 0):
 				if !Quest.missions[key].id in NPC.blocked_missions:
 					usable_missions.append(Quest.missions[key])
-
-	#print("Usable missions:")
-	#print(usable_missions)
 	
-	if usable_missions.size() == 0: return -2
+	if usable_missions.size() == 0: 
+		if (!can_return_empty_quest): print_debug("Warning: No mission available for roles: " + str(roles))
+		return -2
 	
 	return usable_missions.pick_random().id
