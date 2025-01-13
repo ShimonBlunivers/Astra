@@ -1,87 +1,123 @@
+## Instance of a task.
 class_name Quest
-extends Resource
 
-static var number_of_quests = 0
+var task : Task
 
-var active := false
-@export var id : int
-@export var title : String
-@export_multiline var description : String
+var id : int
 
-@export var reward : int
-@export var goal : Goal
+var npc_id : int = -1
+var target_id : int = -1
+var target_type : Goal.Type
 
-@export var world_limit : int = -1
-## Required roles for NPC to give this mission
-@export var role : NPC.Roles
-## Roles that will be added to the NPC, if he gives this mission
-@export var add_role_on_accept : NPC.Roles
+var status : int = 0
 
-var npc : NPC
-
-var times_activated : int = 0
-
-static var missions = {}
-
-func create():
-	missions[id] = self
-
-func init(_npc : NPC, _target_ID : int = -1):
+func get_npc() -> NPC:
+	if (npc_id == -1): return null
+	var npc =  NPC.get_npc(npc_id)
+	if (is_instance_valid(npc)): return npc
 	
-	# print("#############")
-	# print("Quest title: " + title)
-	# print("Target ID: " + str(_target_ID))
+	print_debug("Warning: NPC with ID " + str(npc_id) + " not found")
+	return null
+
+func get_target() -> Node2D:
+	if (target_id == -1): return null
+	var target : Node2D = null
+
+	match target_type:
+		Goal.Type.go_to_place:
+			target = null
+		Goal.Type.talk_to_npc:
+			target = NPC.get_npc(target_id)
+		Goal.Type.pick_up_item:
+			target = Item.get_item(target_id)
+
+	if (is_instance_valid(target)): return target
+
+	print_debug("Warning: Target with ID " + str(target_id) + " and type " + str(target_type) + " not found")
+	return null
+
+func _init(_task_id: int, _npc : NPC, _target_id : int = -1, _id : int = -1):
+	print(QuestManager.tasks)
+	self.task = QuestManager.get_task(_task_id)
+	self.npc_id = _npc.id
+
+	if _id == -1: id = QuestManager.get_uid()
+	else: id = _id
 	
-	number_of_quests += 1
-	if world_limit > 0: missions[id].times_activated += 1
-	npc = _npc
-	QuestManager.active_quests.append(self)
+	QuestManager.active_quests[id] = self
+	QuestManager.quest_id_history.append(id)
 
-	if _target_ID != -1: goal.target_ID = _target_ID
+	QuestManager.active_task_ids.append(_task_id)
 
-	goal.create(id)
+	target_type = task.goal.type
 
-	if !add_role_on_accept in npc.roles: npc.roles.append(add_role_on_accept)
+	task.times_activated += 1
 
-	NPC.blocked_missions.append(id)
-	npc.selected_quest = -1
-	npc.active_quest = id
-	QuestManager.active_quest_id = id
+	if _target_id != -1: target_id = _target_id
+	else: spawn_quest_ship()
+
+	if !(task.add_role_on_accept in _npc.roles): _npc.roles.append(task.add_role_on_accept)
+
+	_npc.active_quest_id = id
+	_npc.selected_quest = -1
+
+	QuestManager.highlighted_quest_id = id
+	
 	QuestManager.update_quest_log()
 
 func finish():
-	NPC.blocked_missions.erase(id)
-	npc.quest_finished()
-	Player.main_player.add_currency(reward)
-	QuestManager.active_objectives[goal.type].erase(goal.target)
-	QuestManager.active_quest_id = -1
-	QuestManager.active_quests.erase(self)
-	World.difficulty_multiplier += 0.2
+	
+	Player.main_player.add_currency(task.reward)
+
+	World.difficulty_multiplier += 0.2 # Increase difficulty for the next quests
+
+	get_npc().quest_finished()
+
+	delete()
 
 func delete():
-	NPC.blocked_missions.erase(id)
-	if world_limit > 0: missions[id].times_activated -= 1
-	npc.selected_quest = -1
-	npc.active_quest = -1
-	number_of_quests -= 1
-	QuestManager.active_quests.erase(self)
-	QuestManager.active_objectives[goal.type].erase(goal.target)
+	if QuestManager.highlighted_quest_id == id: 
+		QuestManager.highlighted_quest_id = -1
+	
+	get_npc().active_quest_id = -1
+	get_npc().selected_quest = -1
+	
+	QuestManager.active_task_ids.erase(task.id)
+	QuestManager.active_quests.erase(id)
+
 	QuestManager.update_quest_log()
 
 func progress():
-	# print("!!!!!!!!!!!!!!!!!!!!!!!")
-	# print_debug("Progressing quest: " + title)
-	goal.status += 1
-	update_goal()
+	status += 1
 
-func update_goal():
-	QuestManager.active_objectives[goal.type].erase(goal.target)
-	match goal.type:
-		Goal.Type.pick_up_item: 
-			goal.type = Goal.Type.talk_to_npc
-			goal.target = npc
-			goal.target_ID = npc.id
-			goal.update_quest_objects()
+	target_id = npc_id # TODO - Update TARGET VISUALY (asi)
+	target_type = Goal.Type.talk_to_npc
 
-	if goal.status >= goal.finish_status: finish()
+	if !task.return_to_npc && status == 1: finish() 
+	elif task.return_to_npc && status > 1: finish()
 
+func spawn_quest_ship():
+	var distances = Vector2(50000 + 10000 * World.difficulty_multiplier * task.difficulty_multiplier, 200000 + 10000 * World.difficulty_multiplier * (task.difficulty_multiplier + 1)) #Vector2(10000, 50000)
+
+	var rng = RandomNumberGenerator.new()
+
+	var _distance = rng.randf_range(distances.x, distances.y)
+	var _angle = rng.randf_range(0, 2 * PI)
+
+	var new_ship_pos = Vector2(Player.main_player.global_position.x + _distance * cos(_angle), Player.main_player.global_position.y + _distance * sin(_angle))
+	var npc_presets := [];
+	var item_presets := [];
+
+	match target_type:
+		Goal.Type.go_to_place: # TODO
+			pass
+		Goal.Type.talk_to_npc:
+			target_id = NPC.get_uid()
+			npc_presets = [NPCPreset.new(target_id, NPC.names.pick_random(), [NPC.Roles.CIVILIAN])]
+		Goal.Type.pick_up_item:
+			target_id = Item.get_uid()
+			item_presets = [ItemPreset.new(target_id, Item.types[task.goal.item_type], 0)]
+
+	var _custom_object_spawn = CustomObjectSpawn.create(npc_presets, item_presets)
+
+	ShipManager.spawn_ship(new_ship_pos, ShipManager.get_quest_ship_path(task.id), _custom_object_spawn)#.linear_velocity = Player.main_player.parent_ship.linear_velocity

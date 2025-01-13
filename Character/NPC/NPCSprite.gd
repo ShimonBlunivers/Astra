@@ -9,7 +9,6 @@ class_name NPCSprite extends Node2D
 
 var skin = []
 
-# Called when the node enters the scene tree for the first time.
 func set_skin(a = _random_color(), b = _random_color(), c = _random_color(), d = _random_color(), e = _random_color()):
 	skin_node.set_modulate(a)
 	eyes_node.set_modulate(b)

@@ -8,7 +8,7 @@ class_name PlayerSaveFile extends Resource
 @export var health : int
 @export var owned_ship_id : int
 
-@export var active_quest : int
+@export var highlighted_quest_id : int
 
 static func save() -> PlayerSaveFile:
 	var file = PlayerSaveFile.new()
@@ -23,7 +23,7 @@ static func save() -> PlayerSaveFile:
 
 	file.owned_ship_id = Player.main_player.owned_ship.id
 
-	file.active_quest = QuestManager.active_quest_id
+	file.highlighted_quest_id = QuestManager.highlighted_quest_id
 
 	return file
 
@@ -39,5 +39,4 @@ func load():
 
 	player.owned_ship = Ship.get_ship(owned_ship_id)
 
-	QuestManager.active_quest_id = active_quest
-
+	QuestManager.highlighted_quest_id = highlighted_quest_id

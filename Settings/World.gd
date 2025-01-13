@@ -46,21 +46,17 @@ static func reset_values():
 	while Ship.ships.size() != 0: Ship.ships[0].delete()
 	while NPC.npcs.size() != 0: NPC.npcs[0].delete()
 	while Item.items.size() != 0: Item.items[0].delete()
-	while QuestManager.active_quests.size() != 0: QuestManager.active_quests[0].delete()
-	QuestManager.active_quest_id = -1
-	QuestManager.active_objectives = {
-		Goal.Type.pick_up_item : [],
-		Goal.Type.talk_to_npc : [],
-		Goal.Type.go_to_place : [],
-	}
-	
-	Item.items = []
-	Item.item_id_history = []
-	NPC.npcs = []
-	NPC.blocked_missions = []
-	QuestManager.active_quests = []
 
-	Quest.number_of_quests = 0
+	for quest in QuestManager.active_quests.values(): quest.delete()
+	
+	Item.items.clear()
+	Item.item_id_history.clear()
+	NPC.npcs.clear()
+
+	QuestManager.quest_id_history.clear()
+	QuestManager.highlighted_quest_id = null
+	QuestManager.highlight_main_station = false
+
 
 	Player.main_player.health = Player.main_player.max_health
 	Player.main_player.currency = 0

@@ -101,7 +101,6 @@ func loading_screen(time : float = 1.6):
 	var tween = create_tween()
 	tween.tween_property(loading_screen_node, "modulate", Color(1, 1, 1, 0), time / 2)
 
-
 	tween.connect("finished", _clear_loading_screen)
 
 func _clear_loading_screen():
@@ -135,12 +134,17 @@ func _unhandled_input(event: InputEvent):
 
 func _on_quest_meta_clicked(meta:Variant) -> void:
 	if "cancel" in meta: 
-		QuestManager.get_quest_by_id(int(meta)).delete()
-		QuestManager.active_quest_id = -1
-	elif QuestManager.active_quest_id == int(meta):
-		QuestManager.active_quest_id = -1
+		QuestManager.get_quest(int(meta)).delete()
+		QuestManager.highlighted_quest_id = -1
+	elif "main_ship" in meta:
+		QuestManager.highlighted_quest_id = -1
+		QuestManager.highlight_main_station = !QuestManager.highlight_main_station	
+	elif QuestManager.highlighted_quest_id == int(meta):
+		QuestManager.highlighted_quest_id = -1
+		QuestManager.highlight_main_station = false	
 	else:
-		QuestManager.active_quest_id = int(meta)
+		QuestManager.highlighted_quest_id = int(meta)
+		QuestManager.highlight_main_station = false	
 		
 	QuestManager.update_quest_log()
 

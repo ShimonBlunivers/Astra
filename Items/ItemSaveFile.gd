@@ -6,7 +6,6 @@ class_name ItemSaveFile extends Resource
 @export var ship_id : int
 @export var ship_slot_id : int
 
-
 static func save():
     var files = []
 

@@ -38,8 +38,8 @@ static func load_items():
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if '.tres.remap' in file_name: # <---- NEW
-				file_name = file_name.trim_suffix('.remap') # <---- NEW
+			if '.tres.remap' in file_name:
+				file_name = file_name.trim_suffix('.remap')
 			if ".tres" in file_name:
 				load(path + "/" + file_name).create()
 			file_name = dir.get_next()
@@ -54,7 +54,6 @@ static func random_item() -> ItemType:
 static func spawn(_type : ItemType, global_coords : Vector2, _id : int = -1, _ship = null, _ship_slot_id : int = -1) -> Item:
 	var new_item = item_scene.instantiate()
 	new_item.type = _type
-
 
 	if _ship != null:
 		new_item.ship = _ship
@@ -98,6 +97,9 @@ func _ready() -> void:
 	sprite.rotation_degrees = tilt
 	area.rotation_degrees = tilt
 
+	if QuestManager.is_objective(self):
+		itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
+
 func _physics_process(_delta: float) -> void:
 	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return
 	area.position = (- ship.difference_in_position).rotated(-global_rotation)
@@ -119,18 +121,21 @@ func pick_up():
 
 	await tween.finished
 
-	if self in QuestManager.active_objectives[Goal.Type.pick_up_item]:
-		QuestManager.finished_quest_objective(QuestManager.get_quest(self))
+	if QuestManager.is_objective(self):
+		QuestManager.finished_quest_objective(QuestManager.get_quest_by_target(self))
 
 	visible = false
 
 
 func delete():
+
 	ship.used_item_slots -= 1
 	items.erase(self)
 	ship.pickedup_items.append(id)
+
 	queue_free()
 
 
 func _on_picked_up_sound_finished() -> void:
+
 	delete()

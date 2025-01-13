@@ -45,7 +45,6 @@ var parent_ship : Ship = null
 var dim_acceleration_for_frames = 0
 
 var camera_difference = Vector2.ZERO
-
 signal currency_updated_signal
 
 var _damage_timer : float = 0
@@ -81,17 +80,6 @@ var update_range = 10000
 
 # TODO: ✅ Add animations
 
-#
-#static func find_comfortable_degrees(_angle : int) -> int:
-	# var comfortable_degrees = [0, 90, 180, 270, 360]
-	# _angle = ((_angle % 360) + 360) % 360
-	# var comfortable = 0
-	# var last_degree = 361
-	# for degree in comfortable_degrees:
-	# 	if abs(degree - _angle) < last_degree: 
-	# 		comfortable = degree
-	# 		last_degree = abs(degree - _angle)
-	# return comfortable
 
 var turn_tween : Tween
 
@@ -143,7 +131,13 @@ func _change_ship_rotate():
 	$LockRotationTimer.start()
 
 func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("teleport_to_quest"):
+		if QuestManager.highlighted_quest_id != -1:
+			if QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target():
+				godmode = true
+				global_position = QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target().global_position;
 	if Options.DEVELOPMENT_MODE:
+
 		if event.is_action_pressed("debug_die"):
 			World.save_file.save_world(true)
 			# parent_ship.delete()
@@ -266,6 +260,8 @@ func control_ship(ship):
 		change_view(1)
 		if ship_controlled != null: ship_controlled.stop_controlling()
 		ship_controlled = null
+
+
 
 func _move(_delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") # Get input keys

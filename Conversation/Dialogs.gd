@@ -113,7 +113,7 @@ static var conversations = {
 		],
 		4001 : [
 			"Díky moc!",
-			"Ani nevíš, co pro násBo tohle znamená.",
+			"Ani nevíš, co pro nás tohle znamená.",
 			"Jsme ti navždy zavázáni.",
 		],
 		5 : [
@@ -133,7 +133,6 @@ static var conversations = {
 			"Super!",
 			"Věděl jsem, že se na tebe mohu spolehnout!",
 		]
-
 	},
 }
 
@@ -145,26 +144,24 @@ static func random_phrase(dialog_type: String) -> String:
 	return conversations[dialog_type][random.randi_range(0, conversations[dialog_type].size() - 1)]
 
 
-## [param roles]: array of [member NPC.Roles] that the mission should have. [br]
-## [param can_return_empty_quest]: whether the function can return -1 randomly. [br]
-## [return]: random mission ID that is not blocked in [member NPC.blocked_missions]. [br]
-## Returns -2 if no mission is available. [br]
-static func random_mission_id(roles := [], can_return_empty_quest := false) -> int:
+## [param roles]: array of [member NPC.Roles] that the task should have. [br]
+## [param can_return_empty_task]: whether the function has chance to return -1. [br]
+## [return]: random task ID that is not blocked in [member QuestManager.active_quests]. [br]
+## Returns -2 if no task is available. [br]
+static func random_task_id(roles := [], can_return_empty_task := false) -> int:
 	var random := RandomNumberGenerator.new()
-	if can_return_empty_quest && random.randi_range(0, 3) == 0: return -1
-
-	var usable_missions = []
+	if can_return_empty_task && random.randi_range(0, 3) == 0: return -1
 	
-	#print("....................")
-	for key in Quest.missions.keys():
-		if Quest.missions[key].role in roles:
-			#print("Mission: " + str(key))
-			if (Quest.missions[key].times_activated < Quest.missions[key].world_limit || Quest.missions[key].world_limit < 0):
-				if !Quest.missions[key].id in NPC.blocked_missions:
-					usable_missions.append(Quest.missions[key])
+	var usable_tasks = []
+	for task_key in QuestManager.tasks.keys():
+		var task = QuestManager.tasks[task_key]
+		if task.required_role in roles || task.required_role == NPC.Roles.NONE:
+			if (task.times_activated < task.world_limit || task.world_limit < 0):
+				if !(task.id in QuestManager.active_quests):
+					usable_tasks.append(task)
 	
-	if usable_missions.size() == 0: 
-		if (!can_return_empty_quest): print_debug("Warning: No mission available for roles: " + str(roles))
+	if usable_tasks.size() == 0: 
+		if (!can_return_empty_task): print_debug("Warning: No tasks available for roles: " + str(roles))
 		return -2
-	
-	return usable_missions.pick_random().id
+
+	return usable_tasks.pick_random().id

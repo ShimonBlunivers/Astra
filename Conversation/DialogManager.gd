@@ -1,3 +1,4 @@
+## Global singleton that manages all dialogs in the game.
 extends Node
 
 @onready var text_box_scene = preload("res://Conversation/TextBox.tscn")
@@ -18,7 +19,7 @@ signal dialog_finished()
 ## [param lines]: the lines of the dialog. [br]
 func start_dialog(position: Vector2, lines):
 	if is_dialog_active: 
-		print_debug("Warning: Dialog is already active.")
+		print_debug("Warning: Dialog is already active")
 		return
 
 	dialog_lines = lines
@@ -27,23 +28,21 @@ func start_dialog(position: Vector2, lines):
 
 	is_dialog_active = true
 
-func _show_text_box():
-	if dialog_lines == null: 
-		print_debug("Warning: Attempted to show text box with dialog_lines = null.")
+func _show_text_box():	
+	if dialog_lines.is_empty(): 
+		print_debug("Warning: Attempted to show text box with dialog_lines empty")
 		return
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
-		if dialog_lines[current_line_index] in Quest.missions.keys():
-
-			
-			load("res://Quests/Missions/" + str(dialog_lines[current_line_index]) + ".tres").call_deferred("init", parent)
-
-
+		var task = QuestManager.get_task(dialog_lines[current_line_index])
+		if task:
+			var quest = Quest.new(task.id, parent, -1);
+			print("Starting quest: " + quest.task.title)
 			advance()
 			return
 		else:
 			dialog_lines = [" . . . "]
 			current_line_index = 0
-			print_debug("Warning: Mission ID not found in Quest.missions.")
+			print_debug("Warning: Task " + str(dialog_lines[current_line_index]) + " not found in QuestManager.tasks")
 
 	text_box = text_box_scene.instantiate()
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
@@ -51,7 +50,9 @@ func _show_text_box():
 	text_box.position = text_box_position
 
 	text_box.display_text(dialog_lines[current_line_index])
+	
 	can_advance_line = false
+
 
 func _on_text_box_finished_displaying():
 	can_advance_line = true
@@ -71,7 +72,7 @@ func advance():
 		
 		_show_text_box()
 	else:
-		print_debug("Warning: Attempted to advance dialog when dialog is not active.")
+		print_debug("Warning: Attempted to advance dialog when dialog is not active")
 
 func end_dialog():
 	if !is_dialog_active: return

@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3 uid="uid://bgcr4mx6iy0bq"]
+[gd_resource type="Resource" script_class="Task" load_steps=4 format=3 uid="uid://bgcr4mx6iy0bq"]
 
 [ext_resource type="Script" path="res://Quests/Goal.gd" id="1_dnwp2"]
-[ext_resource type="Script" path="res://Quests/Quest.gd" id="1_opbhw"]
+[ext_resource type="Script" path="res://Quests/Task.gd" id="1_opbhw"]
 
 [sub_resource type="Resource" id="Resource_dhrot"]
 script = ExtResource("1_dnwp2")
 type = 2
-target_ID = -1
 item_type = "Kl94"
-difficulty_multiplier = 1
 
 [resource]
 script = ExtResource("1_opbhw")
@@ -18,5 +16,8 @@ description = "Přines KL94 nástroj a pomoz stanici."
 reward = 1000
 goal = SubResource("Resource_dhrot")
 world_limit = -1
-role = 0
+is_followup_task = false
+return_to_npc = true
+required_role = 0
 add_role_on_accept = 0
+difficulty_multiplier = 1

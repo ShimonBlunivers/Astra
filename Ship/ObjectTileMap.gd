@@ -78,8 +78,8 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 				NPC_object.spawn_point = tile_position
 				NPC_object.spawn()
 
-				if custom_object_spawn != null && custom_object_spawn.npc_preset != null && npc_index < custom_object_spawn.npc_preset.size():
-					NPC_object.init(custom_object_spawn.npc_preset[npc_index][0], custom_object_spawn.npc_preset[npc_index][1], custom_object_spawn.npc_preset[npc_index][2], custom_object_spawn.npc_preset[npc_index][3], custom_object_spawn.npc_preset[npc_index][4])
+				if custom_object_spawn != null && custom_object_spawn.npc_presets.size() && npc_index < custom_object_spawn.npc_presets.size():
+					NPC_object.init(custom_object_spawn.npc_presets[npc_index].id, custom_object_spawn.npc_presets[npc_index].nickname, custom_object_spawn.npc_presets[npc_index].roles, custom_object_spawn.npc_presets[npc_index].colors, custom_object_spawn.npc_presets[npc_index].hair)
 					npc_index += 1
 				elif !_from_save:
 					NPC_object.init()
@@ -95,18 +95,16 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 				var random := RandomNumberGenerator.new()
 				var scaling = 4 * Limits.TILE_SCALE
 				var offset = Vector2(scaling - random.randf() * scaling * 2, scaling - random.randf() * scaling * 2)
-				if custom_object_spawn != null && custom_object_spawn.item_preset != null && item_index < custom_object_spawn.item_preset.size():
+				if custom_object_spawn != null && custom_object_spawn.item_presets.size() && item_index < custom_object_spawn.item_presets.size():
 					var _in = item_index
-					for i in custom_object_spawn.item_preset.size():
-						if custom_object_spawn.item_preset[i][2] == item_slot:
-							var _new_item = Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
-							if !_from_save: _new_item.itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
+					for i in custom_object_spawn.item_presets.size():
+						if custom_object_spawn.item_presets[i].ship_slot_id == item_slot:
+							var _new_item = Item.spawn(custom_object_spawn.item_presets[item_index].type, to_global(tile_position) + offset, custom_object_spawn.item_presets[item_index].id, ship, item_slot)
 							item_index += 1
 					if _in == item_index:
-						for i in custom_object_spawn.item_preset.size():
-							if custom_object_spawn.item_preset[i][2] == null:
-								var _new_item = Item.spawn(custom_object_spawn.item_preset[item_index][1], to_global(tile_position) + offset, custom_object_spawn.item_preset[item_index][0], ship, item_slot)
-								if !_from_save: _new_item.itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
+						for i in custom_object_spawn.item_presets.size():
+							if custom_object_spawn.item_presets[i].ship_slot_id < 0:
+								var _new_item = Item.spawn(custom_object_spawn.item_presets[item_index].type, to_global(tile_position) + offset, custom_object_spawn.item_presets[item_index].id, ship, item_slot)
 								item_index += 1
 				elif !_from_save:
 					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship, item_slot)

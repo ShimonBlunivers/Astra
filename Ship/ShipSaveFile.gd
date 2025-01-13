@@ -34,13 +34,13 @@ static func save():
 
 func load(_npcs = [], _items = []):
 
-	var _item_preset = []
-	var _npc_preset = []
+	var _item_presets = []
+	var _npc_presets = []
 
-	for item in _items: if id == item.ship_id: _item_preset.append([item.id, item.type, item.ship_slot_id])
-	for npc in _npcs: if id == npc.ship_id: _npc_preset.append([npc.id, npc.nickname, npc.roles, npc.skin, npc.hair])
+	for npc in _npcs: if id == npc.ship_id: _npc_presets.append(NPCPreset.new(npc.id, npc.nickname, npc.roles, npc.skin, npc.hair))
+	for item in _items: if id == item.ship_id: _item_presets.append(ItemPreset.new(item.id, item.type, item.ship_slot_id))
 
-	var custom_object_spawn = CustomObjectSpawn.create(_item_preset, _npc_preset)
+	var custom_object_spawn = CustomObjectSpawn.create(_npc_presets, _item_presets)
 
 	var ship = ShipManager.spawn_ship(position, path, custom_object_spawn, true)
 	ship.id = id

@@ -73,6 +73,7 @@ metadata/_edit_vertical_guides_ = []
 
 [node name="Player" parent="." instance=ExtResource("3_gb8si")]
 position = Vector2(640, 360)
+godmode = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 ignore_rotation = false
@@ -96,7 +97,7 @@ z_index = -10
 z_as_relative = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_3yehe")
-position = Vector2(40, 2)
+position = Vector2(-107.714, 71.4286)
 texture = ExtResource("4_7oqwe")
 region_enabled = true
 region_rect = Rect2(0, 0, 2048, 2048)
@@ -270,7 +271,7 @@ theme_override_fonts/bold_font = ExtResource("13_q4h4p")
 theme_override_font_sizes/normal_font_size = 26
 theme_override_font_sizes/bold_font_size = 18
 bbcode_enabled = true
-text = "[center][b][url=-2]Hlavní stanice"
+text = "[center][b][url=main_ship]Hlavní stanice"
 meta_underlined = false
 
 [node name="Currency" type="Node2D" parent="UI/HUD"]

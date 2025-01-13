@@ -5,7 +5,6 @@ const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 
 @export var player_save_file : PlayerSaveFile
 @export var main_station_id : int
-@export var quest_status_file = {}
 @export var NPC_save_files = []
 @export var item_save_files = []
 @export var quest_save_files = []
@@ -32,7 +31,6 @@ func save_world(dev := false):
 	NPC_save_files = NPCSaveFile.save()
 	item_save_files = ItemSaveFile.save()
 	quest_save_files = QuestSaveFile.save()
-	quest_status_file = Quest.missions
 
 	if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_new"):
 		if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_old"): delete_directory("user://saves/ships/%player_ship_old")
@@ -66,14 +64,9 @@ func _load(): # deferred
 	player_save_file.load()
 	Player.main_player.owned_ship.linear_damp = 0
 
-	# for npc in NPC_save_files: npc.load() 
-	# for item in item_save_files: item.load() 
 	for quest : QuestSaveFile in quest_save_files: quest.load() 
-
-	for key in Quest.missions.keys() + quest_status_file.keys():
-		if key in quest_status_file.keys(): Quest.missions[key] = quest_status_file[key]
 	
-	#print_debug(Quest.missions)
+	#print_debug(Task.missions)
 	
 	
 func delete_directory(path: String) -> bool:
