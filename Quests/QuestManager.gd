@@ -98,7 +98,6 @@ func get_quest(id : int) -> Quest:
 	return null
 
 func get_quest_by_target(target: Node2D) -> Quest:
-
 	for quest_key in active_quests.keys():
 		var quest = active_quests[quest_key]
 		if quest.get_target() == target: return quest

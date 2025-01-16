@@ -23,7 +23,6 @@ static func save():
 		file.npc_id = quest.npc_id
 		file.target_id = quest.target_id
 		file.target_type = quest.target_type
-
 		file.status = quest.status
 		files.append(file)
 

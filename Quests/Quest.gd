@@ -11,6 +11,11 @@ var target_type : Goal.Type
 
 var status : int = 0
 
+static var default_outline_color = Color.BLACK
+static var active_quest_outline_color = Color.DARK_SEA_GREEN
+static var objective_of_quest_outline_color = Color.DARK_GOLDENROD
+static var talking_about_quest_outline_color = Color.MEDIUM_PURPLE
+
 func get_npc() -> NPC:
 	if (npc_id == -1): return null
 	var npc =  NPC.get_npc(npc_id)
@@ -37,7 +42,6 @@ func get_target() -> Node2D:
 	return null
 
 func _init(_task_id: int, _npc : NPC, _target_id : int = -1, _id : int = -1):
-	print(QuestManager.tasks)
 	self.task = QuestManager.get_task(_task_id)
 	self.npc_id = _npc.id
 
@@ -59,18 +63,18 @@ func _init(_task_id: int, _npc : NPC, _target_id : int = -1, _id : int = -1):
 	if !(task.add_role_on_accept in _npc.roles): _npc.roles.append(task.add_role_on_accept)
 
 	_npc.active_quest_id = id
-	_npc.selected_quest = -1
+	_npc.selected_quest_id = -1
 
 	QuestManager.highlighted_quest_id = id
 	
 	QuestManager.update_quest_log()
 
 func finish():
-	
 	Player.main_player.add_currency(task.reward)
 
 	World.difficulty_multiplier += 0.2 # Increase difficulty for the next quests
 
+	target_id = -1
 	get_npc().quest_finished()
 
 	delete()
@@ -80,7 +84,7 @@ func delete():
 		QuestManager.highlighted_quest_id = -1
 	
 	get_npc().active_quest_id = -1
-	get_npc().selected_quest = -1
+	get_npc().selected_quest_id = -1
 	
 	QuestManager.active_task_ids.erase(task.id)
 	QuestManager.active_quests.erase(id)
@@ -89,12 +93,12 @@ func delete():
 
 func progress():
 	status += 1
-
-	target_id = npc_id # TODO - Update TARGET VISUALY (asi)
-	target_type = Goal.Type.talk_to_npc
-
-	if !task.return_to_npc && status == 1: finish() 
-	elif task.return_to_npc && status > 1: finish()
+	
+	if !task.return_to_npc && status == 1 || task.return_to_npc && status > 1: finish() 
+	else:
+		target_id = npc_id
+		target_type = Goal.Type.talk_to_npc
+		get_npc().update_nametag_color()
 
 func spawn_quest_ship():
 	var distances = Vector2(50000 + 10000 * World.difficulty_multiplier * task.difficulty_multiplier, 200000 + 10000 * World.difficulty_multiplier * (task.difficulty_multiplier + 1)) #Vector2(10000, 50000)

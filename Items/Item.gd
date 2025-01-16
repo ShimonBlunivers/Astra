@@ -97,8 +97,15 @@ func _ready() -> void:
 	sprite.rotation_degrees = tilt
 	area.rotation_degrees = tilt
 
+	call_deferred("update_itemtag_color")
+
+
+func update_itemtag_color():
 	if QuestManager.is_objective(self):
-		itemtag.add_theme_color_override("font_outline_color", Color.DARK_GOLDENROD)
+		itemtag.add_theme_color_override("font_outline_color", Quest.objective_of_quest_outline_color)
+		return
+	itemtag.add_theme_color_override("font_outline_color", Quest.default_outline_color)
+
 
 func _physics_process(_delta: float) -> void:
 	if (global_position - Player.main_player.global_position).length() > Player.main_player.update_range: return
@@ -116,6 +123,7 @@ func _on_area_2d_mouse_exited() -> void:
 
 func pick_up():
 	$PickedUpSound.play()
+
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", Player.main_player.global_position - Player.main_player.acceleration, (global_position - Player.main_player.global_position).length() / 1200).set_ease(Tween.EASE_OUT)
 

@@ -82,36 +82,26 @@ static var npcs = []
 
 var interactable = false
 
-static var default_outline_color = Color.BLACK
-static var active_quest_outline_color = Color.DARK_GOLDENROD
-static var selected_quest_outline_color = Color.MEDIUM_PURPLE
-
 var hovering = false
 
 var active_quest_id : int = -1 :
 	set (value):
 		if value == -1:
-			if !QuestManager.is_objective(self):
-				$Nametag.add_theme_color_override("font_outline_color", default_outline_color)
 			reload_missions()
 		else:
 			for npc in NPC.npcs: 
-				if npc.selected_quest == value && npc != self: 
+				if npc.selected_quest_id == value && npc != self: 
 					npc.reload_missions()
-			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
 		active_quest_id = value
+		update_nametag_color()
 
-var selected_quest = -1 : # IS TALKING ABOUT QUEST?
+var selected_quest_id = -1 : # IS TALKING ABOUT QUEST?
 	set (value):
-		if value == -1:
-			if active_quest_id == -1: $Nametag.add_theme_color_override("font_outline_color", default_outline_color)
-		elif (active_quest_id != -1 || QuestManager.is_objective(self)): 
-			$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
-			selected_quest = -1
-			return
+		if (active_quest_id != -1 || QuestManager.is_objective(self)): 
+			selected_quest_id = -1
 		else:
-			$Nametag.add_theme_color_override("font_outline_color", selected_quest_outline_color)
-		selected_quest = value 
+			selected_quest_id = value 
+		update_nametag_color()
  
 var id : int
 
@@ -157,11 +147,24 @@ func init(_id : int = -1, _nickname : String = names.pick_random(), _roles := [R
 	npcs.append(self)
 	
 
+func update_nametag_color():
+	if QuestManager.is_objective(self):
+		$Nametag.add_theme_color_override("font_outline_color", Quest.objective_of_quest_outline_color)
+		return
+	if active_quest_id > -1:
+		$Nametag.add_theme_color_override("font_outline_color", Quest.active_quest_outline_color)
+		return
+	if selected_quest_id > -1:
+		$Nametag.add_theme_color_override("font_outline_color", Quest.talking_about_quest_outline_color)
+		return
+	$Nametag.add_theme_color_override("font_outline_color", Quest.default_outline_color)
+
+
 func quest_finished():
 	active_quest_id = -1
 	$FinishedQuest.play()
 
-## Updates [member selected_quest] with a new mission. [br]
+## Updates [member selected_quest_id] with a new mission. [br]
 ## [forced]: the mission will be updated even if the NPC is currently talking about a quest. [br]
 func reload_missions(forced := false):
 	if !forced && active_quest_id != -1: return
@@ -169,12 +172,14 @@ func reload_missions(forced := false):
 	var mission = Dialogs.random_task_id(roles, true)
 
 	if mission < 0:
-		selected_quest = -1
+		selected_quest_id = -1
 	else:
-		selected_quest = mission
+		selected_quest_id = mission
 		
 	var random := RandomNumberGenerator.new()
 	timer.start(120 + 60 * random.randi_range(0, 8))
+
+	update_nametag_color()
 
 func _ready() -> void:
 	legs_offset = legs.position
@@ -189,8 +194,6 @@ func _ready() -> void:
 	skin = sprites.skin
 	reload_missions()
 	
-	if QuestManager.is_objective(self):
-		$Nametag.add_theme_color_override("font_outline_color", active_quest_outline_color)
 
 func _in_physics(_delta):
 	$Area.position = Vector2(0, -42.5) + (-ship.difference_in_position).rotated(-global_rotation)
@@ -228,12 +231,12 @@ func _on_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int) -> v
 
 					QuestManager.finished_quest_objective(QuestManager.get_quest_by_target(self))
 
-				elif selected_quest >= 0:
-					if selected_quest in QuestManager.active_task_ids:
-						print_debug("Warning: Task " + str(selected_quest) + " is selected, but already active.")
+				elif selected_quest_id >= 0:
+					if selected_quest_id in QuestManager.active_task_ids:
+						print_debug("Warning: Task " + str(selected_quest_id) + " is selected, but already active.")
 					else:
-						dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest])
-				elif selected_quest == -1:
+						dialog_manager.start_dialog(dialog_position, Dialogs.conversations["mission"][selected_quest_id])
+				elif selected_quest_id == -1:
 					dialog_manager.start_dialog(dialog_position, [Dialogs.conversations["greeting"].pick_random()])
 				
 func delete():

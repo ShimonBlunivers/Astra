@@ -155,7 +155,7 @@ static func random_task_id(roles := [], can_return_empty_task := false) -> int:
 	var usable_tasks = []
 	for task_key in QuestManager.tasks.keys():
 		var task = QuestManager.tasks[task_key]
-		if task.required_role in roles || task.required_role == NPC.Roles.NONE:
+		if !task.is_followup_task && (task.required_role in roles || task.required_role == NPC.Roles.NONE):
 			if (task.times_activated < task.world_limit || task.world_limit < 0):
 				if !(task.id in QuestManager.active_quests):
 					usable_tasks.append(task)

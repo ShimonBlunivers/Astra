@@ -35,8 +35,7 @@ func _show_text_box():
 	if typeof(dialog_lines[current_line_index]) == TYPE_INT:
 		var task = QuestManager.get_task(dialog_lines[current_line_index])
 		if task:
-			var quest = Quest.new(task.id, parent, -1);
-			print("Starting quest: " + quest.task.title)
+			Quest.new(task.id, parent, -1);
 			advance()
 			return
 		else:
