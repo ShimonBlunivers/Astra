@@ -11,8 +11,8 @@ Use - F <br/>
 Open quest menu - M <br/>
 Open doors / Talk to NPCs / Pickup items - Left Click <br/>
 ### In-editor
-Open inventory in editor - TAB <br/>
-Rotate objects in editor - R <br/>
+Open inventory - TAB <br/>
+Rotate objects - R <br/>
 Exit editor - ESC <br/>
 ##
 Made with Godot 4.2.
