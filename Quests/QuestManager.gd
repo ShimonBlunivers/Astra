@@ -29,11 +29,14 @@ func _ready():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
-				var task : Task = load("res://Quests/Tasks/" + file_name)
-				if task: 
-					print("Loaded task: " + task.title)
-					tasks[task.id] = task
-				else: printerr("Error: Failed to load quest resource " + file_name)
+				if '.tres.remap' in file_name:
+					file_name = file_name.trim_suffix('.remap')
+				if ".tres" in file_name:
+					var task : Task = load("res://Quests/Tasks/" + file_name)
+					if task: 
+						print("Loaded task: " + task.title)
+						tasks[task.id] = task
+					else: printerr("Error: Failed to load quest resource " + file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 

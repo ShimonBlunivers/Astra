@@ -131,12 +131,12 @@ func _change_ship_rotate():
 	$LockRotationTimer.start()
 
 func _unhandled_input(event: InputEvent):
-	if event.is_action_pressed("teleport_to_quest"):
-		if QuestManager.highlighted_quest_id != -1:
-			if QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target():
-				godmode = true
-				global_position = QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target().global_position;
 	if Options.DEVELOPMENT_MODE:
+		if event.is_action_pressed("teleport_to_quest"):
+			if QuestManager.highlighted_quest_id != -1:
+				if QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target():
+					godmode = true
+					global_position = QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target().global_position;
 
 		if event.is_action_pressed("debug_die"):
 			World.save_file.save_world(true)
