@@ -45,14 +45,13 @@ func evide_tiles():
 		
 	current_ship_price = 0
 
-	var layer = 0
-	for coords in wall_tile_map.get_used_cells(layer):
+	for coords in wall_tile_map.get_used_cells():
 		var type = ShipValidator.get_tile_type(wall_tile_map, coords)
 		if type == "connector": starting_block_coords = Vector2(coords) * 32 + Vector2(16, 16) + global_position
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
 			current_ship_price += tools[type].price
-	for coords in object_tile_map.get_used_cells(layer):
+	for coords in object_tile_map.get_used_cells():
 		var type = ShipValidator.get_tile_type(object_tile_map, coords)
 		if type in tools.keys():
 			tools[type].number_of_instances += 1
@@ -88,14 +87,13 @@ func load_tools():
 					load(path + "/" + file_name).create()
 			file_name = dir.get_next()
 
-static func get_mouse_tile(tilemap : TileMap) -> Vector2i:
+static func get_mouse_tile(tilemap : TileMapLayer) -> Vector2i:
 	return tilemap.local_to_map(instance.to_local(instance.get_global_mouse_position()))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion || event is InputEventMouseButton: 
-		var layer = 0
 		if event.button_mask == 1:
-			use_tool(layer)
+			use_tool()
 		elif event.button_mask == 2 && (!ShipValidator.get_tile_type(wall_tile_map, ShipEditor.get_mouse_tile(wall_tile_map)) == "connector" || Options.DEVELOPMENT_MODE):
 			if ShipValidator.get_tile_type(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map)) in tools && tools[ShipValidator.get_tile_type(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map))].object:
 				ShipEditor.sell_tile(object_tile_map, ShipEditor.get_mouse_tile(object_tile_map))
@@ -106,16 +104,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("editor_change_direction"):
 		ShipEditor.direction = (ShipEditor.direction + 1) % 4
 		update_preview()
-func use_tool(layer : int) -> void:
+func use_tool() -> void:
 	if tool == null: return
 	if !Options.DEVELOPMENT_MODE && !(tool.number_of_instances < tool.world_limit || tool.world_limit < 0): return
-	var tilemap : TileMap = object_tile_map if tool.object else wall_tile_map
+	var tilemap : TileMapLayer = object_tile_map if tool.object else wall_tile_map
 	var tile : Vector2i = ShipEditor.get_mouse_tile(tilemap)
-	if ShipValidator.get_tile_type(tilemap, tile, layer) == tool.name: return
+	if ShipValidator.get_tile_type(tilemap, tile) == tool.name: return
 	var placing_on_something = false
 	if tool.placeable_on_atlas_choords != Vector2i(-1, -1):
 		placing_on_something = true
-		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(layer, ShipEditor.get_mouse_tile(wall_tile_map)):
+		if tool.placeable_on_atlas_choords != wall_tile_map.get_cell_atlas_coords(ShipEditor.get_mouse_tile(wall_tile_map)):
 			return
 
 	if ShipValidator.get_tile_type(tilemap, tile) == "connector": return
@@ -127,29 +125,26 @@ func use_tool(layer : int) -> void:
 	tool.number_of_instances += 1
 
 	if !placing_on_something:
-		tilemap.set_cells_terrain_connect(layer, [tile], 0, -1, false)
+		tilemap.set_cells_terrain_connect([tile], 0, -1, false)
 
 	if tool.terrain_id != -1:
-		tilemap.set_cells_terrain_connect(layer, [tile], 0, tool.terrain_id)	
+		tilemap.set_cells_terrain_connect([tile], 0, tool.terrain_id)	
 	elif tool.atlas_coords != Vector2i(-1, -1):
-		tilemap.set_cell(layer, tile, 0, tool.atlas_coords, direction if tool.rotatable else 0)
+		tilemap.set_cell(tile, 0, tool.atlas_coords, direction if tool.rotatable else 0)
 
 	if tool.name in ShipValidator.walls && autoflooring:
 		ShipValidator.autofill_floor(tilemap)
 
-	# wall_tile_map.set_cells_terrain_connect(layer, [tile], 0, -1, false)
-
-static func sell_tile(tilemap : TileMap, coords : Vector2i, delete_tile := true, react_autofill := false) -> bool:
+static func sell_tile(tilemap : TileMapLayer, coords : Vector2i, delete_tile := true, react_autofill := false) -> bool:
 	var sold = false
-	var layer = 0
-	var type = ShipValidator.get_tile_type(tilemap, coords, layer)
+	var type = ShipValidator.get_tile_type(tilemap, coords)
 
 	if type in tools.keys():
 		tools[type].number_of_instances -= 1
 		Inventory.add_currency(tools[type].price, delete_tile)
 		sold = true
 
-	if delete_tile: tilemap.set_cells_terrain_connect(layer, [coords], 0, -1, false)
+	if delete_tile: tilemap.set_cells_terrain_connect([coords], 0, -1, false)
 
 	if autoflooring && !react_autofill:
 		ShipValidator.autofill_floor(tilemap)
@@ -168,8 +163,6 @@ static func update_preview_rotation():
 		tool_preview.rotation_degrees = 0
 	
 func save_ship(path : String = "_default_ship") -> void:
-	var layer : int = 0
-
 	evide_tiles()
 
 	var location : String
@@ -183,23 +176,21 @@ func save_ship(path : String = "_default_ship") -> void:
 	var objects_save_file := FileAccess.open(location + path + "/objects.dat", FileAccess.WRITE)
 	var details_save_file := FileAccess.open(location + path + "/details.dat", FileAccess.WRITE)
 	
-	for cell in wall_tile_map.get_used_cells(layer):
+	for cell in wall_tile_map.get_used_cells():
 		walls_save_file.store_float(cell.x)	# 0
 		walls_save_file.store_float(cell.y)	# 1
-		walls_save_file.store_16(wall_tile_map.get_cell_source_id(layer, Vector2i(cell.x, cell.y)))	# 2
-		walls_save_file.store_float(wall_tile_map.get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).x)	# 3
-		walls_save_file.store_float(wall_tile_map.get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).y)	# 4
-		walls_save_file.store_16(wall_tile_map.get_cell_alternative_tile(layer, Vector2i(cell.x, cell.y)))	# 5
-		# set_cell(layer, Vector2i(cell.x, cell.y), -1)
+		walls_save_file.store_16(wall_tile_map.get_cell_source_id(Vector2i(cell.x, cell.y)))	# 2
+		walls_save_file.store_float(wall_tile_map.get_cell_atlas_coords(Vector2i(cell.x, cell.y)).x)	# 3
+		walls_save_file.store_float(wall_tile_map.get_cell_atlas_coords(Vector2i(cell.x, cell.y)).y)	# 4
+		walls_save_file.store_16(wall_tile_map.get_cell_alternative_tile(Vector2i(cell.x, cell.y)))	# 5
 		
-	for cell in object_tile_map.get_used_cells(layer):
+	for cell in object_tile_map.get_used_cells():
 		objects_save_file.store_float(cell.x)	# 0
 		objects_save_file.store_float(cell.y)	# 1
-		objects_save_file.store_16(object_tile_map.get_cell_source_id(layer, Vector2i(cell.x, cell.y)))	# 2
-		objects_save_file.store_float(object_tile_map.get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).x)	# 3
-		objects_save_file.store_float(object_tile_map.get_cell_atlas_coords(layer, Vector2i(cell.x, cell.y)).y)	# 4
-		objects_save_file.store_16(object_tile_map.get_cell_alternative_tile(layer, Vector2i(cell.x, cell.y)))	# 5
-		# set_cell(layer, Vector2i(cell.x, cell.y), -1)
+		objects_save_file.store_16(object_tile_map.get_cell_source_id(Vector2i(cell.x, cell.y)))	# 2
+		objects_save_file.store_float(object_tile_map.get_cell_atlas_coords(Vector2i(cell.x, cell.y)).x)	# 3
+		objects_save_file.store_float(object_tile_map.get_cell_atlas_coords(Vector2i(cell.x, cell.y)).y)	# 4
+		objects_save_file.store_16(object_tile_map.get_cell_alternative_tile(Vector2i(cell.x, cell.y)))	# 5
 
 	details_save_file.store_16(current_ship_price)
 
@@ -215,8 +206,6 @@ func load_ship(path : String = "_default_ship", charge := true) -> bool:
 
 	if path.begins_with("_"): location = "res://DefaultSave/ships/"
 	else: location = "user://saves/ships/"
-
-	var layer : int = 0
 
 	if not FileAccess.file_exists(location + path + "/walls.dat"):
 		return false
@@ -244,14 +233,14 @@ func load_ship(path : String = "_default_ship", charge := true) -> bool:
 		var tile:= Vector2()
 		tile.x = contents[0]
 		tile.y = contents[1]
-		wall_tile_map.set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
+		wall_tile_map.set_cell(tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
 
 	while objects_save_file.get_position() != objects_save_file.get_length():
 		contents = [objects_save_file.get_float(), objects_save_file.get_float(), objects_save_file.get_16(), objects_save_file.get_float(), objects_save_file.get_float(), objects_save_file.get_16()]
 		var tile:= Vector2()
 		tile.x = contents[0]
 		tile.y = contents[1]
-		object_tile_map.set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
+		object_tile_map.set_cell(tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
 
 	walls_save_file.close()
 	objects_save_file.close()

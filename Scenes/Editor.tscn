@@ -228,15 +228,13 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(0, 320)
 script = ExtResource("3_glsei")
 
-[node name="WallTileMap" type="TileMap" parent="Ship"]
+[node name="WallTileMap" type="TileMapLayer" parent="Ship"]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1, 0, 2, 0)
 tile_set = ExtResource("4_kyc86")
-format = 2
-layer_0/tile_data = PackedInt32Array(0, 262144, 131073)
 
-[node name="ObjectTileMap" type="TileMap" parent="Ship"]
+[node name="ObjectTileMap" type="TileMapLayer" parent="Ship"]
 z_index = 10
 tile_set = ExtResource("5_lwkoj")
-format = 2
 
 [node name="LimitRect" type="ColorRect" parent="."]
 offset_left = -6392.0

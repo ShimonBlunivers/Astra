@@ -40,19 +40,18 @@ texture_repeat = 2
 color = Color(1, 0.396078, 0.988235, 0.12549)
 texture = ExtResource("2_akbyg")
 
-[node name="WallTileMap" type="TileMap" parent="."]
+[node name="WallTileMap" type="TileMapLayer" parent="."]
+visible = false
 tile_set = ExtResource("1_6t3py")
-format = 2
 script = ExtResource("3_cl687")
 
-[node name="ObjectTileMap" type="TileMap" parent="."]
+[node name="ObjectTileMap" type="TileMapLayer" parent="."]
+visible = false
 z_index = 1
 tile_set = ExtResource("2_qq4gy")
-format = 2
 script = ExtResource("5_rjigq")
 
 [node name="WallTiles" type="Node2D" parent="."]
-visible = false
 
 [node name="ObjectTiles" type="Node2D" parent="."]
 y_sort_enabled = true

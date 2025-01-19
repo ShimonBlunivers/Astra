@@ -1,4 +1,4 @@
-extends TileMap
+extends TileMapLayer
 
 
 const builder_scene = preload("res://Ship/Objects/Builder/Builder.tscn")
@@ -13,7 +13,6 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _f
 	
 	clear()
 	
-	var layer : int = 0
 	var save_file : FileAccess
 
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/objects.dat"):
@@ -32,7 +31,7 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _f
 		var tile:= Vector2()
 		tile.x = contents[0]
 		tile.y = contents[1]
-		set_cell(layer, tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
+		set_cell(tile, contents[2], Vector2i(contents[3], contents[4]), contents[5])
 
 	save_file.close()
 	
@@ -42,15 +41,14 @@ func load_ship(_ship, path : String, custom_object_spawn : CustomObjectSpawn, _f
 	
 
 func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_save : bool) -> bool:
-	var layer := 0
 
 	var npc_index = 0
 	var item_index = 0
 
 	var item_slot = 0
 
-	for cellpos in get_used_cells(layer):
-		var cell = get_cell_tile_data(layer, cellpos)
+	for cellpos in get_used_cells():
+		var cell = get_cell_tile_data(cellpos)
 
 		var tile_position = map_to_local(cellpos) * Limits.TILE_SCALE
 
@@ -62,7 +60,6 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 
 				ship.object_tiles.add_child(helm_object)
 
-				set_cell(layer, cellpos, -1)
 
 			"builder":
 				var builder_object = builder_scene.instantiate()
@@ -71,7 +68,6 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 
 				ship.object_tiles.add_child(builder_object)
 
-				set_cell(layer, cellpos, -1)
 				
 			"npc":
 				var NPC_object = NPC_scene.instantiate()
@@ -88,7 +84,6 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 				ship.passengers_node.add_child(NPC_object)
 				ship.passengers.append(NPC_object)
 				
-				set_cell(layer, cellpos, -1)
 
 			"item":
 					
@@ -110,6 +105,5 @@ func _replace_interactive_tiles(custom_object_spawn : CustomObjectSpawn, _from_s
 					Item.spawn(Item.random_item(), to_global(tile_position) + offset, -1, ship, item_slot)
 
 				item_slot += 1
-				set_cell(layer, cellpos, -1)
 
 	return true

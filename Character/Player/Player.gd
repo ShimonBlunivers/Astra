@@ -140,6 +140,8 @@ func _unhandled_input(event: InputEvent):
 			else:
 				godmode = true
 				teleport(ShipManager.main_station.global_position)
+		if event.is_action_pressed("teleport_to_ship_editor"):
+			teleport(Vector2(3300, -3100))
 
 		if event.is_action_pressed("debug_die"):
 			World.save_file.save_world(true)
