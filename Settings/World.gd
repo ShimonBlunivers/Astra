@@ -54,7 +54,7 @@ static func reset_values():
 	NPC.npcs.clear()
 
 	QuestManager.quest_id_history.clear()
-	QuestManager.highlighted_quest_id = null
+	QuestManager.highlighted_quest_id = -1
 	QuestManager.highlight_main_station = false
 
 
@@ -76,9 +76,17 @@ func new_world():
 	save_file.initialize_files()
 	
 	World.reset_values()
+	
+	print_debug("Generating ships..")
+
 	ShipManager.randomly_generate_ships()
 	
+	print_debug("Spawning player..")
+
 	Player.main_player.spawn()
+
+	print_debug("New world created.")
+
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("game_toggle_menu"):

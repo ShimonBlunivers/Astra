@@ -12,8 +12,6 @@ const FIRST_SAVE_GAME_PATH := "res://DefaultSave/worlds/"
 @export var task_save_files = []
 @export var ship_save_files = []
 
-@export var highlighted_quest_id : int
-
 static var save_name : String = "last_save"
 
 func initialize_files():
@@ -36,8 +34,6 @@ func save_world(dev := false):
 	item_save_files = ItemSaveFile.save()
 	quest_save_files = QuestSaveFile.save()
 	task_save_files = TaskSaveFile.save()
-
-	highlighted_quest_id = QuestManager.highlighted_quest_id
 
 	if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_new"):
 		if DirAccess.dir_exists_absolute("user://saves/ships/%player_ship_old"): delete_directory("user://saves/ships/%player_ship_old")
@@ -73,8 +69,6 @@ func _load(): # deferred
 
 	for quest : QuestSaveFile in quest_save_files: quest.load() 
 	for task : TaskSaveFile in task_save_files: task.load()
-
-	QuestManager.highlighted_quest_id = highlighted_quest_id
 	
 func delete_directory(path: String) -> bool:
 	var dir = DirAccess.open(path)

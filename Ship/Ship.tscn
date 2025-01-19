@@ -16,8 +16,8 @@ collision_mask = 512
 gravity_scale = 0.0
 center_of_mass_mode = 1
 can_sleep = false
-max_contacts_reported = 1
 contact_monitor = true
+max_contacts_reported = 1
 linear_damp_mode = 1
 linear_damp = 0.123
 angular_damp = 5.0
@@ -35,10 +35,9 @@ linear_damp = 0.0
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 0)
 
 [node name="Visual" type="Polygon2D" parent="."]
-visible = false
 z_index = 9
 texture_repeat = 2
-color = Color(1, 0.396078, 0.988235, 0.337255)
+color = Color(1, 0.396078, 0.988235, 0.12549)
 texture = ExtResource("2_akbyg")
 
 [node name="WallTileMap" type="TileMap" parent="."]
@@ -53,6 +52,7 @@ format = 2
 script = ExtResource("5_rjigq")
 
 [node name="WallTiles" type="Node2D" parent="."]
+visible = false
 
 [node name="ObjectTiles" type="Node2D" parent="."]
 y_sort_enabled = true

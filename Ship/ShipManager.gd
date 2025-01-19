@@ -16,6 +16,8 @@ func _ready() -> void:
 static func randomly_generate_ships():
 	Player.main_player.owned_ship = ShipManager.spawn_ship(Vector2(-10000, -10000), "_start_ship")
 	Player.main_player.owned_ship.linear_damp = 0
+
+	print_debug("Spawning main station..")
 	main_station = ShipManager.spawn_ship(Vector2(0, 0), "_station", null, false, true)
 
 	# var ship_percentage = 25
@@ -44,6 +46,8 @@ static func spawn_ship(_position : Vector2, path : String = "_station", custom_o
 	var _ship = ship_scene.instantiate()
 	_ship.name = "Ship-" + str(_ship.id)
 	instance.add_child(_ship)
+	
+	print_debug("Spawning ship at " + str(_position))
 	_ship.load_ship(_position, path, custom_object_spawn, lock_rotation, _from_save)
 	return _ship
 

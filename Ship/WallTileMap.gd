@@ -12,14 +12,80 @@ var ship : Ship = null
 
 var _first_rect : Rect2i
 
+var test_polygon = null
+
 func get_rect():
 	return _first_rect
 
 func _load_hitbox(_layer: int):
+	var start_time = Time.get_ticks_usec()
+	test_polygon = _create_polygon(_layer)
+
+	var end_time = Time.get_ticks_usec()
+	var elapsed_time = end_time - start_time
+	print(test_polygon)
+	print("Function execution time: %s microseconds" % elapsed_time)
+
+	start_time = Time.get_ticks_usec()
 	ship.polygon = _to_shape(_delete_edges(_create_edges(_layer)))
+
+	end_time = Time.get_ticks_usec()
+	elapsed_time = end_time - start_time
+	print(ship.polygon)
+	print("Function execution time: %s microseconds" % elapsed_time)
+
 	ship.hitbox.polygon = ship.polygon
 	ship.visual.polygon = ship.polygon
 	ship.area.polygon = ship.polygon
+
+
+
+	print_debug("!!!!!! TEST !!!!!!")
+
+
+	var _scale = 100
+	var test := [Vector2i(0, 0), Vector2i(2 * _scale, 0), Vector2i(2 * _scale, 2 * _scale), Vector2i(1 * _scale, 2 * _scale), Vector2i(1 * _scale, 1 * _scale), Vector2i(0, 1 * _scale)]
+	print("before:" + str(test))
+	var after = Geometry2D.convex_hull(test)
+	print("after:" + str(after))
+
+	test_polygon = after
+	
+
+
+
+func _create_polygon(_layer: int):
+	var cells := get_used_cells(_layer)
+
+	var magic_number = 5 # I don't know why I have to multiply it by 5, but it works
+
+	for i in range(cells.size()):
+		cells[i].x *= tile_set.tile_size.x * magic_number
+		cells[i].y *= tile_set.tile_size.y * magic_number
+
+	var unique_points = {}
+	
+	for cell in cells:
+		unique_points[cell] = true
+
+	for i in range(cells.size()):
+		var cell = cells[i]
+		unique_points[cell] = true
+		unique_points[Vector2i(cell.x + tile_set.tile_size.x * magic_number, cell.y)] = true
+		unique_points[Vector2i(cell.x + tile_set.tile_size.x * magic_number, cell.y + tile_set.tile_size.y * magic_number)] = true
+		unique_points[Vector2i(cell.x, cell.y + tile_set.tile_size.y * magic_number)] = true
+
+
+	if unique_points.keys().size() > 2:
+		print("unique")
+
+		print(unique_points.keys())
+		var polygon := Geometry2D.convex_hull(unique_points.keys())
+
+		return unique_points.keys()
+	else:
+		printerr("Not enough points to form a polygon.")
+	return null
 
 func _get_points(tile: Vector2i):
 	
@@ -35,6 +101,7 @@ func _get_points(tile: Vector2i):
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y), # 2
 		Vector2(tile.x * tile_size.x + tile_size.x, tile.y * tile_size.y + tile_size.y) # 3
 	]
+
 func _get_points_rect(rect: Rect2):
 
 	# 1   2
@@ -49,6 +116,7 @@ func _get_points_rect(rect: Rect2):
 		Vector2(rect_position.x + rect_size.x, rect_position.y), # 2
 		Vector2(rect_position.x + rect_size.x, rect_position.y + rect_size.y) # 3
 	]
+
 func _get_lines(points, _scale = Limits.TILE_SCALE):
 	return [
 		[points[0] * _scale, points[1] * _scale],
@@ -56,6 +124,7 @@ func _get_lines(points, _scale = Limits.TILE_SCALE):
 		[points[2] * _scale, points[3] * _scale],
 		[points[3] * _scale, points[0] * _scale]
 	]
+
 func _create_edges(layer: int):
 	var edges = []
 	var grid = get_used_cells(layer)
@@ -63,6 +132,7 @@ func _create_edges(layer: int):
 		for line in _get_lines(_get_points(tile)):
 			edges.append(line)
 	return edges
+
 func _delete_edges(edges):
 	var markForDeletion = []
 	for currentLineIdx in range(edges.size()):
@@ -79,6 +149,7 @@ func _delete_edges(edges):
 		if idx >= 0: 
 			edges.remove_at(idx)
 	return edges
+
 func _to_shape(edges):
 	var result = PackedVector2Array()
 	var nextLine = edges[0]
@@ -92,8 +163,6 @@ func _to_shape(edges):
 				nextLine = [otherLine[1], otherLine[0]]
 		
 		result.append(nextLine[0])
-	
-	
 	return result
 
 func update_center_of_mass(layer : int):
@@ -119,6 +188,8 @@ func load_ship(_ship, path : String) -> bool:
 
 	var save_file : FileAccess
 	
+	print_debug("Loading ship file..")
+
 	if not FileAccess.file_exists("user://saves/ships/" + path + "/walls.dat"):
 		if not FileAccess.file_exists("res://DefaultSave/ships/" + path + "/walls.dat"):
 			return false
@@ -138,14 +209,20 @@ func load_ship(_ship, path : String) -> bool:
 
 	save_file.close()
 
+	print_debug("Loading ship hitbox..")
+
 	_load_hitbox(layer)
 
+	print_debug("Updating ship center of mass..")
+	
 	update_center_of_mass(layer)
+
 
 	_first_rect = get_used_rect()
 
 	# ship.original_wall_tile_map = self
 
+	print_debug("Replacing tiles..")
 	_replace_tiles()	
 
 	return true

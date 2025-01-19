@@ -133,10 +133,13 @@ func _change_ship_rotate():
 func _unhandled_input(event: InputEvent):
 	if Options.DEVELOPMENT_MODE:
 		if event.is_action_pressed("teleport_to_quest"):
-			if QuestManager.highlighted_quest_id != -1:
+			if QuestManager.get_quest(QuestManager.highlighted_quest_id):
 				if QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target():
 					godmode = true
-					global_position = QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target().global_position;
+					teleport(QuestManager.get_quest(QuestManager.highlighted_quest_id).get_target().global_position);
+			else:
+				godmode = true
+				teleport(ShipManager.main_station.global_position)
 
 		if event.is_action_pressed("debug_die"):
 			World.save_file.save_world(true)

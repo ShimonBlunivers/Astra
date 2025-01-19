@@ -49,6 +49,7 @@ func _init(_task_id: int, _npc : NPC, _target_id : int = -1, _id : int = -1):
 	else: id = _id
 	
 	QuestManager.active_quests[id] = self
+
 	QuestManager.quest_id_history.append(id)
 
 	QuestManager.active_task_ids.append(_task_id)

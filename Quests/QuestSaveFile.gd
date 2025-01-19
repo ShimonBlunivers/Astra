@@ -30,6 +30,7 @@ static func save():
 
 func load():
 	var quest = Quest.new(task_id, NPC.get_npc(npc_id), target_id, id)
+
 	quest.task.times_activated -= 1
 
 	quest.status = status

@@ -11,7 +11,7 @@ var active_task_ids : Array = []
 ## List of all quest IDs that have been used in this save.
 var quest_id_history : Array = []
 
-var highlighted_quest_id = -1
+var highlighted_quest_id := -1 
 var highlight_main_station = false
 
 func get_uid() -> int:
@@ -48,7 +48,11 @@ func _process(_delta):
 		if show_arrow:
 			var distance := 0.0
 			if highlight_main_station: distance = (ShipManager.main_station.global_position - Player.main_player.global_position).length()
-			elif highlighted_quest_id != -1 && get_quest(highlighted_quest_id).get_target(): distance = (get_quest(highlighted_quest_id).get_target().global_position - Player.main_player.global_position).length()
+			elif highlighted_quest_id != -1 :
+				if get_quest(highlighted_quest_id):
+					if get_quest(highlighted_quest_id).get_target(): distance = (get_quest(highlighted_quest_id).get_target().global_position - Player.main_player.global_position).length()
+				else:
+					print_debug("Warning: Quest with ID " + str(highlighted_quest_id) + " not found.")
 			var minimal_range = 150
 			var maximal_range = 250
 
@@ -66,8 +70,12 @@ func _process(_delta):
 				var normalized_distance = clamp((distance - minimal_range) / (maximal_range - minimal_range), 0, 0.75)
 				UIManager.instance.quest_arrow.modulate.a = normalized_distance
 			if highlight_main_station: UIManager.instance.quest_arrow.rotation = (ShipManager.main_station.global_position - Player.main_player.global_position).angle() - Player.main_player.global_rotation
-			elif highlighted_quest_id != -1 && get_quest(highlighted_quest_id).get_target(): UIManager.instance.quest_arrow.rotation = (get_quest(highlighted_quest_id).get_target().global_position - Player.main_player.global_position).angle() - Player.main_player.global_rotation
-					   
+			elif highlighted_quest_id != -1 :
+				if get_quest(highlighted_quest_id):
+					if get_quest(highlighted_quest_id).get_target(): UIManager.instance.quest_arrow.rotation = (get_quest(highlighted_quest_id).get_target().global_position - Player.main_player.global_position).angle() - Player.main_player.global_rotation
+				else:
+					print_debug("Warning: Quest with ID " + str(highlighted_quest_id) + " not found.")
+					  
 func update_quest_log():
 	var string_to_add = ""
 	for quest_key in active_quests.keys():

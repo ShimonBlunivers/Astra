@@ -100,10 +100,16 @@ func load_ship(_position : Vector2, _path : String, custom_object_spawn : Custom
 	path = _path
 	name = path + "-" + str(id)
 
+	print_debug("Loading ship: " + name)
+
 	mass = 1
 
 	from_save = _from_save
+
+	print_debug("Loading walls..")
 	wall_tile_map.load_ship(self, _path)
+
+	print_debug("Loading objects..")
 	object_tile_map.load_ship(self, _path, custom_object_spawn, _from_save)
 	mass -= 1
 
@@ -276,3 +282,13 @@ func _unhandled_input(event: InputEvent):
 		if !connected && connectors[0].connectors_in_range.size() > 0:
 			connectors[0].connect_to(connectors[0].connectors_in_range[0])
 
+func _draw() -> void:
+	if !visual.visible: return
+	if polygon: 
+		for point in polygon:
+			draw_circle(point.rotated(global_rotation) + global_position, 16, Color.RED)
+
+
+	if wall_tile_map.test_polygon:
+		for point in wall_tile_map.test_polygon:
+			draw_circle(Vector2(point) + global_position + Vector2(0, -200), 16, Color.BLUE)
