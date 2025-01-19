@@ -25,8 +25,8 @@ func _load_hitbox():
 	ship.visual.polygon = shape
 	ship.area.polygon = shape
 
+
 func _get_points(tile: Vector2i):
-	
 	# 1   2
 	#  
 	# 0   3  
@@ -72,35 +72,37 @@ func _create_edges():
 	return edges
 
 func _delete_edges(edges):
-	var markForDeletion = []
-	for currentLineIdx in range(edges.size()):
-		var currentLine = edges[currentLineIdx]
-		var currentLineInverted = [currentLine[1], currentLine[0]]
-		for lineIdx in range(edges.size()):
-			var line = edges[lineIdx]
-			if lineIdx == currentLineIdx: continue # skip itself
-			if currentLine == line or currentLineInverted == line:
-				markForDeletion.append(currentLine)
-				markForDeletion.append(currentLineInverted)
-	for line in markForDeletion:
-		var idx = edges.find(line)
-		if idx >= 0: 
-			edges.remove_at(idx)
+	var seen_edges = {}
+	var marked_for_deletion = []
+	
+	for current_line in edges:
+		var current_line_inverted = [current_line[1], current_line[0]]
+		
+		if seen_edges.has(current_line) or seen_edges.has(current_line_inverted):
+			marked_for_deletion.append(current_line)
+			marked_for_deletion.append(current_line_inverted)
+		else:
+			seen_edges[current_line] = true
+			seen_edges[current_line_inverted] = true
+	
+	for line in marked_for_deletion:
+		edges.erase(line)
+	
 	return edges
 
 func _to_shape(edges):
 	var result = PackedVector2Array()
-	var nextLine = edges[0]
-	for idx in range(edges.size()):
-		for otherLine in edges:
-			if otherLine == nextLine: continue
-			if nextLine[1] == otherLine[0]:
-				nextLine = otherLine
+	var next_line = edges[0]
+	for index in range(edges.size()):
+		for other_line in edges:
+			if other_line == next_line: continue
+			if next_line[1] == other_line[0]:
+				next_line = other_line
 				break
-			elif nextLine[1] == otherLine[1]:
-				nextLine = [otherLine[1], otherLine[0]]
+			elif next_line[1] == other_line[1]:
+				next_line = [other_line[1], other_line[0]]
 		
-		result.append(nextLine[0])
+		result.append(next_line[0])
 	return result
 
 func update_center_of_mass():
